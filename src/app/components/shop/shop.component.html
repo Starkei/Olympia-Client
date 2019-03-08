@@ -1,0 +1,39 @@
+<div class="banner">
+  <img src="assets/images/shop.jpg" alt="" />
+</div>
+<div>
+  <div class="container">
+    <div class="search">
+      <mat-form-field>
+        <input matInput placeholder="Введите название продукта" />
+      </mat-form-field>
+      <button mat-raised-button>Найти</button>
+    </div>
+    <div
+      class="output"
+      fxLayout="column"
+      fxLayout.xs="column"
+      fxLayoutAlign="space-around center"
+    >
+      <div fxFlex="100%" *ngFor="let product of products">
+        <div class="item">
+          <img [src]="product.photo" alt="Photo of item" />
+          <div class="text">
+            <div class="title">
+              <h3>{{ product.title }}</h3>
+              <span>Цена: {{ product.price }}$</span>
+            </div>
+            <mat-divider></mat-divider>
+            <p>
+              {{ product.description }}
+            </p>
+            <p>
+              {{ product.description }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="filter"></div>
+</div>

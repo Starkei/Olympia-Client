@@ -15,6 +15,8 @@ import { MenuComponent } from "./components/menu/menu.component";
 import { NewsComponent } from "./components/news/news.component";
 import { NewsService } from "./services/news/news.service";
 import { FooterComponent } from "./footer/footer.component";
+import { ShopComponent } from "./components/shop/shop.component";
+import { ProductService } from "./services/product/product.service";
 
 @NgModule({
   declarations: [
@@ -23,7 +25,8 @@ import { FooterComponent } from "./footer/footer.component";
     MainPageComponent,
     MenuComponent,
     NewsComponent,
-    NavBarComponent
+    NavBarComponent,
+    ShopComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +35,7 @@ import { FooterComponent } from "./footer/footer.component";
     MaterialModule,
     OthersModule
   ],
-  providers: [MenuItemService, NewsService],
+  providers: [MenuItemService, NewsService, ProductService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
