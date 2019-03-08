@@ -11,9 +11,16 @@ import { MenuItemService } from "./services/menu-item.service";
 import { MenuComponent } from "./components/menu/menu.component";
 import { NewsComponent } from "./components/news/news.component";
 import { NewsService } from "./services/news/news.service";
+import { FooterComponent } from "./footer/footer.component";
 
 @NgModule({
-  declarations: [AppComponent, MainPageComponent, MenuComponent, NewsComponent],
+  declarations: [
+    AppComponent,
+    FooterComponent,
+    MainPageComponent,
+    MenuComponent,
+    NewsComponent
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
