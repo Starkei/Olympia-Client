@@ -5,17 +5,36 @@ import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MaterialModule } from "./material/material.module";
-import { NutritionistComponent } from './components/pages/nutritionist/nutritionist.component';
+import { NutritionistComponent } from "./components/pages/nutritionist/nutritionist.component";
+
+import { NavBarComponent } from "./components/nav-bar/nav-bar.component";
+
+import { MainPageComponent } from "./components/main-page/main-page.component";
+import { OthersModule } from "./others/others.module";
+import { MenuItemService } from "./services/menu-item.service";
+import { MenuComponent } from "./components/menu/menu.component";
+import { NewsComponent } from "./components/news/news.component";
+import { NewsService } from "./services/news/news.service";
+import { FooterComponent } from "./footer/footer.component";
 
 @NgModule({
-  declarations: [AppComponent, NutritionistComponent],
+  declarations: [
+    AppComponent,
+    FooterComponent,
+    MainPageComponent,
+    MenuComponent,
+    NewsComponent,
+    NavBarComponent,
+    NutritionistComponent
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MaterialModule
+    MaterialModule,
+    OthersModule
   ],
-  providers: [],
+  providers: [MenuItemService, NewsService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
