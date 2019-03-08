@@ -2,24 +2,21 @@ div.container {
   height: 40%;
 }
 
-mat-card-title {
-  text-align: center;
-}
-
 mat-card-subtitle {
-  text-align: center;
   height: 27vh;
   color: rgb(231, 138, 153);
 }
 mat-card {
   opacity: 0.9;
   margin-top: 20vh;
-}
-
-button {
-  position: absolute;
-  bottom: 15px;
-  right: 40%;
+  * {
+    text-align: center;
+  }
+  div {
+    button {
+      margin: auto;
+    }
+  }
 }
 
 div.back {

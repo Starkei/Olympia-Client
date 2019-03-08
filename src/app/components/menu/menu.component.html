@@ -1,0 +1,21 @@
+<div
+  class="container"
+  fxLayout="row wrap"
+  fxLayout.xs="column"
+  fxLayoutAlign="space-around center"
+>
+  <mat-card *ngFor="let menuItem of menuItems" fxFlex="30%">
+    <mat-card-header>
+      <mat-card-title>{{ menuItem.title }}</mat-card-title>
+    </mat-card-header>
+    <img mat-card-image [src]="menuItem.image" alt="Photo of Eat" />
+    <mat-card-content>
+      <p>
+        {{ menuItem.description }}
+      </p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary">Перейти</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
