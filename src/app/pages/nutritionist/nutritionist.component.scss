@@ -1,0 +1,16 @@
+#image {
+  height: 40%;
+  width: 100%;
+  background-image: src= "../../../assets/wXNWnERuL3w.jpg";
+}
+mat-card {
+  max-width: 20%;
+  margin: 2%;
+}
+mat-card-actions {
+  align-items: center;
+}
+mat-card-title {
+  display: block;
+  position: relative;
+}
