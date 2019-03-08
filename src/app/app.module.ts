@@ -5,6 +5,9 @@ import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MaterialModule } from "./material/material.module";
+
+import { NavBarComponent } from "./components/nav-bar/nav-bar.component";
+
 import { MainPageComponent } from "./components/main-page/main-page.component";
 import { OthersModule } from "./others/others.module";
 import { MenuItemService } from "./services/menu-item.service";
@@ -19,7 +22,8 @@ import { FooterComponent } from "./footer/footer.component";
     FooterComponent,
     MainPageComponent,
     MenuComponent,
-    NewsComponent
+    NewsComponent,
+    NavBarComponent
   ],
   imports: [
     BrowserModule,
