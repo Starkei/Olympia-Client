@@ -1,11 +1,11 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
-
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MaterialModule } from "./material/material.module";
 import { CarAboutEatComponent } from "./components/car-about-eat/car-about-eat.component";
+import { NavBarComponent } from "./components/nav-bar/nav-bar.component";
 import { MainPageComponent } from "./components/main-page/main-page.component";
 import { OthersModule } from "./others/others.module";
 import { MenuItemService } from "./services/menu-item.service";
@@ -21,7 +21,8 @@ import { FooterComponent } from "./components/footer/footer.component";
     MainPageComponent,
     MenuComponent,
     NewsComponent,
-    CarAboutEatComponent
+    CarAboutEatComponent,
+    NavBarComponent
   ],
   imports: [
     BrowserModule,
