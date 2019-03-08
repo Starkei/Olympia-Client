@@ -1,0 +1,29 @@
+div.container {
+  height: 40%;
+}
+
+mat-card-title {
+  text-align: center;
+}
+
+mat-card-subtitle {
+  text-align: center;
+  height: 27vh;
+  color: rgb(231, 138, 153);
+}
+mat-card {
+  opacity: 0.9;
+  margin-top: 20vh;
+}
+
+button {
+  position: absolute;
+  bottom: 15px;
+  right: 40%;
+}
+
+div.back {
+  background: url(src\assets\au1.jpg) no-repeat center center;
+  background-size: cover;
+  height: 100%;
+}
