@@ -1,18 +1,34 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { BrowserModule } from "@angular/platform-browser";
+import { NgModule } from "@angular/core";
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import { AppRoutingModule } from "./app-routing.module";
+import { AppComponent } from "./app.component";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { MaterialModule } from "./material/material.module";
+import { MainPageComponent } from "./components/main-page/main-page.component";
+import { OthersModule } from "./others/others.module";
+import { MenuItemService } from "./services/menu-item.service";
+import { MenuComponent } from "./components/menu/menu.component";
+import { NewsComponent } from "./components/news/news.component";
+import { NewsService } from "./services/news/news.service";
+import { FooterComponent } from "./footer/footer.component";
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    FooterComponent,
+    MainPageComponent,
+    MenuComponent,
+    NewsComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MaterialModule,
+    OthersModule
   ],
-  providers: [],
+  providers: [MenuItemService, NewsService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
