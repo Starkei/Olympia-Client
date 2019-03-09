@@ -1,4 +1,7 @@
-<div class="horizontal-card" [ngStyle]="{ height: size + 'vh' }">
+<div
+  class="horizontal-card"
+  [ngStyle]="{ height: getSize(), fontSize: getFontSize() }"
+>
   <img [src]="image" alt="Photo of item" />
   <div class="text">
     <div class="title">

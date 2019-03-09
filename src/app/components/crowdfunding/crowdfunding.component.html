@@ -1,13 +1,36 @@
-<div class="banner">
-  <img src="assets/images/crowdfunding.jpg" alt="banner" />
-</div>
-<div class="container" fxLayout="column" fxLayoutAlign="space-around stretch">
-  <app-horizontal-card
-    *ngFor="let action of crowdfundingActions; let i = index"
-    [image]="action.image"
-    [description]="action.description"
-    [title]="action.title"
-    [moreInfo]="action.moreInfo"
-    [price]="getPriceString(i)"
-  ></app-horizontal-card>
+<app-banner image="assets/images/crowdfunding.jpg"></app-banner>
+<div>
+  <div class="container">
+    <div class="search">
+      <mat-form-field>
+        <input matInput placeholder="Введите название продукта" />
+      </mat-form-field>
+      <button mat-raised-button>Найти</button>
+    </div>
+    <div
+      class="output"
+      fxLayout="row wrap"
+      fxLayout.xs="column"
+      fxLayoutAlign="start stretch"
+    >
+      <mat-card
+        *ngFor="let action of crowdfundingActions; let i = index"
+        fxFlex="30%"
+      >
+        <mat-card-header>
+          <mat-card-title>{{ action.title }}</mat-card-title>
+          <mat-card-subtitle>{{ getPriceString(i) }}</mat-card-subtitle>
+        </mat-card-header>
+        <img mat-card-image [src]="action.image" alt="Photo of Eat" />
+        <mat-card-content>{{ action.description }} </mat-card-content>
+        <mat-card-actions>
+          <button mat-raised-button color="primary">Перейти</button>
+          <button mat-raised-button color="primary">
+            <mat-icon>favorite</mat-icon> Понравилось!
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+  <div class="filter"></div>
 </div>
