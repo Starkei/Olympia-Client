@@ -8,7 +8,6 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { NavBarComponent } from "./components/nav-bar/nav-bar.component";
 
 import { MainPageComponent } from "./components/main-page/main-page.component";
-import { MenuItemService } from "./services/menu-item-service/menu-item.service";
 import { MenuComponent } from "./components/menu/menu.component";
 import { NewsComponent } from "./components/news/news.component";
 import { NewsService } from "./services/news/news.service";
@@ -18,6 +17,8 @@ import { CrowdfundingComponent } from "./components/crowdfunding/crowdfunding.co
 import { FooterComponent } from "./components/footer/footer.component";
 import { MaterialModule } from "./modules/material/material.module";
 import { OthersModule } from "./modules/others/others.module";
+import { HorizontalCardComponent } from "./components/horizontal-card/horizontal-card.component";
+import { MenuItemService } from "./services/menu-item/menu-item.service";
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { OthersModule } from "./modules/others/others.module";
     NewsComponent,
     NavBarComponent,
     ShopComponent,
-    CrowdfundingComponent
+    CrowdfundingComponent,
+    HorizontalCardComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +39,12 @@ import { OthersModule } from "./modules/others/others.module";
     MaterialModule,
     OthersModule
   ],
-  providers: [MenuItemService, NewsService, ProductService],
+  providers: [
+    MenuItemService,
+    NewsService,
+    ProductService,
+    CrowdfundingComponent
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
