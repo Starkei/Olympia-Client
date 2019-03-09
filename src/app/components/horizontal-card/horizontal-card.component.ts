@@ -11,6 +11,7 @@ export class HorizontalCardComponent implements OnInit {
   @Input() title: string;
   @Input() price: string;
   @Input() moreInfo: string;
+  @Input() size: number;
 
   constructor() {}
 
