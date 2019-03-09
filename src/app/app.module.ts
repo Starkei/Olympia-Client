@@ -4,18 +4,23 @@ import { NgModule } from "@angular/core";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { MaterialModule } from "./material/material.module";
 
 import { NavBarComponent } from "./components/nav-bar/nav-bar.component";
 
 import { MainPageComponent } from "./components/main-page/main-page.component";
-import { OthersModule } from "./others/others.module";
-import { MenuItemService } from "./services/menu-item.service";
 import { MenuComponent } from "./components/menu/menu.component";
 import { NewsComponent } from "./components/news/news.component";
 import { NewsService } from "./services/news/news.service";
-import { FooterComponent } from "./footer/footer.component";
-import { TrainingComponent } from './components/training/training.component';
+
+import { TrainingComponent } from "./components/training/training.component";
+import { ShopComponent } from "./components/shop/shop.component";
+import { ProductService } from "./services/product/product.service";
+import { CrowdfundingComponent } from "./components/crowdfunding/crowdfunding.component";
+import { FooterComponent } from "./components/footer/footer.component";
+import { MaterialModule } from "./modules/material/material.module";
+import { OthersModule } from "./modules/others/others.module";
+import { HorizontalCardComponent } from "./components/horizontal-card/horizontal-card.component";
+import { MenuItemService } from "./services/menu-item/menu-item.service";
 
 @NgModule({
   declarations: [
@@ -25,7 +30,10 @@ import { TrainingComponent } from './components/training/training.component';
     MenuComponent,
     NewsComponent,
     NavBarComponent,
-    TrainingComponent
+    TrainingComponent,
+    ShopComponent,
+    CrowdfundingComponent,
+    HorizontalCardComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +42,12 @@ import { TrainingComponent } from './components/training/training.component';
     MaterialModule,
     OthersModule
   ],
-  providers: [MenuItemService, NewsService],
+  providers: [
+    MenuItemService,
+    NewsService,
+    ProductService,
+    CrowdfundingComponent
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

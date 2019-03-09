@@ -1,6 +1,4 @@
 import { Component, OnInit } from "@angular/core";
-import { MenuItem } from "src/app/interfaces/menu-item";
-import { MenuItemService } from "src/app/services/menu-item.service";
 
 @Component({
   selector: "app-main-page",

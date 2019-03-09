@@ -1,0 +1,30 @@
+<div class="banner">
+  <img src="assets/images/shop.jpg" alt="" />
+</div>
+<div>
+  <div class="container">
+    <div class="search">
+      <mat-form-field>
+        <input matInput placeholder="Введите название продукта" />
+      </mat-form-field>
+      <button mat-raised-button>Найти</button>
+    </div>
+    <div
+      class="output"
+      fxLayout="column"
+      fxLayout.xs="column"
+      fxLayoutAlign="space-around center"
+    >
+      <app-horizontal-card
+        *ngFor="let product of products; let i = index"
+        fxFlex="100%"
+        [image]="product.photo"
+        [title]="product.title"
+        [description]="product.description"
+        [moreInfo]="product.description"
+        [price]="getFormatingPrice(i)"
+      ></app-horizontal-card>
+    </div>
+  </div>
+  <div class="filter"></div>
+</div>

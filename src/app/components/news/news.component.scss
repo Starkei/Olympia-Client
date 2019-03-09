@@ -2,30 +2,5 @@ div {
   div {
     display: flex;
     flex-direction: column;
-    div.news {
-      height: 20vh;
-      display: flex;
-      flex-direction: row;
-      margin-top: 1%;
-      margin-bottom: 1%;
-      img {
-        width: 30%;
-        object-fit: cover;
-        margin-right: 4%;
-      }
-
-      div.text {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        h3 {
-          font-size: 0.95em;
-        }
-
-        p {
-          font-size: 0.8em;
-        }
-      }
-    }
   }
 }
