@@ -14,28 +14,34 @@ mat-card-subtitle {
 mat-card {
   opacity: 0.9;
   width: 100vh;
-  margin-bottom: 3vh;
+  margin-bottom: 1%;
   mat-card-title {
     font-weight: bold;
   }
   div {
     height: 20vh;
+
     mat-card {
       mat-card-subtitle {
         text-align: justify;
+        height: 10vh;
       }
     }
   }
 
   table {
     font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
-    font-size: 14px;
+    font-size: 0.7em;
     border-radius: 10px;
     border-spacing: 0;
     text-align: center;
     border: 1px solid rgb(0, 0, 0);
     margin: auto;
-    margin-top: 2vh;
+  }
+  caption {
+    text-align: center;
+    font-size: 7vh;
+    font-weight: bold;
   }
   th {
     background: #bcebdd;
@@ -77,12 +83,12 @@ mat-card {
   p {
     margin-top: 2vh;
     text-align: justify;
+    border: inset;
+    background-color: rgb(245, 201, 208);
   }
 }
 
 div.back {
   background: url(src\assets\images\au1.jpg) no-repeat center center;
   background-size: cover;
-  height: 100%;
-  overflow: auto;
 }
