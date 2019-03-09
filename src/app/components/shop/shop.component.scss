@@ -1,0 +1,35 @@
+div.banner {
+  height: 30%;
+  img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+  }
+}
+div {
+  display: flex;
+  flex-direction: row;
+  div.container {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin: 1.5% auto;
+    div.search {
+      width: 100%;
+      mat-form-field {
+        width: 100%;
+      }
+      button {
+        margin-left: 2%;
+      }
+    }
+    div.output {
+      margin-top: 2%;
+      div {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+      }
+    }
+  }
+}
