@@ -15,6 +15,7 @@ import { MenuComponent } from "./components/menu/menu.component";
 import { NewsComponent } from "./components/news/news.component";
 import { NewsService } from "./services/news/news.service";
 import { FooterComponent } from "./footer/footer.component";
+import { TrainingComponent } from './components/training/training.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { FooterComponent } from "./footer/footer.component";
     MainPageComponent,
     MenuComponent,
     NewsComponent,
-    NavBarComponent
+    NavBarComponent,
+    TrainingComponent
   ],
   imports: [
     BrowserModule,
