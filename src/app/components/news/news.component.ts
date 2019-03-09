@@ -1,6 +1,4 @@
 import { Component, OnInit } from "@angular/core";
-import { MenuItem } from "src/app/interfaces/menu-item";
-import { MenuItemService } from "src/app/services/menu-item.service";
 import { News } from "src/app/interfaces/news";
 import { NewsService } from "src/app/services/news/news.service";
 

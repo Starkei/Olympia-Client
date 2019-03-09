@@ -2,18 +2,20 @@
   class="container"
   fxLayout="row wrap"
   fxLayout.xs="column"
-  fxLayoutAlign="space-around center"
+  fxLayoutAlign="start center"
 >
-  <div *ngFor="let newsItem of news" fxFlex="95%">
-    <mat-divider></mat-divider>
-    <div class="news">
-      <img [src]="newsItem.image" alt="Photo of News" />
-      <div class="text">
-        <h3>{{ newsItem.title }}</h3>
-        <p>
-          {{ newsItem.description }}
-        </p>
-      </div>
-    </div>
-  </div>
+  <mat-card *ngFor="let newsItem of news" fxFlex="30%">
+    <mat-card-header>
+      <mat-card-title>{{ newsItem.title }}</mat-card-title>
+    </mat-card-header>
+    <img mat-card-image [src]="newsItem.image" alt="Photo of Eat" />
+    <mat-card-content>
+      <p>
+        {{ newsItem.description }}
+      </p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary">Перейти</button>
+    </mat-card-actions>
+  </mat-card>
 </div>

@@ -14,5 +14,9 @@ export class ShopComponent implements OnInit {
     this.products = productService.getProducts();
   }
 
+  getFormatingPrice(index: number): string {
+    return `Цена: ${this.products[index].price}$`;
+  }
+
   ngOnInit() {}
 }

@@ -1,4 +1,4 @@
-<app-banner image="assets/images/shop.jpg"></app-banner>
+<app-banner image="assets/images/crowdfunding.jpg"></app-banner>
 <div>
   <div class="container">
     <div class="search">
@@ -13,13 +13,16 @@
       fxLayout.xs="column"
       fxLayoutAlign="start stretch"
     >
-      <mat-card *ngFor="let product of products; let i = index" fxFlex="30%">
+      <mat-card
+        *ngFor="let action of crowdfundingActions; let i = index"
+        fxFlex="30%"
+      >
         <mat-card-header>
-          <mat-card-title>{{ product.title }}</mat-card-title>
-          <mat-card-subtitle>{{ getFormatingPrice(i) }}</mat-card-subtitle>
+          <mat-card-title>{{ action.title }}</mat-card-title>
+          <mat-card-subtitle>{{ getPriceString(i) }}</mat-card-subtitle>
         </mat-card-header>
-        <img mat-card-image [src]="product.photo" alt="Photo of Eat" />
-        <mat-card-content> </mat-card-content>
+        <img mat-card-image [src]="action.image" alt="Photo of Eat" />
+        <mat-card-content>{{ action.description }} </mat-card-content>
         <mat-card-actions>
           <button mat-raised-button color="primary">Перейти</button>
           <button mat-raised-button color="primary">
