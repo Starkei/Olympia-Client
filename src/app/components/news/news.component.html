@@ -4,16 +4,11 @@
   fxLayout.xs="column"
   fxLayoutAlign="space-around center"
 >
-  <div *ngFor="let newsItem of news" fxFlex="95%">
-    <mat-divider></mat-divider>
-    <div class="news">
-      <img [src]="newsItem.image" alt="Photo of News" />
-      <div class="text">
-        <h3>{{ newsItem.title }}</h3>
-        <p>
-          {{ newsItem.description }}
-        </p>
-      </div>
-    </div>
-  </div>
+  <app-horizontal-card
+    *ngFor="let newsItem of news"
+    fxFlex="95%"
+    [image]="newsItem.image"
+    [title]="newsItem.title"
+    [description]="newsItem.description"
+  ></app-horizontal-card>
 </div>

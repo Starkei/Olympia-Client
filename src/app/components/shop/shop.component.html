@@ -15,24 +15,15 @@
       fxLayout.xs="column"
       fxLayoutAlign="space-around center"
     >
-      <div fxFlex="100%" *ngFor="let product of products">
-        <div class="item">
-          <img [src]="product.photo" alt="Photo of item" />
-          <div class="text">
-            <div class="title">
-              <h3>{{ product.title }}</h3>
-              <span>Цена: {{ product.price }}$</span>
-            </div>
-            <mat-divider></mat-divider>
-            <p>
-              {{ product.description }}
-            </p>
-            <p>
-              {{ product.description }}
-            </p>
-          </div>
-        </div>
-      </div>
+      <app-horizontal-card
+        *ngFor="let product of products; let i = index"
+        fxFlex="100%"
+        [image]="product.photo"
+        [title]="product.title"
+        [description]="product.description"
+        [moreInfo]="product.description"
+        [price]="getFormatingPrice(i)"
+      ></app-horizontal-card>
     </div>
   </div>
   <div class="filter"></div>

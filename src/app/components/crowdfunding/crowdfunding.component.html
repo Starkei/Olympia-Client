@@ -1,0 +1,13 @@
+<div class="banner">
+  <img src="assets/images/crowdfunding.jpg" alt="banner" />
+</div>
+<div class="container" fxLayout="column" fxLayoutAlign="space-around stretch">
+  <app-horizontal-card
+    *ngFor="let action of crowdfundingActions; let i = index"
+    [image]="action.image"
+    [description]="action.description"
+    [title]="action.title"
+    [moreInfo]="action.moreInfo"
+    [price]="getPriceString(i)"
+  ></app-horizontal-card>
+</div>
