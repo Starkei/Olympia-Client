@@ -11,6 +11,8 @@ import { MainPageComponent } from "./components/main-page/main-page.component";
 import { MenuComponent } from "./components/menu/menu.component";
 import { NewsComponent } from "./components/news/news.component";
 import { NewsService } from "./services/news/news.service";
+
+import { TrainingComponent } from "./components/training/training.component";
 import { ShopComponent } from "./components/shop/shop.component";
 import { ProductService } from "./services/product/product.service";
 import { CrowdfundingComponent } from "./components/crowdfunding/crowdfunding.component";
@@ -28,6 +30,7 @@ import { MenuItemService } from "./services/menu-item/menu-item.service";
     MenuComponent,
     NewsComponent,
     NavBarComponent,
+    TrainingComponent,
     ShopComponent,
     CrowdfundingComponent,
     HorizontalCardComponent
