@@ -15,7 +15,8 @@
     >
       <mat-card
         *ngFor="let action of crowdfundingActions; let i = index"
-        fxFlex="30%"
+        [fxFlex]="getFlex()"
+        fxFlexOffset="3%"
       >
         <mat-card-header>
           <mat-card-title>{{ action.title }}</mat-card-title>

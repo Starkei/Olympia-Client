@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Product } from "src/app/interfaces/product";
 import { ProductService } from "src/app/services/product/product.service";
+import { BreakpointObserver, BreakpointState } from "@angular/cdk/layout";
 
 @Component({
   selector: "app-shop",
@@ -9,8 +10,11 @@ import { ProductService } from "src/app/services/product/product.service";
 })
 export class ShopComponent implements OnInit {
   products: Array<Product> = [];
-
-  constructor(private productService: ProductService) {
+  fxFlex: number = 30;
+  constructor(
+    private productService: ProductService,
+    private breakpointObserver: BreakpointObserver
+  ) {
     this.products = productService.getProducts();
   }
 
@@ -18,5 +22,25 @@ export class ShopComponent implements OnInit {
     return `Цена: ${this.products[index].price}$`;
   }
 
-  ngOnInit() {}
+  getFlex(): string {
+    return this.fxFlex + "%";
+  }
+
+  ngOnInit() {
+    this.breakpointObserver
+      .observe(["(max-width: 640px)"])
+      .subscribe((result: BreakpointState) => {
+        if (result.matches) {
+          this.fxFlex = 100;
+        }
+      });
+
+    this.breakpointObserver
+      .observe(["(max-width: 870px)"])
+      .subscribe((result: BreakpointState) => {
+        if (result.matches) {
+          this.fxFlex = 44;
+        } else this.fxFlex = 30;
+      });
+  }
 }
