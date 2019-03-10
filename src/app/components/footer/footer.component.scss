@@ -1,8 +1,10 @@
 mat-toolbar {
-  position: relative;
   z-index: 1;
-}
-
-.spacer {
-  flex: 1 1 auto;
+  width: 100%;
+  div {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }

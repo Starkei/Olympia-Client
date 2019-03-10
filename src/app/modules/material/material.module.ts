@@ -6,7 +6,10 @@ import { MatDividerModule } from "@angular/material/divider";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatInputModule } from "@angular/material/input";
 import { MatFormFieldModule } from "@angular/material/form-field";
-import {MatListModule} from '@angular/material/list';
+import { MatSidenavModule } from "@angular/material/sidenav";
+import { MatListModule } from "@angular/material/list";
+import { MatIconModule } from "@angular/material/icon";
+import { LayoutModule } from "@angular/cdk/layout";
 
 @NgModule({
   declarations: [],
@@ -18,7 +21,10 @@ import {MatListModule} from '@angular/material/list';
     MatDividerModule,
     MatFormFieldModule,
     MatInputModule,
-    MatListModule
+    MatSidenavModule,
+    MatIconModule,
+    MatListModule,
+    LayoutModule
   ]
 })
 export class MaterialModule {}

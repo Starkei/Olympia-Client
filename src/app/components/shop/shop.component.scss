@@ -12,7 +12,7 @@ div {
   div.container {
     display: flex;
     flex-direction: column;
-    width: 80%;
+    width: 95%;
     margin: 1.5% auto;
     div.search {
       width: 100%;
@@ -21,6 +21,7 @@ div {
       }
       button {
         margin-left: 2%;
+        height: 60%;
       }
     }
     div.output {
@@ -29,6 +30,10 @@ div {
         display: flex;
         flex-direction: column;
         width: 100%;
+      }
+
+      mat-card {
+        margin-bottom: 3%;
       }
     }
   }

@@ -1,7 +1,8 @@
 div.container {
   width: 95%;
   margin: auto;
-  margin-top: 3%;
+  margin-top: 2%;
+  max-height: none !important;
   mat-card {
     margin-bottom: 3%;
   }
