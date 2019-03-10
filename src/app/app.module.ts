@@ -19,6 +19,7 @@ import { FooterComponent } from "./components/footer/footer.component";
 import { OthersModule } from "./modules/others/others.module";
 import { MenuItemService } from "./services/menu-item/menu-item.service";
 import { BannerComponent } from "./components/banner/banner.component";
+import { SportPageComponent } from "./components/sport-page/sport-page.component";
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { BannerComponent } from "./components/banner/banner.component";
     ShopComponent,
     CrowdfundingComponent,
     CarAboutEatComponent,
-    BannerComponent
+    BannerComponent,
+    SportPageComponent
   ],
   imports: [
     BrowserModule,

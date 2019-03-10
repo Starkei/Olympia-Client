@@ -5,7 +5,7 @@ import { CarAboutEatComponent } from "./components/car-about-eat/car-about-eat.c
 import { TrainingComponent } from "./components/training/training.component";
 import { ShopComponent } from "./components/shop/shop.component";
 import { CrowdfundingComponent } from "./components/crowdfunding/crowdfunding.component";
-
+import { SportPageComponent } from "./components/sport-page/sport-page.component";
 
 const routes: Routes = [
   { path: "", redirectTo: "/main", pathMatch: "full" },
@@ -13,7 +13,8 @@ const routes: Routes = [
   { path: "cardabouteat", component: CarAboutEatComponent },
   { path: "training", component: TrainingComponent },
   { path: "shop", component: ShopComponent },
-  { path: "crowdfunding", component: CrowdfundingComponent }
+  { path: "crowdfunding", component: CrowdfundingComponent },
+  { path: "sport", component: SportPageComponent }
 ];
 
 @NgModule({
