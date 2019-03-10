@@ -4,7 +4,11 @@
   fxLayout.xs="column"
   fxLayoutAlign="start center"
 >
-  <mat-card *ngFor="let newsItem of news" fxFlex="30%">
+  <mat-card
+    *ngFor="let newsItem of news"
+    [fxFlex]="getFlex()"
+    fxFlexOffset="3%"
+  >
     <mat-card-header>
       <mat-card-title>{{ newsItem.title }}</mat-card-title>
     </mat-card-header>
