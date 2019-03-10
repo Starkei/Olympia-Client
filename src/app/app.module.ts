@@ -17,9 +17,8 @@ import { ProductService } from "./services/product/product.service";
 import { CrowdfundingComponent } from "./components/crowdfunding/crowdfunding.component";
 import { FooterComponent } from "./components/footer/footer.component";
 import { OthersModule } from "./modules/others/others.module";
-import { HorizontalCardComponent } from "./components/horizontal-card/horizontal-card.component";
 import { MenuItemService } from "./services/menu-item/menu-item.service";
-import { BannerComponent } from './components/banner/banner.component';
+import { BannerComponent } from "./components/banner/banner.component";
 
 @NgModule({
   declarations: [
@@ -32,7 +31,6 @@ import { BannerComponent } from './components/banner/banner.component';
     TrainingComponent,
     ShopComponent,
     CrowdfundingComponent,
-    HorizontalCardComponent,
     CarAboutEatComponent,
     BannerComponent
   ],
