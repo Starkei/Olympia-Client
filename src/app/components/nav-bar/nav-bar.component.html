@@ -1,15 +1,38 @@
 <mat-toolbar color="primary">
-  <mat-toolbar-row>
-    <div id="nav">
-      <button mat-button routerLink="/main">Главная страница</button>
+  <button *ngIf="!isLandscape" mat-icon-button (click)="snav.toggle()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <h1 class="app-name">Olimpia</h1>
+  <span *ngIf="isLandscape">
+    <button mat-button routerLink="/main">Главная страница</button>
 
-      <button mat-button routerLink="/cardabouteat">Питание</button>
+    <button mat-button routerLink="/cardabouteat">Питание</button>
 
-      <button mat-button routerLink="/shop">Магазин</button>
-      <button mat-button routerLink="/training">Тренинги</button>
+    <button mat-button routerLink="/shop">Магазин</button>
+    <button mat-button routerLink="/training">Тренинги</button>
 
-      <button mat-button>Спорт</button>
-      <button mat-button routerLink="/crowdfunding">Краудфандинг</button>
-    </div>
-  </mat-toolbar-row>
+    <button mat-button>Спорт</button>
+    <button mat-button routerLink="/crowdfunding">Краудфандинг</button>
+  </span>
 </mat-toolbar>
+
+<mat-sidenav-container>
+  <mat-sidenav #snav [mode]="'over'" [fixedInViewport]="true" fixedTopGap="56">
+    <mat-nav-list>
+      <a mat-list-item routerLink="/main">Главная страница</a>
+
+      <a mat-list-item routerLink="/cardabouteat">Питание</a>
+
+      <a mat-list-item routerLink="/shop">Магазин</a>
+      <a mat-list-item routerLink="/training">Тренинги</a>
+
+      <a mat-list-item>Спорт</a>
+      <a mat-list-item routerLink="/crowdfunding">Краудфандинг</a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+    <app-footer *ngIf="isLandscape"></app-footer>
+  </mat-sidenav-content>
+</mat-sidenav-container>

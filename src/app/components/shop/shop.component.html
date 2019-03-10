@@ -1,6 +1,4 @@
-<div class="banner">
-  <img src="assets/images/shop.jpg" alt="" />
-</div>
+<app-banner image="assets/images/shop.jpg"></app-banner>
 <div>
   <div class="container">
     <div class="search">
@@ -11,19 +9,24 @@
     </div>
     <div
       class="output"
-      fxLayout="column"
+      fxLayout="row wrap"
       fxLayout.xs="column"
-      fxLayoutAlign="space-around center"
+      fxLayoutAlign="start stretch"
     >
-      <app-horizontal-card
-        *ngFor="let product of products; let i = index"
-        fxFlex="100%"
-        [image]="product.photo"
-        [title]="product.title"
-        [description]="product.description"
-        [moreInfo]="product.description"
-        [price]="getFormatingPrice(i)"
-      ></app-horizontal-card>
+      <mat-card *ngFor="let product of products; let i = index" fxFlex="30%">
+        <mat-card-header>
+          <mat-card-title>{{ product.title }}</mat-card-title>
+          <mat-card-subtitle>{{ getFormatingPrice(i) }}</mat-card-subtitle>
+        </mat-card-header>
+        <img mat-card-image [src]="product.photo" alt="Photo of Eat" />
+        <mat-card-content> </mat-card-content>
+        <mat-card-actions>
+          <button mat-raised-button color="primary">Перейти</button>
+          <button mat-raised-button color="primary">
+            <mat-icon>favorite</mat-icon> Понравилось!
+          </button>
+        </mat-card-actions>
+      </mat-card>
     </div>
   </div>
   <div class="filter"></div>

@@ -19,6 +19,7 @@ import { FooterComponent } from "./components/footer/footer.component";
 import { OthersModule } from "./modules/others/others.module";
 import { HorizontalCardComponent } from "./components/horizontal-card/horizontal-card.component";
 import { MenuItemService } from "./services/menu-item/menu-item.service";
+import { BannerComponent } from './components/banner/banner.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { MenuItemService } from "./services/menu-item/menu-item.service";
     ShopComponent,
     CrowdfundingComponent,
     HorizontalCardComponent,
-    CarAboutEatComponent
+    CarAboutEatComponent,
+    BannerComponent
   ],
   imports: [
     BrowserModule,

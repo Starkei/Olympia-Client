@@ -1,6 +1,24 @@
-#nav {
-  margin-left: 15%;
+mat-toolbar {
+  position: fixed;
+  z-index: 2;
+  box-shadow: 0 1px 5px 5px rgba(0, 0, 0, 0.2);
+  span {
+    margin-left: 5%;
+    justify-content: space-between;
+  }
+  h1.app-name {
+    margin-left: 8px;
+  }
 }
-button {
-  width: 25%;
+
+mat-sidenav-container {
+  margin-top: 56px;
+  display: flex;
+  flex-direction: column;
+  flex: 1 0 auto;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }

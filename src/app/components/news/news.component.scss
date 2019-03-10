@@ -1,6 +1,9 @@
-div {
-  div {
-    display: flex;
-    flex-direction: column;
+div.container {
+  width: 95%;
+  margin: auto;
+  margin-top: 3%;
+  mat-card {
+    margin-right: 3%;
+    margin-bottom: 3%;
   }
 }
