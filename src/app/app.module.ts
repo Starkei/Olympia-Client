@@ -21,6 +21,7 @@ import { MaterialModule } from "./modules/material/material.module";
 import { OthersModule } from "./modules/others/others.module";
 import { HorizontalCardComponent } from "./components/horizontal-card/horizontal-card.component";
 import { MenuItemService } from "./services/menu-item/menu-item.service";
+import { PersonalAreaComponent } from './components/personal-area/personal-area.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { MenuItemService } from "./services/menu-item/menu-item.service";
     TrainingComponent,
     ShopComponent,
     CrowdfundingComponent,
-    HorizontalCardComponent
+    HorizontalCardComponent,
+    PersonalAreaComponent
   ],
   imports: [
     BrowserModule,

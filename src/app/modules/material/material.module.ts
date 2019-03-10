@@ -6,6 +6,7 @@ import { MatDividerModule } from "@angular/material/divider";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatInputModule } from "@angular/material/input";
 import { MatFormFieldModule } from "@angular/material/form-field";
+import {MatListModule} from '@angular/material/list';
 
 @NgModule({
   declarations: [],
@@ -16,7 +17,8 @@ import { MatFormFieldModule } from "@angular/material/form-field";
     MatCardModule,
     MatDividerModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatListModule
   ]
 })
 export class MaterialModule {}
