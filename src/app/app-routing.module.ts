@@ -5,6 +5,7 @@ import { CarAboutEatComponent } from "./components/car-about-eat/car-about-eat.c
 import { TrainingComponent } from "./components/training/training.component";
 import { ShopComponent } from "./components/shop/shop.component";
 import { CrowdfundingComponent } from "./components/crowdfunding/crowdfunding.component";
+import { PersonalAreaComponent } from "./components/personal-area/personal-area.component";
 import { SportPageComponent } from "./components/sport-page/sport-page.component";
 
 const routes: Routes = [
@@ -14,7 +15,8 @@ const routes: Routes = [
   { path: "training", component: TrainingComponent },
   { path: "shop", component: ShopComponent },
   { path: "crowdfunding", component: CrowdfundingComponent },
-  { path: "sport", component: SportPageComponent }
+  { path: "area", component: PersonalAreaComponent },
+  { path: "sport", component: SportPageComponent },
 ];
 
 @NgModule({
