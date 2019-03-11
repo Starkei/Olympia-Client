@@ -12,10 +12,10 @@ import {
 })
 export class HorizontalCardComponent implements OnInit {
   @Input() image: string;
-  @Input() description: string;
-  @Input() title: string;
-  @Input() price: string;
-  @Input() moreInfo: string;
+  @Input() description: string; //
+  @Input() title: string; //
+  @Input() price: string; //
+  @Input() moreInfo: string; //
   @Input() size: number = 35;
 
   metrix: string = "vh";
