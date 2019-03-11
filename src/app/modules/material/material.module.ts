@@ -10,6 +10,7 @@ import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatListModule } from "@angular/material/list";
 import { MatIconModule } from "@angular/material/icon";
 import { LayoutModule } from "@angular/cdk/layout";
+import { MatTableModule } from "@angular/material/table";
 
 @NgModule({
   declarations: [],
@@ -24,7 +25,8 @@ import { LayoutModule } from "@angular/cdk/layout";
     MatSidenavModule,
     MatIconModule,
     MatListModule,
-    LayoutModule
+    LayoutModule,
+    MatTableModule
   ]
 })
 export class MaterialModule {}
