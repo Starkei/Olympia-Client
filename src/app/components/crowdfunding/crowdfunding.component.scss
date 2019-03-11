@@ -18,15 +18,9 @@ div {
     }
     div.output {
       margin-top: 2%;
-      div {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-      }
-
+      max-height: none !important;
       mat-card {
         margin-bottom: 3%;
-        margin-right: 3%;
       }
     }
   }

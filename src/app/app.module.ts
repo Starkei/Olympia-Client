@@ -17,9 +17,10 @@ import { ProductService } from "./services/product/product.service";
 import { CrowdfundingComponent } from "./components/crowdfunding/crowdfunding.component";
 import { FooterComponent } from "./components/footer/footer.component";
 import { OthersModule } from "./modules/others/others.module";
-import { HorizontalCardComponent } from "./components/horizontal-card/horizontal-card.component";
 import { MenuItemService } from "./services/menu-item/menu-item.service";
-import { BannerComponent } from './components/banner/banner.component';
+import { PersonalAreaComponent } from "./components/personal-area/personal-area.component";
+import { BannerComponent } from "./components/banner/banner.component";
+import { SportPageComponent } from "./components/sport-page/sport-page.component";
 
 @NgModule({
   declarations: [
@@ -32,9 +33,10 @@ import { BannerComponent } from './components/banner/banner.component';
     TrainingComponent,
     ShopComponent,
     CrowdfundingComponent,
-    HorizontalCardComponent,
+    PersonalAreaComponent,
     CarAboutEatComponent,
-    BannerComponent
+    BannerComponent,
+    SportPageComponent
   ],
   imports: [
     BrowserModule,
