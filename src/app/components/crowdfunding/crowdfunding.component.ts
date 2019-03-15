@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { CrowdfundingService } from "src/app/services/crowdfunding/crowdfunding.service";
-import { CrowdfundingAction } from "src/app/interfaces/crowdfunding-action";
 import { BreakpointObserver, BreakpointState } from "@angular/cdk/layout";
+import { CrowdfundingFilter } from "src/app/classes/crowdfunding-filter/crowdfunding-filter";
 
 @Component({
   selector: "app-crowdfunding",
@@ -9,8 +9,8 @@ import { BreakpointObserver, BreakpointState } from "@angular/cdk/layout";
   styleUrls: ["./crowdfunding.component.scss"]
 })
 export class CrowdfundingComponent implements OnInit {
-  crowdfundingActions: Array<CrowdfundingAction> = [];
   fxFlex: number = 30;
+  filter: CrowdfundingFilter;
   getFlex(): string {
     return this.fxFlex + "%";
   }
@@ -19,7 +19,7 @@ export class CrowdfundingComponent implements OnInit {
     private crowdfundingService: CrowdfundingService,
     private breakpointObserver: BreakpointObserver
   ) {
-    this.crowdfundingActions = this.crowdfundingService.getActions();
+    this.filter = new CrowdfundingFilter();
   }
 
   ngOnInit() {
@@ -38,9 +38,5 @@ export class CrowdfundingComponent implements OnInit {
           this.fxFlex = 44;
         } else this.fxFlex = 30;
       });
-  }
-
-  getPriceString(index: number) {
-    return `Нам нужно: ${this.crowdfundingActions[index].price}$`;
   }
 }
