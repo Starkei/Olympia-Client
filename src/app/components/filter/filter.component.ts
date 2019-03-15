@@ -1,4 +1,11 @@
-import { Component, OnInit, Input, ViewChild, ElementRef } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  Input,
+  ViewChild,
+  ElementRef,
+  ChangeDetectorRef
+} from "@angular/core";
 import { Filter } from "src/app/interfaces/filter";
 import {
   BreakpointObserver,
@@ -17,7 +24,10 @@ export class FilterComponent implements OnInit {
   margin: number = 0;
   isMobile: boolean = false;
   style: any = {};
-  constructor(private breakpointObserver: BreakpointObserver) {
+  constructor(
+    private breakpointObserver: BreakpointObserver,
+    private changeDetector: ChangeDetectorRef
+  ) {
     this.style.position = "relative";
     this.style.top = "auto";
   }
@@ -33,6 +43,9 @@ export class FilterComponent implements OnInit {
   setFixed(fixed: boolean): void {
     this.style.position = !this.isMobile && fixed ? "fixed" : "relative";
     this.style.top = !this.isMobile && fixed ? "71px" : "auto";
-    if (fixed) this.margin = 40;
+    if (fixed) {
+      this.margin = 40;
+      this.changeDetector.detectChanges();
+    }
   }
 }
