@@ -15,7 +15,7 @@ export class SportPageComponent implements OnInit {
   fxFlex: number = 30;
 
   constructor(
-    private sportService: SportService,
+    public sportService: SportService,
     private breakpointObserver: BreakpointObserver
   ) {
     this.filter = new SportFilter();

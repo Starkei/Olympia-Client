@@ -13,7 +13,7 @@ export class ShopComponent implements OnInit {
   filter: Filter;
   fxFlex: number = 30;
   constructor(
-    private productService: ProductService,
+    public productService: ProductService,
     private breakpointObserver: BreakpointObserver
   ) {
     this.filter = new ShopFilter();
