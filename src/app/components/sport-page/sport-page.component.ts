@@ -1,7 +1,9 @@
 import { Component, OnInit } from "@angular/core";
-import { Sport } from "src/app/interfaces/sport";
 import { SportService } from "src/app/services/sport/sport.service";
 import { BreakpointObserver, BreakpointState } from "@angular/cdk/layout";
+import { Filter } from "src/app/interfaces/filter";
+import { SportFilter } from "src/app/classes/sport-filter/sport-filter";
+import { Sport } from "src/app/classes/sport/sport";
 
 @Component({
   selector: "app-sport-page",
@@ -9,13 +11,15 @@ import { BreakpointObserver, BreakpointState } from "@angular/cdk/layout";
   styleUrls: ["./sport-page.component.scss"]
 })
 export class SportPageComponent implements OnInit {
-  sports: Array<Sport> = [];
+  filter: Filter;
   fxFlex: number = 30;
 
   constructor(
     private sportService: SportService,
     private breakpointObserver: BreakpointObserver
-  ) {}
+  ) {
+    this.filter = new SportFilter();
+  }
 
   ngOnInit() {
     this.breakpointObserver
@@ -33,7 +37,6 @@ export class SportPageComponent implements OnInit {
           this.fxFlex = 44;
         } else this.fxFlex = 30;
       });
-    this.sports = this.sportService.getSports();
   }
 
   getFlex(): string {
