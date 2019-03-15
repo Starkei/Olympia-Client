@@ -21,6 +21,7 @@ import { MenuItemService } from "./services/menu-item/menu-item.service";
 import { PersonalAreaComponent } from "./components/personal-area/personal-area.component";
 import { BannerComponent } from "./components/banner/banner.component";
 import { SportPageComponent } from "./components/sport-page/sport-page.component";
+import { RegistrationComponent } from './components/registration/registration.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { SportPageComponent } from "./components/sport-page/sport-page.component
     PersonalAreaComponent,
     CarAboutEatComponent,
     BannerComponent,
-    SportPageComponent
+    SportPageComponent,
+    RegistrationComponent
   ],
   imports: [
     BrowserModule,

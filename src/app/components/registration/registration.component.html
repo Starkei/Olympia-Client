@@ -1,0 +1,67 @@
+<app-banner image="assets/images/au1.jpg"></app-banner>
+<!-- <div class="label">Питание</div> -->
+<div
+  class="container"
+  fxLayout="column"
+  fxLayout.xs="column"
+  fxLayoutAlign="space-evenly stretch"
+>
+  <div class="label">Регистрация</div>
+  <mat-card>
+    <mat-vertical-stepper>
+      <mat-step label="Данные">
+        <form class="example-form">
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Логин" />
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Пароль" />
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Email" />
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Дата вашего рождения" />
+          </mat-form-field>
+          <div class="sex">
+            <mat-radio-group>
+              <h4>Ваш пол</h4>
+              <mat-radio-button value="1"> Мужчина </mat-radio-button>
+              <mat-radio-button value="2"> Женщина </mat-radio-button>
+            </mat-radio-group>
+          </div>
+          <mat-form-field class="example-full-width">
+            <span matPrefix>+375 &nbsp;</span>
+            <input type="tel" matInput placeholder="Телефон" />
+            <mat-icon matSuffix>mode_edit</mat-icon>
+          </mat-form-field>
+        </form>
+
+        <div><button mat-button matStepperNext>Next</button></div>
+      </mat-step>
+      <mat-step label="Юридические данные">
+        <form class="example-form">
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Название компании" />
+          </mat-form-field>
+          <p>
+            <mat-form-field class="example-full-width">
+              <textarea matInput placeholder="Юридический адрес"> </textarea>
+            </mat-form-field>
+          </p>
+        </form>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </mat-step>
+      <mat-step label="Подтверждение">
+        На ваш почтовый ящик было отправлено сообщение с подтверждением
+        регистрации.
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+        </div>
+      </mat-step>
+    </mat-vertical-stepper>
+  </mat-card>
+</div>
