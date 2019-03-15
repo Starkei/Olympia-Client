@@ -20,6 +20,10 @@ import { OthersModule } from "./modules/others/others.module";
 import { MenuItemService } from "./services/menu-item/menu-item.service";
 import { BannerComponent } from "./components/banner/banner.component";
 import { SportPageComponent } from "./components/sport-page/sport-page.component";
+import { FilterComponent } from "./components/filter/filter.component";
+import { OutputComponent } from "./components/output/output.component";
+import { FieldComponent } from "./components/field/field.component";
+import { ScrollingDirective } from "./directives/scrolling/scrolling.directive";
 
 @NgModule({
   declarations: [
@@ -34,7 +38,11 @@ import { SportPageComponent } from "./components/sport-page/sport-page.component
     CrowdfundingComponent,
     CarAboutEatComponent,
     BannerComponent,
-    SportPageComponent
+    SportPageComponent,
+    FilterComponent,
+    OutputComponent,
+    FieldComponent,
+    ScrollingDirective
   ],
   imports: [
     BrowserModule,

@@ -1,37 +1,10 @@
 <app-banner image="assets/images/shop.jpg"></app-banner>
-<div>
-  <div class="container">
-    <div class="search">
-      <mat-form-field>
-        <input matInput placeholder="Введите название продукта" />
-      </mat-form-field>
-      <button mat-raised-button>Найти</button>
-    </div>
-    <div
-      class="output"
-      fxLayout="row wrap"
-      fxLayout.xs="column"
-      fxLayoutAlign="start stretch"
-    >
-      <mat-card
-        *ngFor="let product of products; let i = index"
-        [fxFlex]="getFlex()"
-        fxFlexOffset="3%"
-      >
-        <mat-card-header>
-          <mat-card-title>{{ product.title }}</mat-card-title>
-          <mat-card-subtitle>{{ getFormatingPrice(i) }}</mat-card-subtitle>
-        </mat-card-header>
-        <img mat-card-image [src]="product.photo" alt="Photo of Eat" />
-        <mat-card-content> </mat-card-content>
-        <mat-card-actions>
-          <button mat-raised-button color="primary">Перейти</button>
-          <button mat-raised-button color="primary">
-            <mat-icon>favorite</mat-icon> Понравилось!
-          </button>
-        </mat-card-actions>
-      </mat-card>
-    </div>
+<div class="container" fxLayout="column">
+  <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start stretch">
+    <app-filter fxFlexOffset="3%" [filter]="filter"></app-filter>
+    <app-output
+      fxFlexOffset="3%"
+      [items]="productService.getProducts()"
+    ></app-output>
   </div>
-  <div class="filter"></div>
 </div>

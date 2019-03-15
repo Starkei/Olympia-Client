@@ -1,0 +1,14 @@
+mat-accordion {
+  overflow-y: scroll;
+  height: 80%;
+  mat-expansion-panel {
+    mat-expansion-panel-header {
+      mat-panel-title {
+        color: rgba(0, 0, 0, 0.87);
+      }
+    }
+  }
+}
+div {
+  width: 190px;
+}
