@@ -17,7 +17,9 @@
     </mat-card-header>
     <img mat-card-image [src]="item.imagePath" alt="Photo of Eat" />
     <mat-card-content>
-      {{ item.description }}
+      <p>{{ item.description }}</p>
+      <p>{{ item.moreInfo }}</p>
+      <p>{{ item.leader }}</p>
     </mat-card-content>
     <mat-card-actions>
       <button mat-raised-button color="primary">Перейти</button>
