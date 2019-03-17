@@ -45,6 +45,12 @@ export class FilterComponent implements OnInit {
         if (result.matches) this.isMobile = true;
       }
     );
+
+    this.breakpointObserver.observe(["max-width: 1000px"]).subscribe(
+      (result: BreakpointState): void => {
+        if (result.matches) this.isMobile = false;
+      }
+    );
   }
 
   setFixed(fixed: boolean): void {
