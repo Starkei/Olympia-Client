@@ -5,19 +5,19 @@
   fxLayoutAlign="start stretch"
 >
   <mat-card
-    *ngFor="let item of items; let i = index"
+    *ngFor="let item of (items | async); let i = index"
     [fxFlex]="getFormattedFlexSize()"
     fxFlexOffset="3%"
   >
     <mat-card-header>
-      <mat-card-title>{{ item.title }}</mat-card-title>
-      <mat-card-subtitle *ngIf="item.price !== 0">{{
+      <mat-card-title>{{ item.title | textLength: 30 }}</mat-card-title>
+      <mat-card-subtitle *ngIf="item.price">{{
         item.getFormattedPrice()
       }}</mat-card-subtitle>
     </mat-card-header>
-    <img mat-card-image [src]="item.imagePath" alt="Photo of Eat" />
+    <img mat-card-image [src]="item.image" alt="Photo of Eat" />
     <mat-card-content>
-      {{ item.description }}
+      {{ item.description | textLength: 100 }}
     </mat-card-content>
     <mat-card-actions>
       <button mat-raised-button color="primary">Перейти</button>

@@ -10,7 +10,8 @@
       <app-filter fxFlexOffset="3%" [filter]="filter"></app-filter>
       <app-output
         fxFlexOffset="3%"
-        [items]="this.crowdfundingService.getActions()"
+        [service]="crowdfundingService"
+        [filter]="filter"
       ></app-output>
     </div>
   </div>

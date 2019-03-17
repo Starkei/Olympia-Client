@@ -1,7 +1,11 @@
-div.container {
-  width: 90%;
-  margin: auto;
-  div {
-    margin-top: 3%;
+div {
+  min-height: 100%;
+  div.container {
+    width: 90%;
+    margin: auto;
+    div {
+      width: 100%;
+      margin-top: 3%;
+    }
   }
 }

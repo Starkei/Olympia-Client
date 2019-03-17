@@ -25,6 +25,14 @@ import { FilterComponent } from "./components/filter/filter.component";
 import { OutputComponent } from "./components/output/output.component";
 import { FieldComponent } from "./components/field/field.component";
 import { ScrollingDirective } from "./directives/scrolling/scrolling.directive";
+import { AngularFireModule } from "@angular/fire";
+import { AngularFirestoreModule } from "@angular/fire/firestore";
+
+import { environment } from "../environments/environment";
+import { TextLengthPipe } from "./pipes/text-length/text-length.pipe";
+import { FormsModule } from "@angular/forms";
+
+export const firebaseConfig = environment.firebaseConfig;
 
 @NgModule({
   declarations: [
@@ -44,14 +52,18 @@ import { ScrollingDirective } from "./directives/scrolling/scrolling.directive";
     FilterComponent,
     OutputComponent,
     FieldComponent,
-    ScrollingDirective
+    ScrollingDirective,
+    TextLengthPipe
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,
-    OthersModule
+    OthersModule,
+    FormsModule,
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFirestoreModule
   ],
   providers: [
     MenuItemService,

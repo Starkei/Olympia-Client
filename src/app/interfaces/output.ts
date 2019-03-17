@@ -3,7 +3,6 @@ export interface Output {
   description?: string;
   moreInfo?: string;
   price?: number;
-  imagePath?: string;
-
-  getFormattedPrice(): string;
+  image?: string;
+  getFormattedPrice?(): string;
 }

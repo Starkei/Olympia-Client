@@ -1,10 +1,15 @@
 <app-banner image="assets/images/shop.jpg"></app-banner>
-<div class="container" fxLayout="column">
-  <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start stretch">
-    <app-filter fxFlexOffset="3%" [filter]="filter"></app-filter>
-    <app-output
-      fxFlexOffset="3%"
-      [items]="this.productService.getProducts()"
-    ></app-output>
+<div>
+  <div class="container" fxLayout="column">
+    <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start stretch">
+      <app-filter fxFlexOffset="3%" fxFlex="23%" [filter]="filter"></app-filter>
+      <app-output
+        fxFlexOffset="3%"
+        fxFlex="73%"
+        [service]="productService"
+        [filter]="filter"
+        [update]="this.filterComponent.shouldBeUpdate"
+      ></app-output>
+    </div>
   </div>
 </div>

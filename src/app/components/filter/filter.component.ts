@@ -4,7 +4,9 @@ import {
   Input,
   ViewChild,
   ElementRef,
-  ChangeDetectorRef
+  ChangeDetectorRef,
+  Output,
+  EventEmitter
 } from "@angular/core";
 import { Filter } from "src/app/interfaces/filter";
 import {
@@ -20,6 +22,7 @@ import {
 })
 export class FilterComponent implements OnInit {
   @Input() filter: Filter;
+  @Output() shouldBeUpdate: EventEmitter<boolean> = new EventEmitter<boolean>();
   @ViewChild("anchor") anchor: ElementRef;
   margin: number = 0;
   isMobile: boolean = false;
@@ -30,6 +33,10 @@ export class FilterComponent implements OnInit {
   ) {
     this.style.position = "relative";
     this.style.top = "auto";
+  }
+
+  update() {
+    this.shouldBeUpdate.emit(true);
   }
 
   ngOnInit() {
