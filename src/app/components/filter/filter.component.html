@@ -9,19 +9,6 @@
   [anchor]="anchor"
   [ngStyle]="{ position: style.position, top: style.top }"
 >
-  <mat-expansion-panel [expanded]="!isMobile" [disabled]="!isMobile">
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        Поиск
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-    <div fxLayout="column">
-      <mat-form-field>
-        <input matInput type="text" placeholder="Поиск" />
-      </mat-form-field>
-      <button mat-raised-button>Найти</button>
-    </div>
-  </mat-expansion-panel>
   <mat-expansion-panel
     [expanded]="!isMobile"
     [disabled]="!isMobile"
@@ -36,6 +23,7 @@
       <app-field
         fxFlexOffset="3%"
         *ngFor="let field of category.fields"
+        (pressed)="update()"
         [field]="field"
       >
       </app-field>

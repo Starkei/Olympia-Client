@@ -1,9 +1,12 @@
-div.container {
-  width: 95%;
-  margin: auto;
-  margin-top: 2%;
-  max-height: none !important;
-  mat-card {
-    margin-bottom: 3%;
+div {
+  min-height: 100%;
+  div.container {
+    width: 95%;
+    margin: auto;
+    margin-top: 2%;
+    max-height: none !important;
+    mat-card {
+      margin-bottom: 3%;
+    }
   }
 }

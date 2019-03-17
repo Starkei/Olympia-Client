@@ -6,6 +6,13 @@ export class ShopFilter implements Filter {
   constructor() {
     this.categories.push({
       fields: [
+        { fieldType: "input", inputPlaceHolder: "Поиск", inputType: "text" }
+      ],
+      title: "Поиск"
+    });
+
+    this.categories.push({
+      fields: [
         { fieldType: "input", inputPlaceHolder: "от", inputType: "number" },
         { fieldType: "input", inputPlaceHolder: "до", inputType: "number" }
       ],
@@ -13,20 +20,24 @@ export class ShopFilter implements Filter {
     });
     this.categories.push({
       fields: [
-        { fieldType: "checkbox", title: "Питание" },
-        { fieldType: "checkbox", title: "Одежда" },
-        { fieldType: "checkbox", title: "Тренажеры" },
-        { fieldType: "checkbox", title: "Ортопедическаие товары" },
-        { fieldType: "checkbox", title: "Средства гигиены" }
+        { fieldType: "checkbox", title: "Питание", checked: false },
+        { fieldType: "checkbox", title: "Одежда", checked: false },
+        { fieldType: "checkbox", title: "Тренажеры", checked: false },
+        {
+          fieldType: "checkbox",
+          title: "Ортопедическаие товары",
+          checked: false
+        },
+        { fieldType: "checkbox", title: "Средства гигиены", checked: false }
       ],
       title: "Тип"
     });
     this.categories.push({
       fields: [
-        { fieldType: "checkbox", title: "Adidas" },
-        { fieldType: "checkbox", title: "Nike" },
-        { fieldType: "checkbox", title: "Reebok" },
-        { fieldType: "checkbox", title: "Puma" }
+        { fieldType: "checkbox", title: "Adidas", checked: false },
+        { fieldType: "checkbox", title: "Nike", checked: false },
+        { fieldType: "checkbox", title: "Reebok", checked: false },
+        { fieldType: "checkbox", title: "Puma", checked: false }
       ],
       title: "Фирма"
     });
