@@ -1,6 +1,6 @@
-<div class="main" fxLayout="row">
-  <div class="container3" fxLayout="column">
-    <div class="user">
+<div class="main" fxLayout="row" fxLayout.xs="column">
+  <div class="container" fxLayout="column" [fxFlex]="getFxSize3()">
+    <div class="user" [fxFlex]="getFxSize5()">
       <mat-card class="card_user">
         <mat-card-header>
           <mat-card-title><b>Картман</b></mat-card-title>
@@ -21,7 +21,7 @@
         </mat-card-actions>
       </mat-card>
     </div>
-    <div class="chat">
+    <div class="chat" [fxFlex]="getFxSize6()">
       <p><b>Чат с психологом</b></p>
       <mat-divider></mat-divider>
       <mat-list>
@@ -30,43 +30,36 @@
         </mat-list-item>
         <mat-divider></mat-divider>
         <mat-form-field>
-          <input matInput placeholder="Введите ваше сообщение" />
+          <textarea matInput placeholder="Введите ваше сообщение"></textarea>
         </mat-form-field>
         <button mat-raised-button>Отправить</button>
       </mat-list>
     </div>
   </div>
-  <div class="info">
-    <br />
+  <div class="info" [fxFlex]="getFxSize2()">
     <p><b>О себе:</b></p>
     <div class="about">
       <p>
         Картман — избалованный, жадный, влюблённый в себя чуть ли не до
         нарциссизма, обладающий скверным характером, грязно выражающийся
         десятилетний ребёнок, страдающий ожирением; он плохо относится ко всем
-        окружающим и является крайне последовательным нацистом (единственный
-        чернокожий, к которому Картман относился нормально, — Шеф). Прототипом
-        этого героя стали: немецкий лётчик-ас Эрих Хартманн, персонаж известного
-        ситкома Арчи Банкер, а также школьный знакомый Трея Паркера по имени
-        Мэтт Карпман Картман ненавидит почти всех, особенно хиппи и евреев.
-        Любит унижать своих одноклассников: Кайла из-за религии, которую тот
-        исповедует, Кенни по причине его бедности. Безответный Баттерс часто
-        страдает от выходок Картмана. Единственным настоящим другом Эрику
-        приходится его игрушка лягушонок Клайд. Задуманный как единственный
+        окружающим и является крайне последовательным нацистом . Задуманный как единственный
         антигерой из всей четвёрки ребят, он с самого первого сезона привлекает
-        к себе большее внимание зрителей, чем оставшаяся троица. В частности, он
-        является любимым героем в сериале одного из двоих создателей шоу — Мэтта
-        Стоуна. Со временем Картман превратился в настоящего «толкача» шоу, с
+        к себе большее внимание зрителей, чем оставшаяся троица.  Со временем Картман превратился в настоящего «толкача» шоу, с
         каждой серией демонстрируя не только хитрость и изобретательность, но и
         недюжинный интеллект, далеко превосходящий возможности обычного
         четвероклассника.
       </p>
     </div>
-    <div class="container">
+    <div class="container2" fxLayout="column">
       <br />
       <p><b>Ваши события:</b></p>
-      <div fxLayout="row wrap" fxLayoutAlign="flex-start">
-        <div class="event" *ngFor="let ar of area">
+      <div
+        fxLayout="row wrap"
+        fxLayout.xs="column"
+        fxLayoutAlign="start center"
+      >
+        <div class="event" [fxFlex]="getFxSize()" *ngFor="let ar of area">
           <mat-card class="card_event">
             <mat-card-header>
               <mat-card-title
@@ -83,11 +76,11 @@
       </div>
     </div>
     <mat-divider></mat-divider>
-    <div class="container2">
-      <br />
+    <div class="container3" fxLayout="column">
       <p><b>Ваша статистика:</b></p>
-      <div class="stats" fxLayout="row">
-        <mat-card class="card_stats">
+
+      <div class="stats" fxLayout="row wrap" fxLayout.xs="column">
+        <mat-card class="card_stats" [fxFlex]="getFxSize4()">
           <mat-card-header>
             <mat-card-title><b>Активность</b></mat-card-title>
           </mat-card-header>
@@ -100,7 +93,7 @@
             <p><b>Организованно мероприятий:</b> 1</p>
           </mat-card-content>
         </mat-card>
-        <mat-card class="card_stats">
+        <mat-card class="card_stats" [fxFlex]="getFxSize4()">
           <mat-card-header>
             <mat-card-title><b>Спорт</b></mat-card-title>
           </mat-card-header>
@@ -113,7 +106,7 @@
             <p><b>Посещенно мероприятий:</b> 1</p>
           </mat-card-content>
         </mat-card>
-        <mat-card class="card_stats">
+        <mat-card class="card_stats" [fxFlex]="getFxSize4()">
           <mat-card-header>
             <mat-card-title><b>Покупки</b></mat-card-title>
           </mat-card-header>
