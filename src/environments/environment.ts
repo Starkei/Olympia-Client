@@ -3,7 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false,
+  production: true,
 
   firebaseConfig: {
     apiKey: "AIzaSyANwlhlYARVvcdu7Fr8-CoZnL7Y4kD-FKs",
@@ -11,8 +11,7 @@ export const environment = {
     databaseURL: "https://olympia-be079.firebaseio.com",
     projectId: "olympia-be079",
     storageBucket: "olympia-be079.appspot.com",
-    messagingSenderId: "784052110857",
-    production: true
+    messagingSenderId: "784052110857"
   }
 };
 
