@@ -1,5 +1,19 @@
 div {
+  width: 100%;
+
   mat-card {
-    margin-bottom: 1%;
+    margin-bottom: 3%;
+    mat-card-header {
+      height: 18%;
+      margin-bottom: 16px;
+    }
+    img {
+      object-fit: cover;
+      height: 40%;
+    }
+    mat-card-content {
+      height: 20%;
+      overflow-y: auto;
+    }
   }
 }
