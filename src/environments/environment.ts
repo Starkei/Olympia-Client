@@ -11,7 +11,8 @@ export const environment = {
     databaseURL: "https://olympia-be079.firebaseio.com",
     projectId: "olympia-be079",
     storageBucket: "olympia-be079.appspot.com",
-    messagingSenderId: "784052110857"
+    messagingSenderId: "784052110857",
+    production: true
   }
 };
 
