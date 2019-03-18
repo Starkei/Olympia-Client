@@ -24,4 +24,8 @@ export class CrowdfundingService implements Filterable {
         )
       );
   }
+
+  getAllItems(): Observable<Array<Crowdfunding>> {
+    return this.afs.collection<Crowdfunding>("crowdfunding").valueChanges();
+  }
 }

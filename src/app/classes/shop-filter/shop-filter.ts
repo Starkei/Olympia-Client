@@ -6,7 +6,7 @@ import { Product } from "../product/product";
 import { Field } from "src/app/interfaces/field";
 
 export class ShopFilter implements Filter {
-  categories: Observable<Array<Category>> = of([]);
+  categories: Observable<Array<Category>>;
   constructor(private service: ProductService) {
     this.service.getAllProducts().subscribe(
       (data: Array<Product>): void => {

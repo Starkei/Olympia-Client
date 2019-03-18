@@ -10,5 +10,6 @@ export interface Output {
   reference?: string;
   image?: string;
   type?: Array<string>;
+  usage?: Array<string>;
   getFormattedPrice?(): string;
 }
