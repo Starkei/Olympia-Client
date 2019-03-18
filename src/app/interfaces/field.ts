@@ -5,4 +5,5 @@ export interface Field {
   title?: string;
   checked?: boolean;
   innerText?: string;
+  selectItems?: Array<string>;
 }
