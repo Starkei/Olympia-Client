@@ -51,7 +51,7 @@ export class PersonalAreaComponent implements OnInit {
             this.fxSizeCont = 30;
             this.fxSizeStat = 23;
             this.fxSizeUser = 55;
-            this.fxSizeChat = 41;
+            this.fxSizeChat = 42;
             console.clear();
             console.log("Large");
           }
