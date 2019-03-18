@@ -1,9 +1,9 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { SportService } from "src/app/services/sport/sport.service";
 import { BreakpointObserver, BreakpointState } from "@angular/cdk/layout";
 import { Filter } from "src/app/interfaces/filter";
 import { SportFilter } from "src/app/classes/sport-filter/sport-filter";
-import { Sport } from "src/app/classes/sport/sport";
+import { FilterComponent } from "../filter/filter.component";
 
 @Component({
   selector: "app-sport-page",
@@ -11,6 +11,8 @@ import { Sport } from "src/app/classes/sport/sport";
   styleUrls: ["./sport-page.component.scss"]
 })
 export class SportPageComponent implements OnInit {
+  @ViewChild(FilterComponent) filterComponent: FilterComponent;
+
   filter: Filter;
   fxFlex: number = 30;
 
@@ -18,7 +20,7 @@ export class SportPageComponent implements OnInit {
     public sportService: SportService,
     private breakpointObserver: BreakpointObserver
   ) {
-    this.filter = new SportFilter();
+    this.filter = new SportFilter(this.sportService);
   }
 
   ngOnInit() {

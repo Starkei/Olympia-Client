@@ -3,7 +3,9 @@ import {
   OnInit,
   Input,
   ViewChild,
-  EventEmitter
+  EventEmitter,
+  Self,
+  ElementRef
 } from "@angular/core";
 import {
   BreakpointObserver,
@@ -14,6 +16,7 @@ import { Output } from "src/app/interfaces/output";
 import { Observable } from "rxjs";
 import { Filter } from "src/app/interfaces/filter";
 import { Filterable } from "src/app/interfaces/filterable";
+import { element } from "@angular/core/src/render3";
 
 @Component({
   selector: "app-output",
@@ -24,6 +27,12 @@ export class OutputComponent implements OnInit {
   @Input() service: Filterable;
   @Input() filter: Filter;
   @Input() update: EventEmitter<boolean>;
+  @Input() showDescription: boolean = true;
+  @Input() showAddress: boolean = false;
+  @Input() showPhoneNumbers: boolean = false;
+  @Input() showUnderground: boolean = false;
+  @Input() btnFollow: boolean = false;
+  @Input() btnLike: boolean = false;
 
   items: Observable<Array<Output>>;
   private flexSize: number = 30;
@@ -51,6 +60,17 @@ export class OutputComponent implements OnInit {
         this.items = this.service.getFilteredData(this.filter);
       });
     }
+  }
+
+  showArrayWithCommas(array: Array<any>): string {
+    let str: string = "";
+    array.forEach(
+      (value: any): void => {
+        str = str.concat(value + ", ");
+      }
+    );
+    str = str.substring(0, str.length - 2);
+    return str;
   }
 
   getFormattedFlexSize(): string {

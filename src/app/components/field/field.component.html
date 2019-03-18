@@ -10,3 +10,10 @@
 <mat-checkbox *ngIf="field.fieldType === 'checkbox'" (click)="press()">{{
   field.title
 }}</mat-checkbox>
+<mat-form-field *ngIf="field.fieldType === 'select'">
+  <mat-select placeholder="Заболевания" [(ngModel)]="field.innerText">
+    <mat-option *ngFor="let item of field.selectItems" [value]="item">
+      {{ item }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>

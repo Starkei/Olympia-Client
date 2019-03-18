@@ -8,7 +8,7 @@ export class Product implements Output {
   public price: number;
   public currency: string;
   public firm: string;
-  public type: string;
+  public type: Array<string>;
 
   constructor(product: Product) {
     this.title = product.title;
