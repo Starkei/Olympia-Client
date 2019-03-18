@@ -1,4 +1,6 @@
-<ng-container *ngIf="filter.categories && items; else elseTemplate">
+<ng-container
+  *ngIf="(!filter && items) || (filter.categories && items); else elseTemplate"
+>
   <div
     class="output"
     fxLayout="row wrap"

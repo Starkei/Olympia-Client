@@ -18,7 +18,7 @@ export class ShopComponent implements OnInit {
     public productService: ProductService,
     private breakpointObserver: BreakpointObserver
   ) {
-    this.filter = new ShopFilter();
+    this.filter = new ShopFilter(this.productService);
   }
 
   getFlex(): string {
