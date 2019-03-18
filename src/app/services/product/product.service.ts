@@ -7,6 +7,7 @@ import { AngularFirestore } from "@angular/fire/firestore";
 import * as _ from "lodash";
 import { map, filter } from "rxjs/operators";
 import { Field } from "src/app/interfaces/field";
+import { Category } from "src/app/interfaces/category";
 @Injectable({
   providedIn: "root"
 })
@@ -39,22 +40,24 @@ export class ProductService implements Filterable {
       );
   }
 
-  private configureSearch(filter: Filter): void {
-    if (filter.categories[0].fields[0].innerText)
+  public getAllProducts(): Observable<Array<Product>> {
+    return this.afs.collection<Product>("products").valueChanges();
+  }
+
+  private configureSearch(categories: Array<Category>): void {
+    if (categories[0].fields[0].innerText)
       this.searchParametrs["title"] = (val: string): boolean =>
         val
           .toUpperCase()
-          .indexOf(filter.categories[0].fields[0].innerText.toUpperCase()) >= 0;
+          .indexOf(categories[0].fields[0].innerText.toUpperCase()) >= 0;
     else {
       delete this.searchParametrs["title"];
     }
   }
 
-  private configurePrice(filter: Filter): void {
-    let from: number = Number.parseInt(
-      filter.categories[1].fields[0].innerText
-    );
-    let to: number = Number.parseInt(filter.categories[1].fields[1].innerText);
+  private configurePrice(categories: Array<Category>): void {
+    let from: number = Number.parseInt(categories[1].fields[0].innerText);
+    let to: number = Number.parseInt(categories[1].fields[1].innerText);
     if (from)
       this.filterParametrs["price"] = (val: number): boolean => val >= from;
     if (to) this.filterParametrs["price"] = (val: number): boolean => val <= to;
@@ -66,24 +69,24 @@ export class ProductService implements Filterable {
     }
   }
 
-  private configureType(filter: Filter): void {
+  private configureType(categories: Array<Category>): void {
     let types: Array<string> = [];
-    filter.categories[2].fields.forEach(
+    categories[2].fields.forEach(
       (field: Field): void => {
         if (field.checked) types.push(field.title);
       }
     );
     if (types.length != 0)
-      this.filterParametrs["type"] = (val: string): boolean =>
-        types.includes(val);
+      this.filterParametrs["type"] = (val: Array<string>): boolean =>
+        types.filter(value => val.includes(value)).length != 0;
     else {
       delete this.filterParametrs["type"];
     }
   }
 
-  private configureFirm(filter: Filter): void {
+  private configureFirm(categories: Array<Category>): void {
     let firms: Array<string> = [];
-    filter.categories[3].fields.forEach(
+    categories[3].fields.forEach(
       (field: Field): void => {
         if (field.checked) firms.push(field.title);
       }
@@ -97,10 +100,16 @@ export class ProductService implements Filterable {
   }
 
   private configureFilter(filter: Filter): void {
-    this.configureSearch(filter);
-    this.configurePrice(filter);
-    this.configureType(filter);
-    this.configureFirm(filter);
+    if (!filter.categories) return;
+    filter.categories.subscribe(
+      (categories: Array<Category>): void => {
+        if (categories.length == 0) return;
+        this.configureSearch(categories);
+        this.configurePrice(categories);
+        this.configureType(categories);
+        this.configureFirm(categories);
+      }
+    );
   }
 
   applyFilters(products: Array<Product>): Array<Product> {
