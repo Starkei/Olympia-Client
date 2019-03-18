@@ -1,4 +1,13 @@
-import { Component, OnInit, Input, ViewChild, ElementRef } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  Input,
+  ViewChild,
+  ElementRef,
+  ChangeDetectorRef,
+  Output,
+  EventEmitter
+} from "@angular/core";
 import { Filter } from "src/app/interfaces/filter";
 import {
   BreakpointObserver,
@@ -13,13 +22,21 @@ import {
 })
 export class FilterComponent implements OnInit {
   @Input() filter: Filter;
+  @Output() shouldBeUpdate: EventEmitter<boolean> = new EventEmitter<boolean>();
   @ViewChild("anchor") anchor: ElementRef;
   margin: number = 0;
   isMobile: boolean = false;
   style: any = {};
-  constructor(private breakpointObserver: BreakpointObserver) {
+  constructor(
+    private breakpointObserver: BreakpointObserver,
+    private changeDetector: ChangeDetectorRef
+  ) {
     this.style.position = "relative";
     this.style.top = "auto";
+  }
+
+  update() {
+    this.shouldBeUpdate.emit(true);
   }
 
   ngOnInit() {
@@ -28,11 +45,20 @@ export class FilterComponent implements OnInit {
         if (result.matches) this.isMobile = true;
       }
     );
+
+    this.breakpointObserver.observe(["max-width: 1000px"]).subscribe(
+      (result: BreakpointState): void => {
+        if (result.matches) this.isMobile = false;
+      }
+    );
   }
 
   setFixed(fixed: boolean): void {
     this.style.position = !this.isMobile && fixed ? "fixed" : "relative";
     this.style.top = !this.isMobile && fixed ? "71px" : "auto";
-    if (fixed) this.margin = 40;
+    if (fixed) {
+      this.margin = 40;
+      this.changeDetector.detectChanges();
+    }
   }
 }

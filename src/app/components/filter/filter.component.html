@@ -1,44 +1,40 @@
 <div *ngIf="margin !== 0" scrolling #anchor></div>
-<mat-accordion
-  [hideToggle]="!isMobile"
-  [multi]="!isMobile"
-  scrolling
-  [isShouldBeFixed]="true"
-  [fixedOnPositionY]="72"
-  (fixed)="setFixed($event)"
-  [anchor]="anchor"
-  [ngStyle]="{ position: style.position, top: style.top }"
->
-  <mat-expansion-panel [expanded]="!isMobile" [disabled]="!isMobile">
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        Поиск
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-    <div fxLayout="column">
-      <mat-form-field>
-        <input matInput type="text" placeholder="Поиск" />
-      </mat-form-field>
-      <button mat-raised-button>Найти</button>
-    </div>
-  </mat-expansion-panel>
-  <mat-expansion-panel
-    [expanded]="!isMobile"
-    [disabled]="!isMobile"
-    *ngFor="let category of filter.categories"
+
+<ng-template #elseTemplate>
+  <div class="spinner">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>
+<ng-container *ngIf="filter.categories; else elseTemplate">
+  <mat-accordion
+    [hideToggle]="!isMobile"
+    [multi]="!isMobile"
+    scrolling
+    [isShouldBeFixed]="true"
+    [fixedOnPositionY]="72"
+    (fixed)="setFixed($event)"
+    [anchor]="anchor"
+    [ngStyle]="{ position: style.position, top: style.top }"
   >
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        {{ category.title }}
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-    <div fxLayout="column">
-      <app-field
-        fxFlexOffset="3%"
-        *ngFor="let field of category.fields"
-        [field]="field"
-      >
-      </app-field>
-    </div>
-  </mat-expansion-panel>
-</mat-accordion>
+    <mat-expansion-panel
+      [expanded]="!isMobile"
+      [disabled]="!isMobile"
+      *ngFor="let category of (filter.categories | async)"
+    >
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{ category.title }}
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div fxLayout="column">
+        <app-field
+          fxFlexOffset="3%"
+          *ngFor="let field of category.fields"
+          (pressed)="update()"
+          [field]="field"
+        >
+        </app-field>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+</ng-container>

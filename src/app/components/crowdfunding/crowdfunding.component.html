@@ -7,10 +7,14 @@
       fxLayout.xs="column"
       fxLayoutAlign="start sctretch"
     >
-      <app-filter fxFlexOffset="3%" [filter]="filter"></app-filter>
+      <app-filter fxFlexOffset="3%" fxFlex="23%" [filter]="filter"></app-filter>
       <app-output
+        fxFlex="73%"
         fxFlexOffset="3%"
-        [items]="crowdfundingService.getActions()"
+        [service]="crowdfundingService"
+        [filter]="filter"
+        [btnLike]="true"
+        [btnFollow]="true"
       ></app-output>
     </div>
   </div>
