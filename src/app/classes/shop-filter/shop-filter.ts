@@ -1,24 +1,26 @@
 import { Filter } from "src/app/interfaces/filter";
 import { Category } from "src/app/interfaces/category";
+import { of, Observable } from "rxjs";
 
 export class ShopFilter implements Filter {
-  categories: Array<Category> = [];
+  categories: Observable<Array<Category>> = of([]);
   constructor() {
-    this.categories.push({
+    let categories: Array<Category> = [];
+    categories.push({
       fields: [
         { fieldType: "input", inputPlaceHolder: "Поиск", inputType: "text" }
       ],
       title: "Поиск"
     });
 
-    this.categories.push({
+    categories.push({
       fields: [
         { fieldType: "input", inputPlaceHolder: "от", inputType: "number" },
         { fieldType: "input", inputPlaceHolder: "до", inputType: "number" }
       ],
       title: "Цена"
     });
-    this.categories.push({
+    categories.push({
       fields: [
         { fieldType: "checkbox", title: "Питание", checked: false },
         { fieldType: "checkbox", title: "Одежда", checked: false },
@@ -32,7 +34,7 @@ export class ShopFilter implements Filter {
       ],
       title: "Тип"
     });
-    this.categories.push({
+    categories.push({
       fields: [
         { fieldType: "checkbox", title: "Adidas", checked: false },
         { fieldType: "checkbox", title: "Nike", checked: false },
@@ -41,5 +43,7 @@ export class ShopFilter implements Filter {
       ],
       title: "Фирма"
     });
+
+    this.categories = of(categories);
   }
 }
