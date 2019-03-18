@@ -1,6 +1,12 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { MatButtonModule } from "@angular/material";
+import {
+  MatButtonModule,
+  MatExpansionModule,
+  MatCheckboxModule,
+  MatPaginatorModule,
+  MatPaginatorIntl
+} from "@angular/material";
 import { MatCardModule } from "@angular/material/card";
 import { MatDividerModule } from "@angular/material/divider";
 import { MatToolbarModule } from "@angular/material/toolbar";
@@ -12,9 +18,11 @@ import { MatIconModule } from "@angular/material/icon";
 import { LayoutModule } from "@angular/cdk/layout";
 import { MatTableModule } from "@angular/material/table";
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
-import { MatExpansionModule } from "@angular/material/expansion";
 import { MatRadioModule } from "@angular/material/radio";
 import { MatStepperModule } from "@angular/material/stepper";
+import { MatDatepickerModule } from "@angular/material/datepicker";
+import {MatTabsModule} from '@angular/material/tabs';
+import { MatMomentDateModule } from "@angular/material-moment-adapter";
 
 @NgModule({
   declarations: [],
@@ -29,12 +37,27 @@ import { MatStepperModule } from "@angular/material/stepper";
     MatSidenavModule,
     MatIconModule,
     MatListModule,
-    LayoutModule,
-    MatTableModule,
     MatSlideToggleModule,
-    MatExpansionModule,
     MatRadioModule,
-    MatStepperModule
+    MatStepperModule,
+    MatExpansionModule,
+    MatCheckboxModule,
+    MatTableModule,
+    MatPaginatorModule,
+    LayoutModule,
+    MatDatepickerModule,
+    MatMomentDateModule,
+    MatTabsModule
+  ],
+  providers: [
+    {
+      provide: MatPaginatorIntl,
+      useFactory: (): MatPaginatorIntl => {
+        const paginator: MatPaginatorIntl = new MatPaginatorIntl();
+        paginator.itemsPerPageLabel = "Элементов на страницу";
+        return paginator;
+      }
+    }
   ]
 })
 export class MaterialModule {}

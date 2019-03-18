@@ -1,0 +1,10 @@
+<mat-form-field *ngIf="field.fieldType === 'input'">
+  <input
+    matInput
+    [type]="field.inputType"
+    [placeholder]="field.inputPlaceHolder"
+  />
+</mat-form-field>
+<mat-checkbox *ngIf="field.fieldType === 'checkbox'">{{
+  field.title
+}}</mat-checkbox>

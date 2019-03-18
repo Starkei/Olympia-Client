@@ -1,67 +1,157 @@
 <app-banner image="assets/images/au1.jpg"></app-banner>
-<!-- <div class="label">Питание</div> -->
-<div
-  class="container"
-  fxLayout="column"
-  fxLayout.xs="column"
-  fxLayoutAlign="space-evenly stretch"
->
-  <div class="label">Регистрация</div>
-  <mat-card>
-    <mat-vertical-stepper>
-      <mat-step label="Данные">
-        <form class="example-form">
-          <mat-form-field class="example-full-width">
-            <input matInput placeholder="Логин" />
-          </mat-form-field>
-          <mat-form-field class="example-full-width">
-            <input matInput placeholder="Пароль" />
-          </mat-form-field>
-          <mat-form-field class="example-full-width">
-            <input matInput placeholder="Email" />
-          </mat-form-field>
-          <mat-form-field class="example-full-width">
-            <input matInput placeholder="Дата вашего рождения" />
-          </mat-form-field>
-          <div class="sex">
-            <mat-radio-group>
-              <h4>Ваш пол</h4>
-              <mat-radio-button value="1"> Мужчина </mat-radio-button>
-              <mat-radio-button value="2"> Женщина </mat-radio-button>
-            </mat-radio-group>
-          </div>
-          <mat-form-field class="example-full-width">
-            <span matPrefix>+375 &nbsp;</span>
-            <input type="tel" matInput placeholder="Телефон" />
-            <mat-icon matSuffix>mode_edit</mat-icon>
-          </mat-form-field>
-        </form>
-
-        <div><button mat-button matStepperNext>Next</button></div>
-      </mat-step>
-      <mat-step label="Юридические данные">
-        <form class="example-form">
-          <mat-form-field class="example-full-width">
-            <input matInput placeholder="Название компании" />
-          </mat-form-field>
-          <p>
+<div class="container" fxLayout="row" fxLayoutAlign="space-evenly center">
+  <mat-tab-group
+    dynamicHeight
+    [selectedIndex]="selected.value"
+    (selectedIndexChange)="selected.setValue($event)"
+  >
+    <mat-tab label="Авторизация">
+      <div>
+        <mat-card fxFlex="100%">
+          <mat-card-title>
+            <div class="label">Авторизация</div>
+          </mat-card-title>
+          <form>
             <mat-form-field class="example-full-width">
-              <textarea matInput placeholder="Юридический адрес"> </textarea>
+              <input matInput placeholder="Логин" />
             </mat-form-field>
-          </p>
-        </form>
-        <div>
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-button matStepperNext>Next</button>
-        </div>
-      </mat-step>
-      <mat-step label="Подтверждение">
-        На ваш почтовый ящик было отправлено сообщение с подтверждением
-        регистрации.
-        <div>
-          <button mat-button matStepperPrevious>Back</button>
-        </div>
-      </mat-step>
-    </mat-vertical-stepper>
-  </mat-card>
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Пароль" type="password" />
+            </mat-form-field>
+          </form>
+          <div>
+            <p mat-raised-button (click)="registration()">
+              Регистрация
+            </p>
+            <a>Забыл пароль</a>
+          </div>
+          <button mat-raised-button color="primary">
+            Войти
+          </button>
+          <div fxLayout="row" fxLayoutAlign="space-evenly center">
+            <div
+              (click)="isClicked = !isClicked"
+              [@bounce]="isClicked ? 'in' : 'on'"
+            >
+              <img
+                class="logo-image"
+                src="https://image.flaticon.com/icons/svg/145/145804.svg"
+                (click)="auth.googleLogin()"
+              />
+            </div>
+            <img
+              class="logo-image"
+              src="https://image.flaticon.com/icons/svg/179/179342.svg"
+              (click)="auth.twitterLogin()"
+            />
+            <img
+              class="logo-image"
+              src="https://image.flaticon.com/icons/svg/179/179319.svg"
+              (click)="auth.facebookLogin()"
+            />
+          </div>
+        </mat-card>
+      </div>
+    </mat-tab>
+    <mat-tab label="Регистрация">
+      <div>
+        <mat-card fxFlex="100%">
+          <mat-card-title>
+            <div class="label">Регистрация</div>
+          </mat-card-title>
+          <mat-vertical-stepper>
+            <mat-step label="Данные">
+              <form class="example-form">
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="Логин" />
+                </mat-form-field>
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="Пароль" />
+                </mat-form-field>
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="Email" />
+                </mat-form-field>
+                <mat-form-field class="example-full-width">
+                  <input
+                    matInput
+                    [min]="minDate"
+                    [max]="maxDate"
+                    [matDatepicker]="picker"
+                    placeholder="Дата вашего рождения"
+                  />
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="picker"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+                <div class="sex">
+                  <mat-radio-group>
+                    <h4>Ваш пол</h4>
+                    <mat-radio-button value="1"> Мужчина </mat-radio-button>
+                    <mat-radio-button value="2"> Женщина </mat-radio-button>
+                  </mat-radio-group>
+                </div>
+                <mat-form-field class="example-full-width">
+                  <span matPrefix>+375 &nbsp;</span>
+                  <input type="tel" matInput placeholder="Телефон" />
+                  <mat-icon matSuffix>mode_edit</mat-icon>
+                </mat-form-field>
+              </form>
+
+              <div><button mat-button matStepperNext>Вперёд</button></div>
+            </mat-step>
+            <mat-step label="Юридические данные">
+              <form class="example-form">
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="Название компании" />
+                </mat-form-field>
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="Деятельность компании" />
+                </mat-form-field>
+                <p>
+                  <mat-form-field class="example-full-width">
+                    <textarea matInput placeholder="Юридический адрес">
+                    </textarea>
+                  </mat-form-field>
+                </p>
+              </form>
+              <div>
+                <button mat-button matStepperPrevious>Назад</button>
+                <button mat-button matStepperNext>Вперёд</button>
+              </div>
+            </mat-step>
+            <mat-step label="Подтверждение">
+              На ваш почтовый ящик было отправлено сообщение с подтверждением
+              регистрации.
+              <div>
+                <button mat-button matStepperPrevious>Назад</button>
+              </div>
+            </mat-step>
+          </mat-vertical-stepper>
+        </mat-card>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
 </div>
+
+<!-- <div *ngIf="(auth.user | async); then authenticated; else guest"></div>
+
+<ng-template #guest>
+  <h3>Привет, Гость</h3>
+  <p>Авторизируйтесь чтобы начать</p>
+
+  <button (click)="auth.googleLogin()">
+    Войти через гугл
+  </button>
+</ng-template>
+
+<ng-template #authenticated>
+  <div *ngIf="(auth.user | async) as user">
+    <h3>Привет, {{ user.displayName }}</h3>
+    <img [src]="user.photoURL" style="width:2vh" />
+    Теперь вы можете перейти в личный кабинет
+    <button mat-button routerLink="/area">Личный кабинет</button>
+    <button (click)="auth.signOut()">Выйти</button>
+  </div>
+</ng-template> -->

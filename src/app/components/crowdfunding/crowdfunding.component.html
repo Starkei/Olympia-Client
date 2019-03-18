@@ -1,37 +1,17 @@
 <app-banner image="assets/images/crowdfunding.jpg"></app-banner>
 <div>
   <div class="container">
-    <div class="search">
-      <mat-form-field>
-        <input matInput placeholder="Введите название продукта" />
-      </mat-form-field>
-      <button mat-raised-button>Найти</button>
-    </div>
     <div
       class="output"
-      fxLayout="row wrap"
+      fxLayout="row"
       fxLayout.xs="column"
-      fxLayoutAlign="start stretch"
+      fxLayoutAlign="start sctretch"
     >
-      <mat-card
-        *ngFor="let action of crowdfundingActions; let i = index"
-        [fxFlex]="getFlex()"
+      <app-filter fxFlexOffset="3%" [filter]="filter"></app-filter>
+      <app-output
         fxFlexOffset="3%"
-      >
-        <mat-card-header>
-          <mat-card-title>{{ action.title }}</mat-card-title>
-          <mat-card-subtitle>{{ getPriceString(i) }}</mat-card-subtitle>
-        </mat-card-header>
-        <img mat-card-image [src]="action.image" alt="Photo of Eat" />
-        <mat-card-content>{{ action.description }} </mat-card-content>
-        <mat-card-actions>
-          <button mat-raised-button color="primary">Перейти</button>
-          <button mat-raised-button color="primary">
-            <mat-icon>favorite</mat-icon> Понравилось!
-          </button>
-        </mat-card-actions>
-      </mat-card>
+        [items]="crowdfundingService.getActions()"
+      ></app-output>
     </div>
   </div>
-  <div class="filter"></div>
 </div>

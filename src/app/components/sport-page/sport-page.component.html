@@ -1,18 +1,15 @@
 <app-banner image="assets/images/sport.jpg"></app-banner>
-<div
-  class="container"
-  fxLayout="row wrap"
-  fxLayout.xs="column"
-  fxLayoutAlign="start stretch"
->
-  <mat-card *ngFor="let sport of sports" [fxFlex]="getFlex()" fxFlexOffset="3%">
-    <mat-card-header>
-      <mat-card-title>{{ sport.name }}</mat-card-title>
-    </mat-card-header>
-    <img mat-card-image [src]="sport.image" alt="Sport" />
-    <mat-card-content>{{ sport.description }}</mat-card-content>
-    <mat-card-actions>
-      <button mat-raised-button color="primary">Подробнее</button>
-    </mat-card-actions>
-  </mat-card>
+<div fxLayout="column">
+  <div
+    class="container"
+    fxLayout="row"
+    fxLayout.xs="column"
+    fxLayoutAlign="center stretch"
+  >
+    <app-filter fxFlexOffset="3%" [filter]="filter"></app-filter>
+    <app-output
+      fxFlexOffset="3%"
+      [items]="sportService.getSports()"
+    ></app-output>
+  </div>
 </div>

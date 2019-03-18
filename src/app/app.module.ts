@@ -21,8 +21,15 @@ import { MenuItemService } from "./services/menu-item/menu-item.service";
 import { PersonalAreaComponent } from "./components/personal-area/personal-area.component";
 import { BannerComponent } from "./components/banner/banner.component";
 import { SportPageComponent } from "./components/sport-page/sport-page.component";
-import { RegistrationComponent } from './components/registration/registration.component';
-
+import { RegistrationComponent } from "./components/registration/registration.component";
+import { FilterComponent } from "./components/filter/filter.component";
+import { OutputComponent } from "./components/output/output.component";
+import { FieldComponent } from "./components/field/field.component";
+import { ScrollingDirective } from "./directives/scrolling/scrolling.directive";
+import { AuthService } from "./services/core/auth.service";
+import { AngularFireModule } from "@angular/fire";
+import { environment } from "../environments/environment";
+import { AngularFireAuthModule } from "@angular/fire/auth";
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,20 +45,28 @@ import { RegistrationComponent } from './components/registration/registration.co
     CarAboutEatComponent,
     BannerComponent,
     SportPageComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    FilterComponent,
+    OutputComponent,
+    FieldComponent,
+    ScrollingDirective
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,
-    OthersModule
+    OthersModule,
+    BrowserModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAuthModule
   ],
   providers: [
     MenuItemService,
     NewsService,
     ProductService,
-    CrowdfundingComponent
+    CrowdfundingComponent,
+    AuthService
   ],
   bootstrap: [AppComponent]
 })

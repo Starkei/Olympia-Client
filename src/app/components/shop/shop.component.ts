@@ -1,7 +1,8 @@
 import { Component, OnInit } from "@angular/core";
-import { Product } from "src/app/interfaces/product";
 import { ProductService } from "src/app/services/product/product.service";
 import { BreakpointObserver, BreakpointState } from "@angular/cdk/layout";
+import { Filter } from "src/app/interfaces/filter";
+import { ShopFilter } from "src/app/classes/shop-filter/shop-filter";
 
 @Component({
   selector: "app-shop",
@@ -9,17 +10,13 @@ import { BreakpointObserver, BreakpointState } from "@angular/cdk/layout";
   styleUrls: ["./shop.component.scss"]
 })
 export class ShopComponent implements OnInit {
-  products: Array<Product> = [];
+  filter: Filter;
   fxFlex: number = 30;
   constructor(
     private productService: ProductService,
     private breakpointObserver: BreakpointObserver
   ) {
-    this.products = productService.getProducts();
-  }
-
-  getFormatingPrice(index: number): string {
-    return `Цена: ${this.products[index].price}$`;
+    this.filter = new ShopFilter();
   }
 
   getFlex(): string {
