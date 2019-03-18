@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { Field } from "src/app/interfaces/field";
 
 @Component({
@@ -9,7 +9,15 @@ import { Field } from "src/app/interfaces/field";
 export class FieldComponent implements OnInit {
   @Input() field: Field;
 
+  @Output() pressed: EventEmitter<boolean> = new EventEmitter<boolean>();
+
   constructor() {}
 
   ngOnInit() {}
+
+  press(): void {
+    if (this.field.fieldType == "checkbox")
+      this.field.checked = !this.field.checked;
+    this.pressed.emit(true);
+  }
 }

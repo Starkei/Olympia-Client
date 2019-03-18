@@ -16,10 +16,10 @@ export class CrowdfundingComponent implements OnInit {
   }
 
   constructor(
-    private crowdfundingService: CrowdfundingService,
+    public crowdfundingService: CrowdfundingService,
     private breakpointObserver: BreakpointObserver
   ) {
-    this.filter = new CrowdfundingFilter();
+    this.filter = new CrowdfundingFilter(this.crowdfundingService);
   }
 
   ngOnInit() {

@@ -23,6 +23,8 @@ import { MatStepperModule } from "@angular/material/stepper";
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import {MatTabsModule} from '@angular/material/tabs';
 import { MatMomentDateModule } from "@angular/material-moment-adapter";
+import { MatSelectModule } from "@angular/material/select";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 
 @NgModule({
   declarations: [],
@@ -43,11 +45,13 @@ import { MatMomentDateModule } from "@angular/material-moment-adapter";
     MatExpansionModule,
     MatCheckboxModule,
     MatTableModule,
+    MatSelectModule,
     MatPaginatorModule,
-    LayoutModule,
     MatDatepickerModule,
     MatMomentDateModule,
-    MatTabsModule
+    MatTabsModule,
+    MatProgressSpinnerModule,
+    LayoutModule
   ],
   providers: [
     {

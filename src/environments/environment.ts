@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  firebase: {
+
+  firebaseConfig: {
     apiKey: "AIzaSyANwlhlYARVvcdu7Fr8-CoZnL7Y4kD-FKs",
     authDomain: "olympia-be079.firebaseapp.com",
     databaseURL: "https://olympia-be079.firebaseio.com",
