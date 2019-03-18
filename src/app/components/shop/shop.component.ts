@@ -1,8 +1,9 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { ProductService } from "src/app/services/product/product.service";
 import { BreakpointObserver, BreakpointState } from "@angular/cdk/layout";
 import { Filter } from "src/app/interfaces/filter";
 import { ShopFilter } from "src/app/classes/shop-filter/shop-filter";
+import { FilterComponent } from "../filter/filter.component";
 
 @Component({
   selector: "app-shop",
@@ -10,10 +11,11 @@ import { ShopFilter } from "src/app/classes/shop-filter/shop-filter";
   styleUrls: ["./shop.component.scss"]
 })
 export class ShopComponent implements OnInit {
+  @ViewChild(FilterComponent) filterComponent: FilterComponent;
   filter: Filter;
   fxFlex: number = 30;
   constructor(
-    private productService: ProductService,
+    public productService: ProductService,
     private breakpointObserver: BreakpointObserver
   ) {
     this.filter = new ShopFilter();

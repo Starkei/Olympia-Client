@@ -3,8 +3,10 @@
     matInput
     [type]="field.inputType"
     [placeholder]="field.inputPlaceHolder"
+    (keyup)="press()"
+    [(ngModel)]="field.innerText"
   />
 </mat-form-field>
-<mat-checkbox *ngIf="field.fieldType === 'checkbox'">{{
+<mat-checkbox *ngIf="field.fieldType === 'checkbox'" (click)="press()">{{
   field.title
 }}</mat-checkbox>

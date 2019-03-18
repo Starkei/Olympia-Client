@@ -4,7 +4,7 @@ export class Training implements Output {
   constructor(
     public title: string,
     public description: string,
-    public imagePath: string,
+    public image: string,
     public moreInfo: string,
     public price: number,
     public leader: string,

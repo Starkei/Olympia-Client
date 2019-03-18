@@ -3,8 +3,8 @@ export interface Output {
   description?: string;
   moreInfo?: string;
   price?: number;
-  imagePath?: string;
+  image?: string;
   leader?: string;
 
-  getFormattedPrice(): string;
+  getFormattedPrice?(): string;
 }
