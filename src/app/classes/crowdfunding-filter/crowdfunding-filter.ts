@@ -1,11 +1,13 @@
 import { Filter } from "src/app/interfaces/filter";
 import { Category } from "src/app/interfaces/category";
+import { of, Observable } from "rxjs";
 
 export class CrowdfundingFilter implements Filter {
-  categories: Array<Category> = [];
+  categories: Observable<Array<Category>> = of([]);
 
   constructor() {
-    this.categories.push({
+    let categories: Array<Category> = [];
+    categories.push({
       title: "Клубы и секции",
       fields: [
         { fieldType: "checkbox", title: "Единоборства" },
@@ -13,14 +15,14 @@ export class CrowdfundingFilter implements Filter {
         { fieldType: "checkbox", title: "Танцы" }
       ]
     });
-    this.categories.push({
+    categories.push({
       title: "Питание",
       fields: [
         { fieldType: "checkbox", title: "Энергитические добавки" },
         { fieldType: "checkbox", title: "Низкоколорийная еда" }
       ]
     });
-    this.categories.push({
+    categories.push({
       title: "Магазин спорт товаров",
       fields: [
         { fieldType: "checkbox", title: "Одежда" },
@@ -28,5 +30,7 @@ export class CrowdfundingFilter implements Filter {
         { fieldType: "checkbox", title: "Мебель" }
       ]
     });
+
+    this.categories = of(categories);
   }
 }
