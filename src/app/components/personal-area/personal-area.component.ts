@@ -18,8 +18,7 @@ export class PersonalAreaComponent implements OnInit {
     "Message2",
     "Message3",
     "Message4",
-    "Message5",
-    "Message6"
+    "Message5"
   ];
   area: Array<Personal_Area> = [];
   private fxSizeEvent: number = 0;
@@ -50,18 +49,18 @@ export class PersonalAreaComponent implements OnInit {
             this.fxSizeInfo = 100;
             this.fxSizeCont = 30;
             this.fxSizeStat = 23;
-            this.fxSizeUser = 55;
+            this.fxSizeUser = 58;
             this.fxSizeChat = 42;
             console.clear();
             console.log("Large");
           }
           if (result.breakpoints[Breakpoints.Medium]) {
-            this.fxSizeEvent = 28;
+            this.fxSizeEvent = 29;
             this.fxSizeInfo = 90;
             this.fxSizeCont = 42;
             this.fxSizeStat = 40;
-            this.fxSizeUser = 44;
-            this.fxSizeChat = 32;
+            this.fxSizeUser = 50;
+            this.fxSizeChat = 36;
             console.clear();
             console.log("Medium");
           }
@@ -70,8 +69,8 @@ export class PersonalAreaComponent implements OnInit {
             this.fxSizeInfo = 85;
             this.fxSizeCont = 45;
             this.fxSizeStat = 40;
-            this.fxSizeUser = 40;
-            this.fxSizeChat = 30;
+            this.fxSizeUser = 45;
+            this.fxSizeChat = 36;
             console.clear();
             console.log("Small");
           }
