@@ -1,29 +1,11 @@
 div {
-  display: flex;
-  flex-direction: row;
   min-height: 100%;
-
   div.container {
-    display: flex;
-    flex-direction: column;
-    width: 95%;
-    margin: 1.5% auto;
-    div.search {
+    width: 90%;
+    margin: auto;
+    div {
       width: 100%;
-      mat-form-field {
-        width: 100%;
-      }
-      button {
-        margin-left: 2%;
-        height: 60%;
-      }
-    }
-    div.output {
-      margin-top: 2%;
-      max-height: none !important;
-      mat-card {
-        margin-bottom: 3%;
-      }
+      margin-top: 3%;
     }
   }
 }
