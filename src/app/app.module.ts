@@ -24,7 +24,7 @@ import { FilterComponent } from "./components/filter/filter.component";
 import { OutputComponent } from "./components/output/output.component";
 import { FieldComponent } from "./components/field/field.component";
 import { ScrollingDirective } from "./directives/scrolling/scrolling.directive";
-import { AuthService } from "./services/core/auth.service";
+import { AuthService } from "./services/auth/Auth.service";
 
 import { AngularFireAuthModule } from "@angular/fire/auth";
 import { AngularFireModule } from "@angular/fire";
@@ -32,7 +32,7 @@ import { AngularFirestoreModule } from "@angular/fire/firestore";
 
 import { environment } from "../environments/environment";
 import { TextLengthPipe } from "./pipes/text-length/text-length.pipe";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 export const firebaseConfig = environment.firebaseConfig;
 
@@ -66,7 +66,8 @@ export const firebaseConfig = environment.firebaseConfig;
     BrowserModule,
     FormsModule,
     AngularFireModule.initializeApp(firebaseConfig),
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    ReactiveFormsModule
   ],
 
   providers: [NewsService, ProductService, CrowdfundingComponent, AuthService],

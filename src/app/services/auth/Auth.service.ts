@@ -1,23 +1,15 @@
 import { Injectable } from "@angular/core";
-import { Router } from "@angular/router";
-
+import { Router, RouterLink } from "@angular/router";
 import { auth } from "firebase/app";
 import { AngularFireAuth } from "@angular/fire/auth";
 import {
   AngularFirestore,
   AngularFirestoreDocument
 } from "@angular/fire/firestore";
-
 import { Observable, of } from "rxjs";
 import { switchMap } from "rxjs/operators";
-
-interface User {
-  uid: string;
-  email: string;
-  photoURL?: string;
-  displayName?: string;
-  favoriteColor?: string;
-}
+import { User } from "src/app/interfaces/auth";
+import * as firebase from "firebase/app";
 @Injectable({
   providedIn: "root"
 })
@@ -40,33 +32,36 @@ export class AuthService {
     );
   }
 
-  googleLogin() {
+  googleLogin(): Promise<void> {
     const provider = new auth.GoogleAuthProvider();
     return this.oAuthLogin(provider);
   }
-
-  facebookLogin() {
+  facebookLogin(): Promise<void> {
     const provider = new auth.FacebookAuthProvider();
     return this.oAuthLogin(provider);
   }
-  twitterLogin() {
+  twitterLogin(): Promise<void> {
     const provider = new auth.TwitterAuthProvider();
     return this.oAuthLogin(provider);
   }
 
-  private oAuthLogin(provider) {
+  Login(): Promise<void> {
+    const provider = new auth.EmailAuthProvider();
+    return this.oAuthLogin(provider);
+  }
+
+  private oAuthLogin(provider: any): Promise<void> {
     return this.afAuth.auth.signInWithPopup(provider).then(credential => {
       this.updateUserData(credential.user);
     });
   }
 
-  private updateUserData(user) {
+  private updateUserData(user: any): Promise<void> {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(
       `users/${user.uid}`
     );
 
     const data: User = {
-      uid: user.uid,
       email: user.email,
       displayName: user.displayName,
       photoURL: user.photoURL
@@ -74,8 +69,33 @@ export class AuthService {
 
     return userRef.set(data, { merge: true });
   }
-
-  signOut() {
+  doRegister(value: any): Promise<void> {
+    return new Promise<any>((resolve, reject) => {
+      firebase
+        .auth()
+        .createUserWithEmailAndPassword(value.email, value.password)
+        .then(
+          res => {
+            resolve(res);
+          },
+          err => reject(err)
+        );
+    });
+  }
+  login(value: any): Promise<void> {
+    return new Promise<any>((resolve, reject) => {
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(value.email, value.password)
+        .then(
+          res => {
+            resolve(this.router.navigate(["/area"]));
+          },
+          err => reject(err)
+        );
+    });
+  }
+  signOut(): void {
     this.afAuth.auth.signOut().then(() => {
       this.router.navigate(["/"]);
     });
