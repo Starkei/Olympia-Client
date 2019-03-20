@@ -29,6 +29,7 @@ import { AngularFirestoreModule } from "@angular/fire/firestore";
 import { environment } from "../environments/environment";
 import { TextLengthPipe } from "./pipes/text-length/text-length.pipe";
 import { FormsModule } from "@angular/forms";
+import { OutputDetailsComponent } from './components/output-details/output-details.component';
 
 export const firebaseConfig = environment.firebaseConfig;
 
@@ -50,7 +51,8 @@ export const firebaseConfig = environment.firebaseConfig;
     OutputComponent,
     FieldComponent,
     ScrollingDirective,
-    TextLengthPipe
+    TextLengthPipe,
+    OutputDetailsComponent
   ],
   imports: [
     BrowserModule,

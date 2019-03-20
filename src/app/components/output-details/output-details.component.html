@@ -1,0 +1,69 @@
+<app-banner image="assets/images/forest.jpg"></app-banner>
+<div class="main">
+  <div class="container">
+    <ng-container *ngIf="output; else elseTemplate">
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start stretch">
+        <div fxFlexOffset="3%">
+          <mat-card class="main-image">
+            <img [src]="output.image" alt="" mat-card-image />
+          </mat-card>
+        </div>
+        <div fxLayout="column" fxFlexOffset="3%">
+          <mat-card>
+            <mat-card-header>
+              <mat-card-title>
+                {{ output.title }}
+              </mat-card-title>
+              <mat-card-subtitle>
+                {{ output.price }} {{ output.currency }}
+              </mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+              <p><b>Описание</b>: {{ output.description }}</p>
+              <p><b>Фирма</b>: {{ output.firm }}</p>
+            </mat-card-content>
+          </mat-card>
+          <mat-card>
+            <mat-card-header>
+              <img mat-card-avatar [src]="output.image" />
+              <mat-card-subtitle>
+                <p>
+                  При нажатии на кнопку купить вы перейдете на страницу продавца
+                </p>
+              </mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-actions align="start">
+              <button mat-raised-button color="primary">
+                Купить
+              </button>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+      </div>
+
+      <div
+        class="adware"
+        fxLayout="row"
+        fxLayout.xs="column"
+        fxLayoutAlign="start stretch"
+      >
+        <mat-card *ngFor="let item of adware" fxFlexOffset="3%">
+          <mat-card-header>
+            <mat-card-title>
+              {{ item.title | textLength: 30 }}
+            </mat-card-title>
+          </mat-card-header>
+          <img [src]="item.image" alt="" mat-card-image />
+          <mat-card-actions>
+            <button mat-raised-button color="primary">Перейти</button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </ng-container>
+    <ng-template #elseTemplate>
+      <div>
+        <mat-spinner></mat-spinner>
+      </div>
+    </ng-template>
+  </div>
+</div>

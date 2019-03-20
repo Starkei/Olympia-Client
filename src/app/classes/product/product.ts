@@ -1,6 +1,7 @@
 import { Output } from "src/app/interfaces/output";
 
 export class Product implements Output {
+  public id: string;
   public title: string;
   public description: string;
   public image: string;
@@ -19,6 +20,7 @@ export class Product implements Output {
     this.price = product.price;
     this.firm = product.firm;
     this.type = product.type;
+    this.id = product.id;
   }
 
   public getFormattedPrice(): string {

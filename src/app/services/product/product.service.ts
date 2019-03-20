@@ -8,6 +8,7 @@ import * as _ from "lodash";
 import { map, filter } from "rxjs/operators";
 import { Field } from "src/app/interfaces/field";
 import { Category } from "src/app/interfaces/category";
+import { Output } from "src/app/interfaces/output";
 @Injectable({
   providedIn: "root"
 })
@@ -17,6 +18,27 @@ export class ProductService implements Filterable {
 
   getFilteredData(filter: Filter): Observable<Array<Product>> {
     this.configureFilter(filter);
+    return this.afs
+      .collection<Product>("products")
+      .snapshotChanges()
+      .pipe(
+        map(actions => {
+          return actions.map(a => {
+            const data = a.payload.doc.data() as Output;
+            const id = a.payload.doc.id;
+            data.id = id;
+            const product = new Product(data as Product);
+            return product;
+          });
+        })
+      )
+      .pipe(
+        map(
+          (products: Array<Product>): Array<Product> => {
+            return this.applyFilters(products);
+          }
+        )
+      );
     return this.afs
       .collection<Product>("products")
       .valueChanges()

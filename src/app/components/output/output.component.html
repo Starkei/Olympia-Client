@@ -30,7 +30,12 @@
         <p *ngIf="showUnderground"><b>Метро: </b>{{ item.underground }}</p>
       </mat-card-content>
       <mat-card-actions>
-        <button mat-raised-button *ngIf="btnFollow" color="primary">
+        <button
+          mat-raised-button
+          *ngIf="btnFollow"
+          color="primary"
+          (click)="follow(item)"
+        >
           Перейти
         </button>
         <button mat-raised-button *ngIf="btnLike" color="primary">
