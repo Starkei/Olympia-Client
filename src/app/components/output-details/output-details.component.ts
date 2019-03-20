@@ -46,6 +46,9 @@ export class OutputDetailsComponent implements OnInit {
       .snapshotChanges()
       .pipe(
         map(actions => {
+          actions = actions.filter(
+            val => val.payload.doc.data().title != this.output.title
+          );
           return actions.map(action => {
             let data = action.payload.doc.data();
             let id = action.payload.doc.id;

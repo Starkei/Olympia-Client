@@ -8,7 +8,7 @@
             <img [src]="output.image" alt="" mat-card-image />
           </mat-card>
         </div>
-        <div fxLayout="column" fxFlexOffset="3%">
+        <div fxLayout="column" fxFlexOffset="3%" fxFlex="33%">
           <mat-card>
             <mat-card-header>
               <mat-card-title>
@@ -47,7 +47,8 @@
               <img mat-card-avatar [src]="output.image" />
               <mat-card-subtitle>
                 <p>
-                  При нажатии на кнопку купить вы перейдете на страницу продавца
+                  При нажатии на кнопку "перейти" вы перейдете на страницу
+                  продавца
                 </p>
               </mat-card-subtitle>
             </mat-card-header>
@@ -58,7 +59,7 @@
                 color="primary"
                 [href]="getLink(output.reference)"
               >
-                Купить
+                Перейти
               </a>
             </mat-card-actions>
           </mat-card>
