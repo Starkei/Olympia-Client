@@ -3,6 +3,8 @@ import { Output } from "src/app/interfaces/output";
 import { ActivatedRoute, Router, ParamMap } from "@angular/router";
 import { AngularFirestore } from "@angular/fire/firestore";
 import * as _ from "lodash";
+import { map } from "rxjs/operators";
+import { Observable } from "rxjs";
 
 @Component({
   selector: "app-output-details",
@@ -11,7 +13,8 @@ import * as _ from "lodash";
 })
 export class OutputDetailsComponent implements OnInit {
   output: Output;
-  adware: Array<Output>;
+  adware: Observable<Array<Output>>;
+  collection: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -20,6 +23,7 @@ export class OutputDetailsComponent implements OnInit {
   ) {
     this.route.paramMap.subscribe(
       (data: ParamMap): void => {
+        this.collection = data.get("collection");
         this.afs
           .collection<Output>(data.get("collection"))
           .doc(data.get("uid"))
@@ -39,13 +43,30 @@ export class OutputDetailsComponent implements OnInit {
       .collection<Output>(collection, ref => {
         return ref.where("type", "==", this.output.type).limit(5);
       })
-      .valueChanges()
-      .subscribe(
-        (data: Array<Output>): void => {
-          data = _.filter(data, value => value.title != this.output.title);
-          this.adware = data;
-        }
-      );
+      .snapshotChanges()
+      .pipe(
+        map(actions => {
+          return actions.map(action => {
+            let data = action.payload.doc.data();
+            let id = action.payload.doc.id;
+            data.id = id;
+            return { id, ...data } as Output;
+          });
+        })
+      )
+      .pipe(data => (this.adware = data));
+  }
+
+  getLink(url: string): string {
+    return "http://" + url;
+  }
+
+  follow(item: Output): void {
+    console.log(item);
+    this.router.navigate([
+      "output-details",
+      { uid: item.id, collection: this.collection }
+    ]);
   }
 
   ngOnInit() {}

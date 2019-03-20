@@ -5,6 +5,7 @@ import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
 import { AngularFirestore } from "@angular/fire/firestore";
 import { Filter } from "src/app/interfaces/filter";
+import { Output } from "src/app/interfaces/output";
 
 @Injectable({
   providedIn: "root"
@@ -15,16 +16,18 @@ export class CrowdfundingService implements Filterable {
   getFilteredData(filter: Filter): Observable<Array<Crowdfunding>> {
     return this.afs
       .collection<Crowdfunding>("crowdfunding")
-      .valueChanges()
-      .pipe<Array<Crowdfunding>>(
-        map(
-          (array: Array<Crowdfunding>): Array<Crowdfunding> => {
-            return array.map((item: Crowdfunding) => new Crowdfunding(item));
-          }
-        )
+      .snapshotChanges()
+      .pipe(
+        map(actions => {
+          return actions.map(action => {
+            let data = action.payload.doc.data();
+            let id = action.payload.doc.id;
+            data.id = id;
+            return new Crowdfunding(data as Crowdfunding);
+          });
+        })
       );
   }
-
   getAllItems(): Observable<Array<Crowdfunding>> {
     return this.afs.collection<Crowdfunding>("crowdfunding").valueChanges();
   }

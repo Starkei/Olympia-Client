@@ -1,7 +1,7 @@
 import { Output } from "src/app/interfaces/output";
 
 export class Crowdfunding implements Output {
-  public uid: string;
+  public id: string;
   public title: string;
   public description: string;
   public moreInfo: string;
@@ -20,7 +20,7 @@ export class Crowdfunding implements Output {
     this.currency = object.currency;
     this.type = object.type;
     this.usage = object.usage;
-    this.uid = object.uid;
+    this.id = object.id;
   }
 
   public getFormattedPrice(): string {

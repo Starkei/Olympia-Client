@@ -39,27 +39,6 @@ export class ProductService implements Filterable {
           }
         )
       );
-    return this.afs
-      .collection<Product>("products")
-      .valueChanges()
-      .pipe(
-        map(
-          (products: Array<Product>): Array<Product> => {
-            return this.applyFilters(products);
-          }
-        )
-      )
-      .pipe(
-        map(
-          (products: Array<Product>): Array<Product> => {
-            return products.map(
-              (product: Product): Product => {
-                return new Product(product);
-              }
-            );
-          }
-        )
-      );
   }
 
   public getAllProducts(): Observable<Array<Product>> {
