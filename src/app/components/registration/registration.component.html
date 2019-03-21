@@ -43,12 +43,19 @@
               <a>Забыл пароль</a>
             </div>
             <button
-              mat-raised-button
+              mat-raised-buttons
               color="primary"
               type="submit"
               (click)="tryAuth(formGroup.value)"
             >
               Войти
+            </button>
+            <button (click)="auth.signOut()">Выйти</button>
+            <button (click)="CurrentUser()">
+              check
+            </button>
+            <button (click)="auth.addItem('1', '2', 12312, 'daun')">
+              check2
             </button>
           </form>
 
@@ -143,9 +150,16 @@
               </form>
             </mat-step>
             <mat-step label="Персональные данные">
-              <form>
+              <form [formGroup]="formGroup1">
                 <mat-form-field class="example-full-width">
-                  <input matInput placeholder="Имя" required />
+                  <input
+                    matInput
+                    placeholder="Имя"
+                    formControlName="name"
+                    matInput
+                    [(ngModel)]="name"
+                    required
+                  />
                 </mat-form-field>
 
                 <mat-form-field class="example-full-width">
@@ -155,7 +169,11 @@
                     [max]="maxDate"
                     [matDatepicker]="picker"
                     placeholder="Дата вашего рождения"
+                    formControlName="dateBirth"
+                    [(ngModel)]="dateBirth"
+                    matInput
                     required
+                    [formControl]="serializedDate"
                   />
                   <mat-datepicker-toggle
                     matSuffix
@@ -166,19 +184,35 @@
                 <div class="sex">
                   <mat-radio-group>
                     <h4>Ваш пол</h4>
-                    <mat-radio-button value="1"> Мужчина </mat-radio-button>
+                    <mat-radio-button value="1">
+                      Мужчина
+                    </mat-radio-button>
                     <mat-radio-button value="2"> Женщина </mat-radio-button>
                   </mat-radio-group>
                 </div>
                 <mat-form-field class="example-full-width">
                   <span matPrefix>+375 &nbsp;</span>
-                  <input type="tel" matInput placeholder="Телефон" required />
+                  <input
+                    type="tel"
+                    matInput
+                    placeholder="Телефон"
+                    formControlName="phone"
+                    [(ngModel)]="phone"
+                    matInput
+                    required
+                  />
                   <mat-icon matSuffix>mode_edit</mat-icon>
                 </mat-form-field>
+                <button (click)="auth.addItem('2000/2/19', phone, 'xui', name)">
+                  check2
+                </button>
                 <div>
                   <button mat-button matStepperNext>Вперёд</button>
                   <button mat-button matStepperPrevious>Назад</button>
                 </div>
+                <!-- <button (click)="updateinfouser(formGroup1.value)">
+                  check
+                </button> -->
               </form>
             </mat-step>
 

@@ -41,10 +41,15 @@ export class RegistrationComponent implements OnInit {
   errorMessage: string;
   successMessage: string;
   formGroup: FormGroup;
+  formGroup1: FormGroup;
   isClicked: boolean = false;
   disabled = false;
   selected = new FormControl(0);
   bounce: any;
+  serializedDate = new FormControl(new Date().toISOString());
+  public phone: number = null;
+  public dateBirth: string = null;
+  public name: string = null;
   minDate = new Date(1900, 0, 1);
   maxDate = new Date(2020, 0, 1);
   // emailFormControl = new FormControl("", [
@@ -62,6 +67,16 @@ export class RegistrationComponent implements OnInit {
       email: ["", Validators.required],
       password: ["", Validators.required]
     });
+    this.formGroup1 = this._formBuilder.group({
+      // loginCtrl: ["", Validators.required],
+      // passCtrl: ["", Validators.required],
+      // dateCtrl: ["", Validators.required],
+      // mobileCtrl: ["", Validators.required],
+      name: ["", Validators.required],
+      dateBirth: ["", Validators.required],
+      // sex: ["", Validators.required],
+      phone: ["", Validators.required]
+    });
   }
   tryRegister(value) {
     this.auth.doRegister(value).then(
@@ -77,6 +92,19 @@ export class RegistrationComponent implements OnInit {
       }
     );
   }
+
+  giveInfo(value) {
+    // this.auth.addItem(value);
+  }
+
+  CurrentUser() {
+    this.auth.InfoAboutCurrentUser();
+  }
+
+  // updateinfouser(value) {
+  //   this.auth.writeUserData(value);
+  // }
+
   tryAuth(value) {
     this.auth.login(value).then(
       res => {
