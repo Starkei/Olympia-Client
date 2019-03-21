@@ -7,6 +7,7 @@ import { ShopComponent } from "./components/shop/shop.component";
 import { CrowdfundingComponent } from "./components/crowdfunding/crowdfunding.component";
 import { PersonalAreaComponent } from "./components/personal-area/personal-area.component";
 import { SportPageComponent } from "./components/sport-page/sport-page.component";
+import { OutputDetailsComponent } from "./components/output-details/output-details.component";
 
 const routes: Routes = [
   { path: "", redirectTo: "/main", pathMatch: "full" },
@@ -17,6 +18,10 @@ const routes: Routes = [
   { path: "crowdfunding", component: CrowdfundingComponent },
   { path: "area", component: PersonalAreaComponent },
   { path: "sport", component: SportPageComponent },
+  {
+    path: "output-details",
+    component: OutputDetailsComponent
+  }
 ];
 
 @NgModule({

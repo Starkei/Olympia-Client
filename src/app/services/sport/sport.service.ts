@@ -22,22 +22,21 @@ export class SportService implements Filterable {
     this.configureFilter(filter);
     return this.afs
       .collection<Sport>("sports")
-      .valueChanges()
+      .snapshotChanges()
       .pipe(
-        map(
-          (sports: Array<Sport>): Array<Sport> => {
-            return this.applyFilters(sports);
-          }
-        )
+        map(actions => {
+          return actions.map(action => {
+            let data = action.payload.doc.data();
+            let id = action.payload.doc.id;
+            data.id = id;
+            return new Sport(data as Sport);
+          });
+        })
       )
       .pipe(
         map(
           (sports: Array<Sport>): Array<Sport> => {
-            return sports.map(
-              (sport: Sport): Sport => {
-                return new Sport(sport);
-              }
-            );
+            return this.applyFilters(sports);
           }
         )
       );

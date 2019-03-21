@@ -5,6 +5,10 @@
     fxLayout.xs="column"
     fxLayoutAlign="start stretch"
   >
-    <app-output [service]="newsService"></app-output>
+    <app-output
+      [service]="newsService"
+      [btnFollow]="true"
+      collection="news"
+    ></app-output>
   </div>
 </div>
