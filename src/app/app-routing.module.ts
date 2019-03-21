@@ -8,6 +8,7 @@ import { CrowdfundingComponent } from "./components/crowdfunding/crowdfunding.co
 import { PersonalAreaComponent } from "./components/personal-area/personal-area.component";
 import { SportPageComponent } from "./components/sport-page/sport-page.component";
 import { OutputDetailsComponent } from "./components/output-details/output-details.component";
+import { EventsComponent } from "./components/events/events.component";
 
 const routes: Routes = [
   { path: "", redirectTo: "/main", pathMatch: "full" },
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: "crowdfunding", component: CrowdfundingComponent },
   { path: "area", component: PersonalAreaComponent },
   { path: "sport", component: SportPageComponent },
+  { path: "events", component: EventsComponent },
   {
     path: "output-details",
     component: OutputDetailsComponent
