@@ -8,7 +8,7 @@ import { EventFilter } from "src/app/classes/event-fitler/event-filter";
   styleUrls: ["./events.component.scss"]
 })
 export class EventsComponent implements OnInit {
-  private filter: EventFilter;
+  filter: EventFilter;
 
   constructor(public eventService: EventService) {
     this.filter = new EventFilter(this.eventService);
