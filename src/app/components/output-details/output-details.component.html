@@ -1,0 +1,101 @@
+<app-banner image="assets/images/forest.jpg"></app-banner>
+<div class="main">
+  <div class="container">
+    <ng-container *ngIf="output; else elseTemplate">
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start stretch">
+        <div fxFlexOffset="3%" fxFlex="60%">
+          <mat-card class="main-image">
+            <img [src]="output.image" alt="" mat-card-image />
+          </mat-card>
+        </div>
+        <div fxLayout="column" fxFlexOffset="3%" fxFlex="33%">
+          <mat-card>
+            <mat-card-header>
+              <mat-card-title>
+                {{ output.title }}
+              </mat-card-title>
+              <mat-card-subtitle>
+                {{ output.price }} {{ output.currency }}
+              </mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+              <p *ngIf="output.description">
+                <b>Описание</b>: {{ output.description }}
+              </p>
+              <p *ngIf="output.moreInfo">
+                <b>Больше информации</b>: {{ output.moreInfo }}
+              </p>
+              <p *ngIf="output.address"><b>Адрес</b>: {{ output.address }}</p>
+              <p *ngIf="output.phoneNumbers">
+                <b>Телефон</b>: {{ output.phoneNumbers | arrayFormatter }}
+              </p>
+              <p *ngIf="output.underground">
+                <b>Метро</b>: {{ output.underground }}
+              </p>
+              <p *ngIf="output.usage">
+                <b>Применение</b>: {{ output.usage | arrayFormatter }}
+              </p>
+              <p *ngIf="output.contraindications">
+                <b>Противопоказания</b>:
+                {{ output.contraindications | arrayFormatter }}
+              </p>
+              <p *ngIf="output.firm"><b>Фирма</b>: {{ output.firm }}</p>
+            </mat-card-content>
+          </mat-card>
+          <mat-card *ngIf="output.reference">
+            <mat-card-header>
+              <img mat-card-avatar [src]="output.image" />
+              <mat-card-subtitle>
+                <p>
+                  При нажатии на кнопку "перейти" вы перейдете на страницу
+                  продавца
+                </p>
+              </mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-actions align="start">
+              <a
+                target="_blank"
+                mat-raised-button
+                color="primary"
+                [href]="getLink(output.reference)"
+              >
+                Перейти
+              </a>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+      </div>
+      <div
+        class="adware"
+        fxLayout="row"
+        fxLayout.xs="column"
+        fxLayoutAlign="start stretch"
+      >
+        <mat-card
+          fxFlex="23%"
+          *ngFor="let item of (adware | async)"
+          fxFlexOffset="3%"
+        >
+          <mat-card-header>
+            <img mat-card-avatar src="assets/images/adware.png" />
+
+            <mat-card-title>
+              {{ item.title | textLength: 30 }}
+            </mat-card-title>
+          </mat-card-header>
+          <img [src]="item.image" alt="" mat-card-image />
+          <mat-card-actions>
+            <button mat-raised-button color="primary" (click)="follow(item)">
+              Перейти
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </ng-container>
+    <ng-template #elseTemplate>
+      <div>
+        <mat-spinner></mat-spinner>
+      </div>
+    </ng-template>
+  </div>
+</div>

@@ -1,6 +1,7 @@
 import { Output } from "src/app/interfaces/output";
 
 export class Sport implements Output {
+  public id: string;
   public title: string;
   public description: string;
   public image: string;
@@ -21,5 +22,6 @@ export class Sport implements Output {
     this.underground = object.underground;
     this.reference = object.reference;
     this.type = object.type;
+    this.id = object.id;
   }
 }

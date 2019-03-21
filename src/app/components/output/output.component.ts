@@ -17,6 +17,7 @@ import { Observable } from "rxjs";
 import { Filter } from "src/app/interfaces/filter";
 import { Filterable } from "src/app/interfaces/filterable";
 import { element } from "@angular/core/src/render3";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-output",
@@ -33,11 +34,15 @@ export class OutputComponent implements OnInit {
   @Input() showUnderground: boolean = false;
   @Input() btnFollow: boolean = false;
   @Input() btnLike: boolean = false;
+  @Input() collection: string = "";
 
   items: Observable<Array<Output>>;
   private flexSize: number = 30;
 
-  constructor(private breakpointObserver: BreakpointObserver) {}
+  constructor(
+    private breakpointObserver: BreakpointObserver,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.items = this.service.getFilteredData(this.filter);
@@ -75,5 +80,12 @@ export class OutputComponent implements OnInit {
 
   getFormattedFlexSize(): string {
     return this.flexSize + "%";
+  }
+
+  follow(output: Output): void {
+    this.router.navigate([
+      "output-details",
+      { uid: output.id, collection: this.collection }
+    ]);
   }
 }
