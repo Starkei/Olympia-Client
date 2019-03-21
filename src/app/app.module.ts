@@ -29,8 +29,12 @@ import { AngularFirestoreModule } from "@angular/fire/firestore";
 import { environment } from "../environments/environment";
 import { TextLengthPipe } from "./pipes/text-length/text-length.pipe";
 import { FormsModule } from "@angular/forms";
-import { OutputDetailsComponent } from './components/output-details/output-details.component';
-import { ArrayFormatterPipe } from './pipes/array-formatter/array-formatter.pipe';
+import { OutputDetailsComponent } from "./components/output-details/output-details.component";
+import { ArrayFormatterPipe } from "./pipes/array-formatter/array-formatter.pipe";
+import { EventsComponent } from "./components/events/events.component";
+import { CrowdfundingService } from "./services/crowdfunding/crowdfunding.service";
+import { EventService } from "./services/event/event.service";
+import { SportService } from "./services/sport/sport.service";
 
 export const firebaseConfig = environment.firebaseConfig;
 
@@ -54,7 +58,8 @@ export const firebaseConfig = environment.firebaseConfig;
     ScrollingDirective,
     TextLengthPipe,
     OutputDetailsComponent,
-    ArrayFormatterPipe
+    ArrayFormatterPipe,
+    EventsComponent
   ],
   imports: [
     BrowserModule,
@@ -66,7 +71,13 @@ export const firebaseConfig = environment.firebaseConfig;
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFirestoreModule
   ],
-  providers: [NewsService, ProductService, CrowdfundingComponent],
+  providers: [
+    NewsService,
+    ProductService,
+    SportService,
+    CrowdfundingService,
+    EventService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

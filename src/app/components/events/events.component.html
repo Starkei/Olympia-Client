@@ -1,0 +1,13 @@
+<app-banner image="assets/images/nature.jpg"></app-banner>
+<div class="container">
+  <div fxLayout="row" fxLayout.xs="column">
+    <app-output
+      [service]="eventService"
+      [btnFollow]="true"
+      fxFlex="73%"
+      fxFlexOffset="3%"
+      [filter]="filter"
+      collection="events"
+    ></app-output>
+  </div>
+</div>
