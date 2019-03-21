@@ -33,6 +33,12 @@ import { AngularFirestoreModule } from "@angular/fire/firestore";
 import { environment } from "../environments/environment";
 import { TextLengthPipe } from "./pipes/text-length/text-length.pipe";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { OutputDetailsComponent } from "./components/output-details/output-details.component";
+import { ArrayFormatterPipe } from "./pipes/array-formatter/array-formatter.pipe";
+import { EventsComponent } from "./components/events/events.component";
+import { CrowdfundingService } from "./services/crowdfunding/crowdfunding.service";
+import { EventService } from "./services/event/event.service";
+import { SportService } from "./services/sport/sport.service";
 
 export const firebaseConfig = environment.firebaseConfig;
 
@@ -55,7 +61,10 @@ export const firebaseConfig = environment.firebaseConfig;
     OutputComponent,
     FieldComponent,
     ScrollingDirective,
-    TextLengthPipe
+    TextLengthPipe,
+    OutputDetailsComponent,
+    ArrayFormatterPipe,
+    EventsComponent
   ],
   imports: [
     BrowserModule,
@@ -69,8 +78,15 @@ export const firebaseConfig = environment.firebaseConfig;
     AngularFirestoreModule,
     ReactiveFormsModule
   ],
-
-  providers: [NewsService, ProductService, CrowdfundingComponent, AuthService],
+  providers: [
+    NewsService,
+    ProductService,
+    SportService,
+    CrowdfundingService,
+    EventService,
+    CrowdfundingComponent,
+    AuthService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
