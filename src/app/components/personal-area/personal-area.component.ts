@@ -6,7 +6,8 @@ import {
   Breakpoints,
   BreakpointState
 } from "@angular/cdk/layout";
-
+import { AuthService } from "src/app/services/auth/Auth.service";
+import { auth } from "firebase";
 @Component({
   selector: "app-personal-area",
   templateUrl: "./personal-area.component.html",
@@ -28,8 +29,9 @@ export class PersonalAreaComponent implements OnInit {
   private fxSizeStat: number = 0;
   private fxSizeUser: number = 0;
   private fxSizeChat: number = 0;
-
+  data = this.auth.infoAboutCurrentUser();
   constructor(
+    public auth: AuthService,
     private service: PersonalAreaService,
     private bp: BreakpointObserver
   ) {}

@@ -38,6 +38,8 @@ import { STEPPER_GLOBAL_OPTIONS } from "@angular/cdk/stepper";
 export class RegistrationComponent implements OnInit {
   // state: string;
   // error: any;
+
+  private selectedLink: string = "Мужчина";
   errorMessage: string;
   successMessage: string;
   formGroup: FormGroup;
@@ -60,18 +62,10 @@ export class RegistrationComponent implements OnInit {
   ngOnInit() {
     this.isClicked = false;
     this.formGroup = this._formBuilder.group({
-      // loginCtrl: ["", Validators.required],
-      // passCtrl: ["", Validators.required],
-      // dateCtrl: ["", Validators.required],
-      // mobileCtrl: ["", Validators.required],
       email: ["", Validators.required],
       password: ["", Validators.required]
     });
     this.formGroup1 = this._formBuilder.group({
-      // loginCtrl: ["", Validators.required],
-      // passCtrl: ["", Validators.required],
-      // dateCtrl: ["", Validators.required],
-      // mobileCtrl: ["", Validators.required],
       name: ["", Validators.required],
       dateBirth: ["", Validators.required],
       // sex: ["", Validators.required],
@@ -93,12 +87,25 @@ export class RegistrationComponent implements OnInit {
     );
   }
 
+  setradio(e: string): string {
+    this.selectedLink = e;
+    return this.selectedLink;
+  }
+  isSelected(name: string): boolean {
+    if (!this.selectedLink) {
+      // if no radio button is selected, always return false so every nothing is shown
+      return false;
+    }
+
+    return this.selectedLink === name; // if current radio button is selected, return true, else return false
+  }
+
   giveInfo(value) {
     // this.auth.addItem(value);
   }
 
   CurrentUser() {
-    this.auth.InfoAboutCurrentUser();
+    this.auth.infoAboutCurrentUser();
   }
 
   // updateinfouser(value) {

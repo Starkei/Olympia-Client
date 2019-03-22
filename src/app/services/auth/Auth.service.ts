@@ -8,7 +8,7 @@ import {
   AngularFirestoreCollection
 } from "@angular/fire/firestore";
 import { Observable, of } from "rxjs";
-import { switchMap } from "rxjs/operators";
+import { switchMap, map } from "rxjs/operators";
 import { User } from "src/app/interfaces/auth";
 import * as firebase from "firebase/app";
 @Injectable({
@@ -36,15 +36,28 @@ export class AuthService {
       })
     );
   }
-  // addItem(item: User) {
-  //   this.itemsCollection.add(item);
-  // }
+
+  infoAboutCurrentUser(): Observable<User> {
+    let user = firebase.auth().currentUser;
+    const userRef = this.itemsCollection
+      .doc<User>(user.uid)
+      .snapshotChanges()
+      .pipe(
+        map(actions => {
+          let data: User = actions.payload.data() as User;
+          data.uid = actions.payload.id;
+
+          return actions.payload.data() as User;
+        })
+      );
+    return userRef;
+  }
+
   addItem(dateBirth: Date, phone: number, sex: string, displayName: string) {
     //
-    // Persist a document id
-    var user = firebase.auth().currentUser;
-    // const id = user.uid;
-    // console.log(id);
+    dateBirth = new Date(dateBirth);
+    console.log(dateBirth);
+    let user = firebase.auth().currentUser;
     const users: User = {
       dateBirth,
       phone,
@@ -55,7 +68,6 @@ export class AuthService {
     };
     console.log(user.uid);
     this.itemsCollection.doc<User>(user.uid).set(users);
-    // this.itemsCollection.add({ phone: 12335443 });
   }
 
   googleLogin(): Promise<void> {
@@ -71,17 +83,13 @@ export class AuthService {
     return this.oAuthLogin(provider);
   }
 
-  // Login(): Promise<void> {
-  //   const provider = new auth.EmailAuthProvider();
-  //   return this.oAuthLogin(provider);
+  // private AuthLogin(value: any): Promise<void> {
+  //   return this.afAuth.auth
+  //     .signInWithEmailAndPassword(value, value)
+  //     .then(credential => {
+  //       this.updateUserData(credential.user);
+  //     });
   // }
-  private AuthLogin(value: any): Promise<void> {
-    return this.afAuth.auth
-      .signInWithEmailAndPassword(value, value)
-      .then(credential => {
-        this.updateUserData(credential.user);
-      });
-  }
   private oAuthLogin(provider: any): Promise<void> {
     return this.afAuth.auth.signInWithPopup(provider).then(credential => {
       this.updateUserData(credential.user);
@@ -96,55 +104,6 @@ export class AuthService {
   //     });
   // }
 
-  InfoAboutCurrentUser(): void {
-    var user = firebase.auth().currentUser;
-    var name, email, photoUrl, uid, emailVerified, age, dateBirth, sex, phone;
-
-    if (user != null) {
-      name = user.displayName;
-      email = user.email;
-      photoUrl = user.photoURL;
-      emailVerified = user.emailVerified;
-      uid = user.uid;
-      console.log(user);
-      console.log(email);
-      console.log(uid);
-      console.log(photoUrl);
-      // age: user.age;
-      // dateBirth = user.da;
-      // sex = user.sex;
-      // phone = user.phone;
-    }
-  }
-
-  // infoUser(): void {
-  //   var user = firebase.auth().currentUser;
-
-  //   if (user != null) {
-  //     user.providerData.forEach(function(profile) {
-  //       console.log("Sign-in provider: " + profile.providerId);
-  //       console.log("  UID: " + profile.uid);
-  //       console.log("  Name: " + profile.displayName);
-  //       console.log("  Email: " + profile.email);
-  //       console.log("  Photo URL: " + profile.photoURL);
-  //     });
-  //   }
-  // }
-
-  // writeUserData(value) {
-  //   var database = firebase.database();
-  //   var userId = firebase.auth().currentUser.uid;
-  //   firebase
-  //     .database()
-  //     .ref("users/" + userId)
-  //     .set({
-  //       age: value.age,
-  //       dateBirth: value.dateBirth,
-  //       // sex: value.sex,
-  //       phone: value.phone
-  //     });
-  // }
-
   private updateUserData(user: any): Promise<void> {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(
       `users/${user.uid}`
@@ -154,7 +113,6 @@ export class AuthService {
       email: user.email,
       displayName: user.displayName,
       photoURL: user.photoURL,
-
       dateBirth: user.dateBirth,
       sex: user.sex,
       phone: user.phone
@@ -164,38 +122,36 @@ export class AuthService {
   }
 
   doRegister(value: any): Promise<void> {
-    const provider = new auth.EmailAuthProvider();
+    // const provider = new auth.EmailAuthProvider();
     return new Promise<any>((resolve, reject) => {
       firebase
         .auth()
         .createUserWithEmailAndPassword(value.email, value.password)
         .then(
           credential => {
-            // resolve(res);
+            resolve(credential);
             this.updateUserData(credential.user);
           },
           err => reject(err)
         );
-      this.AuthLogin(provider);
     });
   }
 
   login(value: any): Promise<void> {
-    const provider = new auth.EmailAuthProvider();
+    // const provider = new auth.EmailAuthProvider();
     return new Promise<any>((resolve, reject) => {
       firebase
         .auth()
         .signInWithEmailAndPassword(value.email, value.password)
         .then(
-          // res => {
-          //   resolve(this.router.navigate(["/area"]));
-          // },
-          credential => {
-            this.updateUserData(credential.user);
+          res => {
+            resolve(this.router.navigate(["/area"]));
+            this.updateUserData(res.user);
           },
+
           err => reject(err)
-        ),
-        this.oAuthLogin(provider);
+        );
+      // this.oAuthLogin(provider);
     });
   }
 

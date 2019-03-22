@@ -31,7 +31,9 @@
                 required
               />
             </mat-form-field>
+            <label class="success">{{ successMessage }}</label>
             <label class="error">{{ errorMessage }}</label>
+            <!-- <p>{{ user.dateBirth }}</p> -->
             <div
               class="link"
               fxLayout="row"
@@ -171,6 +173,7 @@
                     placeholder="Дата вашего рождения"
                     formControlName="dateBirth"
                     [(ngModel)]="dateBirth"
+                    name="dateBirth"
                     matInput
                     required
                     [formControl]="serializedDate"
@@ -184,12 +187,34 @@
                 <div class="sex">
                   <mat-radio-group>
                     <h4>Ваш пол</h4>
-                    <mat-radio-button value="1">
+                    <mat-radio-button
+                      value="Мужчина"
+                      (click)="setradio('Мужчина')"
+                    >
+                      <!-- (click)="setradio('Мужчина')"
+                    ngModel
+                    name="radio" -->
                       Мужчина
                     </mat-radio-button>
-                    <mat-radio-button value="2"> Женщина </mat-radio-button>
+                    <mat-radio-button
+                      value="Женщина"
+                      (click)="setradio('Женщина')"
+                    >
+                      <!-- (click)="setradio('Женщина')"
+                    ngModel
+                    name="radio" -->
+                      Женщина
+                    </mat-radio-button>
                   </mat-radio-group>
+                  <div *ngIf="isSelected('Мужчина')">
+                    <input type="text" /> Мужчина radio button selected
+                  </div>
+
+                  <div *ngIf="isSelected('Женщина')">
+                    <input type="text" /> Женщина radio button selected
+                  </div>
                 </div>
+
                 <mat-form-field class="example-full-width">
                   <span matPrefix>+375 &nbsp;</span>
                   <input
@@ -203,7 +228,7 @@
                   />
                   <mat-icon matSuffix>mode_edit</mat-icon>
                 </mat-form-field>
-                <button (click)="auth.addItem('2000/2/19', phone, 'xui', name)">
+                <button (click)="auth.addItem(dateBirth, phone, 'sex', name)">
                   check2
                 </button>
                 <div>
