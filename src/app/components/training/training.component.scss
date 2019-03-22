@@ -1,9 +1,20 @@
-.container {
-  word-wrap: break-word;
+div {
   width: 100%;
-  margin: auto;
-}
-.info {
-  margin-top: 3%;
-  margin-right: 3%;
+
+  mat-card {
+    margin-top: 2%;
+    margin-bottom: 3%;
+    mat-card-header {
+      height: 18%;
+      margin: 16px;
+    }
+    img {
+      object-fit: cover;
+      height: 40%;
+    }
+    mat-card-content {
+      height: 30%;
+      overflow-y: auto;
+    }
+  }
 }

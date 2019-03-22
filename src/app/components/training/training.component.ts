@@ -15,10 +15,34 @@ import {
 export class TrainingComponent implements OnInit {
   training: Array<Training> = [];
 
+  private flexSize: number = 30;
+  items= this.service.items;
   constructor(
-    private service: TrainingService,
+    public service: TrainingService,
     public breakpointObserver: BreakpointObserver
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    //this.getFire();
+    this.breakpointObserver
+      .observe([Breakpoints.Medium, Breakpoints.Small, Breakpoints.XSmall])
+      .subscribe(
+        (result: BreakpointState): void => {
+          if (result.breakpoints[Breakpoints.Medium]) {
+            this.flexSize = 45;
+          }
+        }
+      );
+    this.breakpointObserver.observe(["(max-width: 1010px)"]).subscribe(
+      (result: BreakpointState): void => {
+        if (result.matches) this.flexSize = 100;
+      }
+    );
+  }
+  getFormattedFlexSize(): string {
+    return this.flexSize + "%";
+  }
+  // getFire() {
+  //   this.service.getFire().subscribe(data => (this.items = data));
+  // }
 }
