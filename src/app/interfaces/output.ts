@@ -1,4 +1,5 @@
 export interface Output {
+  id?: string;
   title?: string;
   description?: string;
   moreInfo?: string;
@@ -10,6 +11,8 @@ export interface Output {
   reference?: string;
   image?: string;
   type?: Array<string>;
+  time?: Array<string>;
   usage?: Array<string>;
+  details?: Array<string>;
   getFormattedPrice?(): string;
 }
