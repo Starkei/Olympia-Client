@@ -7,7 +7,8 @@ import {
   BreakpointState
 } from "@angular/cdk/layout";
 import { AuthService } from "src/app/services/auth/Auth.service";
-import { auth } from "firebase";
+import { User } from "src/app/interfaces/auth";
+import { Observable } from "rxjs";
 @Component({
   selector: "app-personal-area",
   templateUrl: "./personal-area.component.html",
@@ -29,7 +30,7 @@ export class PersonalAreaComponent implements OnInit {
   private fxSizeStat: number = 0;
   private fxSizeUser: number = 0;
   private fxSizeChat: number = 0;
-  data = this.auth.infoAboutCurrentUser();
+  user: User;
   constructor(
     public auth: AuthService,
     private service: PersonalAreaService,
@@ -38,6 +39,7 @@ export class PersonalAreaComponent implements OnInit {
 
   ngOnInit() {
     this.getArea();
+    this.getInfo();
     this.bp
       .observe([
         Breakpoints.Medium,
@@ -89,6 +91,10 @@ export class PersonalAreaComponent implements OnInit {
           }
         }
       );
+  }
+
+  getInfo() {
+    this.auth.infoAboutCurrentUser().subscribe(data => (this.user = data));
   }
   getArea() {
     this.area = this.service.getArea();

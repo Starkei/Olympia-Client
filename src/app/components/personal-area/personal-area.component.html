@@ -10,14 +10,17 @@
           src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAc5zqH5SN-8vWbPQPJzIVq-LAnTIku8iiyJgjL5sfW8M-ebZiYw"
         />
         <mat-card-content>
-          <p><b>Дата рождения:</b> {{ data.dateBirth }}</p>
+          <p><b>Дата рождения:</b></p>
           <p><b>Пол:</b> Мужской.</p>
           <p><b>Деньги:</b> 500р.</p>
-          <p><b>Адрес:</b> Адрес 1.</p>
-          <p><b>Контакты:</b> +375ххххххххх.</p>
+          <p><b>Адрес:</b> {{ user.email }}</p>
+          <p><b>Телефон: </b>+375{{ user.phone }}</p>
+          <p><b>Email:</b> {{ user.email }}</p>
         </mat-card-content>
         <mat-card-actions>
-          <button mat-raised-button>Выйти из профиля</button>
+          <button mat-raised-button (click)="auth.signOut()">
+            Выйти из профиля
+          </button>
         </mat-card-actions>
       </mat-card>
     </div>

@@ -44,6 +44,8 @@ export class RegistrationComponent implements OnInit {
   successMessage: string;
   formGroup: FormGroup;
   formGroup1: FormGroup;
+  formGroupLegal: FormGroup;
+  sex: string;
   isClicked: boolean = false;
   disabled = false;
   selected = new FormControl(0);
@@ -54,10 +56,6 @@ export class RegistrationComponent implements OnInit {
   public name: string = null;
   minDate = new Date(1900, 0, 1);
   maxDate = new Date(2020, 0, 1);
-  // emailFormControl = new FormControl("", [
-  //   Validators.required,
-  //   Validators.email
-  // ]);
   constructor(public auth: AuthService, private _formBuilder: FormBuilder) {}
   ngOnInit() {
     this.isClicked = false;
@@ -68,10 +66,17 @@ export class RegistrationComponent implements OnInit {
     this.formGroup1 = this._formBuilder.group({
       name: ["", Validators.required],
       dateBirth: ["", Validators.required],
-      // sex: ["", Validators.required],
+      sex: ["", Validators.required],
+      phone: ["", Validators.required]
+    });
+    this.formGroupLegal = this._formBuilder.group({
+      nameOrg: ["", Validators.required],
+      activityOrg: ["", Validators.required],
+      adressOrg: ["", Validators.required],
       phone: ["", Validators.required]
     });
   }
+
   tryRegister(value) {
     this.auth.doRegister(value).then(
       res => {
@@ -93,29 +98,18 @@ export class RegistrationComponent implements OnInit {
   }
   isSelected(name: string): boolean {
     if (!this.selectedLink) {
-      // if no radio button is selected, always return false so every nothing is shown
       return false;
     }
 
-    return this.selectedLink === name; // if current radio button is selected, return true, else return false
+    return this.selectedLink === name;
   }
-
-  giveInfo(value) {
-    // this.auth.addItem(value);
-  }
-
-  CurrentUser() {
-    this.auth.infoAboutCurrentUser();
-  }
-
-  // updateinfouser(value) {
-  //   this.auth.writeUserData(value);
-  // }
 
   tryAuth(value) {
     this.auth.login(value).then(
       res => {
         console.log(res);
+        this.errorMessage = "";
+        this.successMessage = "Your account has been auth";
       },
       err => {
         console.log(err);

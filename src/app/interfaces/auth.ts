@@ -3,8 +3,11 @@ export interface User {
   photoURL?: string;
   displayName?: string;
   uid?: string;
-  // age: string;
   dateBirth?: Date;
-  sex: string;
+  sex?: string;
   phone: number;
+  nameOrg?: string;
+  activityOrg?: string;
+  adresOrg?: string;
+  role: string;
 }
