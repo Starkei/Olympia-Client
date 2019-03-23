@@ -18,7 +18,6 @@ import {
   MAT_DATE_LOCALE
 } from "@angular/material/core";
 import { STEPPER_GLOBAL_OPTIONS } from "@angular/cdk/stepper";
-
 @Component({
   selector: "app-registration",
   templateUrl: "./registration.component.html",
@@ -38,8 +37,10 @@ import { STEPPER_GLOBAL_OPTIONS } from "@angular/cdk/stepper";
 export class RegistrationComponent implements OnInit {
   // state: string;
   // error: any;
+  // selectedFiles: FileList;
+  isHovering: boolean;
 
-  private selectedLink: string = "Мужчина";
+  files: File[] = [];
   errorMessage: string;
   successMessage: string;
   formGroup: FormGroup;
@@ -90,18 +91,6 @@ export class RegistrationComponent implements OnInit {
         this.successMessage = "";
       }
     );
-  }
-
-  setradio(e: string): string {
-    this.selectedLink = e;
-    return this.selectedLink;
-  }
-  isSelected(name: string): boolean {
-    if (!this.selectedLink) {
-      return false;
-    }
-
-    return this.selectedLink === name;
   }
 
   tryAuth(value) {

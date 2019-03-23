@@ -166,28 +166,15 @@
                       value="Мужчина"
                       (click)="setradio('Мужчина')"
                     >
-                      <!-- (click)="setradio('Мужчина')"
-                    ngModel
-                    name="radio" -->
                       Мужчина
                     </mat-radio-button>
                     <mat-radio-button
                       value="Женщина"
                       (click)="setradio('Женщина')"
                     >
-                      <!-- (click)="setradio('Женщина')"
-                    ngModel
-                    name="radio" -->
                       Женщина
                     </mat-radio-button>
                   </mat-radio-group>
-                  <!-- <div *ngIf="isSelected('Мужчина')">
-                    <input type="text" /> Мужчина radio button selected
-                  </div>
-
-                  <div *ngIf="isSelected('Женщина')">
-                    <input type="text" /> Женщина radio button selected
-                  </div> -->
                 </div>
 
                 <mat-form-field class="example-full-width">
@@ -352,4 +339,20 @@
       </div>
     </mat-tab>
   </mat-tab-group>
+  <!-- <div
+    class="dropzone"
+    dropzone
+    (hovered)="toggleHover($event)"
+    (dropped)="onDrop($event)"
+    [class.hovering]="isHovering"
+  >
+    <h3>AngularFire Drop Zone</h3>
+    <p>Drag and Drop a File</p>
+  </div>
+
+  <h3>Uploads</h3>
+
+  <div *ngFor="let file of files">
+    <upload-task [file]="file"></upload-task>
+  </div> -->
 </div>
