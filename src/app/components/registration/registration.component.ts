@@ -42,8 +42,10 @@ export class RegistrationComponent implements OnInit {
 
   files: File[] = [];
   errorMessage: string;
+  errorMessageAuth: string;
   successMessage: string;
   successMessageLegal: string;
+  errorMessageLegal: string;
   formGroup: FormGroup;
   formGroup1: FormGroup;
   formGroupLegal: FormGroup;
@@ -90,6 +92,7 @@ export class RegistrationComponent implements OnInit {
       err => {
         console.log(err);
         this.errorMessage = err.message;
+        this.errorMessageLegal = err.message;
         this.successMessage = "";
       }
     );
@@ -99,12 +102,12 @@ export class RegistrationComponent implements OnInit {
     this.auth.login(value).then(
       res => {
         console.log(res);
-        this.errorMessage = "";
+        this.errorMessageAuth = "";
         this.successMessage = "Your account has been auth";
       },
       err => {
         console.log(err);
-        this.errorMessage = err.message;
+        this.errorMessageAuth = err.message;
         this.successMessage = "";
       }
     );
