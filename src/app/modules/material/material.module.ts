@@ -17,8 +17,16 @@ import { MatListModule } from "@angular/material/list";
 import { MatIconModule } from "@angular/material/icon";
 import { LayoutModule } from "@angular/cdk/layout";
 import { MatTableModule } from "@angular/material/table";
+import { MatSlideToggleModule } from "@angular/material/slide-toggle";
+import { MatRadioModule } from "@angular/material/radio";
+import { MatStepperModule } from "@angular/material/stepper";
+import { MatDatepickerModule } from "@angular/material/datepicker";
+import { MatTabsModule } from "@angular/material/tabs";
+import { MatMomentDateModule } from "@angular/material-moment-adapter";
 import { MatSelectModule } from "@angular/material/select";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { AngularFireModule } from "@angular/fire";
+import { AngularFireAuthModule } from "@angular/fire/auth";
 
 @NgModule({
   declarations: [],
@@ -33,13 +41,21 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
     MatSidenavModule,
     MatIconModule,
     MatListModule,
+    MatSlideToggleModule,
+    MatRadioModule,
+    MatStepperModule,
     MatExpansionModule,
     MatCheckboxModule,
     MatTableModule,
     MatSelectModule,
     MatPaginatorModule,
+    MatDatepickerModule,
+    MatMomentDateModule,
+    MatTabsModule,
     MatProgressSpinnerModule,
-    LayoutModule
+    LayoutModule,
+    AngularFireModule,
+    AngularFireAuthModule
   ],
   providers: [
     {

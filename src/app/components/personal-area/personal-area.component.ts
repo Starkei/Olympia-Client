@@ -6,7 +6,9 @@ import {
   Breakpoints,
   BreakpointState
 } from "@angular/cdk/layout";
-
+import { AuthService } from "src/app/services/auth/Auth.service";
+import { User } from "src/app/interfaces/auth";
+import { Observable } from "rxjs";
 @Component({
   selector: "app-personal-area",
   templateUrl: "./personal-area.component.html",
@@ -18,8 +20,7 @@ export class PersonalAreaComponent implements OnInit {
     "Message2",
     "Message3",
     "Message4",
-    "Message5",
-    "Message6"
+    "Message5"
   ];
   area: Array<Personal_Area> = [];
   private fxSizeEvent: number = 0;
@@ -28,14 +29,16 @@ export class PersonalAreaComponent implements OnInit {
   private fxSizeStat: number = 0;
   private fxSizeUser: number = 0;
   private fxSizeChat: number = 0;
-
+  user: User;
   constructor(
+    public auth: AuthService,
     private service: PersonalAreaService,
     private bp: BreakpointObserver
   ) {}
 
   ngOnInit() {
     this.getArea();
+
     this.bp
       .observe([
         Breakpoints.Medium,
@@ -50,18 +53,18 @@ export class PersonalAreaComponent implements OnInit {
             this.fxSizeInfo = 100;
             this.fxSizeCont = 30;
             this.fxSizeStat = 23;
-            this.fxSizeUser = 55;
+            this.fxSizeUser = 58;
             this.fxSizeChat = 42;
             console.clear();
             console.log("Large");
           }
           if (result.breakpoints[Breakpoints.Medium]) {
-            this.fxSizeEvent = 28;
+            this.fxSizeEvent = 29;
             this.fxSizeInfo = 90;
             this.fxSizeCont = 42;
             this.fxSizeStat = 40;
-            this.fxSizeUser = 44;
-            this.fxSizeChat = 32;
+            this.fxSizeUser = 50;
+            this.fxSizeChat = 36;
             console.clear();
             console.log("Medium");
           }
@@ -70,8 +73,8 @@ export class PersonalAreaComponent implements OnInit {
             this.fxSizeInfo = 85;
             this.fxSizeCont = 45;
             this.fxSizeStat = 40;
-            this.fxSizeUser = 40;
-            this.fxSizeChat = 30;
+            this.fxSizeUser = 45;
+            this.fxSizeChat = 36;
             console.clear();
             console.log("Small");
           }
@@ -87,6 +90,11 @@ export class PersonalAreaComponent implements OnInit {
           }
         }
       );
+    this.getInfo();
+  }
+
+  getInfo() {
+    this.auth.infoAboutCurrentUser().subscribe(data => (this.user = data));
   }
   getArea() {
     this.area = this.service.getArea();

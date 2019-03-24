@@ -19,22 +19,29 @@ import { OthersModule } from "./modules/others/others.module";
 import { PersonalAreaComponent } from "./components/personal-area/personal-area.component";
 import { BannerComponent } from "./components/banner/banner.component";
 import { SportPageComponent } from "./components/sport-page/sport-page.component";
+import { RegistrationComponent } from "./components/registration/registration.component";
 import { FilterComponent } from "./components/filter/filter.component";
 import { OutputComponent } from "./components/output/output.component";
 import { FieldComponent } from "./components/field/field.component";
 import { ScrollingDirective } from "./directives/scrolling/scrolling.directive";
+import { AuthService } from "./services/auth/Auth.service";
+
+import { AngularFireAuthModule } from "@angular/fire/auth";
 import { AngularFireModule } from "@angular/fire";
 import { AngularFirestoreModule } from "@angular/fire/firestore";
 
 import { environment } from "../environments/environment";
 import { TextLengthPipe } from "./pipes/text-length/text-length.pipe";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { OutputDetailsComponent } from "./components/output-details/output-details.component";
 import { ArrayFormatterPipe } from "./pipes/array-formatter/array-formatter.pipe";
 import { EventsComponent } from "./components/events/events.component";
 import { CrowdfundingService } from "./services/crowdfunding/crowdfunding.service";
 import { EventService } from "./services/event/event.service";
 import { SportService } from "./services/sport/sport.service";
+import { UploaderComponent } from "./components/uploader/uploader/uploader.component";
+import { UploadTaskComponent } from "./components/upload-task/upload-task/upload-task.component";
+import { AngularFireStorageModule } from "@angular/fire/storage";
 
 export const firebaseConfig = environment.firebaseConfig;
 
@@ -52,6 +59,7 @@ export const firebaseConfig = environment.firebaseConfig;
     CarAboutEatComponent,
     BannerComponent,
     SportPageComponent,
+    RegistrationComponent,
     FilterComponent,
     OutputComponent,
     FieldComponent,
@@ -59,7 +67,9 @@ export const firebaseConfig = environment.firebaseConfig;
     TextLengthPipe,
     OutputDetailsComponent,
     ArrayFormatterPipe,
-    EventsComponent
+    EventsComponent,
+    UploaderComponent,
+    UploadTaskComponent
   ],
   imports: [
     BrowserModule,
@@ -67,16 +77,21 @@ export const firebaseConfig = environment.firebaseConfig;
     BrowserAnimationsModule,
     MaterialModule,
     OthersModule,
+    BrowserModule,
     FormsModule,
     AngularFireModule.initializeApp(firebaseConfig),
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    ReactiveFormsModule,
+    AngularFireStorageModule
   ],
   providers: [
     NewsService,
     ProductService,
     SportService,
     CrowdfundingService,
-    EventService
+    EventService,
+    CrowdfundingComponent,
+    AuthService
   ],
   bootstrap: [AppComponent]
 })
