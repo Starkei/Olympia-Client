@@ -73,9 +73,6 @@ export class AuthService {
     this.itemsCollection.doc<User>(user.uid).set(users);
   }
 
-  test(sex: string) {
-    console.log(sex);
-  }
   addItemLegalUser(
     nameOrg: string,
     phone: number,
@@ -133,8 +130,8 @@ export class AuthService {
       email: user.email,
       displayName: user.displayName,
       photoURL: user.photoURL,
-      dateBirth: user.dateBirth,
-      sex: user.sex,
+      // dateBirth: user.dateBirth,
+      // sex: user.sex,
       phone: user.phone,
       role: user.role
     };

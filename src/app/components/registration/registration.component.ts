@@ -43,6 +43,7 @@ export class RegistrationComponent implements OnInit {
   files: File[] = [];
   errorMessage: string;
   successMessage: string;
+  successMessageLegal: string;
   formGroup: FormGroup;
   formGroup1: FormGroup;
   formGroupLegal: FormGroup;
@@ -84,6 +85,7 @@ export class RegistrationComponent implements OnInit {
         console.log(res);
         this.errorMessage = "";
         this.successMessage = "Your account has been created";
+        this.successMessageLegal = "Your account has been created";
       },
       err => {
         console.log(err);
@@ -110,5 +112,8 @@ export class RegistrationComponent implements OnInit {
 
   registration() {
     this.selected.setValue(1);
+  }
+  legalRegistration() {
+    this.selected.setValue(2);
   }
 }

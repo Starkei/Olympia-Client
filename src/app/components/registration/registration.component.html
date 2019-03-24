@@ -41,17 +41,19 @@
               <a (click)="registration()">
                 <strong>Регистрация</strong>
               </a>
-              <a>Забыл пароль</a>
+              <a (click)="legalRegistration()">
+                <strong>Регистрация Юр. лиц</strong>
+              </a>
+              <a> <strong>Забыл пароль</strong></a>
             </div>
             <button
-              mat-raised-buttons
+              mat-button
               color="primary"
               type="submit"
               (click)="tryAuth(formGroup.value)"
             >
               Войти
             </button>
-            <button (click)="auth.signOut()">Выйти</button>
           </form>
 
           <div fxLayout="row" fxLayoutAlign="space-evenly center">
@@ -65,17 +67,26 @@
                 (click)="auth.googleLogin()"
               />
             </div>
-            <img
-              class="logo-image"
-              src="https://image.flaticon.com/icons/svg/179/179342.svg"
-              (click)="auth.twitterLogin()"
-            />
-
-            <img
-              class="logo-image"
-              src="https://image.flaticon.com/icons/svg/179/179319.svg"
-              (click)="auth.facebookLogin()"
-            />
+            <div
+              (click)="isClicked = !isClicked"
+              [@bounce]="isClicked ? 'in' : 'on'"
+            >
+              <img
+                class="logo-image"
+                src="https://image.flaticon.com/icons/svg/179/179342.svg"
+                (click)="auth.twitterLogin()"
+              />
+            </div>
+            <div
+              (click)="isClicked = !isClicked"
+              [@bounce]="isClicked ? 'in' : 'on'"
+            >
+              <img
+                class="logo-image"
+                src="https://image.flaticon.com/icons/svg/179/179319.svg"
+                (click)="auth.facebookLogin()"
+              />
+            </div>
           </div>
         </mat-card>
       </div>
@@ -247,7 +258,7 @@
                 </mat-form-field>
 
                 <label class="error">{{ errorMessage }}</label>
-                <label class="success">{{ successMessage }}</label>
+                <label class="success">{{ successMessageLegal }}</label>
 
                 <button
                   type="submit"

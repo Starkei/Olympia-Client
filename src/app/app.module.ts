@@ -39,6 +39,9 @@ import { EventsComponent } from "./components/events/events.component";
 import { CrowdfundingService } from "./services/crowdfunding/crowdfunding.service";
 import { EventService } from "./services/event/event.service";
 import { SportService } from "./services/sport/sport.service";
+import { UploaderComponent } from "./components/uploader/uploader/uploader.component";
+import { UploadTaskComponent } from "./components/upload-task/upload-task/upload-task.component";
+import { AngularFireStorageModule } from "@angular/fire/storage";
 
 export const firebaseConfig = environment.firebaseConfig;
 
@@ -64,7 +67,9 @@ export const firebaseConfig = environment.firebaseConfig;
     TextLengthPipe,
     OutputDetailsComponent,
     ArrayFormatterPipe,
-    EventsComponent
+    EventsComponent,
+    UploaderComponent,
+    UploadTaskComponent
   ],
   imports: [
     BrowserModule,
@@ -76,7 +81,8 @@ export const firebaseConfig = environment.firebaseConfig;
     FormsModule,
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFirestoreModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AngularFireStorageModule
   ],
   providers: [
     NewsService,

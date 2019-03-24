@@ -10,6 +10,7 @@ import { SportPageComponent } from "./components/sport-page/sport-page.component
 import { RegistrationComponent } from "./components/registration/registration.component";
 import { OutputDetailsComponent } from "./components/output-details/output-details.component";
 import { EventsComponent } from "./components/events/events.component";
+import { UploaderComponent } from "./components/uploader/uploader/uploader.component";
 
 const routes: Routes = [
   { path: "", redirectTo: "/main", pathMatch: "full" },
@@ -25,6 +26,10 @@ const routes: Routes = [
   {
     path: "output-details",
     component: OutputDetailsComponent
+  },
+  {
+    path: "uploader",
+    component: UploaderComponent
   }
 ];
 
