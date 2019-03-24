@@ -18,7 +18,7 @@ export class DataQueryService {
     return this.afs.collection<T>(this.collection).snapshotChanges();
   }
 
-  protected getAllConvertedData<T>(): Observable<Array<T>> {
+  public getAllConvertedData<T>(): Observable<Array<T>> {
     return this.getAllSnapshotData<T>().pipe(
       map(
         (actions: Array<DocumentChangeAction<T>>): Array<T> => {

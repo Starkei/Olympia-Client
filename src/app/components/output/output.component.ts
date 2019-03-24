@@ -5,7 +5,8 @@ import {
   ViewChild,
   EventEmitter,
   Self,
-  ElementRef
+  ElementRef,
+  OnDestroy
 } from "@angular/core";
 import {
   BreakpointObserver,
@@ -67,7 +68,6 @@ export class OutputComponent implements OnInit {
       });
     }
   }
-
   showArrayWithCommas(array: Array<any>): string {
     let str: string = "";
     array.forEach(

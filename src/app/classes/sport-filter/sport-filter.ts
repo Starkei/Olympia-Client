@@ -1,14 +1,14 @@
-import { Filter } from "src/app/interfaces/filter";
 import { Category } from "src/app/interfaces/category";
-import { of, Observable } from "rxjs";
+import { of } from "rxjs";
 import { SportService } from "src/app/services/sport/sport.service";
 import { Sport } from "../../interfaces/models/sport";
 import { Field } from "src/app/interfaces/field";
+import { FilterGenerator } from "../engine/filter-generator/filter-generator";
 
-export class SportFilter implements Filter {
-  categories: Observable<Array<Category>>;
+export class SportFilter extends FilterGenerator<Sport> {
   constructor(private service: SportService) {
-    this.service.getAllSport().subscribe(
+    super();
+    this.service.getAllConvertedData<Sport>().subscribe(
       (data: Array<Sport>): void => {
         let categoriesArray: Array<Category> = [];
 
@@ -16,22 +16,26 @@ export class SportFilter implements Filter {
           fields: [
             { fieldType: "input", inputPlaceHolder: "Поиск", inputType: "text" }
           ],
-          title: "Поиск"
+          title: "Поиск",
+          dataFieldName: "title"
         });
 
         categoriesArray.push({
           title: "Виды спорта",
-          fields: this.createAllTypesFields(data)
+          fields: this.createAllTypesFields(data),
+          dataFieldName: "type"
         });
 
         categoriesArray.push({
           title: "Противопоказания",
-          fields: this.createAllСontraindicationsTypes(data)
+          fields: this.createAllСontraindicationsTypes(data),
+          dataFieldName: "contraindications"
         });
 
         categoriesArray.push({
           title: "Метро",
-          fields: this.createAllUndergroundFields(data)
+          fields: this.createAllUndergroundFields(data),
+          dataFieldName: "underground"
         });
 
         this.categories = of(categoriesArray);
@@ -39,78 +43,24 @@ export class SportFilter implements Filter {
     );
   }
 
-  createAllTypesFields(sport: Array<Sport>): Array<Field> {
-    let titles: Array<string> = this.getAllTypes(sport);
-    return this.addCheckBoxFields(titles);
-  }
-
-  createAllСontraindicationsTypes(sport: Array<Sport>): Array<Field> {
-    let titles: Array<string> = this.getAllСontraindications(sport);
-    return this.addSelectFields(titles);
-  }
-
-  createAllUndergroundFields(sport: Array<Sport>): Array<Field> {
-    let titles: Array<string> = this.getAllUndergrounds(sport);
-    return this.addCheckBoxFields(titles);
-  }
-
-  getAllСontraindications(sports: Array<Sport>): Array<string> {
-    let contraindications: Set<string> = new Set();
-    sports.forEach(
-      (sport: Sport): void => {
-        sport.contraindications.forEach(
-          (contraindication: string): void => {
-            contraindications.add(contraindication);
-          }
-        );
-      }
+  private createAllTypesFields(sport: Array<Sport>): Array<Field> {
+    let titles: Array<string> = Array.from(
+      this.getSetFromArrayPropertiesValues(sport, "type")
     );
-    return Array.from(contraindications);
+    return this.generateCheckBoxFields(titles);
   }
 
-  getAllTypes(sports: Array<Sport>): Array<string> {
-    let types: Set<string> = new Set();
-    sports.forEach(
-      (sport: Sport): void => {
-        sport.type.forEach(
-          (type: string): void => {
-            types.add(type);
-          }
-        );
-      }
+  private createAllСontraindicationsTypes(sport: Array<Sport>): Array<Field> {
+    let selectItems: Array<string> = Array.from(
+      this.getSetFromArrayPropertiesValues(sport, "contraindications")
     );
-
-    return Array.from(types);
+    return this.generateSelectField(selectItems);
   }
 
-  getAllUndergrounds(sports: Array<Sport>): Array<string> {
-    let types: Set<string> = new Set();
-    sports.forEach(
-      (sport: Sport): void => {
-        types.add(sport.underground);
-      }
+  private createAllUndergroundFields(sport: Array<Sport>): Array<Field> {
+    let titles: Array<string> = Array.from(
+      this.getSetOfPropertiesValues(sport, "underground")
     );
-
-    return Array.from(types);
-  }
-
-  addCheckBoxFields(titles: Array<string>): Array<Field> {
-    let fields: Array<Field> = [];
-    titles.forEach(
-      (element: string): void => {
-        fields.push({
-          fieldType: "checkbox",
-          checked: false,
-          title: element
-        });
-      }
-    );
-    return fields;
-  }
-
-  addSelectFields(titles: Array<string>): Array<Field> {
-    let fields: Array<Field> = [];
-    fields.push({ fieldType: "select", selectItems: titles });
-    return fields;
+    return this.generateCheckBoxFields(titles);
   }
 }

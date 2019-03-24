@@ -15,7 +15,8 @@ export class EventFilter implements Filter {
           fields: [
             { fieldType: "input", inputPlaceHolder: "Поиск", inputType: "text" }
           ],
-          title: "Поиск"
+          title: "Поиск",
+          dataFieldName: "title"
         });
         this.categories = of(categories);
       }

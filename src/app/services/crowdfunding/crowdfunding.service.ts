@@ -16,14 +16,4 @@ export class CrowdfundingService extends FilterService<Crowdfunding> {
   constructor(afs: AngularFirestore) {
     super(afs, "crowdfunding");
   }
-  /**
-   *
-   * @description Отправляет запрос к коллекции crowdfunding для получения всех документов,
-   *  возвращает обертку из массива объектов класса Crowdfunding
-   * @returns {Observable<Array<Crowdfunding>>}
-   * @memberof CrowdfundingService
-   */
-  getAllItems(): Observable<Array<Crowdfunding>> {
-    return this.afs.collection<Crowdfunding>("crowdfunding").valueChanges();
-  }
 }

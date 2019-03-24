@@ -8,6 +8,7 @@ import { map } from "rxjs/operators";
 import { Category } from "src/app/interfaces/category";
 import { Filterable } from "src/app/interfaces/filterable";
 import { Field } from "src/app/interfaces/field";
+import { FieldType } from "src/app/enums/field-type.enum";
 
 @Injectable({
   providedIn: "root"
@@ -60,27 +61,37 @@ export class FilterService<T> extends DataQueryService implements Filterable {
   protected filterConfigure(categories: Array<Category>): void {
     this.priceFilterConfigure(categories);
     let checkbox: Array<string> = [];
+    let select: Array<string> = [];
     for (const category of categories) {
       if (category.dataFieldName) {
         let isCheckbox: boolean = false;
+        let isSelect: boolean = false;
 
         for (const field of category.fields) {
           switch (field.fieldType) {
-            case "checkbox":
-              isCheckbox = true;
-              checkbox.push(field.title);
+            case FieldType.checkbox:
+              if (field.checked) {
+                isCheckbox = true;
+                checkbox.push(field.title);
+              }
               break;
-            case "select":
-              this.filterParams[category.dataFieldName] = val =>
-                val.toUpperCase().indexOf(field.innerText.toUpperCase) >= 0;
+            case FieldType.select:
+              if (field.innerText) {
+                isSelect = true;
+                select.push(field.innerText);
+              }
               break;
             default:
               break;
           }
-
           if (isCheckbox)
             this.filterParams[category.dataFieldName] = val =>
               checkbox.filter(value => val.includes(value)).length != 0;
+          else delete this.filterParams[category.dataFieldName];
+          if (isSelect)
+            this.filterParams[category.dataFieldName] = val =>
+              select.filter(value => val.includes(value)).length != 0;
+          else delete this.filterParams[category.dataFieldName];
         }
       }
     }
