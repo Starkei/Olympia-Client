@@ -60,6 +60,7 @@ export class OutputComponent implements OnInit {
         if (result.matches) this.flexSize = 100;
       }
     );
+
     if (this.update) {
       this.update.subscribe(() => {
         this.items = this.service.getFilteredData(this.filter);

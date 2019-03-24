@@ -2,7 +2,7 @@ import { Filter } from "src/app/interfaces/filter";
 import { Category } from "src/app/interfaces/category";
 import { of, Observable } from "rxjs";
 import { CrowdfundingService } from "src/app/services/crowdfunding/crowdfunding.service";
-import { Crowdfunding } from "../crowdfunding/crowdfunding";
+import { Crowdfunding } from "../../interfaces/models/crowdfunding";
 import { Field } from "src/app/interfaces/field";
 
 export class CrowdfundingFilter implements Filter {
@@ -16,24 +16,28 @@ export class CrowdfundingFilter implements Filter {
           fields: [
             { fieldType: "input", inputPlaceHolder: "Поиск", inputType: "text" }
           ],
-          title: "Поиск"
+          title: "Поиск",
+          dataFieldName: "title"
         });
         categories.push({
           fields: [
             { fieldType: "input", inputPlaceHolder: "от", inputType: "number" },
             { fieldType: "input", inputPlaceHolder: "до", inputType: "number" }
           ],
-          title: "Цена"
+          title: "Цена",
+          dataFieldName: "price"
         });
 
         categories.push({
           fields: this.createAllTypesFields(data),
-          title: "Тип"
+          title: "Тип",
+          dataFieldName: "type"
         });
 
         categories.push({
           fields: this.createAllUsageField(data),
-          title: "Использование"
+          title: "Использование",
+          dataFieldName: "usage"
         });
 
         this.categories = of(categories);

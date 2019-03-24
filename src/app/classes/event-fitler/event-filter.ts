@@ -2,7 +2,7 @@ import { Filter } from "src/app/interfaces/filter";
 import { Category } from "src/app/interfaces/category";
 import { Observable, of } from "rxjs";
 import { EventService } from "src/app/services/event/event.service";
-import { Event } from "../event/event";
+import { Event } from "../../interfaces/models/event";
 
 export class EventFilter implements Filter {
   categories: Observable<Array<Category>>;

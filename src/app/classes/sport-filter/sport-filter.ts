@@ -2,7 +2,7 @@ import { Filter } from "src/app/interfaces/filter";
 import { Category } from "src/app/interfaces/category";
 import { of, Observable } from "rxjs";
 import { SportService } from "src/app/services/sport/sport.service";
-import { Sport } from "../sport/sport";
+import { Sport } from "../../interfaces/models/sport";
 import { Field } from "src/app/interfaces/field";
 
 export class SportFilter implements Filter {

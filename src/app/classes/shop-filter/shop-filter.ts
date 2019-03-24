@@ -2,7 +2,7 @@ import { Filter } from "src/app/interfaces/filter";
 import { Category } from "src/app/interfaces/category";
 import { of, Observable } from "rxjs";
 import { ProductService } from "src/app/services/product/product.service";
-import { Product } from "../product/product";
+import { Product } from "../../interfaces/models/product";
 import { Field } from "src/app/interfaces/field";
 
 export class ShopFilter implements Filter {

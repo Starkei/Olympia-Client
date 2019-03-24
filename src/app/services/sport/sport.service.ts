@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Sport } from "src/app/classes/sport/sport";
+import { Sport } from "src/app/interfaces/models/sport";
 import { AngularFirestore } from "@angular/fire/firestore";
 import { Filterable } from "src/app/interfaces/filterable";
 import { Filter } from "src/app/interfaces/filter";
@@ -29,7 +29,7 @@ export class SportService implements Filterable {
             let data = action.payload.doc.data();
             let id = action.payload.doc.id;
             data.id = id;
-            return new Sport(data as Sport);
+            return data as Sport;
           });
         })
       )

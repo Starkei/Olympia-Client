@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Product } from "src/app/classes/product/product";
+import { Product } from "src/app/interfaces/models/product";
 import { Filterable } from "src/app/interfaces/filterable";
 import { Filter } from "src/app/interfaces/filter";
 import { Observable } from "rxjs";
@@ -27,7 +27,7 @@ export class ProductService implements Filterable {
             const data = a.payload.doc.data() as Output;
             const id = a.payload.doc.id;
             data.id = id;
-            const product = new Product(data as Product);
+            const product = data as Product;
             return product;
           });
         })

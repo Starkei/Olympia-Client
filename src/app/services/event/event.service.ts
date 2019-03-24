@@ -3,7 +3,7 @@ import { AngularFirestore } from "@angular/fire/firestore";
 import { Filterable } from "src/app/interfaces/filterable";
 import { Filter } from "src/app/interfaces/filter";
 import { Observable } from "rxjs";
-import { Event } from "src/app/classes/event/event";
+import { Event } from "src/app/interfaces/models/event";
 import { map } from "rxjs/operators";
 import { Output } from "src/app/interfaces/output";
 
@@ -23,7 +23,7 @@ export class EventService implements Filterable {
             let data = action.payload.doc.data();
             let id = action.payload.doc.id;
             data.id = id;
-            return new Event(data as Event);
+            return data as Event;
           });
         })
       );
@@ -39,7 +39,7 @@ export class EventService implements Filterable {
             let data: Output = action.payload.doc.data();
             let id = action.payload.doc.id;
             data.id = id;
-            return new Event(data as Event);
+            return data as Event;
           });
         })
       );
