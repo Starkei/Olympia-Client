@@ -38,7 +38,7 @@ export class PersonalAreaComponent implements OnInit {
 
   ngOnInit() {
     this.getArea();
-    this.getInfo();
+
     this.bp
       .observe([
         Breakpoints.Medium,
@@ -90,6 +90,7 @@ export class PersonalAreaComponent implements OnInit {
           }
         }
       );
+    this.getInfo();
   }
 
   getInfo() {
