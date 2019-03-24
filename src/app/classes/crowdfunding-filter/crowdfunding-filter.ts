@@ -18,7 +18,6 @@ export class CrowdfundingFilter implements Filter {
           ],
           title: "Поиск"
         });
-
         categories.push({
           fields: [
             { fieldType: "input", inputPlaceHolder: "от", inputType: "number" },
