@@ -18,6 +18,9 @@
           <p><b>Email:</b> {{ user.email }}</p>
         </mat-card-content>
         <mat-card-actions>
+          <button mat-raised-button routerLink="/uploader">
+            Обновление данных
+          </button>
           <button mat-raised-button (click)="auth.signOut()">
             Выйти из профиля
           </button>
