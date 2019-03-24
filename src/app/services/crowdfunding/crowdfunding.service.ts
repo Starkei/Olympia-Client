@@ -1,34 +1,19 @@
 import { Injectable } from "@angular/core";
-import { Crowdfunding } from "src/app/classes/crowdfunding/crowdfunding";
+import { Crowdfunding } from "src/app/interfaces/models/crowdfunding";
 import { Filterable } from "src/app/interfaces/filterable";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
 import { AngularFirestore } from "@angular/fire/firestore";
 import { Filter } from "src/app/interfaces/filter";
 import { Output } from "src/app/interfaces/output";
+import { extend } from "webdriver-js-extender";
+import { FilterService } from "../engine/filter-service/filter.service";
 
 @Injectable({
   providedIn: "root"
 })
-export class CrowdfundingService implements Filterable {
-  constructor(private afs: AngularFirestore) {}
-
-  getFilteredData(filter: Filter): Observable<Array<Crowdfunding>> {
-    return this.afs
-      .collection<Crowdfunding>("crowdfunding")
-      .snapshotChanges()
-      .pipe(
-        map(actions => {
-          return actions.map(action => {
-            let data = action.payload.doc.data();
-            let id = action.payload.doc.id;
-            data.id = id;
-            return new Crowdfunding(data as Crowdfunding);
-          });
-        })
-      );
-  }
-  getAllItems(): Observable<Array<Crowdfunding>> {
-    return this.afs.collection<Crowdfunding>("crowdfunding").valueChanges();
+export class CrowdfundingService extends FilterService<Crowdfunding> {
+  constructor(afs: AngularFirestore) {
+    super(afs, "crowdfunding");
   }
 }

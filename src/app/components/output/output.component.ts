@@ -5,7 +5,8 @@ import {
   ViewChild,
   EventEmitter,
   Self,
-  ElementRef
+  ElementRef,
+  OnDestroy
 } from "@angular/core";
 import {
   BreakpointObserver,
@@ -60,13 +61,13 @@ export class OutputComponent implements OnInit {
         if (result.matches) this.flexSize = 100;
       }
     );
+
     if (this.update) {
       this.update.subscribe(() => {
         this.items = this.service.getFilteredData(this.filter);
       });
     }
   }
-
   showArrayWithCommas(array: Array<any>): string {
     let str: string = "";
     array.forEach(
