@@ -1,1 +1,5 @@
-export enum FieldType {}
+export enum FieldType {
+  checkbox = "checkbox",
+  input = "input",
+  select = "select"
+}

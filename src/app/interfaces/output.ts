@@ -14,5 +14,5 @@ export interface Output {
   time?: Array<string>;
   usage?: Array<string>;
   details?: Array<string>;
-  getFormattedPrice?(): string;
+  currency?: string;
 }
