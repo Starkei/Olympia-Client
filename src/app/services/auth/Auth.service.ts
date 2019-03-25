@@ -56,7 +56,8 @@ export class AuthService {
     phone: number,
     sex: string,
     displayName: string,
-    role: string
+    role: string,
+    photoURL: string
   ) {
     dateBirth = new Date(dateBirth);
     let user = firebase.auth().currentUser;
@@ -65,7 +66,7 @@ export class AuthService {
       phone,
       sex,
       email: user.email,
-      photoURL: user.photoURL,
+      photoURL,
       displayName,
       role
     };
@@ -129,11 +130,11 @@ export class AuthService {
     const data: User = {
       email: user.email,
       displayName: user.displayName,
-      photoURL: user.photoURL,
+      photoURL: user.photoURL
       // dateBirth: user.dateBirth,
       // sex: user.sex,
-      phone: user.phone,
-      role: user.role
+      // phone: user.phone,
+      // role: user.role
     };
 
     return userRef.set(data, { merge: true });
