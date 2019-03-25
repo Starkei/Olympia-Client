@@ -34,4 +34,8 @@ export class DataQueryService {
       )
     );
   }
+
+  protected sendData<T>(data: T): void {
+    this.afs.collection<T>(this.collection).add(data);
+  }
 }
