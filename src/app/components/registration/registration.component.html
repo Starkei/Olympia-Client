@@ -173,16 +173,10 @@
                 <div class="sex">
                   <mat-radio-group formControlName="sex" [(ngModel)]="sex">
                     <h4>Ваш пол</h4>
-                    <mat-radio-button
-                      value="Мужчина"
-                      (click)="setradio('Мужчина')"
-                    >
+                    <mat-radio-button value="Мужчина">
                       Мужчина
                     </mat-radio-button>
-                    <mat-radio-button
-                      value="Женщина"
-                      (click)="setradio('Женщина')"
-                    >
+                    <mat-radio-button value="Женщина">
                       Женщина
                     </mat-radio-button>
                   </mat-radio-group>
@@ -203,7 +197,9 @@
                 </mat-form-field>
                 <button
                   mat-button
-                  (click)="auth.addItem(dateBirth, phone, sex, name, 'User')"
+                  (click)="
+                    auth.addItem(dateBirth, phone, sex, name, 'User', '')
+                  "
                 >
                   Подтвердить
                 </button>

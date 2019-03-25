@@ -5,9 +5,9 @@ export interface User {
   uid?: string;
   dateBirth?: Date;
   sex?: string;
-  phone: number;
+  phone?: number;
   nameOrg?: string;
   activityOrg?: string;
   adresOrg?: string;
-  role: string;
+  role?: string;
 }
