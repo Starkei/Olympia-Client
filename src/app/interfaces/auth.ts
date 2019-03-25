@@ -10,4 +10,6 @@ export interface User {
   activityOrg?: string;
   adresOrg?: string;
   role: string;
+  chatId?: Array<string>;
+  contacts?: Array<string>;
 }

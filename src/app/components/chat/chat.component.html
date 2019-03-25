@@ -1,0 +1,43 @@
+<app-banner image="assets/images/forest.jpg"></app-banner>
+<ng-container *ngIf="contacts && contacts.length != 0; else elseTemplate">
+  <div class="options" fxLayout="row" fxLayoutAlign="start center">
+    <mat-form-field fxFlexOffset="1%">
+      <mat-select placeholder="Подписки" [(ngModel)]="contact">
+        <mat-option *ngFor="let contact of contacts" [value]="contact">
+          {{ contact.email }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field fxFlexOffset="1%">
+      <input matInput type="text" placeholder="Навзание беседы" [(ngModel)]="title" />
+    </mat-form-field>
+    <button fxFlexOffset="1%" mat-raised-button (click)="createChat()">Создать чат</button>
+  </div>
+</ng-container>
+<ng-template #elseTemplate> </ng-template>
+
+<mat-tab-group>
+  <mat-tab *ngFor="let chat of chats" [label]="chat.title">
+    <div class="chat" *ngIf="chat.messages">
+      <mat-card *ngFor="let message of chat.messages">
+        <mat-card-header>
+          <img src="assets/images/forest.jpg" alt="" mat-card-avatar />
+          <mat-card-title>
+            {{ message.senderName }}
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          {{ message.data }}
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div class="input" fxLayout="row" fxLayoutAlign="start center">
+      <mat-form-field fxFlex="80%" fxFlexOffset="3%">
+        <textarea matInput name="" id="" cols="30" placeholder="Введите сообщение" [(ngModel)]="message"></textarea>
+      </mat-form-field>
+      <button mat-raised-button fxFlex="20%" fxFlexOffset="3%" (click)="send(chat.uid)">
+        Отправить
+      </button>
+    </div>
+  </mat-tab>
+</mat-tab-group>
