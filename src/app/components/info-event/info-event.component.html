@@ -1,0 +1,26 @@
+<app-banner image="assets/images/forest.jpg"></app-banner>
+<div class="main">
+  <div class="container">
+    <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start stretch">
+      <div fxFlexOffset="3%" fxFlex="60%">
+        <mat-card class="main-image">
+          <img [src]="items.image" alt="" mat-card-image />
+        </mat-card>
+      </div>
+      <div fxLayout="column" fxFlexOffset="3%" fxFlex="33%">
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>
+              {{ items.title }}
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <p><b>Описание: </b>: {{ items.description }}</p>
+            <p><b>Адрес: </b>{{ items.address }}</p>
+            <p><b>Телефон: </b>: {{ items.phoneNumbers }}</p>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>

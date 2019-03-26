@@ -1,34 +1,31 @@
 import { Injectable } from "@angular/core";
-import { Personal_Area } from "../../interfaces/peronal_area";
+import {
+  AngularFirestore,
+  AngularFirestoreDocument,
+  AngularFirestoreCollection
+} from "@angular/fire/firestore";
+import { Observable } from "rxjs";
+import "rxjs/add/operator/map";
+import * as firebase from "firebase/app";
 
 @Injectable({
   providedIn: "root"
 })
 export class PersonalAreaService {
-  area: Array<Personal_Area> = [];
-  constructor() {
-    this.area.push({
-      title: "Психолог. Консультация, психологическая помощь.",
-      image:
-        "http://www.e-event.kz/wp-content/uploads/2017/03/16996003_1367484669984147_4774523484823776271_n.jpg"
-    });
-    this.area.push({
-      title: "Психолог. Консультация, психологическая помощь.",
-      image:
-        "http://www.e-event.kz/wp-content/uploads/2017/03/16996003_1367484669984147_4774523484823776271_n.jpg"
-    });
-    this.area.push({
-      title: "Психолог. Консультация, психологическая помощь.",
-      image:
-        "http://www.e-event.kz/wp-content/uploads/2017/03/16996003_1367484669984147_4774523484823776271_n.jpg"
-    });
-    this.area.push({
-      title: "Психолог. Консультация, психологическая помощь.",
-      image:
-        "http://www.e-event.kz/wp-content/uploads/2017/03/16996003_1367484669984147_4774523484823776271_n.jpg"
+  event: any;
+  items: Observable<any[]>;
+  private itemsCollection: AngularFirestoreCollection<any>;
+  constructor(public afs: AngularFirestore) {
+    this.itemsCollection = this.afs.collection<any>("events");
+    this.items = this.itemsCollection.snapshotChanges().map(actions => {
+      return actions.map(action => ({
+        $key: action.payload.doc.id,
+        ...action.payload.doc.data()
+      }));
     });
   }
-  getArea(): Array<Personal_Area> {
-    return this.area;
+
+  public info(event) {
+    this.event = event;
   }
 }

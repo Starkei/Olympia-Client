@@ -39,6 +39,7 @@ import { EventsComponent } from "./components/events/events.component";
 import { CrowdfundingService } from "./services/crowdfunding/crowdfunding.service";
 import { EventService } from "./services/event/event.service";
 import { SportService } from "./services/sport/sport.service";
+import { InfoEventComponent } from './components/info-event/info-event.component';
 
 export const firebaseConfig = environment.firebaseConfig;
 
@@ -64,7 +65,8 @@ export const firebaseConfig = environment.firebaseConfig;
     TextLengthPipe,
     OutputDetailsComponent,
     ArrayFormatterPipe,
-    EventsComponent
+    EventsComponent,
+    InfoEventComponent
   ],
   imports: [
     BrowserModule,

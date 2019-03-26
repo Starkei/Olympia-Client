@@ -13,7 +13,6 @@
           <p><b>Дата рождения:</b></p>
           <p><b>Пол:</b> Мужской.</p>
           <p><b>Деньги:</b> 500р.</p>
-          <p><b>Адрес:</b> {{ user.email }}</p>
           <p><b>Телефон: </b>+375{{ user.phone }}</p>
           <p><b>Email:</b> {{ user.email }}</p>
         </mat-card-content>
@@ -63,17 +62,29 @@
         fxLayout.xs="column"
         fxLayoutAlign="start center"
       >
-        <div class="event" [fxFlex]="getFxSize()" *ngFor="let ar of area">
+        <div
+          class="event"
+          [fxFlex]="getFxSize()"
+          *ngFor="let item of (items | async)"
+        >
           <mat-card class="card_event">
             <mat-card-header>
               <mat-card-title
                 ><b
-                  ><p>{{ ar.title }}</p></b
+                  ><p>{{ item.title }}</p></b
                 ></mat-card-title
               >
             </mat-card-header>
             <mat-card-actions>
-              <button mat-raised-button>Перейти</button>
+              <button
+                mat-raised-button
+                (click)="rout(item); service.info(item)"
+              >
+                Перейти
+              </button>
+              <button mat-raised-button>
+                Check
+              </button>
             </mat-card-actions>
           </mat-card>
         </div>

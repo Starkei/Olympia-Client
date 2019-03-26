@@ -1,5 +1,4 @@
-import { Component, OnInit } from "@angular/core";
-import { Personal_Area } from "../../interfaces/peronal_area";
+import { Component, OnInit, Input } from "@angular/core";
 import { PersonalAreaService } from "../../services/peronal_area/personal-area.service";
 import {
   BreakpointObserver,
@@ -8,7 +7,9 @@ import {
 } from "@angular/cdk/layout";
 import { AuthService } from "src/app/services/auth/Auth.service";
 import { User } from "src/app/interfaces/auth";
-import { Observable } from "rxjs";
+import { Event } from "src/app/classes/event/event";
+import { Output } from "src/app/interfaces/output";
+import { Router } from "@angular/router";
 @Component({
   selector: "app-personal-area",
   templateUrl: "./personal-area.component.html",
@@ -22,23 +23,24 @@ export class PersonalAreaComponent implements OnInit {
     "Message4",
     "Message5"
   ];
-  area: Array<Personal_Area> = [];
+
   private fxSizeEvent: number = 0;
   private fxSizeInfo: number = 0;
   private fxSizeCont: number = 0;
   private fxSizeStat: number = 0;
   private fxSizeUser: number = 0;
   private fxSizeChat: number = 0;
+  items = this.service.items;
+
   user: User;
   constructor(
+    private router: Router,
     public auth: AuthService,
     private service: PersonalAreaService,
     private bp: BreakpointObserver
   ) {}
 
   ngOnInit() {
-    this.getArea();
-    this.getInfo();
     this.bp
       .observe([
         Breakpoints.Medium,
@@ -63,7 +65,7 @@ export class PersonalAreaComponent implements OnInit {
             this.fxSizeInfo = 90;
             this.fxSizeCont = 42;
             this.fxSizeStat = 40;
-            this.fxSizeUser = 50;
+            this.fxSizeUser = 55;
             this.fxSizeChat = 36;
             console.clear();
             console.log("Medium");
@@ -73,7 +75,7 @@ export class PersonalAreaComponent implements OnInit {
             this.fxSizeInfo = 85;
             this.fxSizeCont = 45;
             this.fxSizeStat = 40;
-            this.fxSizeUser = 45;
+            this.fxSizeUser = 41;
             this.fxSizeChat = 36;
             console.clear();
             console.log("Small");
@@ -90,13 +92,15 @@ export class PersonalAreaComponent implements OnInit {
           }
         }
       );
+    this.getInfo();
   }
 
   getInfo() {
     this.auth.infoAboutCurrentUser().subscribe(data => (this.user = data));
   }
-  getArea() {
-    this.area = this.service.getArea();
+  rout(event: any): void {
+    console.log(event);
+    this.router.navigate(["info-event", { data: event }]);
   }
   getFxSize(): string {
     return this.fxSizeEvent + "%";
