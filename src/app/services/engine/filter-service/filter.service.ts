@@ -7,12 +7,8 @@ import { AngularFirestore } from "@angular/fire/firestore";
 import { map } from "rxjs/operators";
 import { Category } from "src/app/interfaces/category";
 import { Filterable } from "src/app/interfaces/filterable";
-import { Field } from "src/app/interfaces/field";
 import { FieldType } from "src/app/enums/field-type.enum";
 
-@Injectable({
-  providedIn: "root"
-})
 export class FilterService<T> extends DataQueryService implements Filterable {
   private filterIterator: _.ListIterateeCustom<T, boolean>;
   private filterParams: any = {};
@@ -25,16 +21,12 @@ export class FilterService<T> extends DataQueryService implements Filterable {
   protected searchFilterConfigure(categories: Array<Category>): void {
     for (const category of categories) {
       if (category.title == "Поиск") {
-        if (
-          !category.fields[0].innerText ||
-          category.fields[0].innerText.length == 0
-        ) {
+        if (!category.fields[0].innerText || category.fields[0].innerText.length == 0) {
           delete this.searchParams[category.dataFieldName];
           break;
         }
         let searchStr: string = category.fields[0].innerText.toUpperCase();
-        this.searchParams[category.dataFieldName] = (val: string): boolean =>
-          val.toUpperCase().indexOf(searchStr) >= 0;
+        this.searchParams[category.dataFieldName] = (val: string): boolean => val.toUpperCase().indexOf(searchStr) >= 0;
         break;
       }
     }
@@ -45,13 +37,9 @@ export class FilterService<T> extends DataQueryService implements Filterable {
       if (category.title == "Цена") {
         let from: number = Number.parseFloat(category.fields[0].innerText);
         let to: number = Number.parseFloat(category.fields[1].innerText);
-        if (to && from)
-          this.filterParams[category.dataFieldName] = val =>
-            from <= val && val <= to;
-        else if (from)
-          this.filterParams[category.dataFieldName] = val => from <= val;
-        else if (to)
-          this.filterParams[category.dataFieldName] = val => val <= to;
+        if (to && from) this.filterParams[category.dataFieldName] = val => from <= val && val <= to;
+        else if (from) this.filterParams[category.dataFieldName] = val => from <= val;
+        else if (to) this.filterParams[category.dataFieldName] = val => val <= to;
         else delete this.filterParams[category.dataFieldName];
         return;
       }
@@ -89,8 +77,7 @@ export class FilterService<T> extends DataQueryService implements Filterable {
               checkbox.filter(value => val.includes(value)).length != 0;
           else delete this.filterParams[category.dataFieldName];
           if (isSelect)
-            this.filterParams[category.dataFieldName] = val =>
-              select.filter(value => val.includes(value)).length != 0;
+            this.filterParams[category.dataFieldName] = val => select.filter(value => val.includes(value)).length != 0;
           else delete this.filterParams[category.dataFieldName];
         }
       }
