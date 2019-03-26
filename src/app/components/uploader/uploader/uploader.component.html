@@ -13,7 +13,7 @@
         <mat-form-field class="example-full-width">
           <input type="password" placeholder="Пароль" matInput required />
         </mat-form-field> -->
-        <mat-form-field class="example-full-width">
+        <!-- <mat-form-field class="example-full-width">
           <input
             matInput
             placeholder="Имя"
@@ -63,19 +63,19 @@
             [(ngModel)]="phone"
           />
           <mat-icon matSuffix>mode_edit</mat-icon>
-        </mat-form-field>
+        </mat-form-field> -->
 
         <div class="dataChange">
           <label class="file-label">
             <input type="file" (change)="onDrop($event.target.files)" />
           </label>
         </div>
-        <button
+        <!-- <button
           mat-button
           (click)="auth.addItem(dateBirth, phone, sex, name, 'User')"
         >
           Подтвердить
-        </button>
+        </button> -->
       </form>
     </mat-card>
   </div>

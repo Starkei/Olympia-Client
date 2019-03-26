@@ -9,9 +9,6 @@ import {
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
 
-@Injectable({
-  providedIn: "root"
-})
 export class DataQueryService {
   constructor(protected afs: AngularFirestore, protected collection: string) {}
 
