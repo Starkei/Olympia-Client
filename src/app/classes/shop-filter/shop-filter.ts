@@ -14,7 +14,11 @@ export class ShopFilter extends FilterGenerator<Product> {
         let categories: Array<Category> = [];
         categories.push({
           fields: [
-            { fieldType: "input", inputPlaceHolder: "Поиск", inputType: "text" }
+            {
+              fieldType: "input",
+              inputPlaceHolder: "Поиск",
+              inputType: "search"
+            }
           ],
           title: "Поиск",
           dataFieldName: "title"

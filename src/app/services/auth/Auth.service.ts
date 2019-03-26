@@ -3,26 +3,20 @@ import { Router, RouterLink } from "@angular/router";
 import { auth } from "firebase/app";
 import { AngularFireAuth } from "@angular/fire/auth";
 
-import {
-  AngularFirestore,
-  AngularFirestoreDocument,
-  AngularFirestoreCollection
-} from "@angular/fire/firestore";
+import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from "@angular/fire/firestore";
 import { Observable, of } from "rxjs";
 import { switchMap, map } from "rxjs/operators";
 import { User } from "src/app/interfaces/auth";
 import * as firebase from "firebase/app";
+import { DataQueryService } from "../engine/data-query-service/data-query.service";
 @Injectable({
   providedIn: "root"
 })
-export class AuthService {
+export class AuthService extends DataQueryService {
   user: Observable<User>;
   private itemsCollection: AngularFirestoreCollection<User>;
-  constructor(
-    private afAuth: AngularFireAuth,
-    private afs: AngularFirestore,
-    private router: Router
-  ) {
+  constructor(private afAuth: AngularFireAuth, afs: AngularFirestore, private router: Router) {
+    super(afs, "users");
     this.itemsCollection = afs.collection<User>("users");
     this.user = this.afAuth.authState.pipe(
       switchMap(user => {
@@ -37,6 +31,8 @@ export class AuthService {
 
   infoAboutCurrentUser(): Observable<User> {
     let user = firebase.auth().currentUser;
+    if (!user) return of(null);
+    console.log(user);
     const userRef = this.itemsCollection
       .doc<User>(user.uid)
       .snapshotChanges()
@@ -44,21 +40,13 @@ export class AuthService {
         map(actions => {
           let data: User = actions.payload.data() as User;
           data.uid = actions.payload.id;
-
-          return actions.payload.data() as User;
+          return data;
         })
       );
     return userRef;
   }
 
-  addItem(
-    dateBirth: Date,
-    phone: number,
-    sex: string,
-    displayName: string,
-    role: string,
-    photoURL: string
-  ) {
+  addItem(dateBirth: Date, phone: number, sex: string, displayName: string, role: string, photoURL: string) {
     dateBirth = new Date(dateBirth);
     let user = firebase.auth().currentUser;
     const users: User = {
@@ -74,13 +62,7 @@ export class AuthService {
     this.itemsCollection.doc<User>(user.uid).set(users);
   }
 
-  addItemLegalUser(
-    nameOrg: string,
-    phone: number,
-    activityOrg: string,
-    adresOrg: string,
-    role: string
-  ) {
+  addItemLegalUser(nameOrg: string, phone: number, activityOrg: string, adresOrg: string, role: string) {
     let user = firebase.auth().currentUser;
     console.log(user.uid);
     const users: User = {
@@ -123,9 +105,7 @@ export class AuthService {
   // }
 
   private updateUserData(user: any): Promise<void> {
-    const userRef: AngularFirestoreDocument<any> = this.afs.doc(
-      `users/${user.uid}`
-    );
+    const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
 
     const data: User = {
       email: user.email,
