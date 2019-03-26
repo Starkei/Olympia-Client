@@ -1,9 +1,9 @@
 import { Component, OnInit } from "@angular/core";
-import {
-  BreakpointObserver,
-  BreakpointState,
-  Breakpoints
-} from "@angular/cdk/layout";
+import { BreakpointObserver, BreakpointState, Breakpoints } from "@angular/cdk/layout";
+import { AuthService } from "src/app/services/auth/Auth.service";
+import { Observable } from "rxjs";
+import { User } from "src/app/interfaces/auth";
+import { switchMap } from "rxjs/operators";
 
 @Component({
   selector: "app-nav-bar",
@@ -11,7 +11,9 @@ import {
   styleUrls: ["./nav-bar.component.scss"]
 })
 export class NavBarComponent implements OnInit {
-  constructor(private breakpointObserver: BreakpointObserver) {}
+  user: Observable<User>;
+
+  constructor(private breakpointObserver: BreakpointObserver, public userService: AuthService) {}
 
   isLandscape: boolean = true;
 
@@ -29,5 +31,7 @@ export class NavBarComponent implements OnInit {
           this.isLandscape = false;
         }
       });
+
+    this.user = this.userService.user;
   }
 }

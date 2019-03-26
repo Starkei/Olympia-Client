@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { ChatService } from "src/app/services/chat-service/chat.service";
 import { AuthService } from "src/app/services/auth/Auth.service";
 import { Observable, of } from "rxjs";
@@ -6,7 +6,6 @@ import { User } from "src/app/interfaces/auth";
 import { Messages } from "src/app/interfaces/models/messages";
 import { Message } from "src/app/interfaces/models/message";
 import * as _ from "lodash";
-import { MatTabGroup } from "@angular/material";
 
 @Component({
   selector: "app-chat",
@@ -14,7 +13,6 @@ import { MatTabGroup } from "@angular/material";
   styleUrls: ["./chat.component.scss"]
 })
 export class ChatComponent implements OnInit {
-  @ViewChild(MatTabGroup) scroll: MatTabGroup;
   contacts: Array<User>;
   chats: Array<Messages>;
   message: string;
@@ -26,7 +24,6 @@ export class ChatComponent implements OnInit {
   ngOnInit() {
     this.getContacts();
     this.getChats();
-    this.moveScrollToBottom();
   }
 
   public getContacts(): void {
@@ -104,10 +101,5 @@ export class ChatComponent implements OnInit {
         this.getChats();
       }
     );
-  }
-
-  public moveScrollToBottom(): void {
-    this.scroll._elementRef.nativeElement.scrollTop = this.scroll._elementRef.nativeElement.scrollHeight;
-    console.log(this.scroll._elementRef.nativeElement.scrollHeight);
   }
 }

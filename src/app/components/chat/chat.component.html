@@ -1,6 +1,6 @@
 <app-banner image="assets/images/forest.jpg"></app-banner>
 <ng-container *ngIf="contacts && contacts.length != 0; else elseTemplate">
-  <div class="options" fxLayout="row" fxLayoutAlign="start center">
+  <div class="options" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start center">
     <mat-form-field fxFlexOffset="1%">
       <mat-select placeholder="Подписки" [(ngModel)]="contact">
         <mat-option *ngFor="let contact of contacts" [value]="contact">
@@ -31,7 +31,7 @@
         </mat-card-content>
       </mat-card>
     </div>
-    <div class="input" fxLayout="row" fxLayoutAlign="start center">
+    <div class="input" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start center">
       <mat-form-field fxFlex="80%" fxFlexOffset="3%">
         <textarea matInput name="" id="" cols="30" placeholder="Введите сообщение" [(ngModel)]="message"></textarea>
       </mat-form-field>

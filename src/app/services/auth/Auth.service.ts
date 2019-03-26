@@ -8,13 +8,15 @@ import { Observable, of } from "rxjs";
 import { switchMap, map } from "rxjs/operators";
 import { User } from "src/app/interfaces/auth";
 import * as firebase from "firebase/app";
+import { DataQueryService } from "../engine/data-query-service/data-query.service";
 @Injectable({
   providedIn: "root"
 })
-export class AuthService {
+export class AuthService extends DataQueryService {
   user: Observable<User>;
   private itemsCollection: AngularFirestoreCollection<User>;
-  constructor(private afAuth: AngularFireAuth, private afs: AngularFirestore, private router: Router) {
+  constructor(private afAuth: AngularFireAuth, afs: AngularFirestore, private router: Router) {
+    super(afs, "users");
     this.itemsCollection = afs.collection<User>("users");
     this.user = this.afAuth.authState.pipe(
       switchMap(user => {
@@ -29,6 +31,8 @@ export class AuthService {
 
   infoAboutCurrentUser(): Observable<User> {
     let user = firebase.auth().currentUser;
+    if (!user) return of(null);
+    console.log(user);
     const userRef = this.itemsCollection
       .doc<User>(user.uid)
       .snapshotChanges()
@@ -36,7 +40,7 @@ export class AuthService {
         map(actions => {
           let data: User = actions.payload.data() as User;
           data.uid = actions.payload.id;
-          return data as User;
+          return data;
         })
       );
     return userRef;
