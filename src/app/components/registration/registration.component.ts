@@ -40,7 +40,7 @@ export class RegistrationComponent implements OnInit {
   // selectedFiles: FileList;
   isHovering: boolean;
 
-  files: File[] = [];
+  // files: File[] = [];
   errorMessage: string;
   errorMessageAuth: string;
   successMessage: string;
@@ -49,6 +49,10 @@ export class RegistrationComponent implements OnInit {
   formGroup: FormGroup;
   formGroup1: FormGroup;
   formGroupLegal: FormGroup;
+  nameOrg: string;
+  activityOrg: string;
+  adressOrg: string;
+
   sex: string;
   isClicked: boolean = false;
   disabled = false;
@@ -56,7 +60,7 @@ export class RegistrationComponent implements OnInit {
   bounce: any;
   serializedDate = new FormControl(new Date().toISOString());
   public phone: number = null;
-  public dateBirth: string = null;
+  public dateBirth: Date;
   public name: string = null;
   minDate = new Date(1900, 0, 1);
   maxDate = new Date(2020, 0, 1);
