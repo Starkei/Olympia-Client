@@ -42,7 +42,7 @@ import { SportService } from "./services/sport/sport.service";
 import { UploaderComponent } from "./components/uploader/uploader/uploader.component";
 import { UploadTaskComponent } from "./components/upload-task/upload-task/upload-task.component";
 import { AngularFireStorageModule } from "@angular/fire/storage";
-import { ChatComponent } from './components/chat/chat.component';
+import { ChatComponent } from "./components/chat/chat.component";
 
 export const firebaseConfig = environment.firebaseConfig;
 
