@@ -13,8 +13,8 @@
         fxFlexOffset="3%"
         [service]="crowdfundingService"
         [filter]="filter"
-        [btnLike]="true"
         [btnFollow]="true"
+        [update]="this.filterComponent.shouldBeUpdate"
         collection="crowdfunding"
       ></app-output>
     </div>

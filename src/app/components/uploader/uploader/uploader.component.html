@@ -1,0 +1,87 @@
+<app-banner image="assets/images/au1.jpg"></app-banner>
+<div class="container" fxLayout="row" fxLayoutAlign="space-evenly center">
+  <div>
+    <mat-card fxFlex="100%">
+      <mat-card-title>
+        <div class="label">Редактирование</div>
+      </mat-card-title>
+
+      <form fxLayout="column" fxLayoutAlign="space-evenly start">
+        <!-- <mat-form-field class="example-full-width">
+          <input type="email" placeholder="Email" matInput required />
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <input type="password" placeholder="Пароль" matInput required />
+        </mat-form-field> -->
+        <mat-form-field class="example-full-width">
+          <input
+            matInput
+            placeholder="Имя"
+            matInput
+            required
+            name="name"
+            [(ngModel)]="name"
+        /></mat-form-field>
+        <mat-form-field class="example-full-width">
+          <input
+            matInput
+            [min]="minDate"
+            [max]="maxDate"
+            [matDatepicker]="picker"
+            placeholder="Дата вашего рождения"
+            name="dateBirth"
+            [(ngModel)]="dateBirth"
+            matInput
+            required
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <div class="sex">
+          <mat-radio-group name="sex" [(ngModel)]="sex">
+            <h4>Ваш пол</h4>
+            <mat-radio-button value="Мужчина">
+              Мужчина
+            </mat-radio-button>
+            <mat-radio-button value="Женщина">
+              Женщина
+            </mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <mat-form-field>
+          <span matPrefix>+375 &nbsp;</span>
+          <input
+            type="tel"
+            matInput
+            placeholder="Телефон"
+            matInput
+            required
+            name="phone"
+            [(ngModel)]="phone"
+          />
+          <mat-icon matSuffix>mode_edit</mat-icon>
+        </mat-form-field>
+
+        <div class="dataChange">
+          <label class="file-label">
+            <input type="file" (change)="onDrop($event.target.files)" />
+          </label>
+        </div>
+        <button
+          mat-button
+          (click)="auth.addItem(dateBirth, phone, sex, name, 'User')"
+        >
+          Подтвердить
+        </button>
+      </form>
+    </mat-card>
+  </div>
+</div>
+<h3>Ваши загруженные картинки</h3>
+
+<div *ngFor="let file of files">
+  <upload-task [file]="file"></upload-task>
+</div>
