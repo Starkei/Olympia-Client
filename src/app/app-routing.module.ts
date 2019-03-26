@@ -11,6 +11,7 @@ import { RegistrationComponent } from "./components/registration/registration.co
 import { OutputDetailsComponent } from "./components/output-details/output-details.component";
 import { EventsComponent } from "./components/events/events.component";
 import { UploaderComponent } from "./components/uploader/uploader/uploader.component";
+import { ChatComponent } from "./components/chat/chat.component";
 
 const routes: Routes = [
   { path: "", redirectTo: "/main", pathMatch: "full" },
@@ -30,6 +31,10 @@ const routes: Routes = [
   {
     path: "uploader",
     component: UploaderComponent
+  },
+  {
+    path: "chats",
+    component: ChatComponent
   }
 ];
 
