@@ -3,7 +3,7 @@ import { SportService } from "src/app/services/sport/sport.service";
 import { BreakpointObserver, BreakpointState } from "@angular/cdk/layout";
 import { Filter } from "src/app/engine/interfaces/filter";
 import { SportFilter } from "src/app/classes/sport-filter/sport-filter";
-import { FilterComponent } from "../filter/filter.component";
+import { FilterComponent } from "../../shared/filter-component/filter/filter.component";
 
 @Component({
   selector: "app-sport-page",

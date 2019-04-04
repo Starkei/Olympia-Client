@@ -3,7 +3,7 @@ import { ProductService } from "src/app/services/product/product.service";
 import { BreakpointObserver, BreakpointState } from "@angular/cdk/layout";
 import { Filter } from "src/app/engine/interfaces/filter";
 import { ShopFilter } from "src/app/classes/shop-filter/shop-filter";
-import { FilterComponent } from "../filter/filter.component";
+import { FilterComponent } from "../../shared/filter-component/filter/filter.component";
 
 @Component({
   selector: "app-shop",
