@@ -75,8 +75,7 @@ export class FilterService<T> extends DataQueryService implements Filterable {
           if (isCheckbox)
             this.filterParams[category.dataFieldName] = val =>
               checkbox.filter(value => val.includes(value)).length != 0;
-          else delete this.filterParams[category.dataFieldName];
-          if (isSelect)
+          else if (isSelect)
             this.filterParams[category.dataFieldName] = val => select.filter(value => val.includes(value)).length != 0;
           else delete this.filterParams[category.dataFieldName];
         }
