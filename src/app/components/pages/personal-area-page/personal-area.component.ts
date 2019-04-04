@@ -1,16 +1,20 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { BreakpointObserver, Breakpoints, BreakpointState } from "@angular/cdk/layout";
 import { AuthService } from "src/app/services/auth/Auth.service";
 import { User } from "src/app/interfaces/auth";
 import { Personal_Area } from "src/app/interfaces/peronal_area";
 import { PersonalAreaService } from "src/app/services/peronal_area/personal-area.service";
+import { MatDialog, MatDialogRef, MatSnackBar } from "@angular/material";
+import { ProductCreatorComponent } from "../../shared/creators/product-creator/product-creator.component";
+import { Observable, Subscription } from "rxjs";
+import { ShopComponent } from "../shop-page/shop.component";
+import { ChatComponent } from "../chat-page/chat.component";
 @Component({
   selector: "app-personal-area",
   templateUrl: "./personal-area.component.html",
   styleUrls: ["./personal-area.component.scss"]
 })
-export class PersonalAreaComponent implements OnInit {
-  messages: string[] = ["Message1", "Message2", "Message3", "Message4", "Message5"];
+export class PersonalAreaComponent implements OnInit, OnDestroy {
   area: Array<Personal_Area> = [];
   private fxSizeEvent: number = 0;
   private fxSizeInfo: number = 0;
@@ -19,7 +23,14 @@ export class PersonalAreaComponent implements OnInit {
   private fxSizeUser: number = 0;
   private fxSizeChat: number = 0;
   user: User;
-  constructor(public auth: AuthService, private service: PersonalAreaService, private bp: BreakpointObserver) {}
+  userSubscribtion: Subscription;
+  constructor(
+    public dialog: MatDialog,
+    public auth: AuthService,
+    private service: PersonalAreaService,
+    private bp: BreakpointObserver,
+    private snackBar: MatSnackBar
+  ) {}
 
   ngOnInit() {
     this.getArea();
@@ -71,8 +82,16 @@ export class PersonalAreaComponent implements OnInit {
     this.getInfo();
   }
 
+  ngOnDestroy() {
+    this.userSubscribtion.unsubscribe();
+  }
+
   getInfo() {
-    this.auth.infoAboutCurrentUser().subscribe(data => (this.user = data));
+    this.userSubscribtion = this.auth.user.subscribe(
+      (userInfo: User): void => {
+        this.user = userInfo;
+      }
+    );
   }
   getArea() {
     this.area = this.service.getArea();
@@ -94,5 +113,13 @@ export class PersonalAreaComponent implements OnInit {
   }
   getFxSize6(): string {
     return this.fxSizeChat + "%";
+  }
+
+  public openProductCreator() {
+    let ref: MatDialogRef<ProductCreatorComponent> = this.dialog.open(ProductCreatorComponent);
+    ref.afterClosed().subscribe(data => {
+      if (!data) data = "Прервано";
+      this.snackBar.open(data, "Ок", { duration: 2000 });
+    });
   }
 }

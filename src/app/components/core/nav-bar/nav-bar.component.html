@@ -16,7 +16,7 @@
     <button mat-button routerLink="/events">Мероприятия</button>
     <button *ngIf="(user | async)" mat-button routerLink="/area">Личный кабинет</button>
     <button *ngIf="(user | async)" mat-button routerLink="/chats">Чаты</button>
-    <button mat-button routerLink="/registration">Регистрация</button>
+    <button *ngIf="!(user | async)" mat-button routerLink="/registration">Регистрация</button>
   </span>
 </mat-toolbar>
 
@@ -32,7 +32,7 @@
 
       <a mat-list-item routerLink="/sport">Спорт</a>
       <a mat-list-item routerLink="/crowdfunding">Краудфандинг</a>
-      <a mat-button routerLink="/events">Мероприятия</a>
+      <a mat-list-item routerLink="/events">Мероприятия</a>
 
       <a *ngIf="(user | async)" mat-list-item routerLink="/area">Личный кабинет</a>
       <a *ngIf="(user | async)" mat-list-item routerLink="/chats">Чаты</a>

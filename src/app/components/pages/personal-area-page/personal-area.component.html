@@ -1,71 +1,74 @@
 <div class="main" fxLayout="row" fxLayout.xs="column">
-  <div class="container" fxLayout="column" [fxFlex]="getFxSize3()">
-    <div class="user" [fxFlex]="getFxSize5()">
-      <mat-card class="card_user">
-        <mat-card-header>
-          <mat-card-title><b>Картман</b></mat-card-title>
-        </mat-card-header>
-        <img
-          mat-card-image
-          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAc5zqH5SN-8vWbPQPJzIVq-LAnTIku8iiyJgjL5sfW8M-ebZiYw"
-        />
-        <mat-card-content>
-          <p><b>Дата рождения:</b></p>
-          <p><b>Пол:</b> Мужской.</p>
-          <p><b>Деньги:</b> 500р.</p>
-          <p><b>Адрес:</b> {{ user.email }}</p>
-          <p><b>Телефон: </b>+375{{ user.phone }}</p>
-          <p><b>Email:</b> {{ user.email }}</p>
-        </mat-card-content>
-        <mat-card-actions>
-          <button mat-raised-button routerLink="/uploader">
-            Обновление данных
+  <div class="container" fxLayout="column" [fxFlex]="getFxSize3()" fxLayoutAlign="start stretch">
+    <ng-container *ngIf="user; else elseTemplate">
+      <div class="user">
+        <mat-card class="card_user">
+          <mat-card-header>
+            <mat-card-title><b>Картман</b></mat-card-title>
+          </mat-card-header>
+          <img
+            mat-card-image
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAc5zqH5SN-8vWbPQPJzIVq-LAnTIku8iiyJgjL5sfW8M-ebZiYw"
+          />
+          <mat-card-content>
+            <p><b>Дата рождения:</b></p>
+            <p><b>Пол:</b> Мужской.</p>
+            <p><b>Деньги:</b> 500р.</p>
+            <p><b>Адрес:</b> {{ user.email }}</p>
+            <p><b>Телефон: </b>+375{{ user.phone }}</p>
+            <p><b>Email:</b> {{ user.email }}</p>
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-raised-button routerLink="/uploader">
+              Обновление данных
+            </button>
+            <button mat-raised-button (click)="auth.signOut()">
+              Выйти из профиля
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </ng-container>
+    <ng-template #elseTemplate>
+      <div class="spinner">
+        <mat-spinner></mat-spinner>
+      </div>
+    </ng-template>
+
+    <ng-container *ngIf="user; else elseTemplate">
+      <div class="action" fxLayout="column" fxLayoutAlign="center center">
+        <h3 class="actions-title">Ваши действия</h3>
+        <div class="actions-btns" fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="center stretch">
+          <button fxFlexOffset="2%" mat-raised-button color="primary" (click)="openProductCreator()">
+            Добавить товар
           </button>
-          <button mat-raised-button (click)="auth.signOut()">
-            Выйти из профиля
-          </button>
-        </mat-card-actions>
-      </mat-card>
-    </div>
-    <div class="chat">
-      <p><b>Чат с психологом</b></p>
-      <mat-divider></mat-divider>
-      <mat-list>
-        <mat-list-item *ngFor="let message of messages">
-          <h3 matLine>{{ message }}</h3>
-        </mat-list-item>
-        <mat-divider></mat-divider>
-        <mat-form-field>
-          <textarea matInput placeholder="Введите ваше сообщение"></textarea>
-        </mat-form-field>
-        <button mat-raised-button>Отправить</button>
-      </mat-list>
-    </div>
+          <button fxFlexOffset="2%" mat-raised-button color="primary">Добавить секцию</button>
+          <button fxFlexOffset="2%" mat-raised-button color="primary">Добавить событие</button>
+        </div>
+      </div>
+    </ng-container>
+    <ng-template #elseTemplate>
+      <div class="spinner">
+        <mat-spinner></mat-spinner>
+      </div>
+    </ng-template>
   </div>
   <div class="info" [fxFlex]="getFxSize2()">
     <p><b>О себе:</b></p>
     <div class="about">
       <p>
-        Картман — избалованный, жадный, влюблённый в себя чуть ли не до
-        нарциссизма, обладающий скверным характером, грязно выражающийся
-        десятилетний ребёнок, страдающий ожирением; он плохо относится ко всем
-        окружающим и является крайне последовательным нацистом . Задуманный как
-        единственный антигерой из всей четвёрки ребят, он с самого первого
-        сезона привлекает к себе большее внимание зрителей, чем оставшаяся
-        троица. Со временем Картман превратился в настоящего «толкача» шоу, с
-        каждой серией демонстрируя не только хитрость и изобретательность, но и
-        недюжинный интеллект, далеко превосходящий возможности обычного
-        четвероклассника.
+        Картман — избалованный, жадный, влюблённый в себя чуть ли не до нарциссизма, обладающий скверным характером,
+        грязно выражающийся десятилетний ребёнок, страдающий ожирением; он плохо относится ко всем окружающим и является
+        крайне последовательным нацистом . Задуманный как единственный антигерой из всей четвёрки ребят, он с самого
+        первого сезона привлекает к себе большее внимание зрителей, чем оставшаяся троица. Со временем Картман
+        превратился в настоящего «толкача» шоу, с каждой серией демонстрируя не только хитрость и изобретательность, но
+        и недюжинный интеллект, далеко превосходящий возможности обычного четвероклассника.
       </p>
     </div>
     <div class="container2" fxLayout="column">
       <br />
       <p><b>Ваши события:</b></p>
-      <div
-        fxLayout="row wrap"
-        fxLayout.xs="column"
-        fxLayoutAlign="start center"
-      >
+      <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="start center">
         <div class="event" [fxFlex]="getFxSize()" *ngFor="let ar of area">
           <mat-card class="card_event">
             <mat-card-header>

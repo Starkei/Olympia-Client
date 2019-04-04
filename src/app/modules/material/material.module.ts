@@ -5,7 +5,8 @@ import {
   MatExpansionModule,
   MatCheckboxModule,
   MatPaginatorModule,
-  MatPaginatorIntl
+  MatPaginatorIntl,
+  MatDialogModule
 } from "@angular/material";
 import { MatCardModule } from "@angular/material/card";
 import { MatDividerModule } from "@angular/material/divider";
@@ -24,6 +25,7 @@ import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatTabsModule } from "@angular/material/tabs";
 import { MatMomentDateModule } from "@angular/material-moment-adapter";
 import { MatSelectModule } from "@angular/material/select";
+import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { AngularFireModule } from "@angular/fire";
 import { AngularFireAuthModule } from "@angular/fire/auth";
@@ -48,8 +50,10 @@ import { AngularFireAuthModule } from "@angular/fire/auth";
     MatCheckboxModule,
     MatTableModule,
     MatSelectModule,
+    MatDialogModule,
     MatPaginatorModule,
     MatDatepickerModule,
+    MatSnackBarModule,
     MatMomentDateModule,
     MatTabsModule,
     MatProgressSpinnerModule,

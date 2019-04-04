@@ -43,7 +43,7 @@ import { EventsComponent } from "./components/pages/events-page/events.component
 import { UploaderComponent } from "./components/shared/uploader/uploader/uploader.component";
 import { UploadTaskComponent } from "./components/shared/uploader/upload-task/upload-task.component";
 import { ChatComponent } from "./components/pages/chat-page/chat.component";
-import { ProductCreatorComponent } from './components/shared/creators/product-creator/product-creator.component';
+import { ProductCreatorComponent } from "./components/shared/creators/product-creator/product-creator.component";
 
 export const firebaseConfig = environment.firebaseConfig;
 
@@ -97,6 +97,7 @@ export const firebaseConfig = environment.firebaseConfig;
     CrowdfundingComponent,
     AuthService
   ],
+  entryComponents: [ProductCreatorComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

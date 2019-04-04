@@ -1,0 +1,27 @@
+div {
+  display: flex;
+  flex-direction: column;
+
+  mat-dialog-content {
+    display: flex;
+    flex-direction: column;
+    mat-form-field {
+      textarea {
+        resize: none;
+      }
+    }
+
+    input[type="file"] {
+      display: none;
+    }
+  }
+  mat-dialog-actions {
+    div {
+      margin-top: 3%;
+      button {
+        margin-top: 1%;
+        margin-right: 2%;
+      }
+    }
+  }
+}

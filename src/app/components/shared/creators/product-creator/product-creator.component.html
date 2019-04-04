@@ -1,21 +1,67 @@
-<div formGroupName="productCreationForm">
-  <mat-form-field>
-    <input formControlName="title" name="title" type="text" placeholder="Наименование продукта" />
-  </mat-form-field>
-  <mat-form-field>
-    <input formControlName="price" name="price" type="number" placeholder="Цена продукта" />
-  </mat-form-field>
-  <mat-form-field>
-    <textarea
-      formControlName="description"
-      name="description"
-      id=""
-      cols="30"
-      rows="10"
-      placeholder="Описание продукта"
-    ></textarea>
-  </mat-form-field>
-  <mat-form-field>
-    <input formControlName="firm" name="title" type="text" placeholder="Фирма продукта" />
-  </mat-form-field>
+<div [formGroup]="productCreationForm">
+  <mat-dialog-content>
+    <h3>Наименование продукта</h3>
+    <mat-form-field>
+      <input matInput formControlName="title" name="title" type="text" placeholder="Наименование продукта" />
+      <mat-error *ngIf="productCreationForm.get('title').errors['required']">Зполните поле</mat-error>
+      <mat-error *ngIf="productCreationForm.get('title').errors['minLength']"
+        >Минимальный размер поля равен 3</mat-error
+      >
+    </mat-form-field>
+
+    <h3>Цена продукта</h3>
+    <mat-form-field>
+      <input matInput formControlName="price" name="price" type="number" placeholder="Цена продукта" />
+    </mat-form-field>
+
+    <h3>Валюта</h3>
+    <mat-form-field>
+      <mat-label>Валюта</mat-label>
+      <mat-select>
+        <mat-option value="бел.руб">бел.руб</mat-option>
+        <mat-option value="росс.руб">росс.руб</mat-option>
+        <mat-option value="дол.">дол.</mat-option>
+        <mat-option value="евр.">евр.</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <h3>Описание продукта</h3>
+    <mat-form-field>
+      <textarea
+        matInput
+        formControlName="description"
+        name="description"
+        id=""
+        cols="30"
+        rows="6"
+        placeholder="Описание продукта"
+      ></textarea>
+    </mat-form-field>
+
+    <h3>Фирма</h3>
+    <mat-form-field>
+      <input matInput formControlName="firm" name="title" type="text" placeholder="Фирма продукта" />
+      <mat-error *ngIf="productCreationForm.get('firm').errors['required']">Заполните поле</mat-error>
+    </mat-form-field>
+
+    <h3>Тип продукта</h3>
+    <mat-form-field>
+      <input matInput type="text" placeholder="Свой тип продукта" />
+    </mat-form-field>
+    <mat-selection-list *ngIf="productTypes">
+      <mat-list-option *ngFor="let type of productTypes"> {{ type }} </mat-list-option>
+    </mat-selection-list>
+
+    <h3>Изображение продукта</h3>
+    <button mat-raised-button color="primary" (click)="inputFile.click()">Выберите файл</button>
+    <input #inputFile type="file" placeholder="Выберите файл" (change)="setFile($event.target.files)" />
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <div fxLayout="row wrap" fxLayoutAlign="center stretch">
+      <button [disabled]="!productCreationForm.valid" mat-raised-button color="primary" (click)="add()">
+        Добавить товар
+      </button>
+      <button mat-raised-button color="primary" (click)="close()">Закрыть</button>
+    </div>
+  </mat-dialog-actions>
 </div>
