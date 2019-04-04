@@ -12,6 +12,7 @@ import { FieldType } from "src/app/enums/field-type.enum";
 export class FilterService<T> extends DataQueryService implements Filterable {
   private filterIterator: _.ListIterateeCustom<T, boolean>;
   private filterParams: any = {};
+  private priceParams: any = {};
   private searchParams: any = {};
 
   constructor(afs: AngularFirestore, collection: string) {
@@ -37,23 +38,23 @@ export class FilterService<T> extends DataQueryService implements Filterable {
       if (category.title == "Цена") {
         let from: number = Number.parseFloat(category.fields[0].innerText);
         let to: number = Number.parseFloat(category.fields[1].innerText);
-        if (to && from) this.filterParams[category.dataFieldName] = val => from <= val && val <= to;
-        else if (from) this.filterParams[category.dataFieldName] = val => from <= val;
-        else if (to) this.filterParams[category.dataFieldName] = val => val <= to;
-        else delete this.filterParams[category.dataFieldName];
+        if (to && from) this.priceParams[category.dataFieldName] = val => from <= val && val <= to;
+        else if (from) this.priceParams[category.dataFieldName] = val => from <= val;
+        else if (to) this.priceParams[category.dataFieldName] = val => val <= to;
+        else delete this.priceParams[category.dataFieldName];
         return;
       }
     }
   }
 
   protected filterConfigure(categories: Array<Category>): void {
-    this.priceFilterConfigure(categories);
     let checkbox: Array<string> = [];
     let select: Array<string> = [];
     for (const category of categories) {
       if (category.dataFieldName) {
         let isCheckbox: boolean = false;
         let isSelect: boolean = false;
+        let isInput: boolean = false;
 
         for (const field of category.fields) {
           switch (field.fieldType) {
@@ -69,6 +70,8 @@ export class FilterService<T> extends DataQueryService implements Filterable {
                 select.push(field.innerText);
               }
               break;
+            case FieldType.input:
+              isInput = true;
             default:
               break;
           }
@@ -77,7 +80,7 @@ export class FilterService<T> extends DataQueryService implements Filterable {
               checkbox.filter(value => val.includes(value)).length != 0;
           else if (isSelect)
             this.filterParams[category.dataFieldName] = val => select.filter(value => val.includes(value)).length != 0;
-          else delete this.filterParams[category.dataFieldName];
+          else if (!isInput) delete this.filterParams[category.dataFieldName];
         }
       }
     }
@@ -88,6 +91,7 @@ export class FilterService<T> extends DataQueryService implements Filterable {
       let fieldExist: boolean = false;
       let search: boolean = true;
       let filter: boolean = true;
+      let price: boolean = true;
       for (const key in value) {
         if (value.hasOwnProperty(key)) {
           const element = value[key];
@@ -99,9 +103,13 @@ export class FilterService<T> extends DataQueryService implements Filterable {
             fieldExist = true;
             filter = this.filterParams[key](element);
           }
+          if (this.priceParams.hasOwnProperty(key)) {
+            fieldExist = true;
+            price = this.priceParams[key](element);
+          }
         }
       }
-      if (fieldExist && filter && search) return true;
+      if (fieldExist && filter && search && price) return true;
       return !fieldExist;
     };
   }
@@ -112,6 +120,7 @@ export class FilterService<T> extends DataQueryService implements Filterable {
       (categories: Array<Category>): void => {
         if (categories.length == 0) return;
         this.searchFilterConfigure(categories);
+        this.priceFilterConfigure(categories);
         this.filterConfigure(categories);
         this.configure();
       }
