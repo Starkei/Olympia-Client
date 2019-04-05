@@ -1,0 +1,59 @@
+<div *ngIf="editFormGroup" [formGroup]="editFormGroup">
+  <mat-dialog-content>
+    <h3>Имя в профиле</h3>
+
+    <!--Поле отвечающие за имя в профиле-->
+    <mat-form-field>
+      <!--Связывание поле ввода с полем обработчика displayName-->
+      <input matInput formControlName="displayName" name="displayName" type="text" placeholder="Имя в профиле" />
+    </mat-form-field>
+
+    <h3>Дата рождения</h3>
+
+    <!--Поле отвечающие за дату рождения в профиле-->
+    <mat-form-field>
+      <!--Связывание поле ввода с полем обработчика dateBirth-->
+      <input
+        matInput
+        formControlName="dateBirth"
+        name="dateBirth"
+        [matDatepicker]="datepicker"
+        placeholder="Дата рождения"
+      />
+      <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+      <mat-datepicker #datepicker></mat-datepicker>
+    </mat-form-field>
+
+    <h3>Описание в профиле</h3>
+
+    <!--Поле отвечающие за описание поля-->
+    <mat-form-field>
+      <!--Связвание области ввода с полем обработчика about-->
+      <textarea
+        matInput
+        formControlName="about"
+        name="about"
+        id=""
+        cols="30"
+        rows="6"
+        placeholder="Описание в профиле"
+      ></textarea>
+    </mat-form-field>
+
+    <h3>Изображения профиля</h3>
+    <!--Кнопка вызвающие открытие поля ввода с типо файл-->
+    <button mat-raised-button color="primary" (click)="inputFile.click()">Выберите файл</button>
+
+    <!--TODO: Добавить обработчик типов файлов.-->
+    <!--Поля отвечающие за изображение продукта-->
+    <input #inputFile type="file" placeholder="Выберите файл" (change)="setFile($event.target.files)" />
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <div fxLayout="row wrap" fxLayoutAlign="center stretch">
+      <button mat-raised-button color="primary" (click)="save()">
+        Сохранить
+      </button>
+      <button mat-raised-button color="primary" (click)="close()">Закрыть</button>
+    </div>
+  </mat-dialog-actions>
+</div>

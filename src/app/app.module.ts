@@ -44,6 +44,7 @@ import { UploaderComponent } from "./components/shared/uploader/uploader/uploade
 import { UploadTaskComponent } from "./components/shared/uploader/upload-task/upload-task.component";
 import { ChatComponent } from "./components/pages/chat-page/chat.component";
 import { ProductCreatorComponent } from "./components/shared/creators/product-creator/product-creator.component";
+import { EditProfileComponent } from "./components/shared/edit-profile/edit-profile.component";
 
 export const firebaseConfig = environment.firebaseConfig;
 
@@ -73,7 +74,8 @@ export const firebaseConfig = environment.firebaseConfig;
     UploaderComponent,
     UploadTaskComponent,
     ChatComponent,
-    ProductCreatorComponent
+    ProductCreatorComponent,
+    EditProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -97,7 +99,7 @@ export const firebaseConfig = environment.firebaseConfig;
     CrowdfundingComponent,
     AuthService
   ],
-  entryComponents: [ProductCreatorComponent],
+  entryComponents: [ProductCreatorComponent, EditProfileComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

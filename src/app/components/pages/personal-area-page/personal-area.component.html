@@ -1,3 +1,6 @@
+<app-banner
+  image="https://firebasestorage.googleapis.com/v0/b/olympia-be079.appspot.com/o/banners%2Fuser-profile.png?alt=media&token=0d3f5848-aae0-40e6-b835-657512922728"
+></app-banner>
 <div class="main" fxLayout="row" fxLayout.xs="column">
   <div class="container" fxLayout="column" [fxFlex]="getFxSize3()" fxLayoutAlign="start stretch">
     <!--Если пользователь загрузился из БД, то он отображается-->
@@ -32,10 +35,10 @@
             <p *ngIf="user.email"><b>Email:</b> {{ user.email }}</p>
           </mat-card-content>
           <mat-card-actions>
-            <button mat-raised-button routerLink="/uploader">
+            <button mat-raised-button color="accent" (click)="openEditProfile()">
               Редактирование данных
             </button>
-            <button mat-raised-button (click)="auth.signOut()">
+            <button mat-raised-button (click)="auth.signOut()" color="warn">
               Выйти из профиля
             </button>
           </mat-card-actions>
@@ -66,16 +69,11 @@
       </div>
     </ng-template>
   </div>
-  <div class="info" [fxFlex]="getFxSize2()">
-    <p><b>О себе:</b></p>
+  <div *ngIf="user" class="info" [fxFlex]="getFxSize2()">
+    <p *ngIf="user.about"><b>О себе:</b></p>
     <div class="about">
       <p>
-        Картман — избалованный, жадный, влюблённый в себя чуть ли не до нарциссизма, обладающий скверным характером,
-        грязно выражающийся десятилетний ребёнок, страдающий ожирением; он плохо относится ко всем окружающим и является
-        крайне последовательным нацистом . Задуманный как единственный антигерой из всей четвёрки ребят, он с самого
-        первого сезона привлекает к себе большее внимание зрителей, чем оставшаяся троица. Со временем Картман
-        превратился в настоящего «толкача» шоу, с каждой серией демонстрируя не только хитрость и изобретательность, но
-        и недюжинный интеллект, далеко превосходящий возможности обычного четвероклассника.
+        {{ user.about }}
       </p>
     </div>
     <div class="container2" fxLayout="column">

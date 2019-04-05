@@ -13,4 +13,5 @@ export interface User {
   contacts?: Array<string>;
   role?: string;
   money?: number;
+  about?: string;
 }
