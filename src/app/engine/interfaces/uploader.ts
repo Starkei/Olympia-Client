@@ -1,4 +1,4 @@
 export interface Uploader {
-  uploadFile(file: File): void;
+  uploadFile(file: File, path: string): void;
   downloadFile(url: string): File;
 }

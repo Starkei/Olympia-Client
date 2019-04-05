@@ -7,6 +7,6 @@ import { FileUploader } from "src/app/engine/classes/image-uploader/FILE-uploade
 })
 export class UploaderService extends FileUploader {
   constructor(afs: AngularFireStorage) {
-    super(afs, "images/");
+    super(afs);
   }
 }

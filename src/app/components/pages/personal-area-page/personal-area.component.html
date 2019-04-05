@@ -1,26 +1,39 @@
 <div class="main" fxLayout="row" fxLayout.xs="column">
   <div class="container" fxLayout="column" [fxFlex]="getFxSize3()" fxLayoutAlign="start stretch">
+    <!--Если пользователь загрузился из БД, то он отображается-->
     <ng-container *ngIf="user; else elseTemplate">
       <div class="user">
         <mat-card class="card_user">
           <mat-card-header>
-            <mat-card-title><b>Картман</b></mat-card-title>
+            <!--Если у пользователя есть поле имя, то оно отображается-->
+            <mat-card-title *ngIf="user.displayName"
+              ><b>{{ user.displayName }}</b></mat-card-title
+            >
+            <mat-card-title *ngIf="!user.displayName"><b>Ваше имя неопределено</b></mat-card-title>
           </mat-card-header>
-          <img
-            mat-card-image
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAc5zqH5SN-8vWbPQPJzIVq-LAnTIku8iiyJgjL5sfW8M-ebZiYw"
-          />
+          <img mat-card-image [src]="user.photoURL" />
           <mat-card-content>
-            <p><b>Дата рождения:</b></p>
-            <p><b>Пол:</b> Мужской.</p>
-            <p><b>Деньги:</b> 500р.</p>
-            <p><b>Адрес:</b> {{ user.email }}</p>
-            <p><b>Телефон: </b>+375{{ user.phone }}</p>
-            <p><b>Email:</b> {{ user.email }}</p>
+            <!--Если у пользователя есть поле день рождение, то оно отображается-->
+            <p *ngIf="user.dateBirth"><b>Дата рождения:</b> {{ getFormattedDateString(user.dateBirth) }}</p>
+
+            <!--Если у пользователя есть поле пол, то оно отображается-->
+            <p *ngIf="user.sex"><b>Пол:</b> {{ user.sex }}</p>
+
+            <!--Если у пользователя есть поле деньги, то оно отображается-->
+            <p *ngIf="user.money"><b>Деньги:</b> {{ user.money }} бел.руб</p>
+
+            <!--Если у юрижического лица есть поле адрес организации, то оно отображается-->
+            <p *ngIf="user.adresOrg"><b>Адрес:</b> {{ user.adresOrg }}</p>
+
+            <!--Если у пользователя есть поле телефон, то оно отображается-->
+            <p *ngIf="user.phone"><b>Телефон: </b> {{ user.phone }}</p>
+
+            <!--Если у пользователя есть поле електронный адрес, то оно отображается-->
+            <p *ngIf="user.email"><b>Email:</b> {{ user.email }}</p>
           </mat-card-content>
           <mat-card-actions>
             <button mat-raised-button routerLink="/uploader">
-              Обновление данных
+              Редактирование данных
             </button>
             <button mat-raised-button (click)="auth.signOut()">
               Выйти из профиля

@@ -1,23 +1,50 @@
+<!-- Связывание селектора div с обработчиками формы-->
 <div [formGroup]="productCreationForm">
+  <!--Обозначение части окна которое будет скроллится-->
   <mat-dialog-content>
     <h3>Наименование продукта</h3>
+
+    <!--Поле отвечающие за название продукта-->
     <mat-form-field>
+      <!--Связывание поле ввода с полем обработчика title-->
       <input matInput formControlName="title" name="title" type="text" placeholder="Наименование продукта" />
-      <mat-error *ngIf="productCreationForm.get('title').errors['required']">Зполните поле</mat-error>
-      <mat-error *ngIf="productCreationForm.get('title').errors['minLength']"
-        >Минимальный размер поля равен 3</mat-error
+
+      <!--Появляется при ошибки 'незоплненное поле'-->
+      <mat-error *ngIf="productCreationForm.get('title').errors && productCreationForm.get('title').errors['required']"
+        >Зполните поле</mat-error
       >
+
+      <!--Появляется при ошибки 'минимальная длина'-->
+      <mat-error
+        *ngIf="productCreationForm.get('title').errors && productCreationForm.get('title').errors['minLength']"
+      >
+        Минимальный размер поля равен 3
+      </mat-error>
     </mat-form-field>
 
     <h3>Цена продукта</h3>
+
+    <!--Поле отвечающие за цену продукта-->
     <mat-form-field>
+      <!--Связывание поле ввода с полем обработчика price-->
       <input matInput formControlName="price" name="price" type="number" placeholder="Цена продукта" />
+
+      <!--Появляется при ошибки 'незоплненное поле'-->
+      <mat-error *ngIf="productCreationForm.get('title').errors && productCreationForm.get('title').errors['required']"
+        >Зполните поле</mat-error
+      >
     </mat-form-field>
 
     <h3>Валюта</h3>
+
+    <!--Поле отвечающие за валюту цены продукта-->
     <mat-form-field>
+      <!--Заголовок в поле выбора-->
       <mat-label>Валюта</mat-label>
-      <mat-select>
+
+      <!--TODO: Добавить возможность получения валют из коллекции-->
+      <!--Поле выбора со значениями валют-->
+      <mat-select formControlName="currency">
         <mat-option value="бел.руб">бел.руб</mat-option>
         <mat-option value="росс.руб">росс.руб</mat-option>
         <mat-option value="дол.">дол.</mat-option>
@@ -26,7 +53,10 @@
     </mat-form-field>
 
     <h3>Описание продукта</h3>
+
+    <!--Поле отвечающие за описание поля-->
     <mat-form-field>
+      <!--Связвание области ввода с полем обработчика description-->
       <textarea
         matInput
         formControlName="description"
@@ -39,25 +69,64 @@
     </mat-form-field>
 
     <h3>Фирма</h3>
+
+    <!--Поле отвечающие за фирму продукта-->
     <mat-form-field>
+      <!--Поле ввода связанное с полем обработчика firm-->
       <input matInput formControlName="firm" name="title" type="text" placeholder="Фирма продукта" />
-      <mat-error *ngIf="productCreationForm.get('firm').errors['required']">Заполните поле</mat-error>
+
+      <!--Появляется при ошибке 'Обязательное поле'-->
+      <mat-error *ngIf="productCreationForm.get('firm').errors && productCreationForm.get('firm').errors['required']"
+        >Заполните поле</mat-error
+      >
     </mat-form-field>
 
     <h3>Тип продукта</h3>
-    <mat-form-field>
-      <input matInput type="text" placeholder="Свой тип продукта" />
-    </mat-form-field>
+
+    <!--TODO: Добавить кнопку на применение изменений-->
+    <!--Поле отвечающие за тип продукта, тут можно пользователю создавить свой тип-->
+    <div class="ownType" fxLayout="row" fxLayoutAlign="center center">
+      <mat-form-field fxFlexOffset="1%" fxFlex="85%">
+        <input
+          #ownType
+          formControlName="own_type"
+          name="own_type"
+          matInput
+          type="text"
+          placeholder="Свой тип продукта"
+        />
+      </mat-form-field>
+      <button
+        fxFlexOffset="1%"
+        fxFlex="15%"
+        mat-icon-button
+        color="primary"
+        [disabled]="productCreationForm.get('own_type').errors"
+        (click)="addOwnType(ownType.value)"
+      >
+        <mat-icon>add_circle</mat-icon>
+      </button>
+    </div>
+
+    <!--Поле отвечающие за тип продукта, пользователь выбирает тип из существующих типо продукта-->
     <mat-selection-list *ngIf="productTypes">
+      <!--Выводит все типы хранящиеся в поле компонента productTypes-->
       <mat-list-option *ngFor="let type of productTypes"> {{ type }} </mat-list-option>
     </mat-selection-list>
 
     <h3>Изображение продукта</h3>
+    <!--Кнопка вызвающие открытие поля ввода с типо файл-->
     <button mat-raised-button color="primary" (click)="inputFile.click()">Выберите файл</button>
+
+    <!--TODO: Добавить обработчик типов файлов.-->
+    <!--Поля отвечающие за изображение продукта-->
     <input #inputFile type="file" placeholder="Выберите файл" (change)="setFile($event.target.files)" />
   </mat-dialog-content>
+
+  <!--Действия над модальным окном, они не будут скролиться-->
   <mat-dialog-actions>
     <div fxLayout="row wrap" fxLayoutAlign="center stretch">
+      <!--Кнопка будет недоступной если на оброботчике productCreationForm есть оишбка-->
       <button [disabled]="!productCreationForm.valid" mat-raised-button color="primary" (click)="add()">
         Добавить товар
       </button>
