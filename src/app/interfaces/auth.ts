@@ -5,9 +5,15 @@ export interface User {
   uid?: string;
   dateBirth?: Date;
   sex?: string;
-  phone: number;
+  phone?: number;
   nameOrg?: string;
   activityOrg?: string;
   adresOrg?: string;
-  role: string;
+  chatId?: Array<string>;
+  contacts?: Array<string>;
+  role?: string;
+  money?: number;
+  about?: string;
+  image?: string;
+  userName?: string;
 }

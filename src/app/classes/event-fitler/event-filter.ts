@@ -1,8 +1,8 @@
-import { Filter } from "src/app/interfaces/filter";
+import { Filter } from "src/app/engine/interfaces/filter";
 import { Category } from "src/app/interfaces/category";
 import { Observable, of } from "rxjs";
 import { EventService } from "src/app/services/event/event.service";
-import { Event } from "../event/event";
+import { Event } from "../../interfaces/models/event";
 
 export class EventFilter implements Filter {
   categories: Observable<Array<Category>>;
@@ -12,10 +12,9 @@ export class EventFilter implements Filter {
       (data: Array<Event>): void => {
         let categories: Array<Category> = [];
         categories.push({
-          fields: [
-            { fieldType: "input", inputPlaceHolder: "Поиск", inputType: "text" }
-          ],
-          title: "Поиск"
+          fields: [{ fieldType: "input", inputPlaceHolder: "Поиск", inputType: "text" }],
+          title: "Поиск",
+          dataFieldName: "title"
         });
         this.categories = of(categories);
       }
