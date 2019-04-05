@@ -9,6 +9,7 @@ import { ProductCreatorComponent } from "../../shared/creators/product-creator/p
 import { Observable, Subscription } from "rxjs";
 import { ShopComponent } from "../shop-page/shop.component";
 import { ChatComponent } from "../chat-page/chat.component";
+import { EditProfileComponent } from "../../shared/edit-profile/edit-profile.component";
 @Component({
   selector: "app-personal-area",
   templateUrl: "./personal-area.component.html",
@@ -137,11 +138,20 @@ export class PersonalAreaComponent implements OnInit, OnDestroy {
     return date.toDate().toLocaleDateString();
   }
 
-  public openProductCreator() {
-    let ref: MatDialogRef<ProductCreatorComponent> = this.dialog.open(ProductCreatorComponent);
+  private showSnackBar<T>(ref: MatDialogRef<T>): void {
     ref.afterClosed().subscribe(data => {
-      if (!data) data = "Прервано";
+      if (!data) data = "Преравано";
       this.snackBar.open(data, "Ок", { duration: 2000 });
     });
+  }
+
+  public openProductCreator(): void {
+    let ref: MatDialogRef<ProductCreatorComponent> = this.dialog.open(ProductCreatorComponent);
+    this.showSnackBar<ProductCreatorComponent>(ref);
+  }
+
+  public openEditProfile(): void {
+    let ref: MatDialogRef<EditProfileComponent> = this.dialog.open(EditProfileComponent);
+    this.showSnackBar<EditProfileComponent>(ref);
   }
 }

@@ -32,7 +32,6 @@ export class AuthService extends DataQueryService {
   infoAboutCurrentUser(): Observable<User> {
     let user = firebase.auth().currentUser;
     if (!user) return of(null);
-    console.log(user);
     const userRef = this.itemsCollection
       .doc<User>(user.uid)
       .snapshotChanges()
