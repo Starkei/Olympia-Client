@@ -12,9 +12,29 @@
             <mat-card-title *ngIf="user.displayName"
               ><b>{{ user.displayName }}</b></mat-card-title
             >
-            <mat-card-title *ngIf="!user.displayName"><b>Ваше имя неопределено</b></mat-card-title>
+            <ng-container *ngIf="user.displayName; else showDisplayName">
+              <mat-card-title
+                ><b>{{ user.displayName }}</b></mat-card-title
+              >
+            </ng-container>
+            <ng-template #showDisplayName>
+              <ng-container *ngIf="user.userName; else showImage">
+                <mat-card-title
+                  ><b>{{ user.userName }}</b></mat-card-title
+                >
+              </ng-container>
+              <ng-template #showImage>
+                <mat-card-title><b>Ваше имя неопределено</b></mat-card-title>
+              </ng-template>
+            </ng-template>
           </mat-card-header>
-          <img mat-card-image [src]="user.photoURL" />
+          <ng-container *ngIf="user.photoURL; else showImage">
+            <img mat-card-image [src]="user.photoURL" />
+          </ng-container>
+          <ng-template #showImage>
+            <img mat-card-image [src]="user.image" />
+          </ng-template>
+
           <mat-card-content>
             <!--Если у пользователя есть поле день рождение, то оно отображается-->
             <p *ngIf="user.dateBirth"><b>Дата рождения:</b> {{ getFormattedDateString(user.dateBirth) }}</p>

@@ -14,4 +14,6 @@ export interface User {
   role?: string;
   money?: number;
   about?: string;
+  image?: string;
+  userName?: string;
 }

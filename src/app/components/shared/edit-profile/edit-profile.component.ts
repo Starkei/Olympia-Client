@@ -1,11 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import { AuthService } from "src/app/services/auth/Auth.service";
 import { UploaderService } from "src/app/services/uploader-service/uploader.service";
-import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { FormGroup, FormControl } from "@angular/forms";
 import { User } from "src/app/interfaces/auth";
 import { MatDialogRef, MAT_DATE_LOCALE, MAT_DATE_FORMATS, DateAdapter } from "@angular/material";
 import { MAT_MOMENT_DATE_FORMATS, MomentDateAdapter } from "@angular/material-moment-adapter";
-import { Moment } from "moment";
 
 @Component({
   selector: "app-edit-profile",
@@ -33,7 +32,7 @@ export class EditProfileComponent implements OnInit {
       (userInfo: User): void => {
         this.user = userInfo;
         this.editFormGroup = new FormGroup({
-          displayName: new FormControl(this.user.displayName),
+          userName: new FormControl(this.user.displayName),
           dateBirth: new FormControl(this.user.dateBirth),
           about: new FormControl(this.user.about)
         });
@@ -50,7 +49,7 @@ export class EditProfileComponent implements OnInit {
     }
     if (this.file) {
       let url: string = await this.uploader.uploadFile(this.file, "usersImages/");
-      this.user.photoURL = url;
+      this.user.image = url;
     }
 
     let data: any = this.editFormGroup.value;

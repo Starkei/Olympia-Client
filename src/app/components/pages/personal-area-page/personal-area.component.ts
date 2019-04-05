@@ -89,12 +89,12 @@ export class PersonalAreaComponent implements OnInit, OnDestroy {
   public getInfo(): void {
     this.userSubscribtion = this.auth.user.subscribe(
       (userInfo: User): void => {
-        if (!userInfo.photoURL)
+        if (!userInfo.photoURL && !userInfo.image)
           if ((userInfo.sex = "Мужской"))
-            userInfo.photoURL =
+            userInfo.image =
               "https://firebasestorage.googleapis.com/v0/b/olympia-be079.appspot.com/o/usersImages%2Fmale.png?alt=media&token=425a0e79-09cd-475f-9add-bae580e166b2";
           else
-            userInfo.photoURL =
+            userInfo.image =
               "https://firebasestorage.googleapis.com/v0/b/olympia-be079.appspot.com/o/usersImages%2Ffemale.png?alt=media&token=cb414b74-c996-493f-a38b-73711cb12d97";
         this.user = userInfo;
       }
