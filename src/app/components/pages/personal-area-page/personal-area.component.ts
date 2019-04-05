@@ -6,9 +6,8 @@ import { Personal_Area } from "src/app/interfaces/peronal_area";
 import { PersonalAreaService } from "src/app/services/peronal_area/personal-area.service";
 import { MatDialog, MatDialogRef, MatSnackBar } from "@angular/material";
 import { ProductCreatorComponent } from "../../shared/creators/product-creator/product-creator.component";
-import { Observable, Subscription } from "rxjs";
-import { ShopComponent } from "../shop-page/shop.component";
-import { ChatComponent } from "../chat-page/chat.component";
+import { Subscription } from "rxjs";
+
 @Component({
   selector: "app-personal-area",
   templateUrl: "./personal-area.component.html",
