@@ -1,17 +1,17 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
-import { MainPageComponent } from "./components/main-page/main-page.component";
-import { CarAboutEatComponent } from "./components/car-about-eat/car-about-eat.component";
-import { TrainingComponent } from "./components/training/training.component";
-import { ShopComponent } from "./components/shop/shop.component";
-import { CrowdfundingComponent } from "./components/crowdfunding/crowdfunding.component";
-import { PersonalAreaComponent } from "./components/personal-area/personal-area.component";
-import { SportPageComponent } from "./components/sport-page/sport-page.component";
-import { RegistrationComponent } from "./components/registration/registration.component";
-import { OutputDetailsComponent } from "./components/output-details/output-details.component";
-import { EventsComponent } from "./components/events/events.component";
-import { UploaderComponent } from "./components/uploader/uploader/uploader.component";
-import { ChatComponent } from "./components/chat/chat.component";
+import { MainPageComponent } from "./components/pages/main-page/main-page.component";
+import { CarAboutEatComponent } from "./components/pages/car-about-eat-page/car-about-eat.component";
+import { TrainingComponent } from "./components/pages/training-page/training.component";
+import { ShopComponent } from "./components/pages/shop-page/shop.component";
+import { CrowdfundingComponent } from "./components/pages/crowdfunding-page/crowdfunding.component";
+import { PersonalAreaComponent } from "./components/pages/personal-area-page/personal-area.component";
+import { SportPageComponent } from "./components/pages/sport-page/sport-page.component";
+import { RegistrationComponent } from "./components/pages/registration-page/registration.component";
+import { EventsComponent } from "./components/pages/events-page/events.component";
+import { OutputDetailsComponent } from "./components/shared/output-component/output-details/output-details.component";
+import { UploaderComponent } from "./components/shared/uploader/uploader/uploader.component";
+import { ChatComponent } from "./components/pages/chat-page/chat.component";
 
 const routes: Routes = [
   { path: "", redirectTo: "/main", pathMatch: "full" },

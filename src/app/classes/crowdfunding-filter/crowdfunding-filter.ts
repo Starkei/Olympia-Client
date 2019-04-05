@@ -1,10 +1,9 @@
-import { Filter } from "src/app/interfaces/filter";
 import { Category } from "src/app/interfaces/category";
-import { of, Observable } from "rxjs";
+import { of } from "rxjs";
 import { CrowdfundingService } from "src/app/services/crowdfunding/crowdfunding.service";
 import { Crowdfunding } from "../../interfaces/models/crowdfunding";
-import { Field } from "src/app/interfaces/field";
-import { FilterGenerator } from "../engine/filter-generator/filter-generator";
+import { Field } from "src/app/engine/interfaces/field";
+import { FilterGenerator } from "src/app/engine/classes/filter-generator/filter-generator";
 
 export class CrowdfundingFilter extends FilterGenerator<Crowdfunding> {
   constructor(private service: CrowdfundingService) {
@@ -13,9 +12,7 @@ export class CrowdfundingFilter extends FilterGenerator<Crowdfunding> {
       (data: Array<Crowdfunding>): void => {
         let categories: Array<Category> = [];
         categories.push({
-          fields: [
-            { fieldType: "input", inputPlaceHolder: "Поиск", inputType: "text" }
-          ],
+          fields: [{ fieldType: "input", inputPlaceHolder: "Поиск", inputType: "text" }],
           title: "Поиск",
           dataFieldName: "title"
         });
@@ -45,17 +42,13 @@ export class CrowdfundingFilter extends FilterGenerator<Crowdfunding> {
   }
 
   private createAllTypesFields(data: Array<Crowdfunding>): Array<Field> {
-    let titles: Array<string> = Array.from(
-      this.getSetFromArrayPropertiesValues(data, "type")
-    );
+    let titles: Array<string> = Array.from(this.getSetFromArrayPropertiesValues(data, "type"));
 
     return this.generateCheckBoxFields(titles);
   }
 
   private createAllUsageField(data: Array<Crowdfunding>): Array<Field> {
-    let titles: Array<string> = Array.from(
-      this.getSetFromArrayPropertiesValues(data, "usage")
-    );
+    let titles: Array<string> = Array.from(this.getSetFromArrayPropertiesValues(data, "usage"));
     return this.generateCheckBoxFields(titles);
   }
 }
