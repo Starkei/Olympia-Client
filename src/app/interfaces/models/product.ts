@@ -1,7 +1,7 @@
 import { Output } from "src/app/interfaces/output";
 
 export class Product implements Output {
-  id: string;
+  id?: string;
   title: string;
   description: string;
   image: string;

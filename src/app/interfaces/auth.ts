@@ -12,4 +12,8 @@ export interface User {
   chatId?: Array<string>;
   contacts?: Array<string>;
   role?: string;
+  money?: number;
+  about?: string;
+  image?: string;
+  userName?: string;
 }
