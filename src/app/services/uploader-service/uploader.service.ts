@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { AngularFireStorage } from "@angular/fire/storage";
-import { FileUploader } from "src/app/engine/classes/image-uploader/FILE-uploader";
+import { FileUploader } from "src/app/engine/classes/image-uploader/file-uploader";
 
 @Injectable({
   providedIn: "root"
