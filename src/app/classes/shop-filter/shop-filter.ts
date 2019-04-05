@@ -1,10 +1,9 @@
-import { Filter } from "src/app/interfaces/filter";
 import { Category } from "src/app/interfaces/category";
-import { of, Observable } from "rxjs";
+import { of } from "rxjs";
 import { ProductService } from "src/app/services/product/product.service";
 import { Product } from "../../interfaces/models/product";
-import { Field } from "src/app/interfaces/field";
-import { FilterGenerator } from "../engine/filter-generator/filter-generator";
+import { Field } from "src/app/engine/interfaces/field";
+import { FilterGenerator } from "src/app/engine/classes/filter-generator/filter-generator";
 
 export class ShopFilter extends FilterGenerator<Product> {
   constructor(private service: ProductService) {
@@ -51,16 +50,12 @@ export class ShopFilter extends FilterGenerator<Product> {
   }
 
   createAllTypesFields(products: Array<Product>): Array<Field> {
-    let titles: Array<string> = Array.from(
-      this.getSetFromArrayPropertiesValues(products, "type")
-    );
+    let titles: Array<string> = Array.from(this.getSetFromArrayPropertiesValues(products, "type"));
     return this.generateCheckBoxFields(titles);
   }
 
   createAllFirmsFields(products: Array<Product>): Array<Field> {
-    let titles: Array<string> = Array.from(
-      this.getSetOfPropertiesValues(products, "firm")
-    );
+    let titles: Array<string> = Array.from(this.getSetOfPropertiesValues(products, "firm"));
     return this.generateCheckBoxFields(titles);
   }
 }

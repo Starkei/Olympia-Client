@@ -1,5 +1,4 @@
 import { Injectable } from "@angular/core";
-import { DataQueryService } from "../engine/data-query-service/data-query.service";
 import { AngularFirestore } from "@angular/fire/firestore";
 import { Messages } from "src/app/interfaces/models/messages";
 import { User } from "src/app/interfaces/auth";
@@ -7,6 +6,7 @@ import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
 import { AuthService } from "../auth/Auth.service";
 import { Message } from "src/app/interfaces/models/message";
+import { DataQueryService } from "src/app/engine/classes/data-query-service/data-query.service";
 
 @Injectable({
   providedIn: "root"

@@ -8,7 +8,7 @@ import { Observable, of } from "rxjs";
 import { switchMap, map } from "rxjs/operators";
 import { User } from "src/app/interfaces/auth";
 import * as firebase from "firebase/app";
-import { DataQueryService } from "../engine/data-query-service/data-query.service";
+import { DataQueryService } from "src/app/engine/classes/data-query-service/data-query.service";
 @Injectable({
   providedIn: "root"
 })
