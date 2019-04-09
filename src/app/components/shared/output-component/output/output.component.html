@@ -1,0 +1,33 @@
+<ng-container *ngIf="(!filter && items) || (filter && filter.categories && items); else elseTemplate">
+  <div class="output" fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="start stretch">
+    <mat-card *ngFor="let item of (items | async)" [fxFlex]="getFormattedFlexSize()" fxFlexOffset="3%">
+      <mat-card-header>
+        <mat-card-title>{{ item.title | textLength: 30 }}</mat-card-title>
+        <mat-card-subtitle *ngIf="item.price">{{ item.price }} {{ item.currency }}</mat-card-subtitle>
+      </mat-card-header>
+      <img mat-card-image [src]="item.image" alt="Photo of Eat" />
+      <mat-card-content>
+        <p *ngIf="showDescription">
+          {{ item.description | textLength: 100 }}
+        </p>
+        <p *ngIf="showAddress"><b>Адрес: </b>{{ item.address }}</p>
+        <p *ngIf="showPhoneNumbers"><b> Номер(а):</b> {{ showArrayWithCommas(item.phoneNumbers) }}</p>
+        <p *ngIf="showUnderground"><b>Метро: </b>{{ item.underground }}</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button *ngIf="btnFollow" color="primary" (click)="follow(item)">
+          Перейти
+        </button>
+        <button mat-raised-button *ngIf="btnLike" color="primary"><mat-icon>favorite</mat-icon> Понравилось!</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+  <div>
+    <mat-paginator [pageSize]="9" [pageSizeOptions]="[9, 12, 15, 18]" [length]="9"></mat-paginator>
+  </div>
+</ng-container>
+<ng-template #elseTemplate>
+  <div class="spinner">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>

@@ -1,0 +1,104 @@
+<app-banner image="assets/images/apples.jpg"></app-banner>
+<div class="label">Питание</div>
+<div
+  class="container"
+  fxLayout="column"
+  fxLayout.xs="column"
+  fxLayoutAlign="space-evenly stretch"
+>
+  <div>
+    <mat-card fxFlex="100%">
+      <mat-card-title>
+        <span>Диетолог</span>
+      </mat-card-title>
+      <mat-card-content
+        ><p>
+          Диетолог — специалист в области диетологии, соответствующий
+          академическим и профессиональным требованиям. Врач-диетолог является
+          дипломированным врачом, закончившим медицинский вуз и получившим затем
+          дополнительное образование по диетологии, подтвержденное
+          соответствующим дипломом. Является экспертом в области питания.
+          Врачи-диетологи занимаются лечением ожирения, а также дают
+          рекомендации пациентам по вопросам правильного питания, ведения
+          здорового образа жизни, либо ставят цели для достижения определённых
+          результатов, связанных со здоровьем.<br />
+          Большинство специалистов-диетологов занимается лечением и
+          профилактикой заболеваний (составление рациона лечебного питания —
+          чаще в больницах или других медицинских учреждениях). Кроме того,
+          большое количество практикующих диетологов работает на базе
+          медико-санитарных учреждений, в научных и научно-исследовательских
+          медицинских центрах. Растёт число диетологов, работающих в сфере
+          продовольственной и пищевой промышленности и бизнеса, журналистики,
+          спортивного питания, корпоративных оздоровительных программ и других,
+          ранее не свойственных для работы диетолога направлениях.
+        </p></mat-card-content
+      >
+    </mat-card>
+  </div>
+  <table
+    mat-table
+    [dataSource]="image"
+    class="mat-elevation-z8 mat-body mat-body-1"
+    fxFlex="100%"
+    *ngIf="!isSmallScreen"
+  >
+    <ng-container matColumnDef="Group">
+      <th mat-header-cell *matHeaderCellDef>Вид деятельности</th>
+      <td mat-cell *matCellDef="let element">{{ element.Group }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="Proteins">
+      <th mat-header-cell *matHeaderCellDef>Белки</th>
+      <td mat-cell *matCellDef="let element">{{ element.Proteins }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="Fats">
+      <th mat-header-cell *matHeaderCellDef>Жиры</th>
+      <td mat-cell *matCellDef="let element">{{ element.Fats }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="Carbohydrates">
+      <th mat-header-cell *matHeaderCellDef>Углеводы</th>
+      <td mat-cell *matCellDef="let element">{{ element.Carbohydrates }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="Energy">
+      <th mat-header-cell *matHeaderCellDef>Энергия</th>
+      <td mat-cell *matCellDef="let element">{{ element.Energy }}</td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+
+  <div *ngIf="isSmallScreen" fxLayout="column" class="mobile">
+    <mat-card fxFlex="100%" *ngFor="let key of image">
+      <mat-card-header>
+        <img mat-card-avatar [src]="key.image" />
+        <mat-card-title>
+          <p>{{ key.Group }}</p>
+        </mat-card-title>
+      </mat-card-header>
+      <mat-divider></mat-divider>
+      <mat-card-content>
+        <p>Белки: {{ key.Proteins }} грамм</p>
+        <p>Жиры: {{ key.Fats }} грамм</p>
+        <p>Углеводы: {{ key.Carbohydrates }} грамм</p>
+        <p>Энергия: {{ key.Energy }} тыс. кДж</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <p>
+    Здоровое питание — это питание, обеспечивающее рост, нормальное развитие и
+    жизнедеятельность человека, способствующее укреплению его здоровья и
+    профилактике заболеваний. Соблюдение правил здорового питания в сочетании с
+    регулярными физическими упражнениями сокращает риск хронических заболеваний
+    и расстройств, таких как ожирение, сердечно-сосудистые заболевания, диабет,
+    повышенное давление и рак.Современная наука проводит многочисленные
+    исследования, чтобы оптимизировать рацион питания для профилактики основных
+    хронических заболеваний.<br />
+    На заметку<Br /> По мнению ряда ученых, физическое здоровье на 50% зависит
+    от образа жизни, куда входит и характер питания человека. На
+    наследственность и состояние окружающей среды приходится по 20%, и только
+    10% — на уровень медицинского обеспечения.
+  </p>
+</div>

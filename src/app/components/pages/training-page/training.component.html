@@ -1,0 +1,15 @@
+<app-banner image="assets/images/news.png"></app-banner>
+<div>
+  <div
+    class="container"
+    fxLayout="row wrap"
+    fxLayout.xs="column"
+    fxLayoutAlign="start stretch"
+  >
+    <app-output
+      [service]="trainingService"
+      [btnFollow]="true"
+      collection="trainings"
+    ></app-output>
+  </div>
+</div>

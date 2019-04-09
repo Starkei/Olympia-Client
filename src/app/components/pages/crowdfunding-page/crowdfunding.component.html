@@ -1,0 +1,22 @@
+<app-banner image="assets/images/crowdfunding.jpg"></app-banner>
+<div>
+  <div class="container">
+    <div
+      class="output"
+      fxLayout="row"
+      fxLayout.xs="column"
+      fxLayoutAlign="start sctretch"
+    >
+      <app-filter fxFlexOffset="3%" fxFlex="23%" [filter]="filter"></app-filter>
+      <app-output
+        fxFlex="73%"
+        fxFlexOffset="3%"
+        [service]="crowdfundingService"
+        [filter]="filter"
+        [btnFollow]="true"
+        [update]="this.filterComponent.shouldBeUpdate"
+        collection="crowdfunding"
+      ></app-output>
+    </div>
+  </div>
+</div>

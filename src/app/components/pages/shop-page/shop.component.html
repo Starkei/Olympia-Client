@@ -1,0 +1,17 @@
+<app-banner image="assets/images/forest.jpg"></app-banner>
+<div>
+  <div class="container" fxLayout="column">
+    <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start stretch">
+      <app-filter fxFlexOffset="3%" fxFlex="23%" [filter]="filter"></app-filter>
+      <app-output
+        fxFlexOffset="3%"
+        fxFlex="73%"
+        [service]="productService"
+        [filter]="filter"
+        [btnFollow]="true"
+        [update]="this.filterComponent.shouldBeUpdate"
+        collection="products"
+      ></app-output>
+    </div>
+  </div>
+</div>

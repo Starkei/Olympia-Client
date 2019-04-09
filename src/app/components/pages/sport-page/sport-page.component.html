@@ -1,0 +1,26 @@
+<app-banner image="assets/images/sport.jpg"></app-banner>
+<div>
+  <div fxLayout="column">
+    <div
+      class="container"
+      fxLayout="row"
+      fxLayout.xs="column"
+      fxLayoutAlign="center stretch"
+    >
+      <app-filter fxFlexOffset="3%" fxFlex="23%" [filter]="filter"></app-filter>
+      <app-output
+        fxFlex="73%"
+        fxFlexOffset="3%"
+        [service]="sportService"
+        [filter]="filter"
+        [showDescription]="false"
+        [showAddress]="true"
+        [showPhoneNumbers]="true"
+        [showUnderground]="true"
+        [btnFollow]="true"
+        [update]="this.filterComponent.shouldBeUpdate"
+        collection="sports"
+      ></app-output>
+    </div>
+  </div>
+</div>

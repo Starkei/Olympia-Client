@@ -1,4 +1,6 @@
-export interface Training {
+import { Output } from "src/app/interfaces/output";
+
+export interface Training extends Output {
   title: string;
   description: string;
   price: number;
