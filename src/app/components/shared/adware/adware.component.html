@@ -1,0 +1,18 @@
+<mat-dialog-content>
+  <h1>Наша реклама</h1>
+  <mat-card *ngIf="adware">
+    <mat-card-header>
+      <mat-card-title *ngIf="adware.product && adware.product.title">
+        {{ adware.product.title }}
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <img *ngIf="adware.product && adware.product.image" [src]="adware.product.image" alt="" />
+      <p *ngIf="adware.product && adware.product.description">{{ adware.product.description }}</p>
+    </mat-card-content>
+  </mat-card>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button [disabled]="!adware" mat-raised-button color="primary" (click)="follow()">Перейти</button>
+  <button mat-raised-button color="warn" (click)="close()">Закрыть</button>
+</mat-dialog-actions>

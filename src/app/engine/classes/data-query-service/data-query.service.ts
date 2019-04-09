@@ -1,10 +1,11 @@
-import { Injectable } from "@angular/core";
 import {
   AngularFirestore,
   DocumentChangeAction,
   Action,
   DocumentSnapshot,
-  DocumentReference
+  DocumentReference,
+  CollectionReference,
+  Query
 } from "@angular/fire/firestore";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
@@ -20,8 +21,31 @@ export class DataQueryService {
     return this.getAllSnapshotDataFromCollection(this.collection);
   }
 
-  public getAllConvertedDataFromCollection<T>(collection: string): Observable<Array<T>> {
-    return this.getAllSnapshotDataFromCollection<T>(collection).pipe(
+  public getAllSnapshotDataWithConditionsFromCollection<T>(
+    fieldsValues: any,
+    collection: string
+  ): Observable<Array<DocumentChangeAction<T>>> {
+    return this.afs
+      .collection<T>(collection, (collectionRef: CollectionReference) => {
+        let query: Query;
+        for (const key in fieldsValues) {
+          if (fieldsValues.hasOwnProperty(key)) {
+            if (!query) query = collectionRef.where(key, "==", fieldsValues[key]);
+            else query = query.where(key, "==", fieldsValues[key]);
+          }
+        }
+        if (!query) return null;
+        return query;
+      })
+      .snapshotChanges();
+  }
+
+  public getAllSnapshotDataWithConditions<T>(fieldsValues: any): Observable<Array<DocumentChangeAction<T>>> {
+    return this.getAllSnapshotDataWithConditionsFromCollection(this.collection, fieldsValues);
+  }
+
+  public convertData<T>(snapshotData: Observable<Array<DocumentChangeAction<T>>>): Observable<Array<T>> {
+    return snapshotData.pipe(
       map(
         (actions: Array<DocumentChangeAction<T>>): Array<T> => {
           return actions.map(
@@ -37,8 +61,18 @@ export class DataQueryService {
     );
   }
 
+  public getAllConvertedDataFromCollection<T>(collection: string): Observable<Array<T>> {
+    let snapshotData: Observable<Array<DocumentChangeAction<T>>> = this.getAllSnapshotDataFromCollection<T>(collection);
+    return this.convertData<T>(snapshotData);
+  }
+
   public getAllConvertedData<T>(): Observable<Array<T>> {
     return this.getAllConvertedDataFromCollection(this.collection);
+  }
+
+  public getAllConvertedDataWithConditionFromCollection<T>(collection: string, condition: any): Observable<Array<T>> {
+    let snapshotData: Observable<Array<DocumentChangeAction<T>>> = this.getAllSnapshotDataFromCollection<T>(collection);
+    return this.convertData<T>(snapshotData);
   }
 
   public getDocumentFromColletion<T>(documentId: string, collection: string): Observable<Action<DocumentSnapshot<T>>> {
@@ -51,9 +85,9 @@ export class DataQueryService {
   /**
    *
    *
-   * @template T Класс коллекции
-   * @param {string} documentId Индефикатор документка
-   * @param {string} collection Нименование коллекции
+   * @template T Collection class
+   * @param {string} documentId Identification of document
+   * @param {string} collection Collection name
    * @returns {Observable<T>}
    * @memberof DataQueryService
    */
