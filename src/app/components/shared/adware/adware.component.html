@@ -1,13 +1,13 @@
 <mat-dialog-content>
-  <h1>Наша реклама</h1>
+  <h2>Наша реклама</h2>
   <mat-card *ngIf="adware">
     <mat-card-header>
       <mat-card-title *ngIf="adware.product && adware.product.title">
         {{ adware.product.title }}
       </mat-card-title>
     </mat-card-header>
+    <img *ngIf="adware.product && adware.product.image" [src]="adware.product.image" alt="" />
     <mat-card-content>
-      <img *ngIf="adware.product && adware.product.image" [src]="adware.product.image" alt="" />
       <p *ngIf="adware.product && adware.product.description">{{ adware.product.description }}</p>
     </mat-card-content>
   </mat-card>
