@@ -4,6 +4,8 @@ import { BreakpointObserver, BreakpointState } from "@angular/cdk/layout";
 import { Filter } from "src/app/engine/interfaces/filter";
 import { ShopFilter } from "src/app/classes/shop-filter/shop-filter";
 import { FilterComponent } from "../../shared/filter-component/filter/filter.component";
+import { MatDialog, MatDialogRef, MatSnackBar } from "@angular/material";
+import { AdwareComponent } from "../../shared/adware/adware.component";
 
 @Component({
   selector: "app-shop",
@@ -14,7 +16,12 @@ export class ShopComponent implements OnInit {
   @ViewChild(FilterComponent) filterComponent: FilterComponent;
   filter: Filter;
   fxFlex: number = 30;
-  constructor(public productService: ProductService, private breakpointObserver: BreakpointObserver) {
+  constructor(
+    public productService: ProductService,
+    private breakpointObserver: BreakpointObserver,
+    private ref: MatDialog,
+    private snackBar: MatSnackBar
+  ) {
     this.filter = new ShopFilter(this.productService);
   }
 
@@ -33,6 +40,16 @@ export class ShopComponent implements OnInit {
       if (result.matches) {
         this.fxFlex = 44;
       } else this.fxFlex = 30;
+    });
+
+    setTimeout(() => {
+      let dialogRef: MatDialogRef<AdwareComponent> = this.ref.open(AdwareComponent);
+      dialogRef.afterClosed().subscribe(
+        (data: any): void => {
+          if (!data) data = "Преравано";
+          this.snackBar.open(data, "Ок", { duration: 2000 });
+        }
+      );
     });
   }
 }
