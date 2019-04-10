@@ -2,16 +2,21 @@
   image="https://firebasestorage.googleapis.com/v0/b/olympia-be079.appspot.com/o/banners%2Fuser-profile.png?alt=media&token=0d3f5848-aae0-40e6-b835-657512922728"
 ></app-banner>
 <div class="main" fxLayout="row" fxLayout.xs="column">
-  <div class="container" fxLayout="column" [fxFlex]="getFxSize3()" fxLayoutAlign="start stretch">
+  <div
+    class="container"
+    fxLayout="column"
+    [fxFlex]="getFxSize3()"
+    fxLayoutAlign="start stretch"
+  >
     <!--Если пользователь загрузился из БД, то он отображается-->
     <ng-container *ngIf="user; else elseTemplate">
       <div class="user">
         <mat-card class="card_user">
           <mat-card-header>
             <!--Если у пользователя есть поле имя, то оно отображается-->
-            <mat-card-title *ngIf="user.displayName"
+            <!-- <mat-card-title *ngIf="user.displayName"
               ><b>{{ user.displayName }}</b></mat-card-title
-            >
+            >-->
             <ng-container *ngIf="user.displayName; else showDisplayName">
               <mat-card-title
                 ><b>{{ user.displayName }}</b></mat-card-title
@@ -37,7 +42,9 @@
 
           <mat-card-content>
             <!--Если у пользователя есть поле день рождение, то оно отображается-->
-            <p *ngIf="user.dateBirth"><b>Дата рождения:</b> {{ getFormattedDateString(user.dateBirth) }}</p>
+            <p *ngIf="user.dateBirth">
+              <b>Дата рождения:</b> {{ getFormattedDateString(user.dateBirth) }}
+            </p>
 
             <!--Если у пользователя есть поле пол, то оно отображается-->
             <p *ngIf="user.sex"><b>Пол:</b> {{ user.sex }}</p>
@@ -55,7 +62,11 @@
             <p *ngIf="user.email"><b>Email:</b> {{ user.email }}</p>
           </mat-card-content>
           <mat-card-actions>
-            <button mat-raised-button color="accent" (click)="openEditProfile()">
+            <button
+              mat-raised-button
+              color="accent"
+              (click)="openEditProfile()"
+            >
               Редактирование данных
             </button>
             <button mat-raised-button (click)="auth.signOut()" color="warn">
@@ -74,12 +85,26 @@
     <ng-container *ngIf="user; else elseTemplate">
       <div class="action" fxLayout="column" fxLayoutAlign="center center">
         <h3 class="actions-title">Ваши действия</h3>
-        <div class="actions-btns" fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="center stretch">
-          <button fxFlexOffset="2%" mat-raised-button color="primary" (click)="openProductCreator()">
+        <div
+          class="actions-btns"
+          fxLayout="row wrap"
+          fxLayout.xs="column"
+          fxLayoutAlign="center stretch"
+        >
+          <button
+            fxFlexOffset="2%"
+            mat-raised-button
+            color="primary"
+            (click)="openProductCreator()"
+          >
             Добавить товар
           </button>
-          <button fxFlexOffset="2%" mat-raised-button color="primary">Добавить секцию</button>
-          <button fxFlexOffset="2%" mat-raised-button color="primary">Добавить событие</button>
+          <button fxFlexOffset="2%" mat-raised-button color="primary">
+            Добавить секцию
+          </button>
+          <button fxFlexOffset="2%" mat-raised-button color="primary">
+            Добавить событие
+          </button>
         </div>
       </div>
     </ng-container>
@@ -99,7 +124,11 @@
     <div class="container2" fxLayout="column">
       <br />
       <p><b>Ваши события:</b></p>
-      <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="start center">
+      <div
+        fxLayout="row wrap"
+        fxLayout.xs="column"
+        fxLayoutAlign="start center"
+      >
         <div class="event" [fxFlex]="getFxSize()" *ngFor="let ar of area">
           <mat-card class="card_event">
             <mat-card-header>

@@ -9,7 +9,7 @@ import { Training } from "src/app/interfaces/training";
 @Injectable({
   providedIn: "root"
 })
-export class TrainingService {
+export class TrainingService  implements Filterable {
   constructor(private afs: AngularFirestore) {}
 
   getFilteredData(filter: Filter): Observable<Array<Training>> {
