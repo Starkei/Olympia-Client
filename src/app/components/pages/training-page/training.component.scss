@@ -1,23 +1,22 @@
-.training {
-  margin-top: 2%;
-  margin-bottom: 2%;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-}
-.mat-divider {
-  width: 100%;
-}
-.text {
-  width: 60%;
-  margin-right: 3%;
-}
-button {
-  color: red;
-}
-.image {
-  margin-left: 5%;
-  width: 30%;
-}
-img {
-  object-fit: cover;
-  width: 100%;
+div {
+  min-height: 100%;
+  div.container {
+    width: 95%;
+    margin: auto;
+    margin-top: 3%;
+    mat-card {
+      margin-bottom: 3%;
+      mat-card-header {
+        height: 15%;
+      }
+      img {
+        object-fit: cover;
+        height: 50%;
+      }
+      mat-card-content {
+        height: 20%;
+        overflow-y: auto;
+      }
+    }
+  }
 }
