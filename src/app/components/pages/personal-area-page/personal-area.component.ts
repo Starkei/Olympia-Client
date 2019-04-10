@@ -12,6 +12,7 @@ import { MatDialog, MatDialogRef, MatSnackBar } from "@angular/material";
 import { ProductCreatorComponent } from "../../shared/creators/product-creator/product-creator.component";
 import { Subscription } from "rxjs";
 import { EditProfileComponent } from "../../shared/edit-profile/edit-profile.component";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-personal-area",
@@ -19,7 +20,7 @@ import { EditProfileComponent } from "../../shared/edit-profile/edit-profile.com
   styleUrls: ["./personal-area.component.scss"]
 })
 export class PersonalAreaComponent implements OnInit, OnDestroy {
-  area: Array<Personal_Area> = [];
+  items = this.service.items;
   private fxSizeEvent: number = 0;
   private fxSizeInfo: number = 0;
   private fxSizeCont: number = 0;
@@ -29,6 +30,7 @@ export class PersonalAreaComponent implements OnInit, OnDestroy {
   user: User;
   userSubscribtion: Subscription;
   constructor(
+    private router: Router,
     public dialog: MatDialog,
     public auth: AuthService,
     private service: PersonalAreaService,
@@ -108,6 +110,11 @@ export class PersonalAreaComponent implements OnInit, OnDestroy {
         this.user = userInfo;
       }
     );
+  }
+
+  rout(event: any): void {
+    console.log(event);
+    this.router.navigate(["info-event", { data: event }]);
   }
 
   getFxSize(): string {

@@ -103,7 +103,11 @@ export const firebaseConfig = environment.firebaseConfig;
     CrowdfundingComponent,
     AuthService
   ],
-  entryComponents: [ProductCreatorComponent, EditProfileComponent, AdwareComponent],
+  entryComponents: [
+    ProductCreatorComponent,
+    EditProfileComponent,
+    AdwareComponent
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
