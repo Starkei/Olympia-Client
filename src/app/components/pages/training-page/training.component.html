@@ -1,21 +1,15 @@
-<div
-  class="training"
-  *ngFor="let tr of training"
-  fxLayout="row"
-  fxLayoutAlign="space-around center"
-  fxLayoutGap="5%"
->
-  <div class="image">
-    <img src="{{ tr.image }} " />
-  </div>
-  <div class="text">
-    <h1>{{ tr.title }}</h1>
-    <p>Описание тренинга: {{ tr.description }}</p>
-    <p>Цена:{{ tr.price }}</p>
-    <p>Адрес:{{ tr.address }}</p>
-    <div class="test" fxLayout="row" fxLayoutAlign="space-between center">
-      <p>Руководитель:{{ tr.leader }}</p>
-      <button mat-button>Перейти</button>
-    </div>
+<app-banner image="assets/images/news.png"></app-banner>
+<div>
+  <div
+    class="container"
+    fxLayout="row wrap"
+    fxLayout.xs="column"
+    fxLayoutAlign="start stretch"
+  >
+    <app-output
+      [service]="trainingService"
+      [btnFollow]="true"
+      collection="trainings"
+    ></app-output>
   </div>
 </div>
