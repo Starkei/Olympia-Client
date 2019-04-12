@@ -18,6 +18,11 @@ import {
   MAT_DATE_LOCALE
 } from "@angular/material/core";
 import { STEPPER_GLOBAL_OPTIONS } from "@angular/cdk/stepper";
+import {
+  BreakpointObserver,
+  Breakpoints,
+  BreakpointState
+} from "@angular/cdk/layout";
 @Component({
   selector: "app-registration",
   templateUrl: "./registration.component.html",
@@ -39,7 +44,9 @@ export class RegistrationComponent implements OnInit {
   // error: any;
   // selectedFiles: FileList;
   isHovering: boolean;
-
+  firstFormGroup: FormGroup;
+  secondFormGroup: FormGroup;
+  isEditable = false;
   // files: File[] = [];
   errorMessage: string;
   errorMessageAuth: string;
@@ -64,7 +71,13 @@ export class RegistrationComponent implements OnInit {
   public name: string = null;
   minDate = new Date(1900, 0, 1);
   maxDate = new Date(2020, 0, 1);
-  constructor(public auth: AuthService, private _formBuilder: FormBuilder) {}
+
+  isSmallScreen: boolean = false;
+  constructor(
+    public auth: AuthService,
+    private _formBuilder: FormBuilder,
+    private bp: BreakpointObserver
+  ) {}
   ngOnInit() {
     this.isClicked = false;
     this.formGroup = this._formBuilder.group({
@@ -82,6 +95,19 @@ export class RegistrationComponent implements OnInit {
       activityOrg: ["", Validators.required],
       adressOrg: ["", Validators.required],
       phone: ["", Validators.required]
+    });
+    this.bp.observe([Breakpoints.XSmall]).subscribe((r: BreakpointState) => {
+      if (r.breakpoints[Breakpoints.XSmall]) {
+        this.isSmallScreen = true;
+      } else {
+        this.isSmallScreen = false;
+      }
+    });
+    this.firstFormGroup = this._formBuilder.group({
+      firstCtrl: ["", Validators.required]
+    });
+    this.secondFormGroup = this._formBuilder.group({
+      secondCtrl: ["", Validators.required]
     });
   }
 
