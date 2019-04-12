@@ -138,12 +138,16 @@ export class FilterService<T> extends DataQueryService implements Filterable, On
     );
   }
 
-  public getFilteredData(filter: Filter): Observable<Array<T>> {
+  public getFilteredData(filter: Filter, startAt: number, offset: number): Observable<Array<T>> {
     this.applyFilters(filter);
     return this.getAllConvertedData<T>().pipe(
       map(
         (convertedData: Array<T>): Array<T> => {
           let data: Array<T> = _.filter<T>(convertedData, this.filterIterator);
+          if ((startAt || startAt == 0) && offset) {
+            console.log(startAt, offset);
+            return data.slice(startAt, startAt + offset);
+          }
           return data;
         }
       )

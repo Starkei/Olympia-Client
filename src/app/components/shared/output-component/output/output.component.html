@@ -23,7 +23,12 @@
     </mat-card>
   </div>
   <div>
-    <mat-paginator [pageSize]="9" [pageSizeOptions]="[9, 12, 15, 18]" [length]="9"></mat-paginator>
+    <mat-paginator
+      (page)="onPageChange($event)"
+      [pageSize]="9"
+      [pageSizeOptions]="[9]"
+      [length]="itemsCount"
+    ></mat-paginator>
   </div>
 </ng-container>
 <ng-template #elseTemplate>
