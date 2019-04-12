@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, OnInit, ViewChild, OnDestroy } from "@angular/core";
 import { CrowdfundingService } from "src/app/services/crowdfunding/crowdfunding.service";
 import { BreakpointObserver, BreakpointState } from "@angular/cdk/layout";
 import { CrowdfundingFilter } from "src/app/classes/crowdfunding-filter/crowdfunding-filter";
@@ -9,7 +9,7 @@ import { FilterComponent } from "../../shared/filter-component/filter/filter.com
   templateUrl: "./crowdfunding.component.html",
   styleUrls: ["./crowdfunding.component.scss"]
 })
-export class CrowdfundingComponent implements OnInit {
+export class CrowdfundingComponent implements OnInit, OnDestroy {
   @ViewChild(FilterComponent) filterComponent: FilterComponent;
 
   fxFlex: number = 30;
@@ -34,5 +34,9 @@ export class CrowdfundingComponent implements OnInit {
         this.fxFlex = 44;
       } else this.fxFlex = 30;
     });
+  }
+
+  ngOnDestroy(): void {
+    this.crowdfundingService.ngOnDestroy();
   }
 }
