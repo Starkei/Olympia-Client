@@ -144,8 +144,9 @@ export class FilterService<T> extends DataQueryService implements Filterable, On
       map(
         (convertedData: Array<T>): Array<T> => {
           let data: Array<T> = _.filter<T>(convertedData, this.filterIterator);
-          if (startAt && offset) {
-            return data.slice(startAt, offset);
+          if ((startAt || startAt == 0) && offset) {
+            console.log(startAt, offset);
+            return data.slice(startAt, startAt + offset);
           }
           return data;
         }
