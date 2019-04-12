@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, OnInit, ViewChild, OnDestroy } from "@angular/core";
 import { ProductService } from "src/app/services/product/product.service";
 import { BreakpointObserver, BreakpointState } from "@angular/cdk/layout";
 import { Filter } from "src/app/engine/interfaces/filter";
@@ -12,7 +12,7 @@ import { AdwareComponent } from "../../shared/adware/adware.component";
   templateUrl: "./shop.component.html",
   styleUrls: ["./shop.component.scss"]
 })
-export class ShopComponent implements OnInit {
+export class ShopComponent implements OnInit, OnDestroy {
   @ViewChild(FilterComponent) filterComponent: FilterComponent;
   filter: Filter;
   fxFlex: number = 30;
@@ -51,5 +51,10 @@ export class ShopComponent implements OnInit {
         }
       );
     });
+  }
+
+  ngOnDestroy(): void {
+    this.filter = null;
+    this.productService.ngOnDestroy();
   }
 }
