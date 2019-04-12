@@ -1,12 +1,12 @@
 <app-banner image="assets/images/au1.jpg"></app-banner>
-<div class="container" fxLayout="row" fxLayoutAlign="space-evenly center">
+<div class="container" fxLayout="column">
   <mat-tab-group
-    dynamicHeight
+    mat-stretch-tabs
     [selectedIndex]="selected.value"
     (selectedIndexChange)="selected.setValue($event)"
   >
     <mat-tab label="Авторизация">
-      <div>
+      <div fxLayout="column" fxLayoutAlign=" center">
         <mat-card fxFlex="100%">
           <mat-card-title>
             <div class="label">Авторизация</div>
@@ -42,7 +42,7 @@
                 <strong>Регистрация</strong>
               </a>
               <a (click)="legalRegistration()">
-                <strong>Регистрация Юр. лиц</strong>
+                <strong>Регистрация <br />Юр. лиц</strong>
               </a>
               <a> <strong>Забыл пароль</strong></a>
             </div>
@@ -67,16 +67,7 @@
                 (click)="auth.googleLogin()"
               />
             </div>
-            <div
-              (click)="isClicked = !isClicked"
-              [@bounce]="isClicked ? 'in' : 'on'"
-            >
-              <img
-                class="logo-image"
-                src="https://image.flaticon.com/icons/svg/179/179342.svg"
-                (click)="auth.twitterLogin()"
-              />
-            </div>
+
             <div
               (click)="isClicked = !isClicked"
               [@bounce]="isClicked ? 'in' : 'on'"
@@ -92,7 +83,7 @@
       </div>
     </mat-tab>
     <mat-tab label="Регистрация">
-      <div>
+      <div fxLayout="column" fxLayoutAlign=" center">
         <mat-card fxFlex="100%">
           <mat-card-title>
             <div class="label">Регистрация</div>
@@ -198,7 +189,7 @@
                 <button
                   mat-button
                   (click)="
-                    auth.addItem(dateBirth, phone, sex, name, 'User', '')
+                    auth.addUserData(dateBirth, phone, sex, name, 'User', '')
                   "
                 >
                   Подтвердить
@@ -221,8 +212,8 @@
         </mat-card>
       </div>
     </mat-tab>
-    <mat-tab label="Регистрация Юр. лдиц">
-      <div>
+    <mat-tab label="Регистрация Юр. лиц">
+      <div fxLayout="column" fxLayoutAlign=" center">
         <mat-card fxFlex="100%">
           <mat-card-title>
             <div class="label">Регистрация</div>
@@ -316,7 +307,7 @@
                 <button
                   mat-button
                   (click)="
-                    auth.addItemLegalUser(
+                    auth.addLegalUser(
                       nameOrg,
                       phone,
                       activityOrg,
@@ -346,20 +337,4 @@
       </div>
     </mat-tab>
   </mat-tab-group>
-  <!-- <div
-    class="dropzone"
-    dropzone
-    (hovered)="toggleHover($event)"
-    (dropped)="onDrop($event)"
-    [class.hovering]="isHovering"
-  >
-    <h3>AngularFire Drop Zone</h3>
-    <p>Drag and Drop a File</p>
-  </div>
-
-  <h3>Uploads</h3>
-
-  <div *ngFor="let file of files">
-    <upload-task [file]="file"></upload-task>
-  </div> -->
 </div>
