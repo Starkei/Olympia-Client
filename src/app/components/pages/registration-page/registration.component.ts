@@ -44,7 +44,9 @@ export class RegistrationComponent implements OnInit {
   // error: any;
   // selectedFiles: FileList;
   isHovering: boolean;
-
+  firstFormGroup: FormGroup;
+  secondFormGroup: FormGroup;
+  isEditable = false;
   // files: File[] = [];
   errorMessage: string;
   errorMessageAuth: string;
@@ -100,6 +102,12 @@ export class RegistrationComponent implements OnInit {
       } else {
         this.isSmallScreen = false;
       }
+    });
+    this.firstFormGroup = this._formBuilder.group({
+      firstCtrl: ["", Validators.required]
+    });
+    this.secondFormGroup = this._formBuilder.group({
+      secondCtrl: ["", Validators.required]
     });
   }
 
