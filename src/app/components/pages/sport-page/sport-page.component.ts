@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, OnInit, ViewChild, OnDestroy } from "@angular/core";
 import { SportService } from "src/app/services/sport/sport.service";
 import { BreakpointObserver, BreakpointState } from "@angular/cdk/layout";
 import { Filter } from "src/app/engine/interfaces/filter";
@@ -10,7 +10,7 @@ import { FilterComponent } from "../../shared/filter-component/filter/filter.com
   templateUrl: "./sport-page.component.html",
   styleUrls: ["./sport-page.component.scss"]
 })
-export class SportPageComponent implements OnInit {
+export class SportPageComponent implements OnInit, OnDestroy {
   @ViewChild(FilterComponent) filterComponent: FilterComponent;
 
   filter: Filter;
@@ -32,6 +32,10 @@ export class SportPageComponent implements OnInit {
         this.fxFlex = 44;
       } else this.fxFlex = 30;
     });
+  }
+
+  ngOnDestroy(): void {
+    this.sportService.ngOnDestroy();
   }
 
   getFlex(): string {

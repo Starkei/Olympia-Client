@@ -1,5 +1,5 @@
 import * as _ from "lodash";
-import { Observable } from "rxjs";
+import { Observable, Subscription } from "rxjs";
 import { Filter } from "src/app/engine/interfaces/filter";
 import { DataQueryService } from "../data-query-service/data-query.service";
 import { AngularFirestore } from "@angular/fire/firestore";
@@ -7,12 +7,24 @@ import { map } from "rxjs/operators";
 import { Category } from "src/app/interfaces/category";
 import { Filterable } from "src/app/engine/interfaces/filterable";
 import { FieldType } from "src/app/engine/enums/field-type.enum";
+import { OnDestroy } from "@angular/core";
 
-export class FilterService<T> extends DataQueryService implements Filterable {
+/**
+ *
+ * @description You should execute method ngOnDestroy for reset filters params
+ * @export
+ * @class FilterService
+ * @extends {DataQueryService}
+ * @implements {Filterable}
+ * @implements {OnDestroy}
+ * @template T
+ */
+export class FilterService<T> extends DataQueryService implements Filterable, OnDestroy {
   private filterIterator: _.ListIterateeCustom<T, boolean>;
   private filterParams: any = {};
   private priceParams: any = {};
   private searchParams: any = {};
+  private subscription: Subscription;
 
   constructor(afs: AngularFirestore, collection: string) {
     super(afs, collection);
@@ -115,7 +127,7 @@ export class FilterService<T> extends DataQueryService implements Filterable {
 
   protected applyFilters(filter: Filter): void {
     if (!filter || !filter.categories) return;
-    filter.categories.subscribe(
+    this.subscription = filter.categories.subscribe(
       (categories: Array<Category>): void => {
         if (categories.length == 0) return;
         this.searchFilterConfigure(categories);
@@ -136,5 +148,14 @@ export class FilterService<T> extends DataQueryService implements Filterable {
         }
       )
     );
+  }
+
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+      this.filterParams = {};
+      this.priceParams = {};
+      this.searchParams = {};
+    }
   }
 }
