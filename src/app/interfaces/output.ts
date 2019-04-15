@@ -35,6 +35,9 @@ export interface Output {
   underground?: string;
   reference?: string;
   image?: string;
+  leader?: string;
+
+  getFormattedPrice?(): string;
   type?: Array<string>;
   time?: Array<string>;
   usage?: Array<string>;

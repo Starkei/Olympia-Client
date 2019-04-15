@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { AngularFirestore } from "@angular/fire/firestore";
-import { Filterable } from "src/app/interfaces/filterable";
-import { Filter } from "src/app/interfaces/filter";
+import { Filterable } from "src/app/engine/interfaces/filterable";
+import { Filter } from "src/app/engine/interfaces/filter";
 import { Observable } from "rxjs";
 import { Event } from "src/app/interfaces/models/event";
 import { map } from "rxjs/operators";

@@ -1,0 +1,40 @@
+div.container {
+  margin: auto;
+  margin-top: 2%;
+  margin-bottom: 3%;
+  mat-card {
+    min-width: 150px;
+    max-width: 500px;
+    margin-left: 2%;
+    margin-right: 2%;
+    div.label {
+      text-align: center;
+      font-size: 5vh;
+      font-weight: bold;
+    }
+    .example-full-width {
+      width: 100%;
+    }
+    .link {
+      margin-bottom: 3%;
+      text-align: center;
+    }
+    .logo-image {
+      width: 7vh;
+      cursor: pointer;
+    }
+    div.sex {
+      margin-bottom: 1%;
+      h4 {
+        margin-bottom: 1%;
+      }
+      mat-radio-button {
+        margin-right: 1%;
+      }
+    }
+    button {
+      width: 100%;
+      margin-bottom: 3%;
+    }
+  }
+}

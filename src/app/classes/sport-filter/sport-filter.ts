@@ -2,8 +2,8 @@ import { Category } from "src/app/interfaces/category";
 import { of } from "rxjs";
 import { SportService } from "src/app/services/sport/sport.service";
 import { Sport } from "../../interfaces/models/sport";
-import { Field } from "src/app/interfaces/field";
-import { FilterGenerator } from "../engine/filter-generator/filter-generator";
+import { Field } from "src/app/engine/interfaces/field";
+import { FilterGenerator } from "src/app/engine/classes/filter-generator/filter-generator";
 
 export class SportFilter extends FilterGenerator<Sport> {
   constructor(private service: SportService) {
@@ -13,9 +13,7 @@ export class SportFilter extends FilterGenerator<Sport> {
         let categoriesArray: Array<Category> = [];
 
         categoriesArray.push({
-          fields: [
-            { fieldType: "input", inputPlaceHolder: "Поиск", inputType: "text" }
-          ],
+          fields: [{ fieldType: "input", inputPlaceHolder: "Поиск", inputType: "text" }],
           title: "Поиск",
           dataFieldName: "title"
         });
@@ -44,23 +42,17 @@ export class SportFilter extends FilterGenerator<Sport> {
   }
 
   private createAllTypesFields(sport: Array<Sport>): Array<Field> {
-    let titles: Array<string> = Array.from(
-      this.getSetFromArrayPropertiesValues(sport, "type")
-    );
+    let titles: Array<string> = Array.from(this.getSetFromArrayPropertiesValues(sport, "type"));
     return this.generateCheckBoxFields(titles);
   }
 
   private createAllСontraindicationsTypes(sport: Array<Sport>): Array<Field> {
-    let selectItems: Array<string> = Array.from(
-      this.getSetFromArrayPropertiesValues(sport, "contraindications")
-    );
+    let selectItems: Array<string> = Array.from(this.getSetFromArrayPropertiesValues(sport, "contraindications"));
     return this.generateSelectField(selectItems);
   }
 
   private createAllUndergroundFields(sport: Array<Sport>): Array<Field> {
-    let titles: Array<string> = Array.from(
-      this.getSetOfPropertiesValues(sport, "underground")
-    );
+    let titles: Array<string> = Array.from(this.getSetOfPropertiesValues(sport, "underground"));
     return this.generateCheckBoxFields(titles);
   }
 }
