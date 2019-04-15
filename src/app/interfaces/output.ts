@@ -1,3 +1,5 @@
+import { FromTo } from "./from-to";
+
 /**
  * @description Все поля являются необязательными
  * @example let output: Output = {title: "Название"};
@@ -20,6 +22,10 @@
  * @param senderId Строка хранящая индефикатор отправителя
  * @param recipientId Строка хранящая индефикатор получателя
  * @param message Строка хранящая сообщение
+ * @param sex Array wich contains available sex
+ * @param timeWork FromTo type field which contains when work started and ended in seconds
+ * @param age FromTo type field which contains available age
+ * @param group FromTo type field which contains available amount of people
  * @export
  * @interface Output
  */
@@ -36,7 +42,10 @@ export interface Output {
   reference?: string;
   image?: string;
   leader?: string;
-
+  sex?: Array<string>;
+  group?: FromTo<number>;
+  timeWork?: FromTo<number>;
+  age?: FromTo<number>;
   getFormattedPrice?(): string;
   type?: Array<string>;
   time?: Array<string>;
