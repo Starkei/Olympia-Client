@@ -9,6 +9,7 @@ import { FromTo } from "./from-to";
  * @param moreInfo Строка хранящая больше информации о документе
  * @param price Числовое значение отражающие цену
  * @param address Строка хранящая адрес
+ * @param area Строка хранящая район
  * @param contraindications Коллекция хранящая противопоказания
  * @param phoneNumbers Коллекция хранящая телефонные номера
  * @param underground Строка хранящая раположение метро
@@ -42,6 +43,7 @@ export interface Output {
   reference?: string;
   image?: string;
   leader?: string;
+  area?: string;
   sex?: Array<string>;
   group?: FromTo<number>;
   timeWork?: FromTo<number>;
