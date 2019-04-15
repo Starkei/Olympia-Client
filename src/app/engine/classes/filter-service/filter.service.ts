@@ -77,7 +77,20 @@ export class FilterService<T> extends DataQueryService implements Filterable, On
       if (category.title == "Время работы") {
         let from: number = this.getTimeInSeconds(category.fields[0].innerText);
         let to: number = this.getTimeInSeconds(category.fields[1].innerText);
-        console.log(from, to);
+        if (to && from) this.filterParams[category.dataFieldName] = val => from <= val.from && val.to <= to;
+        else if (from) this.filterParams[category.dataFieldName] = val => from <= val.from;
+        else if (to) this.filterParams[category.dataFieldName] = val => val.to <= to;
+        else delete this.filterParams[category.dataFieldName];
+        return;
+      }
+    }
+  }
+
+  protected groupFilterConfigure(categories: Array<Category>): void {
+    for (const category of categories) {
+      if (category.title == "Состав группы") {
+        let from: number = Number.parseInt(category.fields[0].innerText);
+        let to: number = Number.parseInt(category.fields[1].innerText);
         if (to && from) this.filterParams[category.dataFieldName] = val => from <= val.from && val.to <= to;
         else if (from) this.filterParams[category.dataFieldName] = val => from <= val.from;
         else if (to) this.filterParams[category.dataFieldName] = val => val.to <= to;
@@ -180,6 +193,7 @@ export class FilterService<T> extends DataQueryService implements Filterable, On
         this.priceFilterConfigure(categories);
         this.ageFilterConfigure(categories);
         this.timeFilterConfigure(categories);
+        this.groupFilterConfigure(categories);
         this.filterConfigure(categories);
         this.configure();
       }
