@@ -99,7 +99,12 @@ export class ChatComponent implements OnInit {
         let message: Message = { data: this.message, senderId: user.uid, senderName: user.email };
         this.chatService.addMessage(message, chatUid);
         this.getChats();
+        this.clearMessageArea();
       }
     );
+  }
+
+  private clearMessageArea(): void {
+    this.message = "";
   }
 }
