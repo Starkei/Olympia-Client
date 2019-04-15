@@ -60,6 +60,14 @@ export class OutputDetailsComponent implements OnInit {
       .pipe(data => (this.adware = data));
   }
 
+  public convertSecondsToHours(seconds: number): string {
+    let h: number = seconds / 3600;
+    let m: number = (seconds % 3600) / 60;
+    let hours: string = h > 0 ? (h < 10 ? "0" + h : h + "") : "00";
+    let minutes: string = m > 0 ? (m < 10 ? "0" + m : m + "") : "00";
+    return hours + ":" + minutes;
+  }
+
   getLink(url: string): string {
     return "http://" + url;
   }
