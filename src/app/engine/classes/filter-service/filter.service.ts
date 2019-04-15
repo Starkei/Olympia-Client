@@ -58,6 +58,51 @@ export class FilterService<T> extends DataQueryService implements Filterable, On
     }
   }
 
+  protected ageFilterConfigure(categories: Array<Category>): void {
+    for (const category of categories) {
+      if (category.title == "Возраст") {
+        let from: number = Number.parseFloat(category.fields[0].innerText);
+        let to: number = Number.parseFloat(category.fields[1].innerText);
+        if (to && from) this.priceParams[category.dataFieldName] = val => from <= val && val <= to;
+        else if (from) this.priceParams[category.dataFieldName] = val => from <= val;
+        else if (to) this.priceParams[category.dataFieldName] = val => val <= to;
+        else delete this.priceParams[category.dataFieldName];
+        return;
+      }
+    }
+  }
+
+  protected timeFilterConfigure(categories: Array<Category>): void {
+    for (const category of categories) {
+      if (category.title == "Время работы") {
+        let from: number = this.getTimeInSeconds(category.fields[0].innerText);
+        let to: number = this.getTimeInSeconds(category.fields[0].innerText);
+        if (to && from) this.priceParams[category.dataFieldName] = val => from <= val && val <= to;
+        else if (from) this.priceParams[category.dataFieldName] = val => from <= val;
+        else if (to) this.priceParams[category.dataFieldName] = val => val <= to;
+        else delete this.priceParams[category.dataFieldName];
+        return;
+      }
+    }
+  }
+
+  private getTimeInSeconds(time: string): number {
+    let seconds: number = 0;
+
+    if (!time) return seconds;
+
+    let hoursAndMinuts: Array<string> = time.split(":");
+    let hours: number = Number.parseInt(hoursAndMinuts[0]);
+    let minutes: number = Number.parseInt(hoursAndMinuts[1]);
+
+    if (!hours) hours = 24;
+
+    seconds = hours * 60 * 60;
+    seconds += minutes * 60;
+
+    return seconds;
+  }
+
   protected filterConfigure(categories: Array<Category>): void {
     let checkbox: Array<string> = [];
     let select: Array<string> = [];
@@ -132,6 +177,8 @@ export class FilterService<T> extends DataQueryService implements Filterable, On
         if (categories.length == 0) return;
         this.searchFilterConfigure(categories);
         this.priceFilterConfigure(categories);
+        this.ageFilterConfigure(categories);
+        this.timeFilterConfigure(categories);
         this.filterConfigure(categories);
         this.configure();
       }
