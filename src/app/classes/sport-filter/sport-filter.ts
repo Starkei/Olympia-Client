@@ -45,7 +45,7 @@ export class SportFilter extends FilterGenerator<Sport> {
         categoriesArray.push({
           title: "Пол",
           fields: this.createAllSexFields(data),
-          dataFieldName: "age"
+          dataFieldName: "sex"
         });
 
         categoriesArray.push({
@@ -54,7 +54,7 @@ export class SportFilter extends FilterGenerator<Sport> {
             { fieldType: "input", inputPlaceHolder: "от", inputType: "time" },
             { fieldType: "input", inputPlaceHolder: "до", inputType: "time" }
           ],
-          dataFieldName: "age"
+          dataFieldName: "timeWork"
         });
 
         categoriesArray.push({

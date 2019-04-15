@@ -63,10 +63,10 @@ export class FilterService<T> extends DataQueryService implements Filterable, On
       if (category.title == "Возраст") {
         let from: number = Number.parseFloat(category.fields[0].innerText);
         let to: number = Number.parseFloat(category.fields[1].innerText);
-        if (to && from) this.priceParams[category.dataFieldName] = val => from <= val && val <= to;
-        else if (from) this.priceParams[category.dataFieldName] = val => from <= val;
-        else if (to) this.priceParams[category.dataFieldName] = val => val <= to;
-        else delete this.priceParams[category.dataFieldName];
+        if (to && from) this.filterParams[category.dataFieldName] = val => from <= val.from && val.to <= to;
+        else if (from) this.filterParams[category.dataFieldName] = val => from <= val.from;
+        else if (to) this.filterParams[category.dataFieldName] = val => val.to <= to;
+        else delete this.filterParams[category.dataFieldName];
         return;
       }
     }
@@ -76,11 +76,12 @@ export class FilterService<T> extends DataQueryService implements Filterable, On
     for (const category of categories) {
       if (category.title == "Время работы") {
         let from: number = this.getTimeInSeconds(category.fields[0].innerText);
-        let to: number = this.getTimeInSeconds(category.fields[0].innerText);
-        if (to && from) this.priceParams[category.dataFieldName] = val => from <= val && val <= to;
-        else if (from) this.priceParams[category.dataFieldName] = val => from <= val;
-        else if (to) this.priceParams[category.dataFieldName] = val => val <= to;
-        else delete this.priceParams[category.dataFieldName];
+        let to: number = this.getTimeInSeconds(category.fields[1].innerText);
+        console.log(from, to);
+        if (to && from) this.filterParams[category.dataFieldName] = val => from <= val.from && val.to <= to;
+        else if (from) this.filterParams[category.dataFieldName] = val => from <= val.from;
+        else if (to) this.filterParams[category.dataFieldName] = val => val.to <= to;
+        else delete this.filterParams[category.dataFieldName];
         return;
       }
     }
