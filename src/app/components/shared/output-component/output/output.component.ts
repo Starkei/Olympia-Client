@@ -1,5 +1,9 @@
 import { Component, OnInit, Input, EventEmitter } from "@angular/core";
-import { BreakpointObserver, Breakpoints, BreakpointState } from "@angular/cdk/layout";
+import {
+  BreakpointObserver,
+  Breakpoints,
+  BreakpointState
+} from "@angular/cdk/layout";
 import { Output } from "src/app/interfaces/output";
 import { Observable } from "rxjs";
 import { Filter } from "src/app/engine/interfaces/filter";
@@ -30,7 +34,10 @@ export class OutputComponent implements OnInit {
   currentPageIndex: number = 0;
   private flexSize: number = 30;
 
-  constructor(private breakpointObserver: BreakpointObserver, private router: Router) {}
+  constructor(
+    private breakpointObserver: BreakpointObserver,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.service.getFilteredData(this.filter).subscribe(
@@ -39,13 +46,15 @@ export class OutputComponent implements OnInit {
       }
     );
     this.assignItems();
-    this.breakpointObserver.observe([Breakpoints.Medium, Breakpoints.Small, Breakpoints.XSmall]).subscribe(
-      (result: BreakpointState): void => {
-        if (result.breakpoints[Breakpoints.Medium]) {
-          this.flexSize = 45;
+    this.breakpointObserver
+      .observe([Breakpoints.Medium, Breakpoints.Small, Breakpoints.XSmall])
+      .subscribe(
+        (result: BreakpointState): void => {
+          if (result.breakpoints[Breakpoints.Medium]) {
+            this.flexSize = 45;
+          }
         }
-      }
-    );
+      );
     this.breakpointObserver.observe(["(max-width: 1010px)"]).subscribe(
       (result: BreakpointState): void => {
         if (result.matches) this.flexSize = 100;
@@ -61,7 +70,11 @@ export class OutputComponent implements OnInit {
 
   assignItems(): void {
     let startAt: number = this.currentPageIndex * this.itemsPerPage;
-    this.items = this.service.getFilteredData(this.filter, startAt, this.itemsPerPage);
+    this.items = this.service.getFilteredData(
+      this.filter,
+      startAt,
+      this.itemsPerPage
+    );
   }
 
   showArrayWithCommas(array: Array<any>): string {
@@ -80,13 +93,20 @@ export class OutputComponent implements OnInit {
   }
 
   follow(output: Output): void {
-    this.router.navigate(["output-details", { uid: output.id, collection: this.collection }]);
+    this.router.navigate([
+      "output-details",
+      { uid: output.id, collection: this.collection }
+    ]);
   }
 
   onPageChange(event: PageEvent): void {
     let startAt: number = event.pageIndex * event.pageSize;
     this.currentPageIndex = event.pageIndex;
     this.itemsPerPage = event.pageSize;
-    this.items = this.service.getFilteredData(this.filter, startAt, this.itemsPerPage);
+    this.items = this.service.getFilteredData(
+      this.filter,
+      startAt,
+      this.itemsPerPage
+    );
   }
 }
