@@ -58,6 +58,15 @@ export class SportFilter extends FilterGenerator<Sport> {
         });
 
         categoriesArray.push({
+          title: "Состав группы",
+          fields: [
+            { fieldType: "input", inputPlaceHolder: "от", inputType: "number" },
+            { fieldType: "input", inputPlaceHolder: "до", inputType: "number" }
+          ],
+          dataFieldName: "group"
+        });
+
+        categoriesArray.push({
           title: "Противопоказания",
           fields: this.createAllСontraindicationsTypes(data),
           dataFieldName: "contraindications"
