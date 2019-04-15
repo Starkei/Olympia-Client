@@ -19,9 +19,42 @@ export class SportFilter extends FilterGenerator<Sport> {
         });
 
         categoriesArray.push({
+          fields: [
+            { fieldType: "input", inputPlaceHolder: "от", inputType: "number" },
+            { fieldType: "input", inputPlaceHolder: "до", inputType: "number" }
+          ],
+          title: "Цена",
+          dataFieldName: "price"
+        });
+
+        categoriesArray.push({
           title: "Виды спорта",
           fields: this.createAllTypesFields(data),
           dataFieldName: "type"
+        });
+
+        categoriesArray.push({
+          title: "Возраст",
+          fields: [
+            { fieldType: "input", inputPlaceHolder: "от", inputType: "number" },
+            { fieldType: "input", inputPlaceHolder: "до", inputType: "number" }
+          ],
+          dataFieldName: "age"
+        });
+
+        categoriesArray.push({
+          title: "Пол",
+          fields: this.createAllSexFields(data),
+          dataFieldName: "age"
+        });
+
+        categoriesArray.push({
+          title: "Время работы",
+          fields: [
+            { fieldType: "input", inputPlaceHolder: "от", inputType: "time" },
+            { fieldType: "input", inputPlaceHolder: "до", inputType: "time" }
+          ],
+          dataFieldName: "age"
         });
 
         categoriesArray.push({
@@ -49,6 +82,11 @@ export class SportFilter extends FilterGenerator<Sport> {
   private createAllСontraindicationsTypes(sport: Array<Sport>): Array<Field> {
     let selectItems: Array<string> = Array.from(this.getSetFromArrayPropertiesValues(sport, "contraindications"));
     return this.generateSelectField(selectItems);
+  }
+
+  private createAllSexFields(sport: Array<Sport>): Array<Field> {
+    let sexes: Array<string> = Array.from(this.getSetFromArrayPropertiesValues(sport, "sex"));
+    return this.generateCheckBoxFields(sexes);
   }
 
   private createAllUndergroundFields(sport: Array<Sport>): Array<Field> {
