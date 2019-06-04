@@ -39,7 +39,26 @@
                 <b>Противопоказания</b>:
                 {{ output.contraindications | arrayFormatter }}
               </p>
-              <p *ngIf="output.firm"><b>Фирма</b>: {{ output.firm }}</p>
+              <p *ngIf="output.area">
+                <b>Район</b>:
+                {{ output.area }}
+              </p>
+              <p *ngIf="output.sex">
+                <b>Пол</b>:
+                {{ output.sex }}
+              </p>
+              <p *ngIf="output.age">
+                <b>Возраст</b>: от {{ output.age.from }} до {{ output.age.to }}
+              </p>
+              <p *ngIf="output.group">
+                <b>Количество участников в группе</b>: от
+                {{ output.group.from }} до {{ output.age.to }}
+              </p>
+              <p *ngIf="output.timeWork">
+                <b>Время работы</b>: от
+                {{ convertSecondsToHours(output.timeWork.from) }} до
+                {{ convertSecondsToHours(output.timeWork.to) }}
+              </p>
             </mat-card-content>
           </mat-card>
           <mat-card *ngIf="output.reference">
@@ -48,7 +67,7 @@
               <mat-card-subtitle>
                 <p>
                   При нажатии на кнопку "перейти" вы перейдете на страницу
-                  продавца
+                  организации
                 </p>
               </mat-card-subtitle>
             </mat-card-header>
