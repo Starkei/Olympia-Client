@@ -46,6 +46,10 @@ import { ChatComponent } from "./components/pages/chat-page/chat.component";
 import { ProductCreatorComponent } from "./components/shared/creators/product-creator/product-creator.component";
 import { EditProfileComponent } from "./components/shared/edit-profile/edit-profile.component";
 import { AdwareComponent } from "./components/shared/adware/adware.component";
+import { AdminPanelComponent } from "./components/pages/admin-panel/admin-panel.component";
+import { TableComponent } from "./components/shared/admin-panel-component/table/table.component";
+import { HttpClientModule } from "@angular/common/http";
+import { PostFormComponent } from "./components/shared/admin-panel-component/post-form/post-form.component";
 
 export const firebaseConfig = environment.firebaseConfig;
 
@@ -77,7 +81,10 @@ export const firebaseConfig = environment.firebaseConfig;
     ChatComponent,
     ProductCreatorComponent,
     EditProfileComponent,
-    AdwareComponent
+    AdwareComponent,
+    AdminPanelComponent,
+    TableComponent,
+    PostFormComponent
   ],
   imports: [
     BrowserModule,
@@ -90,7 +97,8 @@ export const firebaseConfig = environment.firebaseConfig;
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFirestoreModule,
     ReactiveFormsModule,
-    AngularFireStorageModule
+    AngularFireStorageModule,
+    HttpClientModule
   ],
   providers: [
     NewsService,
