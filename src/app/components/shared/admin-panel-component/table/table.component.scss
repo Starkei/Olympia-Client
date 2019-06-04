@@ -1,0 +1,29 @@
+.table {
+  width: 95%;
+  margin: 1% auto;
+}
+
+div.search {
+  width: 95%;
+  margin: 1% auto;
+
+  mat-form-field {
+    width: 30%;
+    margin-left: 32.5%;
+  }
+
+  button.add {
+    float: right;
+  }
+
+  button.delete {
+    float: left;
+  }
+}
+
+mat-card.spinner-container {
+  margin-left: 2.5%;
+  margin-right: 2.5%;
+  display: flex;
+  justify-content: center;
+}
