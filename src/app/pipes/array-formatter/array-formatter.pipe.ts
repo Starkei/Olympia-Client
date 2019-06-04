@@ -1,5 +1,4 @@
 import { Pipe, PipeTransform } from "@angular/core";
-import { type } from "os";
 
 @Pipe({
   name: "arrayFormatter"

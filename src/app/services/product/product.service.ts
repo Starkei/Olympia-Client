@@ -5,6 +5,7 @@ import * as _ from "lodash";
 import { FilterService } from "src/app/engine/classes/filter-service/filter.service";
 import { Observable, throwError } from "rxjs";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
+import { environment } from "src/environments/environment";
 /**
  *
  * @description execute method ngOnDestroy for reset filters
@@ -21,19 +22,19 @@ export class ProductService extends FilterService<Product> {
   }
 
   public getProductsFromServer(): Observable<Array<Product>> {
-    return this.http.get<Array<Product>>("https://olympia-server-api.herokuapp.com/products");
+    return this.http.get<Array<Product>>(environment.apiUrl + "/products");
   }
 
   public postPorduct(product: Product): void {
-    this.http.post("https://olympia-server-api.herokuapp.com/products", product).subscribe();
+    this.http.post(environment.apiUrl + "/products", product).subscribe();
   }
 
   public getProductTypes(): Observable<Array<any>> {
-    return this.http.get<Array<any>>("https://olympia-server-api.herokuapp.com/products/types");
+    return this.http.get<Array<any>>(environment.apiUrl + "/products/types");
   }
 
   public postProductType(productType: any): void {
-    this.http.post("https://olympia-server-api.herokuapp.com/products/types", productType).subscribe();
+    this.http.post(environment.apiUrl + "/types", productType).subscribe();
   }
 
   public errorHandler(err: HttpErrorResponse) {
