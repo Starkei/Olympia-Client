@@ -1,3 +1,5 @@
+import { Output } from "@angular/compiler/src/core";
+
 /**
  *
  * @description Model for adware in collection 'adware'
@@ -7,7 +9,7 @@
  * @export
  * @interface Adware
  */
-export interface Adware {
+export interface Adware extends Output {
   id?: string;
   productId?: string;
   userId?: string;

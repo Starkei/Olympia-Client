@@ -14,9 +14,15 @@
 export interface Field {
   fieldType: string;
   inputType?: string;
+  //TODO: Change to "placeHolder"
   inputPlaceHolder?: string;
   title?: string;
   checked?: boolean;
   innerText?: string;
   selectItems?: Array<string>;
+
+  //TODO: Document this
+  dbFieldName?: string;
+  minValue?: number;
+  maxValue?: number;
 }

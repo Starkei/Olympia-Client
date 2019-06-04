@@ -21,6 +21,7 @@
     <button *ngIf="!(user | async)" mat-button routerLink="/registration">
       Авторизация/Регистрация
     </button>
+    <button *ngIf="(user | async)" mat-button routerLink="/admin-panel">Панель администратора</button>
   </span>
 </mat-toolbar>
 
@@ -40,7 +41,9 @@
 
       <a *ngIf="(user | async)" mat-list-item routerLink="/area">Личный кабинет</a>
       <a *ngIf="(user | async)" mat-list-item routerLink="/chats">Чаты</a>
-      <a mat-list-item routerLink="/registration">Регистрация</a>
+      <a *ngIf="(user | async)" mat-list-item routerLink="/registration">Регистрация</a>
+      <a *ngIf="(user | async)" mat-list-item routerLink="/admin-panel">Панель администратора</a>
+
     </mat-nav-list>
   </mat-sidenav>
 
