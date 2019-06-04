@@ -1,0 +1,13 @@
+<app-banner
+  image="https://firebasestorage.googleapis.com/v0/b/olympia-be079.appspot.com/o/banners%2Fgreen-background-21871-22424-hd-wallpapers.jpg?alt=media&token=924d7a76-1b05-415c-a670-3ad60456214d">
+</app-banner>
+<div>
+  <mat-tab-group>
+    <mat-tab *ngFor="let collection of collections" [label]="collection.name">
+      <ng-template matTabContent>
+        <app-post-form [config]="collection.postFormConfig"></app-post-form>
+        <app-table [config]="collection.tableConfig"></app-table>
+      </ng-template>
+    </mat-tab>
+  </mat-tab-group>
+</div>
