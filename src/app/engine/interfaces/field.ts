@@ -22,7 +22,12 @@ export interface Field {
   selectItems?: Array<string>;
 
   //TODO: Document this
-  dbFieldName?: string;
+  dbFieldName?: Array<string>;
   minValue?: number;
   maxValue?: number;
+  buttonType?: string;
+  pathToImages?: string;
+  onClick?: () => void;
+  required?: boolean;
+  isInvalid?: boolean;
 }
