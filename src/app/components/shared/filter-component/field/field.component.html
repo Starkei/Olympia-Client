@@ -1,15 +1,54 @@
 <mat-form-field *ngIf="field.fieldType === 'input'">
-  <input matInput [type]="field.inputType" [placeholder]="field.inputPlaceHolder" (keyup)="press()"
-    [(ngModel)]="field.innerText" />
+  <input
+    matInput
+    [type]="field.inputType"
+    [placeholder]="field.inputPlaceHolder"
+    (keyup)="press()"
+    [formControl]="control"
+    [required]="field.required"
+  />
+  <mat-error *ngIf="control && control.invalid">{{ getErrorMessage() }}</mat-error>
 </mat-form-field>
 <mat-checkbox *ngIf="field.fieldType === 'checkbox'" (click)="press()">{{
   field.title
 }}</mat-checkbox>
 <mat-form-field *ngIf="field.fieldType === 'select'">
-  <mat-select [placeholder]="field.inputPlaceHolder || 'Заболевания'" [(ngModel)]="field.innerText"
-    (selectionChange)="press()">
+  <mat-select
+    [placeholder]="field.inputPlaceHolder || 'Заболевания'"
+    [(ngModel)]="field.innerText"
+    (selectionChange)="press()"
+  >
     <mat-option *ngFor="let item of field.selectItems" [value]="item">
       {{ item }}
     </mat-option>
   </mat-select>
+</mat-form-field>
+<button
+  *ngIf="field.fieldType === 'button' && field.buttonType === 'icon'"
+  mat-fab
+  (click)="field.onClick()"
+>
+  <mat-icon>{{ field.title }}</mat-icon>
+</button>
+<div *ngIf="field.fieldType === 'button' && field.buttonType === 'file'">
+  <button mat-raised-button color="primary" (click)="inputFile.click()">Выберите файл</button>
+  <input
+    #inputFile
+    type="file"
+    placeholder="Выберите файл"
+    (change)="setFile($event.target.files)"
+  />
+</div>
+<mat-form-field *ngIf="field.fieldType === 'textarea'" class="full">
+  <textarea
+    matInput
+    [placeholder]="field.inputPlaceHolder"
+    (keyup)="press()"
+    [formControl]="control"
+    [required]="field.required"
+    cols="40"
+    rows="10"
+  >
+  </textarea>
+  <mat-error *ngIf="control && control.invalid">{{ getErrorMessage() }}</mat-error>
 </mat-form-field>

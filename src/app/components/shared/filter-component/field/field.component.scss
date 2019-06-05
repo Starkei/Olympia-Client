@@ -7,3 +7,15 @@ mat-checkbox {
   margin-left: 5px;
   margin-right: 5px;
 }
+
+div {
+  display: flex;
+  justify-content: center;
+  input[type="file"] {
+    display: none;
+  }
+}
+
+mat-form-field.full {
+  width: 100%;
+}
