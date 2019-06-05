@@ -1,6 +1,6 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { MatButtonModule, MatExpansionModule, MatCheckboxModule, MatPaginatorModule, MatPaginatorIntl, MatDialogModule } from "@angular/material";
+import { MatButtonModule, MatExpansionModule, MatCheckboxModule, MatPaginatorModule, MatPaginatorIntl, MatDialogModule, MatSortModule } from "@angular/material";
 import { MatCardModule } from "@angular/material/card";
 import { MatDividerModule } from "@angular/material/divider";
 import { MatToolbarModule } from "@angular/material/toolbar";
@@ -45,6 +45,7 @@ import { AngularFireAuthModule } from "@angular/fire/auth";
     MatSelectModule,
     MatDialogModule,
     MatPaginatorModule,
+    MatSortModule,
     MatDatepickerModule,
     MatSnackBarModule,
     MatMomentDateModule,
@@ -65,4 +66,4 @@ import { AngularFireAuthModule } from "@angular/fire/auth";
     }
   ]
 })
-export class MaterialModule {}
+export class MaterialModule { }
