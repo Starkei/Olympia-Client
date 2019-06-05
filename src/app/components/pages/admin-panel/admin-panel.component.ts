@@ -9,6 +9,10 @@ import { PostFormConfig } from "src/app/interfaces/configs/post-form-config";
 import { PostFormConfigGenerator } from "src/app/classes/config/post-form-config-generator";
 import { TableConfigGenerator } from "src/app/classes/config/table-config-generator";
 import { ConfigGenerator } from "src/app/classes/config/config-generator";
+import { SportService } from 'src/app/services/sport/sport.service';
+import { CrowdfundingService } from 'src/app/services/crowdfunding/crowdfunding.service';
+import { EventService } from 'src/app/services/event/event.service';
+import { TrainingService } from 'src/app/services/training/training.service';
 
 interface Collection {
   name: string;
@@ -28,23 +32,48 @@ export class AdminPanelComponent implements OnInit {
   constructor(
     public adwareService: AdwareService,
     public productService: ProductService,
-    public userService: AuthService
+    public sportService: SportService,
+    public userService: AuthService,
+    public crowdfundingService: CrowdfundingService,
+    public eventService: EventService,
+    public trainingService: TrainingService
   ) {
-    this.configGenerator = new ConfigGenerator(this.productService);
+    this.configGenerator = new ConfigGenerator(this.productService, this.sportService, this.userService, this.crowdfundingService, this.eventService, this.trainingService);
 
     this.collections = [
-      {
-        name: "Типы товаров",
-        tableConfig: this.configGenerator.getTableConfigGenerator().getProductsTypesConfig(),
-        postFormConfig: this.configGenerator.getPostFormConfigGenerator().getProductsTypesConfig()
-      },
       {
         name: "Товары",
         tableConfig: this.configGenerator.getTableConfigGenerator().getProductsConfig(),
         postFormConfig: this.configGenerator.getPostFormConfigGenerator().getProductsConfig()
+      },
+      {
+        name: "Спорт.клубы",
+        tableConfig: this.configGenerator.getTableConfigGenerator().getSportConfig(),
+        postFormConfig: this.configGenerator.getPostFormConfigGenerator().getProductsConfig()
+      },
+      {
+        name: "Пользователи",
+        tableConfig: this.configGenerator.getTableConfigGenerator().getUserConfig(),
+        postFormConfig: this.configGenerator.getPostFormConfigGenerator().getProductsConfig()
+      },
+      {
+        name: "Краундфандинг",
+        tableConfig: this.configGenerator.getTableConfigGenerator().getCrowdfundingConfig(),
+        postFormConfig: this.configGenerator.getPostFormConfigGenerator().getProductsConfig()
+      },
+      {
+        name: "Мероприятия",
+        tableConfig: this.configGenerator.getTableConfigGenerator().getEventConfig(),
+        postFormConfig: this.configGenerator.getPostFormConfigGenerator().getProductsConfig()
+      },
+      {
+        name: "Тренинги",
+        tableConfig: this.configGenerator.getTableConfigGenerator().getTrainingConfig(),
+        postFormConfig: this.configGenerator.getPostFormConfigGenerator().getProductsConfig()
       }
+
     ];
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 }
