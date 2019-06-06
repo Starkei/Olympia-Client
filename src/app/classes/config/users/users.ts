@@ -1,5 +1,6 @@
 import { AuthService } from 'src/app/services/auth/Auth.service';
 import { TableConfig } from 'src/app/interfaces/configs/table-config';
+import { PostFormConfig } from 'src/app/interfaces/configs/post-form-config';
 
 export class Users {
 
@@ -14,5 +15,9 @@ export class Users {
             onDelete: this.service.deleteDocuments.bind(this.service)
         };
         return config;
+    }
+
+    getPostFormConfig(): PostFormConfig {
+        return null;
     }
 }
