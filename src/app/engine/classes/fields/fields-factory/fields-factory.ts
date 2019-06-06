@@ -27,13 +27,15 @@ export class FieldsFactory {
     fieldType: FieldType,
     title?: string,
     placeholder?: string,
-    selectItems?: Array<string>
+    selectItems?: Array<string>,
+    minValue?: number,
+    maxValue?: number
   ): Field {
     switch (fieldType) {
       case FieldType.checkbox:
         return new CheckboxField(title);
       case FieldType.input:
-        return new InputField(title, placeholder);
+        return new InputField(title, placeholder, minValue, maxValue);
       case FieldType.select:
         return new SelectField(selectItems);
       default:

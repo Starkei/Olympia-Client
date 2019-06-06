@@ -1,23 +1,31 @@
 <mat-expansion-panel class="postForm">
   <mat-expansion-panel-header>
     <mat-panel-title>
-      Добавление в коллекцию "{{config.collectionName}}"
+      Добавление в коллекцию "{{ config && config.collectionName ? config.collectionName : "" }}"
     </mat-panel-title>
     <mat-panel-description>
       Кликните чтобы расскрыть
     </mat-panel-description>
   </mat-expansion-panel-header>
-  <div *ngFor="let group of config.groups" class="group">
-    <div class="center">
-      <h3>{{group.title}}</h3>
-      <div class="fields">
-        <app-field *ngFor="let field of group.fields" [field]="field"></app-field>
+  <div *ngIf="config && config.groups" class="container">
+    <div *ngFor="let group of config.groups" class="group">
+      <div class="center">
+        <h3>{{ group.title }}</h3>
+        <div class="fields" fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="center stretch">
+          <app-field
+            *ngFor="let field of group.fields"
+            [field]="field"
+            [ngClass]="{ width70: field.fieldType === 'textarea' }"
+            fxFlex="30%"
+            fxFlexOffset="1%"
+            (valid)="validation($event)"
+          ></app-field>
+        </div>
+        <mat-divider></mat-divider>
       </div>
-      <mat-divider></mat-divider>
     </div>
-
   </div>
   <mat-action-row>
-    <button mat-button (click)="postData()">Добавить</button>
+    <button mat-button (click)="postData()" [disabled]="!isValid">Добавить</button>
   </mat-action-row>
 </mat-expansion-panel>

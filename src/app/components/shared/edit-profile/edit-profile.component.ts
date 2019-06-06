@@ -25,7 +25,7 @@ export class EditProfileComponent implements OnInit {
     public auth: AuthService,
     public uploader: UploaderService,
     public ref: MatDialogRef<EditProfileComponent>
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.auth.infoAboutCurrentUser().subscribe(
@@ -47,6 +47,7 @@ export class EditProfileComponent implements OnInit {
       this.close("Ошибка при редактировании");
       return;
     }
+
     if (this.file) {
       let url: string = await this.uploader.uploadFile(this.file, "usersImages/");
       this.user.image = url;

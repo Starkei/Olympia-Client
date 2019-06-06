@@ -5,5 +5,9 @@ import { ProductService } from "src/app/services/product/product.service";
 
 export interface TableConfig {
   displayColumns: Array<string>;
+  titles: Array<string>;
+  allColumns: Array<string>;
   showAll: () => Observable<Array<Output>>;
+  onDelete?: (selected: Array<Output>) => void;
+  onChange?: (output: Output) => void;
 }

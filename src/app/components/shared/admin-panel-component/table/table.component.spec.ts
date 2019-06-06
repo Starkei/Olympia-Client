@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TableComponent } from './table.component';
+import { MaterialModule } from 'src/app/modules/material/material.module';
+import { TextLengthPipe } from 'src/app/pipes/text-length/text-length.pipe';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('TableComponent', () => {
   let component: TableComponent;
@@ -8,9 +11,16 @@ describe('TableComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TableComponent ]
+      imports: [
+        MaterialModule,
+        BrowserAnimationsModule
+      ],
+      declarations: [
+        TableComponent,
+        TextLengthPipe
+      ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
