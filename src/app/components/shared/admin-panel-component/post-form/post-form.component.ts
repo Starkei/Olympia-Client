@@ -1,7 +1,9 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, AfterViewInit, ChangeDetectorRef } from "@angular/core";
 import { PostFormConfig } from "src/app/interfaces/configs/post-form-config";
 import { Output } from "src/app/interfaces/output";
 import { Field } from 'src/app/engine/interfaces/field';
+import { of, Observable } from 'rxjs';
+import { trigger } from '@angular/animations';
 
 @Component({
   selector: "app-post-form",
@@ -11,18 +13,36 @@ import { Field } from 'src/app/engine/interfaces/field';
 export class PostFormComponent implements OnInit {
   @Input() config: PostFormConfig;
 
-  constructor() { }
+  isValid: boolean;
+  fields: Map<string, boolean> = new Map();
 
-  ngOnInit() { }
+  constructor(private cd: ChangeDetectorRef) { }
 
-  checkValid(): boolean {
-    for (const group of this.config.groups) {
-      for (const field of group.fields) {
-        if (field.isInvalid)
-          return false;
+  ngOnInit() {
+    this.isValid = false;
+  }
+
+  validation(event): void {
+    if (!this.fields.has(event.title) || (this.fields.has(event.title) && this.fields.get(event.title) !== event.valid))
+      this.fields.set(event.title, event.valid);
+    else
+      return;
+
+    let flag = false;
+    this.fields.forEach((value, key) => {
+      if (!value) {
+        if (this.isValid === true) {
+          this.isValid = false;
+          this.cd.detectChanges();
+        }
+        flag = true;
       }
+    })
+    if (!flag && this.isValid === false) {
+      this.isValid = true;
+      this.cd.detectChanges();
     }
-    return true;
+
   }
 
   postData(): void {
@@ -45,6 +65,9 @@ export class PostFormComponent implements OnInit {
                 }
             }
             break;
+          case "list":
+            output = this.assignValueToDBField(field.selectItems, field.dbFieldName, output);
+            break;
           case "select":
             output = this.assignValueToDBField(field.innerText, field.dbFieldName, output);
             break;
@@ -61,7 +84,10 @@ export class PostFormComponent implements OnInit {
     for (const key in checkboxData) {
       output = this.assignValueToDBField(checkboxData[key], [key], output);
     }
-    this.config.onPost(output);
+
+    console.log(output);
+
+    //this.config.onPost(output);
   }
   private assignValueToDBField(value: any, dbFieldName: Array<string>, output: Output): Output {
     if (!dbFieldName || !value)

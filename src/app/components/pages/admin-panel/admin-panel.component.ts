@@ -49,7 +49,7 @@ export class AdminPanelComponent implements OnInit {
       {
         name: "Спорт.клубы",
         tableConfig: this.configGenerator.getTableConfigGenerator().getSportConfig(),
-        postFormConfig: this.configGenerator.getPostFormConfigGenerator().getProductsConfig()
+        postFormConfig: this.configGenerator.getPostFormConfigGenerator().getSportConfig()
       },
       {
         name: "Пользователи",

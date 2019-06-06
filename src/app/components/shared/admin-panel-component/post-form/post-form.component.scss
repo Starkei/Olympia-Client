@@ -11,18 +11,11 @@
         flex-direction: column;
         text-align: center;
         width: 60%;
-
-        div.fields {
-          display: flex;
-          flex-direction: row;
-          justify-content: center;
-          width: 100%;
-        }
       }
     }
   }
 }
 
 app-field.width70 {
-  width: 70%;
+  width: 100%;
 }
