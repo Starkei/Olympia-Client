@@ -50,7 +50,8 @@ import { AdminPanelComponent } from "./components/pages/admin-panel/admin-panel.
 import { TableComponent } from "./components/shared/admin-panel-component/table/table.component";
 import { HttpClientModule } from "@angular/common/http";
 import { PostFormComponent } from "./components/shared/admin-panel-component/post-form/post-form.component";
-
+import { AgmCoreModule } from "@agm/core";
+import { GoogleMapComponent } from "./components/shared/google-map/google-map.component";
 export const firebaseConfig = environment.firebaseConfig;
 
 @NgModule({
@@ -84,7 +85,8 @@ export const firebaseConfig = environment.firebaseConfig;
     AdwareComponent,
     AdminPanelComponent,
     TableComponent,
-    PostFormComponent
+    PostFormComponent,
+    GoogleMapComponent
   ],
   imports: [
     BrowserModule,
@@ -98,7 +100,10 @@ export const firebaseConfig = environment.firebaseConfig;
     AngularFirestoreModule,
     ReactiveFormsModule,
     AngularFireStorageModule,
-    HttpClientModule
+    HttpClientModule,
+    AgmCoreModule.forRoot({
+      apiKey: "AIzaSyANwlhlYARVvcdu7Fr8-CoZnL7Y4kD-FKs"
+    })
   ],
   providers: [
     NewsService,
@@ -109,7 +114,11 @@ export const firebaseConfig = environment.firebaseConfig;
     CrowdfundingComponent,
     AuthService
   ],
-  entryComponents: [ProductCreatorComponent, EditProfileComponent, AdwareComponent],
+  entryComponents: [
+    ProductCreatorComponent,
+    EditProfileComponent,
+    AdwareComponent
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
