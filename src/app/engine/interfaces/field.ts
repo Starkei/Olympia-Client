@@ -1,3 +1,6 @@
+import { FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
+
 /**
  *
  * @param fieldType Является типом поля ('input', 'checkbox', 'select')
@@ -29,5 +32,6 @@ export interface Field {
   pathToImages?: string;
   onClick?: () => void;
   required?: boolean;
-  isInvalid?: boolean;
+  isInvalid?: Observable<boolean>;
+  control?: FormControl;
 }

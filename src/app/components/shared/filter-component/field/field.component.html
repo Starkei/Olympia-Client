@@ -4,14 +4,18 @@
     [type]="field.inputType"
     [placeholder]="field.inputPlaceHolder"
     (keyup)="press()"
-    [formControl]="control"
+    [(ngModel)]="field.innerText"
     [required]="field.required"
+    #control="ngModel"
   />
-  <mat-error *ngIf="control && control.invalid">{{ getErrorMessage() }}</mat-error>
+  <div *ngIf="control && !control.invalid">{{ setValid() }}</div>
+  <mat-error *ngIf="control && control.invalid">{{ getErrorMessage(control.control) }}</mat-error>
 </mat-form-field>
-<mat-checkbox *ngIf="field.fieldType === 'checkbox'" (click)="press()">{{
-  field.title
-}}</mat-checkbox>
+<div class="left">
+  <mat-checkbox *ngIf="field.fieldType === 'checkbox'" (click)="press()">{{
+    field.title
+  }}</mat-checkbox>
+</div>
 <mat-form-field *ngIf="field.fieldType === 'select'">
   <mat-select
     [placeholder]="field.inputPlaceHolder || 'Заболевания'"
@@ -44,11 +48,29 @@
     matInput
     [placeholder]="field.inputPlaceHolder"
     (keyup)="press()"
-    [formControl]="control"
+    [(ngModel)]="field.innerText"
     [required]="field.required"
     cols="40"
     rows="10"
+    #controlTA="ngModel"
   >
   </textarea>
-  <mat-error *ngIf="control && control.invalid">{{ getErrorMessage() }}</mat-error>
+  <div *ngIf="controlTA && !controlTA.invalid">{{ setValid() }}</div>
+  <mat-error *ngIf="controlTA && controlTA.invalid">{{
+    getErrorMessage(controlTA.control)
+  }}</mat-error>
 </mat-form-field>
+<div *ngIf="field.fieldType === 'list'" class="list">
+  <mat-selection-list #items role="listbox">
+    <mat-list-option *ngFor="let item of field.selectItems" role="option" [value]="item">
+      {{ item }}
+    </mat-list-option>
+  </mat-selection-list>
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="deleteSelected(items.selectedOptions.selected)"
+  >
+    Удалить выбранные
+  </button>
+</div>
