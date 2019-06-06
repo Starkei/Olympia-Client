@@ -7,71 +7,83 @@
       <input matInput type="text" (keyup)="applyFilter($event.target.value)" placeholder="Поиск" />
     </mat-form-field>
   </div>
-  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 table" matSort>
-    <ng-container matColumnDef="select" sticky>
-      <th mat-header-cell *matHeaderCellDef>
-        <mat-checkbox
-          (change)="$event ? masterToggle() : null"
-          [checked]="selection.hasValue() && isAllSelected()"
-          [indeterminate]="selection.hasValue() && !isAllSelected()"
-          [aria-label]="checkboxLabel()"
-        >
-        </mat-checkbox>
-      </th>
-      <td mat-cell *matCellDef="let row">
-        <mat-checkbox
-          (click)="$event.stopPropagation()"
-          (change)="$event ? selection.toggle(row) : null"
-          [checked]="selection.isSelected(row)"
-          [aria-label]="checkboxLabel(row)"
-        >
-        </mat-checkbox>
-      </td>
-    </ng-container>
-
-    <ng-container
-      *ngFor="let column of config.displayColumns; let i = index"
-      [matColumnDef]="config.displayColumns[i]"
+  <div class="container">
+    <table
+      *ngIf="dataSource && dataSource.data"
+      mat-table
+      [dataSource]="dataSource"
+      class="mat-elevation-z8 table"
+      matSort
     >
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ config.titles[i] }}</th>
-      <td mat-cell *matCellDef="let element">
-        {{ getDataFrom(element, [config.displayColumns[i]]) | textLength: 30 }}
-      </td>
-    </ng-container>
+      <ng-container matColumnDef="select" sticky>
+        <th mat-header-cell *matHeaderCellDef>
+          <mat-checkbox
+            (change)="$event ? masterToggle() : null"
+            [checked]="selection.hasValue() && isAllSelected()"
+            [indeterminate]="selection.hasValue() && !isAllSelected()"
+            [aria-label]="checkboxLabel()"
+          >
+          </mat-checkbox>
+        </th>
+        <td mat-cell *matCellDef="let row">
+          <mat-checkbox
+            (click)="$event.stopPropagation()"
+            (change)="$event ? selection.toggle(row) : null"
+            [checked]="selection.isSelected(row)"
+            [aria-label]="checkboxLabel(row)"
+          >
+          </mat-checkbox>
+        </td>
+      </ng-container>
 
-    <ng-container matColumnDef="ageFrom">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Возр. с</th>
-      <td mat-cell *matCellDef="let element">{{ getDataFrom(element, ["age", "from"]) }}</td>
-    </ng-container>
+      <ng-container
+        *ngFor="let column of config.displayColumns; let i = index"
+        [matColumnDef]="config.displayColumns[i]"
+      >
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ config.titles[i] }}</th>
+        <td mat-cell *matCellDef="let element">
+          {{ getDataFrom(element, [config.displayColumns[i]]) | textLength: 30 }}
+        </td>
+      </ng-container>
 
-    <ng-container matColumnDef="ageTo">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Возр. до</th>
-      <td mat-cell *matCellDef="let element">{{ getDataFrom(element, ["age", "to"]) }}</td>
-    </ng-container>
+      <ng-container matColumnDef="ageFrom">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Возр. с</th>
+        <td mat-cell *matCellDef="let element">{{ getDataFrom(element, ["age", "from"]) }}</td>
+      </ng-container>
 
-    <ng-container matColumnDef="groupFrom">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Группа с</th>
-      <td mat-cell *matCellDef="let element">{{ getDataFrom(element, ["group", "from"]) }}</td>
-    </ng-container>
+      <ng-container matColumnDef="ageTo">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Возр. до</th>
+        <td mat-cell *matCellDef="let element">{{ getDataFrom(element, ["age", "to"]) }}</td>
+      </ng-container>
 
-    <ng-container matColumnDef="groupTo">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Группа до</th>
-      <td mat-cell *matCellDef="let element">{{ getDataFrom(element, ["group", "to"]) }}</td>
-    </ng-container>
+      <ng-container matColumnDef="groupFrom">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Группа с</th>
+        <td mat-cell *matCellDef="let element">{{ getDataFrom(element, ["group", "from"]) }}</td>
+      </ng-container>
 
-    <ng-container matColumnDef="timeWorkFrom">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Группа до</th>
-      <td mat-cell *matCellDef="let element">{{ getDataFrom(element, ["timeWork", "from"]) }}</td>
-    </ng-container>
+      <ng-container matColumnDef="groupTo">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Группа до</th>
+        <td mat-cell *matCellDef="let element">{{ getDataFrom(element, ["group", "to"]) }}</td>
+      </ng-container>
 
-    <ng-container matColumnDef="timeWorkTo" stickyEnd>
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Группа до</th>
-      <td mat-cell *matCellDef="let element">{{ getDataFrom(element, ["timeWork", "to"]) }}</td>
-    </ng-container>
+      <ng-container matColumnDef="timeWorkFrom">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Группа до</th>
+        <td mat-cell *matCellDef="let element">{{ getDataFrom(element, ["timeWork", "from"]) }}</td>
+      </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayColumns" (click)="selection.toggle(row)"></tr>
-  </table>
+      <ng-container matColumnDef="timeWorkTo">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Группа до</th>
+        <td mat-cell *matCellDef="let element">{{ getDataFrom(element, ["timeWork", "to"]) }}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayColumns; sticky: true"></tr>
+      <tr
+        mat-row
+        *matRowDef="let row; columns: displayColumns"
+        (click)="selection.toggle(row)"
+      ></tr>
+    </table>
+  </div>
 
   <mat-paginator [pageSize]="9" [pageSizeOptions]="[9]"></mat-paginator>
 </div>

@@ -22,14 +22,15 @@ export class TableComponent implements OnInit {
   constructor(private changeDetector: ChangeDetectorRef) { }
 
   ngOnInit() {
-    if (!this.config) throw new Error("Config does not exists!");
-    this.displayColumns = ["select", ...this.config.allColumns];
-    this.config.showAll().subscribe(data => {
-      this.dataSource = new MatTableDataSource(data);
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
-    });
-    this.selection = new SelectionModel<Output>(true, []);
+    if (this.config) {
+      this.config.showAll().subscribe(data => {
+        this.dataSource = new MatTableDataSource(data);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      });
+      this.displayColumns = ["select", ...this.config.allColumns];
+      this.selection = new SelectionModel<Output>(true, []);
+    }
   }
 
   isAllSelected(): boolean {
