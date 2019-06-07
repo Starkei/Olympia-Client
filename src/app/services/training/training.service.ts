@@ -1,16 +1,18 @@
 import { Injectable } from "@angular/core";
 import { AngularFirestore } from "@angular/fire/firestore";
-import { Observable } from "rxjs";
+import { Observable, throwError } from "rxjs";
 import { map } from "rxjs/operators";
 import { Filterable } from "src/app/engine/interfaces/filterable";
 import { Filter } from "src/app/engine/interfaces/filter";
+import { HttpClient, HttpErrorResponse } from "@angular/common/http";
+import { environment } from "src/environments/environment";
 import { Training } from "src/app/interfaces/training";
 
 @Injectable({
   providedIn: "root"
 })
 export class TrainingService {
-  constructor(private afs: AngularFirestore) {}
+  constructor(private afs: AngularFirestore, private http: HttpClient) {}
 
   getFilteredData(filter: Filter): Observable<Array<Training>> {
     return this.afs
