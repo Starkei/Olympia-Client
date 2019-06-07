@@ -2,22 +2,20 @@
   width: 95%;
   margin: 1% auto;
   margin-bottom: 0;
-
-  div.group {
-    display: flex;
-    justify-content: center;
-
-    div.center {
+  div.container {
+    div.group {
       display: flex;
-      flex-direction: column;
-      text-align: center;
-
-      div.fields {
+      justify-content: center;
+      div.center {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
+        text-align: center;
+        width: 60%;
       }
-
     }
   }
+}
 
+app-field.width70 {
+  width: 100%;
 }

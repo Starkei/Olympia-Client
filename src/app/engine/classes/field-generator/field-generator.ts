@@ -9,7 +9,7 @@ import { FieldType } from "src/app/engine/enums/field-type.enum";
  * @class FieldGenerator
  */
 export class FieldGenerator {
-  constructor() {}
+  constructor() { }
 
   /**
    *
@@ -35,10 +35,11 @@ export class FieldGenerator {
    * @returns {Array<Field>}
    * @memberof FieldGenerator
    */
-  protected generateInputFields(placeHolders: Array<string>): Array<Field> {
+  protected generateInputFields(placeHolders: Array<string>, minValue?: number, maxValue?: number): Array<Field> {
     let fields: Array<Field> = [];
     for (const placeHolder of placeHolders) {
-      fields.push(FieldsFactory.createFieldByType(FieldType.checkbox, "", placeHolder));
+      fields.push(FieldsFactory.createFieldByType(FieldType.checkbox, "", placeHolder, null,
+        minValue, maxValue));
     }
 
     return fields;

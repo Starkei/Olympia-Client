@@ -15,7 +15,8 @@ export class InputField implements Field {
   public fieldType: string;
   public innerText: string;
 
-  constructor(public inputPlaceHolder: string, public inputType: string) {
+  constructor(public inputPlaceHolder: string, public inputType: string, public minValue?: number,
+    public maxValue?: number) {
     this.fieldType = FieldType.input;
     this.innerText = "";
   }
