@@ -1,31 +1,17 @@
 import { Injectable } from "@angular/core";
+import { Personal_Area } from "../../interfaces/peronal_area";
+import { Event } from "src/app/interfaces/models/event";
+import { Observable } from "rxjs";
+import "rxjs/add/operator/map";
+import { User } from "src/app/interfaces/auth";
+import { DataQueryService } from "src/app/engine/classes/data-query-service/data-query.service";
 import {
   AngularFirestore,
   AngularFirestoreDocument,
   AngularFirestoreCollection
 } from "@angular/fire/firestore";
-import { Observable } from "rxjs";
-import "rxjs/add/operator/map";
-import * as firebase from "firebase/app";
 
 @Injectable({
   providedIn: "root"
 })
-export class PersonalAreaService {
-  event: any;
-  items: Observable<any[]>;
-  private itemsCollection: AngularFirestoreCollection<any>;
-  constructor(public afs: AngularFirestore) {
-    this.itemsCollection = this.afs.collection<any>("events");
-    this.items = this.itemsCollection.snapshotChanges().map(actions => {
-      return actions.map(action => ({
-        $key: action.payload.doc.id,
-        ...action.payload.doc.data()
-      }));
-    });
-  }
-
-  public info(event) {
-    this.event = event;
-  }
-}
+export class PersonalAreaService {}

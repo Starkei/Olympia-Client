@@ -5,14 +5,20 @@
     [placeholder]="field.inputPlaceHolder"
     (keyup)="press()"
     [(ngModel)]="field.innerText"
+    [required]="field.required"
+    #control="ngModel"
   />
+  <div *ngIf="control && !control.invalid">{{ setValid() }}</div>
+  <mat-error *ngIf="control && control.invalid">{{ getErrorMessage(control.control) }}</mat-error>
 </mat-form-field>
-<mat-checkbox *ngIf="field.fieldType === 'checkbox'" (click)="press()">{{
-  field.title
-}}</mat-checkbox>
+<div class="left">
+  <mat-checkbox *ngIf="field.fieldType === 'checkbox'" (click)="press()">{{
+    field.title
+  }}</mat-checkbox>
+</div>
 <mat-form-field *ngIf="field.fieldType === 'select'">
   <mat-select
-    placeholder="Заболевания"
+    [placeholder]="field.inputPlaceHolder || 'Заболевания'"
     [(ngModel)]="field.innerText"
     (selectionChange)="press()"
   >
@@ -21,3 +27,50 @@
     </mat-option>
   </mat-select>
 </mat-form-field>
+<button
+  *ngIf="field.fieldType === 'button' && field.buttonType === 'icon'"
+  mat-fab
+  (click)="field.onClick()"
+>
+  <mat-icon>{{ field.title }}</mat-icon>
+</button>
+<div *ngIf="field.fieldType === 'button' && field.buttonType === 'file'">
+  <button mat-raised-button color="primary" (click)="inputFile.click()">Выберите файл</button>
+  <input
+    #inputFile
+    type="file"
+    placeholder="Выберите файл"
+    (change)="setFile($event.target.files)"
+  />
+</div>
+<mat-form-field *ngIf="field.fieldType === 'textarea'" class="full">
+  <textarea
+    matInput
+    [placeholder]="field.inputPlaceHolder"
+    (keyup)="press()"
+    [(ngModel)]="field.innerText"
+    [required]="field.required"
+    cols="40"
+    rows="10"
+    #controlTA="ngModel"
+  >
+  </textarea>
+  <div *ngIf="controlTA && !controlTA.invalid">{{ setValid() }}</div>
+  <mat-error *ngIf="controlTA && controlTA.invalid">{{
+    getErrorMessage(controlTA.control)
+  }}</mat-error>
+</mat-form-field>
+<div *ngIf="field.fieldType === 'list'" class="list">
+  <mat-selection-list #items role="listbox">
+    <mat-list-option *ngFor="let item of field.selectItems" role="option" [value]="item">
+      {{ item }}
+    </mat-list-option>
+  </mat-selection-list>
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="deleteSelected(items.selectedOptions.selected)"
+  >
+    Удалить выбранные
+  </button>
+</div>

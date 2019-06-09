@@ -25,8 +25,8 @@ export class ShopFilter extends FilterGenerator<Product> {
 
         categories.push({
           fields: [
-            { fieldType: "input", inputPlaceHolder: "от", inputType: "number" },
-            { fieldType: "input", inputPlaceHolder: "до", inputType: "number" }
+            { fieldType: "input", inputPlaceHolder: "от", inputType: "number", minValue: 0 },
+            { fieldType: "input", inputPlaceHolder: "до", inputType: "number", minValue: 0 }
           ],
           title: "Цена",
           dataFieldName: "price"

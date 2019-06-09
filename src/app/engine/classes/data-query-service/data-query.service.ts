@@ -11,7 +11,7 @@ import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
 
 export class DataQueryService {
-  constructor(protected afs: AngularFirestore, protected collection: string) {}
+  constructor(protected afs: AngularFirestore, protected collection: string) { }
 
   public getAllSnapshotDataFromCollection<T>(collection: string): Observable<Array<DocumentChangeAction<T>>> {
     return this.afs.collection<T>(collection).snapshotChanges();
@@ -147,5 +147,22 @@ export class DataQueryService {
 
   public updateDocument<T>(data: T, documentId: string): void {
     this.updateDocumentForCollection(data, documentId, this.collection);
+  }
+
+  public deleteDocumentsFromCollection<T>(dataForDelete: Array<T>, collection: string): void {
+    for (const iterator of dataForDelete) {
+      if (iterator["id"])
+        this.afs.collection(collection).doc(iterator["id"]).delete();
+      else if (iterator["uid"])
+        this.afs.collection(collection).doc(iterator["uid"]).delete();
+      else
+        console.log("Document has now id or uid");
+    }
+  }
+
+  public deleteDocuments<T>(dataForDelete: Array<T>): void {
+    console.log(dataForDelete);
+
+    this.deleteDocumentsFromCollection(dataForDelete, this.collection);
   }
 }

@@ -1,5 +1,5 @@
 import * as _ from "lodash";
-import { Observable } from "rxjs";
+import { Observable, Subscription } from "rxjs";
 import { Filter } from "src/app/engine/interfaces/filter";
 import { DataQueryService } from "../data-query-service/data-query.service";
 import { AngularFirestore } from "@angular/fire/firestore";
@@ -7,12 +7,24 @@ import { map } from "rxjs/operators";
 import { Category } from "src/app/interfaces/category";
 import { Filterable } from "src/app/engine/interfaces/filterable";
 import { FieldType } from "src/app/engine/enums/field-type.enum";
+import { OnDestroy } from "@angular/core";
 
-export class FilterService<T> extends DataQueryService implements Filterable {
+/**
+ *
+ * @description You should execute method ngOnDestroy for reset filters params
+ * @export
+ * @class FilterService
+ * @extends {DataQueryService}
+ * @implements {Filterable}
+ * @implements {OnDestroy}
+ * @template T
+ */
+export class FilterService<T> extends DataQueryService implements Filterable, OnDestroy {
   private filterIterator: _.ListIterateeCustom<T, boolean>;
   private filterParams: any = {};
   private priceParams: any = {};
   private searchParams: any = {};
+  private subscription: Subscription;
 
   constructor(afs: AngularFirestore, collection: string) {
     super(afs, collection);
@@ -44,6 +56,65 @@ export class FilterService<T> extends DataQueryService implements Filterable {
         return;
       }
     }
+  }
+
+  protected ageFilterConfigure(categories: Array<Category>): void {
+    for (const category of categories) {
+      if (category.title == "Возраст") {
+        let from: number = Number.parseFloat(category.fields[0].innerText);
+        let to: number = Number.parseFloat(category.fields[1].innerText);
+        if (to && from) this.filterParams[category.dataFieldName] = val => from <= val.from && val.to <= to;
+        else if (from) this.filterParams[category.dataFieldName] = val => from <= val.from;
+        else if (to) this.filterParams[category.dataFieldName] = val => val.to <= to;
+        else delete this.filterParams[category.dataFieldName];
+        return;
+      }
+    }
+  }
+
+  protected timeFilterConfigure(categories: Array<Category>): void {
+    for (const category of categories) {
+      if (category.title == "Время работы") {
+        let from: number = this.getTimeInSeconds(category.fields[0].innerText);
+        let to: number = this.getTimeInSeconds(category.fields[1].innerText);
+        if (to && from) this.filterParams[category.dataFieldName] = val => from <= val.from && val.to <= to;
+        else if (from) this.filterParams[category.dataFieldName] = val => from <= val.from;
+        else if (to) this.filterParams[category.dataFieldName] = val => val.to <= to;
+        else delete this.filterParams[category.dataFieldName];
+        return;
+      }
+    }
+  }
+
+  protected groupFilterConfigure(categories: Array<Category>): void {
+    for (const category of categories) {
+      if (category.title == "Состав группы") {
+        let from: number = Number.parseInt(category.fields[0].innerText);
+        let to: number = Number.parseInt(category.fields[1].innerText);
+        if (to && from) this.filterParams[category.dataFieldName] = val => from <= val.from && val.to <= to;
+        else if (from) this.filterParams[category.dataFieldName] = val => from <= val.from;
+        else if (to) this.filterParams[category.dataFieldName] = val => val.to <= to;
+        else delete this.filterParams[category.dataFieldName];
+        return;
+      }
+    }
+  }
+
+  private getTimeInSeconds(time: string): number {
+    let seconds: number = 0;
+
+    if (!time) return seconds;
+
+    let hoursAndMinuts: Array<string> = time.split(":");
+    let hours: number = Number.parseInt(hoursAndMinuts[0]);
+    let minutes: number = Number.parseInt(hoursAndMinuts[1]);
+
+    if (!hours) hours = 24;
+
+    seconds = hours * 60 * 60;
+    seconds += minutes * 60;
+
+    return seconds;
   }
 
   protected filterConfigure(categories: Array<Category>): void {
@@ -115,26 +186,42 @@ export class FilterService<T> extends DataQueryService implements Filterable {
 
   protected applyFilters(filter: Filter): void {
     if (!filter || !filter.categories) return;
-    filter.categories.subscribe(
+    this.subscription = filter.categories.subscribe(
       (categories: Array<Category>): void => {
         if (categories.length == 0) return;
         this.searchFilterConfigure(categories);
         this.priceFilterConfigure(categories);
+        this.ageFilterConfigure(categories);
+        this.timeFilterConfigure(categories);
+        this.groupFilterConfigure(categories);
         this.filterConfigure(categories);
         this.configure();
       }
     );
   }
 
-  public getFilteredData(filter: Filter): Observable<Array<T>> {
+  public getFilteredData(filter: Filter, startAt: number, offset: number): Observable<Array<T>> {
     this.applyFilters(filter);
     return this.getAllConvertedData<T>().pipe(
       map(
         (convertedData: Array<T>): Array<T> => {
           let data: Array<T> = _.filter<T>(convertedData, this.filterIterator);
+          if ((startAt || startAt == 0) && offset) {
+            console.log(startAt, offset);
+            return data.slice(startAt, startAt + offset);
+          }
           return data;
         }
       )
     );
+  }
+
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+      this.filterParams = {};
+      this.priceParams = {};
+      this.searchParams = {};
+    }
   }
 }

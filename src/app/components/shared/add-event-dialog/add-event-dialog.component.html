@@ -1,0 +1,29 @@
+<h1 mat-dialog-title>Hi</h1>
+
+<div mat-dialog-actions>
+  <div class="panel" fxLayout="row wrap" fxLayout.xs="column">
+    <input matInput [(ngModel)]="title" placeholder="Введите ваш title" />
+    <input matInput [(ngModel)]="description" placeholder="Введите ваш desc" />
+    <input matInput [(ngModel)]="address" placeholder="Введите ваш address" />
+    <input
+      matInput
+      [(ngModel)]="phoneNumbers"
+      placeholder="Введите ваш number"
+    />
+
+    <input
+      type="file"
+      (change)="onFileSelected($event)"
+      name="file"
+      id="file"
+      class="inputfile"
+    />
+    <label for="file">Выберите файл</label>
+    <button mat-mini-fab (click)="addItem()">
+      <mat-icon>add_to_photos</mat-icon>
+    </button>
+    <button mat-raised-button (click)="onClose()">
+      Закрыть
+    </button>
+  </div>
+</div>

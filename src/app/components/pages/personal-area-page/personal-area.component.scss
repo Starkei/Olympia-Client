@@ -9,6 +9,12 @@
 .container2 {
   background-color: #f0f0f0;
 }
+.container4 {
+  background-color: #f0f0f0;
+}
+.panel {
+  width: 100%;
+}
 
 .user {
   width: 100%;
@@ -40,11 +46,13 @@ mat-form-field {
 mat-list-item-content {
   height: 10%;
 }
+mat-tab-label-container {
+  weight: 100%;
+}
 textarea {
   max-height: 125px;
 }
 .card_stats {
-  //margin: auto;
   margin-top: 1%;
   margin-left: 6%;
   margin-right: 3%;
@@ -86,8 +94,7 @@ mat-card-actions {
 
 div.action {
   margin-left: 5%;
-  h3.actions-title {
-  }
+
   div.actions-btns {
     button {
       margin-top: 3%;
@@ -100,4 +107,16 @@ div.spinner {
   width: 100%;
   height: 100%;
   justify-content: center;
+}
+.inputfile {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+.inputfile + label {
+  display: inline-block;
+  cursor: pointer;
 }

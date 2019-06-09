@@ -5,22 +5,36 @@ import {
   BreakpointState
 } from "@angular/cdk/layout";
 import { AuthService } from "src/app/services/auth/Auth.service";
+import { EventService } from "src/app/services/event/event.service";
 import { User } from "src/app/interfaces/auth";
-import { Personal_Area } from "src/app/interfaces/peronal_area";
+import { UploaderService } from "src/app/services/uploader-service/uploader.service";
+import { Event } from "src/app/interfaces/models/event";
+import { Router } from "@angular/router";
+import { Observable } from "rxjs";
+import {
+  AngularFirestore,
+  AngularFirestoreDocument,
+  AngularFirestoreCollection
+} from "@angular/fire/firestore";
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { PersonalAreaService } from "src/app/services/peronal_area/personal-area.service";
 import { MatDialog, MatDialogRef, MatSnackBar } from "@angular/material";
 import { ProductCreatorComponent } from "../../shared/creators/product-creator/product-creator.component";
 import { Subscription } from "rxjs";
 import { EditProfileComponent } from "../../shared/edit-profile/edit-profile.component";
-import { Router } from "@angular/router";
-
+import { AddEventDialogComponent } from "../../shared/add-event-dialog/add-event-dialog.component";
+import { switchMap } from "rxjs/operators";
 @Component({
   selector: "app-personal-area",
   templateUrl: "./personal-area.component.html",
   styleUrls: ["./personal-area.component.scss"]
 })
 export class PersonalAreaComponent implements OnInit, OnDestroy {
-  items = this.service.items;
+  area: Array<any> = [];
+  prod: Array<any> = [];
+  myevents: Array<any> = [];
+
+  private itemsCollection: AngularFirestoreCollection<Event>;
   private fxSizeEvent: number = 0;
   private fxSizeInfo: number = 0;
   private fxSizeCont: number = 0;
@@ -29,14 +43,19 @@ export class PersonalAreaComponent implements OnInit, OnDestroy {
   private fxSizeChat: number = 0;
   user: User;
   userSubscribtion: Subscription;
+
   constructor(
     private router: Router,
     public dialog: MatDialog,
     public auth: AuthService,
-    private service: PersonalAreaService,
+    private eventService: EventService,
     private bp: BreakpointObserver,
-    private snackBar: MatSnackBar
-  ) {}
+    private snackBar: MatSnackBar,
+    private afs: AngularFirestore,
+    public uploader: UploaderService
+  ) {
+    this.itemsCollection = afs.collection<Event>("events");
+  }
 
   ngOnInit() {
     this.bp
@@ -91,8 +110,59 @@ export class PersonalAreaComponent implements OnInit, OnDestroy {
         }
       );
     this.getInfo();
+    this.getFavoriteEvents();
+    this.getFavoriteProduct();
+    this.getMyEvents();
   }
 
+  public getFavoriteEvents(): void {
+    this.userSubscribtion = this.auth.user.subscribe(data => {
+      for (let favev of data.favoritesEvents) {
+        this.eventService
+          .getConvertedDocumentFromCollection(favev, "events")
+          .subscribe(data => {
+            this.area.push(data);
+          });
+      }
+    });
+  }
+  public getMyEvents(): void {
+    this.userSubscribtion = this.auth.user.subscribe(data => {
+      for (let myev of data.myEvents) {
+        this.eventService
+          .getConvertedDocumentFromCollection(myev, "events")
+          .subscribe(data => {
+            this.myevents.push(data);
+          });
+      }
+    });
+  }
+  public getFavoriteProduct(): void {
+    this.userSubscribtion = this.auth.user.subscribe(data => {
+      for (let favprod of data.favoriteProduct) {
+        this.eventService
+          .getConvertedDocumentFromCollection(favprod, "products")
+          .subscribe(data => {
+            this.prod.push(data);
+          });
+      }
+    });
+  }
+  followEvents(item: any): void {
+    //console.log(item);
+    this.router.navigate([
+      "output-details",
+      { uid: item.id, collection: "events" }
+    ]);
+  }
+
+  followProducts(item: any): void {
+    //console.log(item);
+    this.router.navigate([
+      "output-details",
+      { uid: item.id, collection: "products" }
+    ]);
+  }
   ngOnDestroy() {
     this.userSubscribtion.unsubscribe();
   }
@@ -110,11 +180,6 @@ export class PersonalAreaComponent implements OnInit, OnDestroy {
         this.user = userInfo;
       }
     );
-  }
-
-  rout(event: any): void {
-    console.log(event);
-    this.router.navigate(["info-event", { data: event }]);
   }
 
   getFxSize(): string {
@@ -170,5 +235,11 @@ export class PersonalAreaComponent implements OnInit, OnDestroy {
       EditProfileComponent
     );
     this.showSnackBar<EditProfileComponent>(ref);
+  }
+  openAddEvent(): void {
+    const dialogRef = this.dialog.open(AddEventDialogComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      console.log("The dialog was closed");
+    });
   }
 }

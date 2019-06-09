@@ -4,7 +4,8 @@ import { Pipe, PipeTransform } from "@angular/core";
   name: "arrayFormatter"
 })
 export class ArrayFormatterPipe implements PipeTransform {
-  transform(value: Array<any>, devider?: string): string {
+  transform(value: any, devider?: string): string {
+    if (typeof value !== "object") return value;
     if (!devider) devider = ",";
     let strFormat: string = "";
     value.forEach(

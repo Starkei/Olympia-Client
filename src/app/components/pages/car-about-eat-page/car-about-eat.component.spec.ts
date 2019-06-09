@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
 import { CarAboutEatComponent } from "./car-about-eat.component";
+import { BannerComponent } from '../../shared/banner/banner.component';
+import { MaterialModule } from 'src/app/modules/material/material.module';
+import { CardEatService } from 'src/app/services/card-eat/CardEat.service';
 
 describe("CarAboutUsComponent", () => {
   let component: CarAboutEatComponent;
@@ -8,7 +11,16 @@ describe("CarAboutUsComponent", () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [CarAboutEatComponent]
+      imports: [
+        MaterialModule
+      ],
+      declarations: [
+        CarAboutEatComponent,
+        BannerComponent
+      ],
+      providers: [
+        CardEatService
+      ]
     }).compileComponents();
   }));
 

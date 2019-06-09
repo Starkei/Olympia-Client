@@ -16,6 +16,7 @@
             <!--Если у пользователя есть поле имя, то оно отображается-->
             <!--<mat-card-title *ngIf="user.displayName"
               ><b>{{ user.displayName }}</b></mat-card-title
+
             >-->
 
             <ng-container *ngIf="user.displayName; else showDisplayName">
@@ -23,6 +24,7 @@
                 ><b>{{ user.displayName }}</b></mat-card-title
               >
             </ng-container>
+
             <ng-template #showDisplayName>
               <ng-container *ngIf="user.userName; else showImage">
                 <mat-card-title
@@ -130,24 +132,50 @@
         fxLayout.xs="column"
         fxLayoutAlign="start center"
       >
+        <div *ngIf="area.length > 0">
+          <div class="event" [fxFlex]="getFxSize()" *ngFor="let ar of area">
+            <mat-card class="card_event">
+              <mat-card-header>
+                <mat-card-title
+                  ><b
+                    ><p>
+                      {{ ar.title }}
+                    </p></b
+                  ></mat-card-title
+                >
+              </mat-card-header>
+              <mat-card-actions>
+                <button mat-raised-button (click)="followEvents(ar)">
+                  Перейти
+                </button>
+              </mat-card-actions>
+            </mat-card>
+          </div>
+        </div>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="container3" fxLayout="column">
+      <p><b>Избранные товары:</b></p>
+      <div *ngIf="prod.length > 0">
         <div
-          class="event"
-          [fxFlex]="getFxSize()"
-          *ngFor="let item of (items | async)"
+          class="stats"
+          fxLayout="row wrap"
+          fxLayout.xs="column"
+          *ngFor="let ar of prod"
         >
-          <mat-card class="card_event">
+          <mat-card class="card_stats" [fxFlex]="getFxSize4()">
             <mat-card-header>
               <mat-card-title
                 ><b
-                  ><p>{{ item.title }}</p></b
+                  ><p>
+                    {{ ar.title }}
+                  </p></b
                 ></mat-card-title
               >
             </mat-card-header>
             <mat-card-actions>
-              <button
-                mat-raised-button
-                (click)="rout(item); service.info(item)"
-              >
+              <button mat-raised-button (click)="followProducts(ar)">
                 Перейти
               </button>
             </mat-card-actions>
@@ -155,51 +183,40 @@
         </div>
       </div>
     </div>
-    <mat-divider></mat-divider>
-    <div class="container3" fxLayout="column">
-      <p><b>Ваша статистика:</b></p>
-
-      <div class="stats" fxLayout="row wrap" fxLayout.xs="column">
-        <mat-card class="card_stats" [fxFlex]="getFxSize4()">
-          <mat-card-header>
-            <mat-card-title><b>Активность</b></mat-card-title>
-          </mat-card-header>
-          <img
-            mat-card-image
-            src="http://bahgorsovet.org.ua/wp-content/uploads/2017/10/f5bf8622ab935d5f20c3deb8c38ec137.jpg"
-          />
-          <mat-card-content>
-            <p><b>Добавленно друзей:</b> 0</p>
-            <p><b>Организованно мероприятий:</b> 0</p>
-          </mat-card-content>
-        </mat-card>
-        <mat-card class="card_stats" [fxFlex]="getFxSize4()">
-          <mat-card-header>
-            <mat-card-title><b>Спорт</b></mat-card-title>
-          </mat-card-header>
-          <img
-            mat-card-image
-            src="https://us.123rf.com/450wm/tnn103eda/tnn103eda1701/tnn103eda170100017/70254858-multi-sports-players-in-action-collage-on-grand-arena.jpg?ver=6"
-          />
-          <mat-card-content>
-            <p><b>Количество увлечений</b> 0</p>
-            <p><b>Посещенно мероприятий:</b> 0</p>
-          </mat-card-content>
-        </mat-card>
-        <mat-card class="card_stats" [fxFlex]="getFxSize4()">
-          <mat-card-header>
-            <mat-card-title><b>Покупки</b></mat-card-title>
-          </mat-card-header>
-          <img
-            mat-card-image
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYXw87D7QzawjPFxdKJtYfcHv71sg83FVz7r5WIwNBZY2fxdiH"
-          />
-          <mat-card-content>
-            <p><b>Купленно вещей:</b> 0</p>
-            <p><b>Потрачено денег:</b> 0</p>
-          </mat-card-content>
-        </mat-card>
+    <div class="container4" fxLayout="column">
+      <p><b>Мои события:</b></p>
+      <button mat-mini-fab (click)="openAddEvent()">
+        <mat-icon>add_to_photos</mat-icon>
+      </button>
+      <div *ngIf="myevents.length > 0">
+        <div
+          class="stats"
+          fxLayout="row wrap"
+          fxLayout.xs="column"
+          *ngFor="let ar of myevents"
+        >
+          <mat-card class="card_stats" [fxFlex]="getFxSize4()">
+            <mat-card-header>
+              <mat-card-title
+                ><b
+                  ><p>
+                    {{ ar.title }}
+                  </p></b
+                ></mat-card-title
+              >
+            </mat-card-header>
+            <mat-card-actions>
+              <button mat-raised-button (click)="follow(ar)">
+                Перейти
+              </button>
+            </mat-card-actions>
+          </mat-card>
+        </div>
       </div>
     </div>
+    <!-- <div *ngIf="user.role == legalUser; then thenBlock; else elseBlock"></div>
+    <ng-template #thenBlock> true {{ user.role }}</ng-template>
+    <ng-template #elseBlock> false {{ user.role }}</ng-template>
+  </div> -->
   </div>
 </div>

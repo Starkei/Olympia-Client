@@ -2,7 +2,7 @@
   <button *ngIf="!isLandscape" mat-icon-button (click)="snav.toggle()">
     <mat-icon>menu</mat-icon>
   </button>
-  <h1 class="app-name">Olympia</h1>
+  <h1 class="app-name">Olimpia.next</h1>
   <span *ngIf="isLandscape">
     <button mat-button routerLink="/main">Главная страница</button>
 
@@ -14,9 +14,14 @@
     <button mat-button routerLink="/sport">Спорт</button>
     <button mat-button routerLink="/crowdfunding">Краудфандинг</button>
     <button mat-button routerLink="/events">Мероприятия</button>
-    <button *ngIf="(user | async)" mat-button routerLink="/area">Личный кабинет</button>
+    <button *ngIf="(user | async)" mat-button routerLink="/area">
+      Личный кабинет
+    </button>
     <button *ngIf="(user | async)" mat-button routerLink="/chats">Чаты</button>
-    <button *ngIf="!(user | async)" mat-button routerLink="/registration">Регистрация</button>
+    <button *ngIf="!(user | async)" mat-button routerLink="/registration">
+      Авторизация/Регистрация
+    </button>
+    <button *ngIf="(user | async)" mat-button routerLink="/admin-panel">Панель администратора</button>
   </span>
 </mat-toolbar>
 
@@ -36,7 +41,9 @@
 
       <a *ngIf="(user | async)" mat-list-item routerLink="/area">Личный кабинет</a>
       <a *ngIf="(user | async)" mat-list-item routerLink="/chats">Чаты</a>
-      <a mat-list-item routerLink="/registration">Регистрация</a>
+      <a *ngIf="(user | async)" mat-list-item routerLink="/registration">Регистрация</a>
+      <a *ngIf="(user | async)" mat-list-item routerLink="/admin-panel">Панель администратора</a>
+
     </mat-nav-list>
   </mat-sidenav>
 

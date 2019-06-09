@@ -13,7 +13,7 @@ import { EventsComponent } from "./components/pages/events-page/events.component
 import { OutputDetailsComponent } from "./components/shared/output-component/output-details/output-details.component";
 import { UploaderComponent } from "./components/shared/uploader/uploader/uploader.component";
 import { ChatComponent } from "./components/pages/chat-page/chat.component";
-import { InfoEventComponent } from "./components/shared/info-event/info-event.component";
+import { AdminPanelComponent } from "./components/pages/admin-panel/admin-panel.component";
 
 const routes: Routes = [
   { path: "", redirectTo: "/main", pathMatch: "full" },
@@ -26,7 +26,6 @@ const routes: Routes = [
   { path: "sport", component: SportPageComponent },
   { path: "registration", component: RegistrationComponent },
   { path: "events", component: EventsComponent },
-  { path: "info-event", component: InfoEventComponent },
   {
     path: "output-details",
     component: OutputDetailsComponent
@@ -38,6 +37,10 @@ const routes: Routes = [
   {
     path: "chats",
     component: ChatComponent
+  },
+  {
+    path: "admin-panel",
+    component: AdminPanelComponent
   }
 ];
 

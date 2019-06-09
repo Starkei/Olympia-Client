@@ -16,4 +16,7 @@ export interface User {
   about?: string;
   image?: string;
   userName?: string;
+  favoritesEvents?: Array<string>;
+  favoriteProduct?: Array<string>;
+  myEvents?: Array<string>;
 }
