@@ -24,10 +24,15 @@ export class Sports {
     getPostFormConfig(): PostFormConfig {
 
         let sportTypes: Array<Field> = [];
-        let undergrounds: Array<Field> = [];
+        let undergrounds: Field = {
+            fieldType: "radio",
+            selectItems: [],
+            dbFieldName: ["underground"],
+        };
         let phoneNumbers: Field = {
             fieldType: "list",
-            selectItems: []
+            selectItems: [],
+            dbFieldName: ["phoneNumbers"]
         };
 
         let inputForCreateType: Field = {
@@ -62,13 +67,7 @@ export class Sports {
             title: "add",
             buttonType: "icon",
             onClick: () => {
-                undergrounds.push(
-                    {
-                        fieldType: "checkbox",
-                        title: inputForCreateUnderground.innerText,
-                        dbFieldName: ["underground"]
-                    }
-                )
+                undergrounds.selectItems.push(inputForCreateUnderground.innerText);
                 inputForCreateUnderground.innerText = "";
             }
         };
@@ -106,11 +105,9 @@ export class Sports {
                 });
             }
             for (const element of tempUndergrounds) {
-                undergrounds.push({
-                    fieldType: "checkbox",
-                    title: element,
-                    dbFieldName: ["undergrounds"]
-                });
+                undergrounds.selectItems.push(
+                    element,
+                );
             }
         });
 
@@ -285,7 +282,7 @@ export class Sports {
 
         let undergroundGroup: Group = {
             title: "Станции метро",
-            fields: undergrounds
+            fields: [undergrounds]
         }
 
         let createPhoneNumberGroup: Group = {

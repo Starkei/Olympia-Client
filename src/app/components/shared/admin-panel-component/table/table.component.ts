@@ -25,8 +25,10 @@ export class TableComponent implements OnInit {
     if (this.config) {
       this.config.showAll().subscribe(data => {
         this.dataSource = new MatTableDataSource(data);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
+        setTimeout(() => {
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+        });
       });
       this.displayColumns = ["select", ...this.config.allColumns];
       this.selection = new SelectionModel<Output>(true, []);
@@ -71,6 +73,22 @@ export class TableComponent implements OnInit {
       element = null;
 
     return element ? element : "Пусто";
+  }
+
+  getFormattedDataFromSeconds(element, field: string): string {
+    if (!element.timeWork)
+      return "Пусто";
+    if (!element.timeWork[field])
+      return "Пусто";
+    let seconds: number = element.timeWork[field];
+    let hours: any = Math.floor(seconds / (60 * 60));
+    let minutes: any = Math.floor((seconds - hours * 60 * 60) / 60);
+
+    if (hours < 10)
+      hours = "0" + hours;
+    if (minutes < 10)
+      minutes = "0" + minutes;
+    return hours + ":" + minutes;
   }
 
   applyFilter(value) {

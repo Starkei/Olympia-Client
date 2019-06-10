@@ -14,27 +14,17 @@
               <mat-card-title>
                 {{ output.title }}
               </mat-card-title>
-              <mat-card-subtitle>
-                {{ output.price }} {{ output.currency }}
-              </mat-card-subtitle>
+              <mat-card-subtitle> {{ output.price }} {{ output.currency }} </mat-card-subtitle>
             </mat-card-header>
             <mat-card-content>
-              <p *ngIf="output.description">
-                <b>Описание</b>: {{ output.description }}
-              </p>
-              <p *ngIf="output.moreInfo">
-                <b>Больше информации</b>: {{ output.moreInfo }}
-              </p>
+              <p *ngIf="output.description"><b>Описание</b>: {{ output.description }}</p>
+              <p *ngIf="output.moreInfo"><b>Больше информации</b>: {{ output.moreInfo }}</p>
               <p *ngIf="output.address"><b>Адрес</b>: {{ output.address }}</p>
               <p *ngIf="output.phoneNumbers">
                 <b>Телефон</b>: {{ output.phoneNumbers | arrayFormatter }}
               </p>
-              <p *ngIf="output.underground">
-                <b>Метро</b>: {{ output.underground }}
-              </p>
-              <p *ngIf="output.usage">
-                <b>Применение</b>: {{ output.usage | arrayFormatter }}
-              </p>
+              <p *ngIf="output.underground"><b>Метро</b>: {{ output.underground }}</p>
+              <p *ngIf="output.usage"><b>Применение</b>: {{ output.usage | arrayFormatter }}</p>
               <p *ngIf="output.contraindications">
                 <b>Противопоказания</b>:
                 {{ output.contraindications | arrayFormatter }}
@@ -51,12 +41,11 @@
                 <b>Возраст</b>: от {{ output.age.from }} до {{ output.age.to }}
               </p>
               <p *ngIf="output.group">
-                <b>Количество участников в группе</b>: от
-                {{ output.group.from }} до {{ output.age.to }}
+                <b>Количество участников в группе</b>: от {{ output.group.from }} до
+                {{ output.age.to }}
               </p>
               <p *ngIf="output.timeWork">
-                <b>Время работы</b>: от
-                {{ convertSecondsToHours(output.timeWork.from) }} до
+                <b>Время работы</b>: от {{ convertSecondsToHours(output.timeWork.from) }} до
                 {{ convertSecondsToHours(output.timeWork.to) }}
               </p>
             </mat-card-content>
@@ -66,35 +55,20 @@
               <img mat-card-avatar [src]="output.image" />
               <mat-card-subtitle>
                 <p>
-                  При нажатии на кнопку "перейти" вы перейдете на страницу
-                  организации
+                  При нажатии на кнопку "перейти" вы перейдете на страницу организации
                 </p>
               </mat-card-subtitle>
             </mat-card-header>
             <mat-card-actions align="start">
-              <a
-                target="_blank"
-                mat-raised-button
-                color="primary"
-                [href]="getLink(output.reference)"
-              >
+              <button mat-raised-button color="primary" (click)="redirect(output.reference)">
                 Перейти
-              </a>
+              </button>
             </mat-card-actions>
           </mat-card>
         </div>
       </div>
-      <div
-        class="adware"
-        fxLayout="row"
-        fxLayout.xs="column"
-        fxLayoutAlign="start stretch"
-      >
-        <mat-card
-          fxFlex="23%"
-          *ngFor="let item of (adware | async)"
-          fxFlexOffset="3%"
-        >
+      <div class="adware" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start stretch">
+        <mat-card fxFlex="23%" *ngFor="let item of adware | async" fxFlexOffset="3%">
           <mat-card-header>
             <img mat-card-avatar src="assets/images/adware.png" />
 
