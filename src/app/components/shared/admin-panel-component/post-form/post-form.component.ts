@@ -52,6 +52,8 @@ export class PostFormComponent implements OnInit {
       for (const field of group.fields) {
         switch (field.fieldType) {
           case "input":
+            if (field.inputType === "datetime-local" || field.inputType === "date")
+              output = this.assignValueToDBField(new Date(field.innerText), field.dbFieldName, output);
             output = this.assignValueToDBField(field.innerText, field.dbFieldName, output);
             break;
           case "checkbox":
@@ -66,13 +68,19 @@ export class PostFormComponent implements OnInit {
             }
             break;
           case "list":
-            output = this.assignValueToDBField(field.selectItems, field.dbFieldName, output);
+            output = this.assignValueToDBField(field.values, field.dbFieldName, output);
+            break;
+          case "radio":
+            output = this.assignValueToDBField(field.innerText, field.dbFieldName, output);
             break;
           case "select":
             output = this.assignValueToDBField(field.innerText, field.dbFieldName, output);
             break;
           case "textarea":
             output = this.assignValueToDBField(field.innerText, field.dbFieldName, output);
+            break;
+          case "date":
+            output = this.assignValueToDBField(new Date(field.innerText), field.dbFieldName, output);
             break;
           case "button":
             if (field.buttonType === "file")
@@ -93,7 +101,8 @@ export class PostFormComponent implements OnInit {
     if (!dbFieldName || !value)
       return output;
     if (dbFieldName[1]) {
-      output[dbFieldName[0]] = {};
+      if (!output[dbFieldName[0]])
+        output[dbFieldName[0]] = {};
       output[dbFieldName[0]][dbFieldName[1]] = value;
     } else
       if (dbFieldName[0])

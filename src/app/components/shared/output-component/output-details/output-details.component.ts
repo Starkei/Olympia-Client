@@ -80,5 +80,12 @@ export class OutputDetailsComponent implements OnInit {
     ]);
   }
 
-  ngOnInit() {}
+  redirect(url: string): void {
+    window.open(
+      url,
+      '_blank'
+    );
+  }
+
+  ngOnInit() { }
 }

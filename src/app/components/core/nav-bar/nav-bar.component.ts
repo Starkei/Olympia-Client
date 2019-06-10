@@ -12,8 +12,9 @@ import { switchMap } from "rxjs/operators";
 })
 export class NavBarComponent implements OnInit {
   user: Observable<User>;
+  currentUser: User;
 
-  constructor(private breakpointObserver: BreakpointObserver, public userService: AuthService) {}
+  constructor(private breakpointObserver: BreakpointObserver, public userService: AuthService) { }
 
   isLandscape: boolean = true;
 
@@ -33,5 +34,14 @@ export class NavBarComponent implements OnInit {
       });
 
     this.user = this.userService.user;
+    this.user.subscribe(user => this.currentUser = user);
+  }
+
+  getUserRole(): string {
+    if (!this.currentUser)
+      return "GUEST";
+    if (!this.currentUser.role)
+      return "GUEST";
+    return this.currentUser.role;
   }
 }

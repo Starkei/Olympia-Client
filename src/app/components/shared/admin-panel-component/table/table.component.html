@@ -67,13 +67,17 @@
       </ng-container>
 
       <ng-container matColumnDef="timeWorkFrom">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Группа до</th>
-        <td mat-cell *matCellDef="let element">{{ getDataFrom(element, ["timeWork", "from"]) }}</td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Время работы с</th>
+        <td mat-cell *matCellDef="let element">
+          {{ getFormattedDataFromSeconds(element, "from") }}
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="timeWorkTo">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Группа до</th>
-        <td mat-cell *matCellDef="let element">{{ getDataFrom(element, ["timeWork", "to"]) }}</td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Время работы до</th>
+        <td mat-cell *matCellDef="let element">
+          {{ getFormattedDataFromSeconds(element, "to") }}
+        </td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayColumns; sticky: true"></tr>
