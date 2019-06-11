@@ -77,7 +77,7 @@ export class RegistrationComponent implements OnInit {
     public auth: AuthService,
     private _formBuilder: FormBuilder,
     private bp: BreakpointObserver
-  ) {}
+  ) { }
   ngOnInit() {
     this.isClicked = false;
     this.formGroup = this._formBuilder.group({
@@ -114,13 +114,11 @@ export class RegistrationComponent implements OnInit {
   tryRegister(value) {
     this.auth.doRegister(value).then(
       res => {
-        console.log(res);
         this.errorMessage = "";
         this.successMessage = "Your account has been created";
         this.successMessageLegal = "Your account has been created";
       },
       err => {
-        console.log(err);
         this.errorMessage = err.message;
         this.errorMessageLegal = err.message;
         this.successMessage = "";
@@ -136,7 +134,6 @@ export class RegistrationComponent implements OnInit {
         this.successMessage = "Your account has been auth";
       },
       err => {
-        console.log(err);
         this.errorMessageAuth = err.message;
         this.successMessage = "";
       }

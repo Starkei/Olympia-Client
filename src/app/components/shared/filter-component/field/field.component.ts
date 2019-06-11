@@ -50,13 +50,12 @@ export class FieldComponent implements OnInit {
 
   getErrorMessage(control: FormControl) {
     if (this.field.inputType === "number")
-      console.log(control, this.field);
-    for (const err of this.errors) {
-      if (control.hasError(err.errorType)) {
-        this.valid.emit({ title: this.field.inputPlaceHolder, valid: false });
-        return err.message;
+      for (const err of this.errors) {
+        if (control.hasError(err.errorType)) {
+          this.valid.emit({ title: this.field.inputPlaceHolder, valid: false });
+          return err.message;
+        }
       }
-    }
   }
 
   setValid(): void {

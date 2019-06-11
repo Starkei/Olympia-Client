@@ -3,6 +3,7 @@ import { TableConfig } from 'src/app/interfaces/configs/table-config';
 import { PostFormConfig } from 'src/app/interfaces/configs/post-form-config';
 import { Output } from 'src/app/interfaces/output';
 import { Group } from 'src/app/engine/interfaces/group';
+import { User } from 'src/app/interfaces/auth';
 
 export class Users {
 
@@ -67,7 +68,8 @@ export class Users {
                 {
                     fieldType: "button",
                     buttonType: "file",
-                    dbFieldName: ["image"]
+                    dbFieldName: ["image"],
+                    pathToImages: "usersImages"
                 }
             ]
         };
@@ -109,9 +111,18 @@ export class Users {
                 genderAndRoleGroup,
                 dateBirthGroup,
             ],
-            onPost: this.service.addDocument.bind(this.service)
+            onPost: this.addUser.bind(this)
         };
         return config;
+    }
+
+    addUser(data): void {
+        this.service.doRegister({
+            email: data.email,
+            password: data.password
+        }).then((d: any) => {
+            this.service.updateDocument(data as User, d.user.uid);
+        })
     }
 
     deleteUsers(dataForDelete: Array<Output>): void {

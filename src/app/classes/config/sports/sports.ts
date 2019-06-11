@@ -32,6 +32,7 @@ export class Sports {
         let phoneNumbers: Field = {
             fieldType: "list",
             selectItems: [],
+            values: [],
             dbFieldName: ["phoneNumbers"]
         };
 
@@ -90,6 +91,7 @@ export class Sports {
                 phoneNumbers.selectItems.push(
                     inputForCreatePhoneNumber.innerText,
                 );
+                phoneNumbers.values.push(inputForCreatePhoneNumber.innerText);
                 inputForCreatePhoneNumber.innerText = "";
             }
         };
@@ -98,6 +100,7 @@ export class Sports {
             let types: Array<string> = this.getAllSportTypes(data);
             let tempUndergrounds: Array<string> = this.getAllUndergrounds(data);
             for (const element of types) {
+                sportTypes = sportTypes.filter((field, index) => field.title !== element);
                 sportTypes.push({
                     fieldType: "checkbox",
                     title: element,
@@ -105,9 +108,8 @@ export class Sports {
                 });
             }
             for (const element of tempUndergrounds) {
-                undergrounds.selectItems.push(
-                    element,
-                );
+                undergrounds.selectItems = undergrounds.selectItems.filter((el, index) => el !== element);
+                undergrounds.selectItems.push(element);
             }
         });
 
@@ -329,10 +331,28 @@ export class Sports {
                 phoneNumberGroup,
                 descriptionGroup
             ],
-            onPost: this.service.addDocument.bind(this.service)
+            onPost: this.addSport.bind(this)
         };
         return config;
     }
+
+    addSport(data: Output): void {
+        if (data.timeWork) {
+            let time: any;
+
+            if (data.timeWork.from) {
+                time = data.timeWork.from;
+                data.timeWork.from = time.split(":").reduce((h, m) => h * 60 * 60 + m * 60);
+            }
+            if (data.timeWork.to) {
+                time = data.timeWork.to;
+                data.timeWork.to = time.split(":").reduce((h, m) => h * 60 * 60 + m * 60);
+            }
+
+        }
+        console.log(data);
+    }
+
 
     private getAllSportTypes(collection: Array<Output>): Array<string> {
         let values: Set<string> = new Set();
