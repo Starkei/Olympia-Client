@@ -52,6 +52,11 @@ import { HttpClientModule } from "@angular/common/http";
 import { PostFormComponent } from "./components/shared/admin-panel-component/post-form/post-form.component";
 import { AgmCoreModule } from "@agm/core";
 import { GoogleMapComponent } from "./components/shared/google-map/google-map.component";
+import { WeatherComponent } from "./components/shared/weather/weather.component";
+
+import { HttpModule } from "@angular/http";
+import { WeatherService } from "./services/weather/weather.service";
+
 export const firebaseConfig = environment.firebaseConfig;
 
 @NgModule({
@@ -86,7 +91,8 @@ export const firebaseConfig = environment.firebaseConfig;
     AdminPanelComponent,
     TableComponent,
     PostFormComponent,
-    GoogleMapComponent
+    GoogleMapComponent,
+    WeatherComponent
   ],
   imports: [
     BrowserModule,
@@ -103,7 +109,10 @@ export const firebaseConfig = environment.firebaseConfig;
     HttpClientModule,
     AgmCoreModule.forRoot({
       apiKey: "AIzaSyANwlhlYARVvcdu7Fr8-CoZnL7Y4kD-FKs"
-    })
+    }),
+    FormsModule,
+    ReactiveFormsModule,
+    HttpModule
   ],
   providers: [
     NewsService,
@@ -112,7 +121,8 @@ export const firebaseConfig = environment.firebaseConfig;
     CrowdfundingService,
     EventService,
     CrowdfundingComponent,
-    AuthService
+    AuthService,
+    WeatherService
   ],
   entryComponents: [
     ProductCreatorComponent,
