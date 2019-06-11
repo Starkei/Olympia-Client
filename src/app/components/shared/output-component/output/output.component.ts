@@ -66,6 +66,12 @@ export class OutputComponent implements OnInit {
         this.assignItems();
       });
     }
+
+    this.items = this.service.getPaginationData(
+      this.filter,
+      0,
+      this.itemsPerPage
+    );
   }
 
   assignItems(): void {
