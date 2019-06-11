@@ -100,11 +100,25 @@ export class AuthService extends DataQueryService {
 
   googleLogin(): Promise<void> {
     const provider = new auth.GoogleAuthProvider();
-    return this.oAuthLogin(provider);
+    return new Promise<any>((resolve, reject) => {
+      this.oAuthLogin(provider).then(
+        credential => {
+          resolve(this.router.navigate(["/area"]));
+        },
+        err => reject(err)
+      );
+    });
   }
   facebookLogin(): Promise<void> {
     const provider = new auth.FacebookAuthProvider();
-    return this.oAuthLogin(provider);
+    return new Promise<any>((resolve, reject) => {
+      this.oAuthLogin(provider).then(
+        credential => {
+          resolve(this.router.navigate(["/area"]));
+        },
+        err => reject(err)
+      );
+    });
   }
 
   private oAuthLogin(provider: any): Promise<void> {
