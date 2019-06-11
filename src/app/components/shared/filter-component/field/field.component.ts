@@ -1,7 +1,9 @@
-import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ChangeDetectorRef, AfterViewInit, ElementRef } from "@angular/core";
 import { Field } from "src/app/engine/interfaces/field";
 import { FormControl, Validators } from '@angular/forms';
 import { UploaderService } from 'src/app/services/uploader-service/uploader.service';
+import { MatListOption, MatDatepicker } from '@angular/material';
+import { of, BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: "app-field",
@@ -11,8 +13,8 @@ import { UploaderService } from 'src/app/services/uploader-service/uploader.serv
 export class FieldComponent implements OnInit {
   @Input() field: Field;
   @Output() pressed: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() valid: EventEmitter<any> = new EventEmitter<any>();
 
-  control: FormControl;
   errors: any[] = [];
   file: File;
 
@@ -20,36 +22,25 @@ export class FieldComponent implements OnInit {
   }
 
   ngOnInit() {
-    let validators = [];
+
     if (this.field.fieldType === "input") {
       if (this.field.inputType === "email") {
-        validators.push(Validators.email);
         this.errors.push({ message: "Неправильный эелетронный адрес", errorType: "email" });
       }
       if (this.field.inputType === "number") {
         if (this.field.maxValue || this.field.maxValue === 0) {
-          validators.push(Validators.max(this.field.maxValue));
-          this.errors.push({ message: `Больше чем ${this.field.maxValue}`, errorType: "max" });
+          this.errors.push({ message: `Больше чем ${this.field.maxValue}`, errorType: "maxValue" });
         }
         if (this.field.minValue || this.field.minValue === 0) {
-          validators.push(Validators.min(this.field.minValue));
-          this.errors.push({ message: `Меньше чем ${this.field.minValue}`, errorType: "min" });
+          this.errors.push({ message: `Меньше чем ${this.field.minValue}`, errorType: "minValue" });
         }
 
       }
     }
     if (this.field.required) {
-      validators.push(Validators.required);
       this.errors.push({ message: "Это поле обязательно", errorType: "required" });
     }
-    this.control = new FormControl('', validators);
-    this.control.valueChanges.subscribe((value) => {
-      if (!this.control.invalid) {
-        if (this.field.fieldType === "input" || this.field.fieldType === "textarea")
-          this.field.innerText = value;
-        this.field.isInvalid = false;
-      }
-    })
+    this.valid.emit({ title: this.field.inputPlaceHolder, valid: true });
   }
 
   press(): void {
@@ -57,14 +48,18 @@ export class FieldComponent implements OnInit {
     this.pressed.emit(true);
   }
 
-  getErrorMessage() {
-    for (const err of this.errors) {
-      if (this.control.hasError(err.errorType)) {
-        this.field.isInvalid = true;
-        return err.message;
+  getErrorMessage(control: FormControl) {
+    if (this.field.inputType === "number")
+      for (const err of this.errors) {
+        if (control.hasError(err.errorType)) {
+          this.valid.emit({ title: this.field.inputPlaceHolder, valid: false });
+          return err.message;
+        }
       }
-    }
-    this.field.isInvalid = false;
+  }
+
+  setValid(): void {
+    this.valid.emit({ title: this.field.inputPlaceHolder, valid: true });
   }
 
   setFile(files: FileList): void {
@@ -74,13 +69,37 @@ export class FieldComponent implements OnInit {
 
   public saveFile(): void {
     if (this.file) {
-      this.field.isInvalid = true;
+      this.valid.emit({ title: this.field.buttonType, valid: false });
       this.uploader.uploadFile(this.file, this.field.pathToImages).then(
         (url) => {
           this.field.innerText = url;
-          this.field.isInvalid = false;
+          this.valid.emit({ title: this.field.buttonType, valid: true });
         }
       );
     }
   }
+
+  public deleteSelected(selected: Array<MatListOption>) {
+    this.field.selectItems = this.field.selectItems.filter((value, index) => {
+      for (const iterator of selected) {
+        let label: string = iterator.getLabel().trim();
+        if (value.includes(label)) {
+          this.field.values = this.field.values.filter((val, i) => i !== index);
+          return false;
+        }
+      }
+      return true;
+    });
+  }
+
+  public mobile(event: any) {
+    const pattern = /[0-9\+\-\ ]/;
+
+    let inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
+
+
 }

@@ -5,6 +5,7 @@ import { Group } from "src/app/engine/interfaces/group";
 import { Field } from "src/app/engine/interfaces/field";
 import { Output } from '@angular/compiler/src/core';
 import { FieldType } from 'src/app/engine/enums/field-type.enum';
+import { of } from 'rxjs';
 
 export class ProductsConfig {
   constructor(private productService: ProductService) { }
@@ -13,25 +14,10 @@ export class ProductsConfig {
     let inputForCreateType: Field = { fieldType: FieldType.input, inputType: "text", inputPlaceHolder: "Введите наименование типа" };
     let buttonForCreateType: Field = {
       fieldType: FieldType.button, title: "add", buttonType: "icon", onClick: () => {
-        productTypes.push({ fieldType: "checkbox", title: inputForCreateType.innerText, dbFieldName: ["type"] })
+        typeGroup.fields.push({ fieldType: "checkbox", title: inputForCreateType.innerText, dbFieldName: ["type"] })
         inputForCreateType.innerText = "";
       }
     };
-
-    let productTypes: Array<Field> = [
-
-    ];
-
-    this.productService.getAllConvertedData().subscribe(data => {
-      let types: Array<string> = this.getAllProductTypes(data);
-      for (const element of types) {
-        productTypes.push({
-          fieldType: "checkbox",
-          title: element,
-          dbFieldName: ["type"]
-        });
-      }
-    });
 
     let titleGroup: Group = {
       title: "Наименование",
@@ -41,7 +27,8 @@ export class ProductsConfig {
           inputPlaceHolder: "Наименование",
           inputType: "text",
           dbFieldName: ["title"],
-          required: true
+          required: true,
+          isInvalid: of(true)
         }
       ]
     };
@@ -56,8 +43,20 @@ export class ProductsConfig {
 
     let typeGroup: Group = {
       title: "Типы",
-      fields: productTypes
+      fields: []
     };
+
+    this.productService.getAllConvertedData().subscribe(data => {
+      let types: Array<string> = this.getAllProductTypes(data);
+      for (const element of types) {
+        typeGroup.fields = typeGroup.fields.filter((field, index) => field.title !== element);
+        typeGroup.fields.push({
+          fieldType: "checkbox",
+          title: element,
+          dbFieldName: ["type"]
+        });
+      }
+    });
 
     let priceAndCurrency: Group = {
       title: "Цена и валюта",
@@ -68,14 +67,16 @@ export class ProductsConfig {
           inputType: "number",
           minValue: 0,
           required: true,
-          dbFieldName: ["price"]
+          dbFieldName: ["price"],
+          isInvalid: of(true)
         },
         {
           fieldType: FieldType.select,
           selectItems: ["бел.руб", "y.e"],
           inputPlaceHolder: "Валюта",
           required: true,
-          dbFieldName: ["currency"]
+          dbFieldName: ["currency"],
+          isInvalid: of(true)
         }
       ]
     };
@@ -86,13 +87,14 @@ export class ProductsConfig {
           fieldType: FieldType.input,
           inputType: "text",
           inputPlaceHolder: "Адрес сайта",
-          dbFieldName: ["address"]
+          dbFieldName: ["address"],
         },
         {
           fieldType: FieldType.button,
           buttonType: "file",
           dbFieldName: ["image"],
-          pathToImages: "productsImages/"
+          pathToImages: "productsImages/",
+          isInvalid: of(true)
         },
       ]
     };
@@ -104,7 +106,8 @@ export class ProductsConfig {
           inputType: "email",
           inputPlaceHolder: "Електронный адрес владельца",
           required: true,
-          dbFieldName: ["owner"]
+          dbFieldName: ["owner"],
+          isInvalid: of(true)
         },
         {
           fieldType: FieldType.input,

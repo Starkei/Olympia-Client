@@ -67,12 +67,6 @@ export class SportFilter extends FilterGenerator<Sport> {
         });
 
         categoriesArray.push({
-          title: "Противопоказания",
-          fields: this.createAllСontraindicationsTypes(data),
-          dataFieldName: "contraindications"
-        });
-
-        categoriesArray.push({
           title: "Метро",
           fields: this.createAllUndergroundFields(data),
           dataFieldName: "underground"
@@ -86,11 +80,6 @@ export class SportFilter extends FilterGenerator<Sport> {
   private createAllTypesFields(sport: Array<Sport>): Array<Field> {
     let titles: Array<string> = Array.from(this.getSetFromArrayPropertiesValues(sport, "type"));
     return this.generateCheckBoxFields(titles);
-  }
-
-  private createAllСontraindicationsTypes(sport: Array<Sport>): Array<Field> {
-    let selectItems: Array<string> = Array.from(this.getSetFromArrayPropertiesValues(sport, "contraindications"));
-    return this.generateSelectField(selectItems);
   }
 
   private createAllSexFields(sport: Array<Sport>): Array<Field> {

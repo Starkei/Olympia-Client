@@ -1,17 +1,39 @@
-<mat-form-field *ngIf="field.fieldType === 'input'">
+<mat-form-field *ngIf="field.fieldType === 'input' && field.inputType !== 'mobile'">
   <input
     matInput
     [type]="field.inputType"
     [placeholder]="field.inputPlaceHolder"
     (keyup)="press()"
-    [formControl]="control"
+    [(ngModel)]="field.innerText"
     [required]="field.required"
+    [minValue]="field.minValue"
+    [maxValue]="field.maxValue"
+    #control="ngModel"
   />
-  <mat-error *ngIf="control && control.invalid">{{ getErrorMessage() }}</mat-error>
+  <div *ngIf="control && !control.invalid">{{ setValid() }}</div>
+  <mat-error *ngIf="control && control.invalid">{{ getErrorMessage(control.control) }}</mat-error>
 </mat-form-field>
-<mat-checkbox *ngIf="field.fieldType === 'checkbox'" (click)="press()">{{
-  field.title
-}}</mat-checkbox>
+<mat-form-field *ngIf="field.fieldType === 'input' && field.inputType === 'mobile'">
+  <input
+    matInput
+    [type]="field.inputType"
+    [placeholder]="field.inputPlaceHolder"
+    [(ngModel)]="field.innerText"
+    [required]="field.required"
+    pattern="^[+]?[(]{0,1}[0-9]{1,3}[)]{0,1}[-\s\.0-9]*$"
+    [minLength]="10"
+    [maxLength]="15"
+    #control="ngModel"
+  />
+  <div *ngIf="control && !control.invalid">{{ setValid() }}</div>
+  <mat-error *ngIf="control && control.invalid">{{ getErrorMessage(control.control) }}</mat-error>
+</mat-form-field>
+
+<div class="left">
+  <mat-checkbox *ngIf="field.fieldType === 'checkbox'" (click)="press()">{{
+    field.title
+  }}</mat-checkbox>
+</div>
 <mat-form-field *ngIf="field.fieldType === 'select'">
   <mat-select
     [placeholder]="field.inputPlaceHolder || 'Заболевания'"
@@ -44,11 +66,53 @@
     matInput
     [placeholder]="field.inputPlaceHolder"
     (keyup)="press()"
-    [formControl]="control"
+    [(ngModel)]="field.innerText"
     [required]="field.required"
     cols="40"
     rows="10"
+    #controlTA="ngModel"
   >
   </textarea>
-  <mat-error *ngIf="control && control.invalid">{{ getErrorMessage() }}</mat-error>
+  <div *ngIf="controlTA && !controlTA.invalid">{{ setValid() }}</div>
+  <mat-error *ngIf="controlTA && controlTA.invalid">{{
+    getErrorMessage(controlTA.control)
+  }}</mat-error>
+</mat-form-field>
+<div *ngIf="field.fieldType === 'list'" class="list">
+  <mat-selection-list #items role="listbox">
+    <mat-list-option
+      *ngFor="let item of field.selectItems; let i = index"
+      role="option"
+      [value]="field.values[i]"
+    >
+      {{ item }}
+    </mat-list-option>
+  </mat-selection-list>
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="deleteSelected(items.selectedOptions.selected)"
+  >
+    Удалить выбранные
+  </button>
+</div>
+<mat-radio-group
+  fxLayout="column"
+  fxLayoutAlign="start stretch"
+  [(ngModel)]="field.innerText"
+  *ngIf="field.fieldType === 'radio'"
+  aria-label="Select an option"
+>
+  <mat-radio-button *ngFor="let val of field.selectItems">{{ val }}</mat-radio-button>
+</mat-radio-group>
+
+<mat-form-field *ngIf="field.fieldType === 'date'">
+  <input
+    matInput
+    [(ngModel)]="field.innerText"
+    [matDatepicker]="picker"
+    [placeholder]="field.inputPlaceHolder"
+  />
+  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker #picker></mat-datepicker>
 </mat-form-field>

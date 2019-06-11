@@ -39,7 +39,7 @@ export class ConfigGenerator {
     this.eventConfig = new Events(eventService);
     this.trainingConfig = new Trainigs(trainigService);
 
-    this.postFormConfigGenerator = new PostFormConfigGenerator(this.productConfig);
+    this.postFormConfigGenerator = new PostFormConfigGenerator(this.productConfig, this.sportConfig, this.userConfig, this.crowdfundingConfig, this.eventConfig, this.trainingConfig);
     this.tableConfigGenerator = new TableConfigGenerator(this.productConfig, this.sportConfig, this.userConfig, this.crowdfundingConfig, this.eventConfig, this.trainingConfig);
   }
 

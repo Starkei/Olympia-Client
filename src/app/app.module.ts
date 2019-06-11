@@ -56,6 +56,9 @@ import { WeatherComponent } from "./components/shared/weather/weather.component"
 
 import { HttpModule } from "@angular/http";
 import { WeatherService } from "./services/weather/weather.service";
+import { MinValueDirective } from "./directives/min-value/min-value.directive";
+import { MaxValueDirective } from "./directives/max-value/max-value.directive";
+import { EmailDirective } from "./directives/email/email.directive";
 
 export const firebaseConfig = environment.firebaseConfig;
 
@@ -92,7 +95,10 @@ export const firebaseConfig = environment.firebaseConfig;
     TableComponent,
     PostFormComponent,
     GoogleMapComponent,
-    WeatherComponent
+    WeatherComponent,
+    MinValueDirective,
+    MaxValueDirective,
+    EmailDirective
   ],
   imports: [
     BrowserModule,

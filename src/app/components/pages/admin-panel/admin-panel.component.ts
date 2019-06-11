@@ -49,27 +49,27 @@ export class AdminPanelComponent implements OnInit {
       {
         name: "Спорт.клубы",
         tableConfig: this.configGenerator.getTableConfigGenerator().getSportConfig(),
-        postFormConfig: this.configGenerator.getPostFormConfigGenerator().getProductsConfig()
+        postFormConfig: this.configGenerator.getPostFormConfigGenerator().getSportConfig()
       },
       {
         name: "Пользователи",
         tableConfig: this.configGenerator.getTableConfigGenerator().getUserConfig(),
-        postFormConfig: this.configGenerator.getPostFormConfigGenerator().getProductsConfig()
+        postFormConfig: this.configGenerator.getPostFormConfigGenerator().getUserConfig()
       },
       {
         name: "Краундфандинг",
         tableConfig: this.configGenerator.getTableConfigGenerator().getCrowdfundingConfig(),
-        postFormConfig: this.configGenerator.getPostFormConfigGenerator().getProductsConfig()
+        postFormConfig: this.configGenerator.getPostFormConfigGenerator().getCrowdfundingConfig()
       },
       {
         name: "Мероприятия",
         tableConfig: this.configGenerator.getTableConfigGenerator().getEventConfig(),
-        postFormConfig: this.configGenerator.getPostFormConfigGenerator().getProductsConfig()
+        postFormConfig: this.configGenerator.getPostFormConfigGenerator().getEventConfig()
       },
       {
         name: "Тренинги",
         tableConfig: this.configGenerator.getTableConfigGenerator().getTrainingConfig(),
-        postFormConfig: this.configGenerator.getPostFormConfigGenerator().getProductsConfig()
+        postFormConfig: this.configGenerator.getPostFormConfigGenerator().getTrainingConfig()
       }
 
     ];

@@ -6,7 +6,7 @@ import { Observable } from "rxjs";
 import { Event } from "src/app/interfaces/models/event";
 import { map } from "rxjs/operators";
 import { Output } from "src/app/interfaces/output";
-import { FilterService } from 'src/app/engine/classes/filter-service/filter.service';
+import { FilterService } from "src/app/engine/classes/filter-service/filter.service";
 
 @Injectable({
   providedIn: "root"
