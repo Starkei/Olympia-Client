@@ -19,7 +19,8 @@ import { OnDestroy } from "@angular/core";
  * @implements {OnDestroy}
  * @template T
  */
-export class FilterService<T> extends DataQueryService implements Filterable, OnDestroy {
+export class FilterService<T> extends DataQueryService
+  implements Filterable, OnDestroy {
   private filterIterator: _.ListIterateeCustom<T, boolean>;
   private filterParams: any = {};
   private priceParams: any = {};
@@ -33,12 +34,16 @@ export class FilterService<T> extends DataQueryService implements Filterable, On
   protected searchFilterConfigure(categories: Array<Category>): void {
     for (const category of categories) {
       if (category.title == "Поиск") {
-        if (!category.fields[0].innerText || category.fields[0].innerText.length == 0) {
+        if (
+          !category.fields[0].innerText ||
+          category.fields[0].innerText.length == 0
+        ) {
           delete this.searchParams[category.dataFieldName];
           break;
         }
         let searchStr: string = category.fields[0].innerText.toUpperCase();
-        this.searchParams[category.dataFieldName] = (val: string): boolean => val.toUpperCase().indexOf(searchStr) >= 0;
+        this.searchParams[category.dataFieldName] = (val: string): boolean =>
+          val.toUpperCase().indexOf(searchStr) >= 0;
         break;
       }
     }
@@ -49,9 +54,13 @@ export class FilterService<T> extends DataQueryService implements Filterable, On
       if (category.title == "Цена") {
         let from: number = Number.parseFloat(category.fields[0].innerText);
         let to: number = Number.parseFloat(category.fields[1].innerText);
-        if (to && from) this.priceParams[category.dataFieldName] = val => from <= val && val <= to;
-        else if (from) this.priceParams[category.dataFieldName] = val => from <= val;
-        else if (to) this.priceParams[category.dataFieldName] = val => val <= to;
+        if (to && from)
+          this.priceParams[category.dataFieldName] = val =>
+            from <= val && val <= to;
+        else if (from)
+          this.priceParams[category.dataFieldName] = val => from <= val;
+        else if (to)
+          this.priceParams[category.dataFieldName] = val => val <= to;
         else delete this.priceParams[category.dataFieldName];
         return;
       }
@@ -63,9 +72,13 @@ export class FilterService<T> extends DataQueryService implements Filterable, On
       if (category.title == "Возраст") {
         let from: number = Number.parseFloat(category.fields[0].innerText);
         let to: number = Number.parseFloat(category.fields[1].innerText);
-        if (to && from) this.filterParams[category.dataFieldName] = val => from <= val.from && val.to <= to;
-        else if (from) this.filterParams[category.dataFieldName] = val => from <= val.from;
-        else if (to) this.filterParams[category.dataFieldName] = val => val.to <= to;
+        if (to && from)
+          this.filterParams[category.dataFieldName] = val =>
+            from <= val.from && val.to <= to;
+        else if (from)
+          this.filterParams[category.dataFieldName] = val => from <= val.from;
+        else if (to)
+          this.filterParams[category.dataFieldName] = val => val.to <= to;
         else delete this.filterParams[category.dataFieldName];
         return;
       }
@@ -77,9 +90,13 @@ export class FilterService<T> extends DataQueryService implements Filterable, On
       if (category.title == "Время работы") {
         let from: number = this.getTimeInSeconds(category.fields[0].innerText);
         let to: number = this.getTimeInSeconds(category.fields[1].innerText);
-        if (to && from) this.filterParams[category.dataFieldName] = val => from <= val.from && val.to <= to;
-        else if (from) this.filterParams[category.dataFieldName] = val => from <= val.from;
-        else if (to) this.filterParams[category.dataFieldName] = val => val.to <= to;
+        if (to && from)
+          this.filterParams[category.dataFieldName] = val =>
+            from <= val.from && val.to <= to;
+        else if (from)
+          this.filterParams[category.dataFieldName] = val => from <= val.from;
+        else if (to)
+          this.filterParams[category.dataFieldName] = val => val.to <= to;
         else delete this.filterParams[category.dataFieldName];
         return;
       }
@@ -91,9 +108,13 @@ export class FilterService<T> extends DataQueryService implements Filterable, On
       if (category.title == "Состав группы") {
         let from: number = Number.parseInt(category.fields[0].innerText);
         let to: number = Number.parseInt(category.fields[1].innerText);
-        if (to && from) this.filterParams[category.dataFieldName] = val => from <= val.from && val.to <= to;
-        else if (from) this.filterParams[category.dataFieldName] = val => from <= val.from;
-        else if (to) this.filterParams[category.dataFieldName] = val => val.to <= to;
+        if (to && from)
+          this.filterParams[category.dataFieldName] = val =>
+            from <= val.from && val.to <= to;
+        else if (from)
+          this.filterParams[category.dataFieldName] = val => from <= val.from;
+        else if (to)
+          this.filterParams[category.dataFieldName] = val => val.to <= to;
         else delete this.filterParams[category.dataFieldName];
         return;
       }
@@ -149,7 +170,8 @@ export class FilterService<T> extends DataQueryService implements Filterable, On
             this.filterParams[category.dataFieldName] = val =>
               checkbox.filter(value => val.includes(value)).length != 0;
           else if (isSelect)
-            this.filterParams[category.dataFieldName] = val => select.filter(value => val.includes(value)).length != 0;
+            this.filterParams[category.dataFieldName] = val =>
+              select.filter(value => val.includes(value)).length != 0;
           else if (!isInput) delete this.filterParams[category.dataFieldName];
         }
       }
@@ -200,17 +222,42 @@ export class FilterService<T> extends DataQueryService implements Filterable, On
     );
   }
 
-  public getFilteredData(filter: Filter, startAt: number, offset: number): Observable<Array<T>> {
+  public getFilteredData(
+    filter: Filter,
+    startAt: number,
+    offset: number
+  ): Observable<Array<T>> {
     this.applyFilters(filter);
     return this.getAllConvertedData<T>().pipe(
       map(
         (convertedData: Array<T>): Array<T> => {
           let data: Array<T> = _.filter<T>(convertedData, this.filterIterator);
           if ((startAt || startAt == 0) && offset) {
-            console.log(startAt, offset);
             return data.slice(startAt, startAt + offset);
           }
           return data;
+        }
+      )
+    );
+  }
+  public getPaginationData(
+    filter: Filter,
+    startAt: number,
+    offset: number
+  ): Observable<Array<T>> {
+    return this.convertData(
+      this.afs
+        .collection(this.collection, ref => {
+          return ref.orderBy("date", "asc");
+        })
+        .snapshotChanges()
+    ).pipe(
+      map(
+        (convertedData: Array<T>): Array<T> => {
+          if ((startAt || startAt == 0) && offset) {
+            return convertedData.slice(startAt, startAt + offset);
+          }
+          return convertedData;
         }
       )
     );
