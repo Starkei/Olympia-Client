@@ -72,7 +72,6 @@ export class AuthService extends DataQueryService {
       displayName,
       role
     };
-    console.log(user.uid);
     this.itemsCollection.doc<User>(user.uid).set(users);
   }
 
@@ -84,7 +83,6 @@ export class AuthService extends DataQueryService {
     role: string
   ) {
     let user = firebase.auth().currentUser;
-    console.log(user.uid);
     const users: User = {
       nameOrg,
       phone,
@@ -94,7 +92,6 @@ export class AuthService extends DataQueryService {
       adresOrg,
       role
     };
-    console.log(user.uid);
     this.itemsCollection.doc<User>(user.uid).set(users);
   }
 

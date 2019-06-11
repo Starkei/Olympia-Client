@@ -93,9 +93,7 @@ export class PostFormComponent implements OnInit {
       output = this.assignValueToDBField(checkboxData[key], [key], output);
     }
 
-    console.log(output);
-
-    //this.config.onPost(output);
+    this.config.onPost(output);
   }
   private assignValueToDBField(value: any, dbFieldName: Array<string>, output: Output): Output {
     if (!dbFieldName || !value)

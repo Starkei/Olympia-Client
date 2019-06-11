@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Output, EventEmitter } from "@angular/core";
 import { BreakpointObserver, BreakpointState, Breakpoints } from "@angular/cdk/layout";
 import { AuthService } from "src/app/services/auth/Auth.service";
 import { Observable } from "rxjs";
@@ -13,6 +13,7 @@ import { switchMap } from "rxjs/operators";
 export class NavBarComponent implements OnInit {
   user: Observable<User>;
   currentUser: User;
+  @Output() isInit: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   constructor(private breakpointObserver: BreakpointObserver, public userService: AuthService) { }
 
@@ -35,6 +36,10 @@ export class NavBarComponent implements OnInit {
 
     this.user = this.userService.user;
     this.user.subscribe(user => this.currentUser = user);
+  }
+
+  ngAfterViewInit(): void {
+    this.isInit.emit(true);
   }
 
   getUserRole(): string {

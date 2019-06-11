@@ -26,7 +26,11 @@ export class Crowdfunding {
         let inputForCreateType: Field = { fieldType: FieldType.input, inputType: "text", inputPlaceHolder: "Введите наименование типа" };
         let buttonForCreateType: Field = {
             fieldType: FieldType.button, title: "add", buttonType: "icon", onClick: () => {
-                productTypes.push({ fieldType: "checkbox", title: inputForCreateType.innerText, dbFieldName: ["type"] })
+                for (let index = 0; index < typeGroup.fields.length; index++) {
+                    if (inputForCreateType.innerText.trim().toLowerCase() === typeGroup.fields[index].title.trim().toLowerCase())
+                        return;
+                }
+                typeGroup.fields.push({ fieldType: "checkbox", title: inputForCreateType.innerText, dbFieldName: ["type"] })
                 inputForCreateType.innerText = "";
             }
         };
@@ -34,40 +38,14 @@ export class Crowdfunding {
         let inputForCreateUsage: Field = { fieldType: FieldType.input, inputType: "text", inputPlaceHolder: "Введите тип использования" };
         let buttonForCreateUsage: Field = {
             fieldType: FieldType.button, title: "add", buttonType: "icon", onClick: () => {
-                usage.push({ fieldType: "checkbox", title: inputForCreateType.innerText, dbFieldName: ["usage"] })
+                for (let index = 0; index < usageGroup.fields.length; index++) {
+                    if (inputForCreateUsage.innerText.trim().toLowerCase() === usageGroup.fields[index].title.trim().toLowerCase())
+                        return;
+                }
+                usageGroup.fields.push({ fieldType: "checkbox", title: inputForCreateUsage.innerText, dbFieldName: ["usage"] })
                 inputForCreateUsage.innerText = "";
             }
         };
-
-        let productTypes: Array<Field> = [
-
-        ];
-
-        let usage: Array<Field> = [
-
-        ];
-
-        this.service.getAllConvertedData().subscribe(data => {
-            let types: Array<string> = this.getAllCrowdfundingTypes(data);
-            for (const element of types) {
-                productTypes.push({
-                    fieldType: "checkbox",
-                    title: element,
-                    dbFieldName: ["type"]
-                });
-            }
-        });
-
-        this.service.getAllConvertedData().subscribe(data => {
-            let types: Array<string> = this.getAllCrowdfundingUsage(data);
-            for (const element of types) {
-                usage.push({
-                    fieldType: "checkbox",
-                    title: element,
-                    dbFieldName: ["usage"]
-                });
-            }
-        });
 
 
         let titleGroup: Group = {
@@ -93,7 +71,7 @@ export class Crowdfunding {
 
         let typeGroup: Group = {
             title: "Типы",
-            fields: productTypes
+            fields: []
         };
 
         let priceAndCurrency: Group = {
@@ -129,17 +107,17 @@ export class Crowdfunding {
                     fieldType: FieldType.button,
                     buttonType: "file",
                     dbFieldName: ["image"],
-                    pathToImages: "productsImages/",
+                    pathToImages: "crowdfunding/",
                 },
             ]
         };
         let usageCreationGroup: Group = {
             title: "Добавление применения",
-            fields: [inputForCreateUsage, buttonForCreateType]
+            fields: [inputForCreateUsage, buttonForCreateUsage]
         };
         let usageGroup: Group = {
             title: "Применение",
-            fields: usage
+            fields: []
         };
 
         let descriptionGroup: Group = {
@@ -152,6 +130,29 @@ export class Crowdfunding {
                 },
             ]
         }
+
+        this.service.getAllConvertedData().subscribe(data => {
+            let types: Array<string> = this.getAllCrowdfundingTypes(data);
+            let us: Array<string> = this.getAllCrowdfundingUsage(data);
+
+            for (const element of types) {
+                typeGroup.fields = typeGroup.fields.filter((field, index) => field.title !== element)
+                typeGroup.fields.push({
+                    fieldType: "checkbox",
+                    title: element,
+                    dbFieldName: ["type"]
+                });
+            }
+
+            for (const element of us) {
+                usageGroup.fields = usageGroup.fields.filter((field, index) => field.title !== element)
+                usageGroup.fields.push({
+                    fieldType: "checkbox",
+                    title: element,
+                    dbFieldName: ["usage"]
+                });
+            }
+        });
 
         let config: PostFormConfig = {
             collectionName: "Краудфандинг",
