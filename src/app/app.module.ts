@@ -55,6 +55,15 @@ import { MaxValueDirective } from "./directives/max-value/max-value.directive";
 import { EmailDirective } from "./directives/email/email.directive";
 import { NutritionistsComponent } from "./components/shared/nutritionists/nutritionists.component";
 import { NutritionistsService } from "./services/nutritionists/nutritionists.service";
+import { AgmCoreModule } from "@agm/core";
+import { GoogleMapComponent } from "./components/shared/google-map/google-map.component";
+import { WeatherComponent } from "./components/shared/weather/weather.component";
+
+import { HttpModule } from "@angular/http";
+import { WeatherService } from "./services/weather/weather.service";
+import { MinValueDirective } from "./directives/min-value/min-value.directive";
+import { MaxValueDirective } from "./directives/max-value/max-value.directive";
+import { EmailDirective } from "./directives/email/email.directive";
 
 export const firebaseConfig = environment.firebaseConfig;
 
@@ -90,6 +99,8 @@ export const firebaseConfig = environment.firebaseConfig;
     AdminPanelComponent,
     TableComponent,
     PostFormComponent,
+    GoogleMapComponent,
+    WeatherComponent,
     MinValueDirective,
     MaxValueDirective,
     EmailDirective,
@@ -107,7 +118,13 @@ export const firebaseConfig = environment.firebaseConfig;
     AngularFirestoreModule,
     ReactiveFormsModule,
     AngularFireStorageModule,
-    HttpClientModule
+    HttpClientModule,
+    AgmCoreModule.forRoot({
+      apiKey: "AIzaSyANwlhlYARVvcdu7Fr8-CoZnL7Y4kD-FKs"
+    }),
+    FormsModule,
+    ReactiveFormsModule,
+    HttpModule
   ],
   providers: [
     NewsService,
@@ -117,7 +134,8 @@ export const firebaseConfig = environment.firebaseConfig;
     EventService,
     CrowdfundingComponent,
     AuthService,
-    NutritionistsService
+    NutritionistsService,
+    WeatherService
   ],
   entryComponents: [
     ProductCreatorComponent,

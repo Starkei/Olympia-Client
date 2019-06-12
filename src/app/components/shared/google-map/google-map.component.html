@@ -1,0 +1,23 @@
+<div class="container" fxLayout="column">
+  <div *ngIf="latitude && longitude">
+    <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
+      <agm-marker [latitude]="latitude" [longitude]="longitude">
+        <agm-info-window>
+          <h3><strong>Приветствуем!</strong></h3>
+          <p>Вы находитесь здесь!</p>
+        </agm-info-window>
+      </agm-marker>
+      <div *ngFor="let m of items | async">
+        <agm-marker [latitude]="m.latitude" [longitude]="m.longitude">
+          <agm-info-window>
+            <h3>
+              <strong>{{ m.label }}</strong>
+            </h3>
+            <p>{{ m.adress }}</p>
+            <p>{{ m.phone }}</p>
+          </agm-info-window>
+        </agm-marker>
+      </div>
+    </agm-map>
+  </div>
+</div>

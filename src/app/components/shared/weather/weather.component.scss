@@ -1,0 +1,19 @@
+mat-card {
+  font: {
+    family: "Roboto";
+  }
+  margin: 4% auto;
+  text-align: center;
+  color: white;
+  background: #388e3c;
+  .img {
+    width: 80px;
+    height: 80px;
+    img {
+      margin-top: 15%;
+    }
+    margin: 0 35%;
+    border-radius: 50%;
+    background: white;
+  }
+}

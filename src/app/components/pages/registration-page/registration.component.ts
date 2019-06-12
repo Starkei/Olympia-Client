@@ -40,14 +40,10 @@ import {
   ]
 })
 export class RegistrationComponent implements OnInit {
-  // state: string;
-  // error: any;
-  // selectedFiles: FileList;
   isHovering: boolean;
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   isEditable = false;
-  // files: File[] = [];
   errorMessage: string;
   errorMessageAuth: string;
   successMessage: string;
@@ -73,11 +69,12 @@ export class RegistrationComponent implements OnInit {
   maxDate = new Date(2020, 0, 1);
 
   isSmallScreen: boolean = false;
+  router: any;
   constructor(
     public auth: AuthService,
     private _formBuilder: FormBuilder,
     private bp: BreakpointObserver
-  ) { }
+  ) {}
   ngOnInit() {
     this.isClicked = false;
     this.formGroup = this._formBuilder.group({
@@ -115,12 +112,12 @@ export class RegistrationComponent implements OnInit {
     this.auth.doRegister(value).then(
       res => {
         this.errorMessage = "";
-        this.successMessage = "Your account has been created";
-        this.successMessageLegal = "Your account has been created";
+        this.successMessage = "Ваш аккаунт успешно создан";
+        this.successMessageLegal = "Ваш аккаунт успешно создан";
       },
       err => {
-        this.errorMessage = err.message;
-        this.errorMessageLegal = err.message;
+        this.errorMessage = "Ваш аккаунт не был создан";
+        this.errorMessageLegal = "Ваш аккаунт не был создан";
         this.successMessage = "";
       }
     );
@@ -129,12 +126,11 @@ export class RegistrationComponent implements OnInit {
   tryAuth(value) {
     this.auth.login(value).then(
       res => {
-        console.log(res);
         this.errorMessageAuth = "";
-        this.successMessage = "Your account has been auth";
+        this.successMessage = "Ваш аккаунт авторизован";
       },
       err => {
-        this.errorMessageAuth = err.message;
+        this.errorMessageAuth = "Ваш аккаунт не был авторизован";
         this.successMessage = "";
       }
     );

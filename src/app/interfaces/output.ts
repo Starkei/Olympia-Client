@@ -60,4 +60,5 @@ export interface Output {
   productId?: string;
   userId?: string;
   profession?: string;
+  date?: any;
 }
