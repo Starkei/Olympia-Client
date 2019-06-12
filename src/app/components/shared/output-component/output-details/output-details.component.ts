@@ -80,5 +80,17 @@ export class OutputDetailsComponent implements OnInit {
     ]);
   }
 
-  ngOnInit() {}
+  redirect(url: string): void {
+    window.open(
+      url,
+      '_blank'
+    );
+  }
+
+  toLocalDate(date: Array<any>): Array<any> {
+    let options = { weekday: "long", year: "numeric", month: "long", day: "numeric", hour: "2-digit", minute: "2-digit" };
+    return date.map(d => d.toDate().toLocaleString(options));
+  }
+
+  ngOnInit() { }
 }

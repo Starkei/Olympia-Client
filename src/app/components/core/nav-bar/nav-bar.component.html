@@ -14,12 +14,14 @@
     <button mat-button routerLink="/sport">Спорт</button>
     <button mat-button routerLink="/crowdfunding">Краудфандинг</button>
     <button mat-button routerLink="/events">Мероприятия</button>
-    <button *ngIf="(user | async)" mat-button routerLink="/area">
+    <button *ngIf="user | async" mat-button routerLink="/area">
       Личный кабинет
     </button>
-    <button *ngIf="(user | async)" mat-button routerLink="/chats">Чаты</button>
     <button *ngIf="!(user | async)" mat-button routerLink="/registration">
       Авторизация/Регистрация
+    </button>
+    <button *ngIf="getUserRole() === 'Admin'" mat-button routerLink="/admin-panel">
+      Панель администратора
     </button>
   </span>
 </mat-toolbar>
@@ -38,9 +40,11 @@
       <a mat-list-item routerLink="/crowdfunding">Краудфандинг</a>
       <a mat-list-item routerLink="/events">Мероприятия</a>
 
-      <a *ngIf="(user | async)" mat-list-item routerLink="/area">Личный кабинет</a>
-      <a *ngIf="(user | async)" mat-list-item routerLink="/chats">Чаты</a>
-      <a mat-list-item routerLink="/registration">Регистрация</a>
+      <a *ngIf="user | async" mat-list-item routerLink="/area">Личный кабинет</a>
+      <a *ngIf="user | async" mat-list-item routerLink="/registration">Регистрация</a>
+      <a *ngIf="getUserRole() === 'Admin'" mat-list-item routerLink="/admin-panel"
+        >Панель администратора</a
+      >
     </mat-nav-list>
   </mat-sidenav>
 

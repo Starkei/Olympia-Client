@@ -46,6 +46,19 @@ import { ChatComponent } from "./components/pages/chat-page/chat.component";
 import { ProductCreatorComponent } from "./components/shared/creators/product-creator/product-creator.component";
 import { EditProfileComponent } from "./components/shared/edit-profile/edit-profile.component";
 import { AdwareComponent } from "./components/shared/adware/adware.component";
+import { AdminPanelComponent } from "./components/pages/admin-panel/admin-panel.component";
+import { TableComponent } from "./components/shared/admin-panel-component/table/table.component";
+import { HttpClientModule } from "@angular/common/http";
+import { PostFormComponent } from "./components/shared/admin-panel-component/post-form/post-form.component";
+import { AgmCoreModule } from "@agm/core";
+import { GoogleMapComponent } from "./components/shared/google-map/google-map.component";
+import { WeatherComponent } from "./components/shared/weather/weather.component";
+
+import { HttpModule } from "@angular/http";
+import { WeatherService } from "./services/weather/weather.service";
+import { MinValueDirective } from "./directives/min-value/min-value.directive";
+import { MaxValueDirective } from "./directives/max-value/max-value.directive";
+import { EmailDirective } from "./directives/email/email.directive";
 
 export const firebaseConfig = environment.firebaseConfig;
 
@@ -77,7 +90,15 @@ export const firebaseConfig = environment.firebaseConfig;
     ChatComponent,
     ProductCreatorComponent,
     EditProfileComponent,
-    AdwareComponent
+    AdwareComponent,
+    AdminPanelComponent,
+    TableComponent,
+    PostFormComponent,
+    GoogleMapComponent,
+    WeatherComponent,
+    MinValueDirective,
+    MaxValueDirective,
+    EmailDirective
   ],
   imports: [
     BrowserModule,
@@ -90,7 +111,14 @@ export const firebaseConfig = environment.firebaseConfig;
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFirestoreModule,
     ReactiveFormsModule,
-    AngularFireStorageModule
+    AngularFireStorageModule,
+    HttpClientModule,
+    AgmCoreModule.forRoot({
+      apiKey: "AIzaSyANwlhlYARVvcdu7Fr8-CoZnL7Y4kD-FKs"
+    }),
+    FormsModule,
+    ReactiveFormsModule,
+    HttpModule
   ],
   providers: [
     NewsService,
@@ -99,9 +127,14 @@ export const firebaseConfig = environment.firebaseConfig;
     CrowdfundingService,
     EventService,
     CrowdfundingComponent,
-    AuthService
+    AuthService,
+    WeatherService
   ],
-  entryComponents: [ProductCreatorComponent, EditProfileComponent, AdwareComponent],
+  entryComponents: [
+    ProductCreatorComponent,
+    EditProfileComponent,
+    AdwareComponent
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

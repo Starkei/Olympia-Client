@@ -6,12 +6,15 @@ import { Observable } from "rxjs";
 import { Event } from "src/app/interfaces/models/event";
 import { map } from "rxjs/operators";
 import { Output } from "src/app/interfaces/output";
+import { FilterService } from "src/app/engine/classes/filter-service/filter.service";
 
 @Injectable({
   providedIn: "root"
 })
-export class EventService implements Filterable {
-  constructor(private afs: AngularFirestore) {}
+export class EventService extends FilterService<Event> {
+  constructor(afs: AngularFirestore) {
+    super(afs, "events");
+  }
 
   getFilteredData(filter: Filter): Observable<Array<Event>> {
     return this.afs

@@ -57,4 +57,7 @@ export interface Output {
   senderId?: string;
   recipientId?: string;
   message?: string;
+  productId?: string;
+  userId?: string;
+  date?: any;
 }

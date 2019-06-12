@@ -1,0 +1,31 @@
+mat-form-field {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+mat-radio-button {
+  display: flex;
+  justify-content: left;
+}
+
+div.left {
+  display: flex;
+  justify-content: left;
+}
+
+div.list {
+  display: flex;
+  flex-direction: column;
+}
+
+div {
+  display: flex;
+  justify-content: center;
+  input[type="file"] {
+    display: none;
+  }
+}
+
+mat-form-field.full {
+  width: 100%;
+}

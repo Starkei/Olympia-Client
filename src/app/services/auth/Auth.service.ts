@@ -72,7 +72,6 @@ export class AuthService extends DataQueryService {
       displayName,
       role
     };
-    console.log(user.uid);
     this.itemsCollection.doc<User>(user.uid).set(users);
   }
 
@@ -84,7 +83,6 @@ export class AuthService extends DataQueryService {
     role: string
   ) {
     let user = firebase.auth().currentUser;
-    console.log(user.uid);
     const users: User = {
       nameOrg,
       phone,
@@ -94,17 +92,30 @@ export class AuthService extends DataQueryService {
       adresOrg,
       role
     };
-    console.log(user.uid);
     this.itemsCollection.doc<User>(user.uid).set(users);
   }
 
   googleLogin(): Promise<void> {
     const provider = new auth.GoogleAuthProvider();
-    return this.oAuthLogin(provider);
+    return new Promise<any>((resolve, reject) => {
+      this.oAuthLogin(provider).then(
+        credential => {
+          resolve(this.router.navigate(["/area"]));
+        },
+        err => reject(err)
+      );
+    });
   }
   facebookLogin(): Promise<void> {
     const provider = new auth.FacebookAuthProvider();
-    return this.oAuthLogin(provider);
+    return new Promise<any>((resolve, reject) => {
+      this.oAuthLogin(provider).then(
+        credential => {
+          resolve(this.router.navigate(["/area"]));
+        },
+        err => reject(err)
+      );
+    });
   }
 
   private oAuthLogin(provider: any): Promise<void> {

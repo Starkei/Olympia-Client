@@ -7,11 +7,12 @@ import { map } from "rxjs/operators";
 import { Adware } from "src/app/interfaces/models/adware";
 import { ConvertedAdware } from "src/app/interfaces/converted-adware";
 import { User } from "src/app/interfaces/auth";
+import { FilterService } from "src/app/engine/classes/filter-service/filter.service";
 
 @Injectable({
   providedIn: "root"
 })
-export class AdwareService extends DataQueryService {
+export class AdwareService extends FilterService<Adware> {
   constructor(afs: AngularFirestore) {
     super(afs, "adware");
   }

@@ -12,6 +12,7 @@ import { EventsComponent } from "./components/pages/events-page/events.component
 import { OutputDetailsComponent } from "./components/shared/output-component/output-details/output-details.component";
 import { UploaderComponent } from "./components/shared/uploader/uploader/uploader.component";
 import { ChatComponent } from "./components/pages/chat-page/chat.component";
+import { AdminPanelComponent } from "./components/pages/admin-panel/admin-panel.component";
 
 const routes: Routes = [
   { path: "", redirectTo: "/main", pathMatch: "full" },
@@ -35,6 +36,10 @@ const routes: Routes = [
   {
     path: "chats",
     component: ChatComponent
+  },
+  {
+    path: "admin-panel",
+    component: AdminPanelComponent,
   }
 ];
 
@@ -42,4 +47,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
