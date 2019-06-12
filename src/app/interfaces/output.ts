@@ -59,5 +59,6 @@ export interface Output {
   message?: string;
   productId?: string;
   userId?: string;
+  profession?: string;
   date?: any;
 }
