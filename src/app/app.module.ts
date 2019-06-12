@@ -5,16 +5,13 @@ import { AppComponent } from "./app.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MaterialModule } from "./modules/material/material.module";
 import { NewsService } from "./services/news/news.service";
-
 import { ProductService } from "./services/product/product.service";
 import { OthersModule } from "./modules/others/others.module";
 import { ScrollingDirective } from "./directives/scrolling/scrolling.directive";
 import { AuthService } from "./services/auth/Auth.service";
-
 import { AngularFireAuthModule } from "@angular/fire/auth";
 import { AngularFireModule } from "@angular/fire";
 import { AngularFirestoreModule } from "@angular/fire/firestore";
-
 import { environment } from "../environments/environment";
 import { TextLengthPipe } from "./pipes/text-length/text-length.pipe";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
@@ -51,7 +48,9 @@ import { TableComponent } from "./components/shared/admin-panel-component/table/
 import { HttpClientModule } from "@angular/common/http";
 import { PostFormComponent } from "./components/shared/admin-panel-component/post-form/post-form.component";
 import { AddEventDialogComponent } from "./components/shared/add-event-dialog/add-event-dialog.component";
-
+import { AddProductDialogComponent } from "./components/shared/add-product-dialog/add-product-dialog.component";
+import { AddTrainingDialogComponent } from "./components/shared/add-training-dialog/add-training-dialog.component";
+import { AddSportDialogComponent } from "./components/shared/add-sport-dialog/add-sport-dialog.component";
 export const firebaseConfig = environment.firebaseConfig;
 
 @NgModule({
@@ -86,7 +85,10 @@ export const firebaseConfig = environment.firebaseConfig;
     AdminPanelComponent,
     TableComponent,
     PostFormComponent,
-    AddEventDialogComponent
+    AddEventDialogComponent,
+    AddProductDialogComponent,
+    AddTrainingDialogComponent,
+    AddSportDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -115,7 +117,10 @@ export const firebaseConfig = environment.firebaseConfig;
     ProductCreatorComponent,
     EditProfileComponent,
     AdwareComponent,
-    AddEventDialogComponent
+    AddEventDialogComponent,
+    AddProductDialogComponent,
+    AddSportDialogComponent,
+    AddTrainingDialogComponent
   ],
   bootstrap: [AppComponent]
 })

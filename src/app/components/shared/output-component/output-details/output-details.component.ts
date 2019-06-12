@@ -1,10 +1,17 @@
 import { Component, OnInit } from "@angular/core";
 import { Output } from "src/app/interfaces/output";
 import { ActivatedRoute, Router, ParamMap } from "@angular/router";
-import { AngularFirestore } from "@angular/fire/firestore";
+import {
+  AngularFirestore,
+  AngularFirestoreDocument,
+  AngularFirestoreCollection
+} from "@angular/fire/firestore";
 import * as _ from "lodash";
 import { map } from "rxjs/operators";
 import { Observable } from "rxjs";
+import { User } from "src/app/interfaces/auth";
+import { AuthService } from "src/app/services/auth/Auth.service";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: "app-output-details",
@@ -12,14 +19,21 @@ import { Observable } from "rxjs";
   styleUrls: ["./output-details.component.scss"]
 })
 export class OutputDetailsComponent implements OnInit {
+  private outputCollection: AngularFirestoreCollection<Output>;
   output: Output;
   adware: Observable<Array<Output>>;
-  collection: string;
 
+  collection: string;
+  user: User;
+  username: string;
+  comment: string;
+  uid: string;
+  userSubscribtion: Subscription;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private afs: AngularFirestore
+    private afs: AngularFirestore,
+    public auth: AuthService
   ) {
     this.route.paramMap.subscribe(
       (data: ParamMap): void => {
@@ -31,11 +45,51 @@ export class OutputDetailsComponent implements OnInit {
           .subscribe(
             (d: Output): void => {
               this.output = d;
+              this.uid = data.get("uid");
+              //console.log(data.get("uid"));
               this.getFirstFive(data.get("collection"));
             }
           );
       }
     );
+  }
+  // zachem nam obrabotka, kogda ono eshe ne rabotaet
+  addComment() {
+    let username = this.username;
+    let comment = this.comment;
+    let item = { username, comment };
+    console.log(item);
+    console.log("username from add = " + this.username);
+    let a = this.output.time;
+
+    this.updateDocumentForCollection(item, this.uid, this.collection);
+    console.log("adware = " + this.adware);
+    console.log("output = " + this.output);
+    console.log("collection =  " + this.collection);
+    console.log("uid = " + this.uid);
+  }
+
+  public updateDocumentForCollection<T>(
+    data: T,
+    documentId: string,
+    collection: string
+  ): void {
+    this.afs
+      .collection(collection)
+      .doc(documentId)
+      .update(data);
+  }
+  getInfoAboutUser() {
+    this.userSubscribtion = this.auth.user.subscribe(data => {
+      this.user = data;
+      this.username = data.userName;
+      // console.log("displayName = " + data.displayName);
+      // console.log("userName = " + data.userName);
+      // console.log("data = " + data);
+      // console.log("user = " + this.user);
+      // console.log("username = " + this.username);
+      // console.log("sub = " + this.userSubscribtion);
+    });
   }
 
   getFirstFive(collection: string): void {
@@ -80,5 +134,7 @@ export class OutputDetailsComponent implements OnInit {
     ]);
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getInfoAboutUser();
+  }
 }

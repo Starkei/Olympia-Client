@@ -116,5 +116,9 @@
         <mat-spinner></mat-spinner>
       </div>
     </ng-template>
+    <input matInput [(ngModel)]="comment" placeholder="Введите comment" />
+    <button mat-raised-button (click)="addComment()">
+      Добавить comment
+    </button>
   </div>
 </div>

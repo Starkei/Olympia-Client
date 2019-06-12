@@ -23,6 +23,9 @@ import { ProductCreatorComponent } from "../../shared/creators/product-creator/p
 import { Subscription } from "rxjs";
 import { EditProfileComponent } from "../../shared/edit-profile/edit-profile.component";
 import { AddEventDialogComponent } from "../../shared/add-event-dialog/add-event-dialog.component";
+import { AddProductDialogComponent } from "../../shared/add-product-dialog/add-product-dialog.component";
+import { AddTrainingDialogComponent } from "../../shared/add-training-dialog/add-training-dialog.component";
+import { AddSportDialogComponent } from "../../shared/add-sport-dialog/add-sport-dialog.component";
 import { switchMap } from "rxjs/operators";
 @Component({
   selector: "app-personal-area",
@@ -33,6 +36,9 @@ export class PersonalAreaComponent implements OnInit, OnDestroy {
   area: Array<any> = [];
   prod: Array<any> = [];
   myevents: Array<any> = [];
+  myprod: Array<any> = [];
+  mysport: Array<any> = [];
+  mytr: Array<any> = [];
 
   private itemsCollection: AngularFirestoreCollection<Event>;
   private fxSizeEvent: number = 0;
@@ -54,7 +60,7 @@ export class PersonalAreaComponent implements OnInit, OnDestroy {
     private afs: AngularFirestore,
     public uploader: UploaderService
   ) {
-    this.itemsCollection = afs.collection<Event>("events");
+    // this.itemsCollection = afs.collection<Event>("events");
   }
 
   ngOnInit() {
@@ -113,6 +119,9 @@ export class PersonalAreaComponent implements OnInit, OnDestroy {
     this.getFavoriteEvents();
     this.getFavoriteProduct();
     this.getMyEvents();
+    this.getMyProduct();
+    this.getMySport();
+    this.getMyTraining();
   }
 
   public getFavoriteEvents(): void {
@@ -126,6 +135,7 @@ export class PersonalAreaComponent implements OnInit, OnDestroy {
       }
     });
   }
+
   public getMyEvents(): void {
     this.userSubscribtion = this.auth.user.subscribe(data => {
       for (let myev of data.myEvents) {
@@ -135,6 +145,114 @@ export class PersonalAreaComponent implements OnInit, OnDestroy {
             this.myevents.push(data);
           });
       }
+    });
+    console.log(this.myevents);
+  }
+
+  openAddEvent(): void {
+    let dialogRef = this.dialog.open(AddEventDialogComponent, {
+      data: { myevent: this.myevents }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.myevents = [];
+      this.area = [];
+      this.myprod = [];
+      this.prod = [];
+      this.getFavoriteEvents();
+      this.getFavoriteProduct();
+      this.getMyProduct();
+      this.getMyEvents();
+      this.mysport = [];
+      this.mytr = [];
+      this.getMySport();
+      this.getMyTraining();
+    });
+  }
+
+  public getMyProduct(): void {
+    this.userSubscribtion = this.auth.user.subscribe(data => {
+      for (let mypr of data.myProducts) {
+        this.eventService
+          .getConvertedDocumentFromCollection(mypr, "products")
+          .subscribe(data => {
+            this.myprod.push(data);
+          });
+      }
+    });
+    console.log(this.myprod);
+  }
+
+  openAddProduct(): void {
+    let dialogRef = this.dialog.open(AddProductDialogComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      this.myevents = [];
+      this.area = [];
+      this.prod = [];
+      this.getFavoriteEvents();
+      this.getFavoriteProduct();
+      this.getMyEvents();
+      this.myprod = [];
+      this.getMyProduct();
+      this.mysport = [];
+      this.mytr = [];
+      this.getMySport();
+      this.getMyTraining();
+    });
+  }
+  public getMySport(): void {
+    this.userSubscribtion = this.auth.user.subscribe(data => {
+      for (let mypr of data.mySports) {
+        this.eventService
+          .getConvertedDocumentFromCollection(mypr, "sports")
+          .subscribe(data => {
+            this.mysport.push(data);
+          });
+      }
+    });
+  }
+  openAddSport(): void {
+    let dialogRef = this.dialog.open(AddSportDialogComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      this.myevents = [];
+      this.area = [];
+      this.prod = [];
+      this.getFavoriteEvents();
+      this.getFavoriteProduct();
+      this.getMyEvents();
+      this.myprod = [];
+      this.getMyProduct();
+      this.mysport = [];
+      this.mytr = [];
+      this.getMySport();
+      this.getMyTraining();
+    });
+  }
+  public getMyTraining(): void {
+    this.userSubscribtion = this.auth.user.subscribe(data => {
+      for (let mypr of data.myTrainings) {
+        this.eventService
+          .getConvertedDocumentFromCollection(mypr, "trainings")
+          .subscribe(data => {
+            this.mytr.push(data);
+          });
+      }
+    });
+  }
+  openAddTraining(): void {
+    let dialogRef = this.dialog.open(AddTrainingDialogComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      this.myevents = [];
+      this.area = [];
+      this.prod = [];
+      this.getFavoriteEvents();
+      this.getFavoriteProduct();
+      this.getMyEvents();
+      this.myprod = [];
+      this.getMyProduct();
+      this.mysport = [];
+      this.mytr = [];
+      this.getMySport();
+      this.getMyTraining();
     });
   }
   public getFavoriteProduct(): void {
@@ -161,6 +279,34 @@ export class PersonalAreaComponent implements OnInit, OnDestroy {
     this.router.navigate([
       "output-details",
       { uid: item.id, collection: "products" }
+    ]);
+  }
+  followMyProducts(item: any): void {
+    //console.log(item);
+    this.router.navigate([
+      "output-details",
+      { uid: item.id, collection: "shop" }
+    ]);
+  }
+  followMyEvent(item: any): void {
+    //console.log(item);
+    this.router.navigate([
+      "output-details",
+      { uid: item.id, collection: "events" }
+    ]);
+  }
+  followMyTraining(item: any): void {
+    //console.log(item);
+    this.router.navigate([
+      "output-details",
+      { uid: item.id, collection: "training" }
+    ]);
+  }
+  followMySport(item: any): void {
+    //console.log(item);
+    this.router.navigate([
+      "output-details",
+      { uid: item.id, collection: "sport" }
     ]);
   }
   ngOnDestroy() {
@@ -235,11 +381,5 @@ export class PersonalAreaComponent implements OnInit, OnDestroy {
       EditProfileComponent
     );
     this.showSnackBar<EditProfileComponent>(ref);
-  }
-  openAddEvent(): void {
-    const dialogRef = this.dialog.open(AddEventDialogComponent);
-    dialogRef.afterClosed().subscribe(result => {
-      console.log("The dialog was closed");
-    });
   }
 }

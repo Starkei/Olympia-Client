@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from "@angular/core";
-import { Event } from "src/app/interfaces/models/event";
+import { Product } from "src/app/interfaces/models/product";
 import { UploaderService } from "src/app/services/uploader-service/uploader.service";
 import { AuthService } from "src/app/services/auth/Auth.service";
 import { EventService } from "src/app/services/event/event.service";
@@ -19,21 +19,23 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { auth } from "firebase";
 
 @Component({
-  selector: "app-add-event-dialog",
-  templateUrl: "./add-event-dialog.component.html",
-  styleUrls: ["./add-event-dialog.component.scss"]
+  selector: "app-add-product-dialog",
+  templateUrl: "./add-product-dialog.component.html",
+  styleUrls: ["./add-product-dialog.component.scss"]
 })
-export class AddEventDialogComponent implements OnInit {
-  private itemsCollection: AngularFirestoreCollection<Event>;
+export class AddProductDialogComponent implements OnInit {
+  private itemsCollection: AngularFirestoreCollection<Product>;
   uid: string;
   myFirstReactiveForm: FormGroup;
   title: string = "";
   typeError: boolean = false;
   description: string = "";
-  address: string = "";
   image: string = "";
-  phoneNumbers: Array<any> = [];
-  //time: string = "";
+  moreInfo: string;
+  price: number;
+  currency: string;
+  firm: string;
+  type: Array<string>;
   selectedFile: File = null;
   user: User;
   userSubscribtion: Subscription;
@@ -43,13 +45,11 @@ export class AddEventDialogComponent implements OnInit {
   constructor(
     public uploader: UploaderService,
     private afs: AngularFirestore,
-    public dialogRef: MatDialogRef<AddEventDialogComponent>,
+    public dialogRef: MatDialogRef<AddProductDialogComponent>,
     public auth: AuthService,
-    private fb: FormBuilder,
-    private eventService: EventService,
-    @Inject(MAT_DIALOG_DATA) public myevent: Array<any>
+    private fb: FormBuilder
   ) {
-    this.itemsCollection = afs.collection<Event>("events");
+    this.itemsCollection = afs.collection<Product>("products");
   }
 
   ngOnInit() {
@@ -59,8 +59,11 @@ export class AddEventDialogComponent implements OnInit {
     this.myFirstReactiveForm = this.fb.group({
       title: ["", [Validators.required, Validators.minLength(5)]],
       description: ["", [Validators.required, Validators.minLength(5)]],
-      phoneNumbers: ["", [Validators.required, Validators.minLength(13)]],
-      address: ["", [Validators.required, Validators.minLength(5)]]
+      moreInfo: ["", [Validators.required, Validators.minLength(5)]],
+      price: ["", [Validators.required, Validators.minLength(1)]],
+      currency: ["", [Validators.required, Validators.minLength(3)]],
+      firm: ["", [Validators.required, Validators.minLength(5)]],
+      type: ["", [Validators.required, Validators.minLength(5)]]
     });
   }
   isControlInvalid(controlName: string): boolean {
@@ -72,32 +75,42 @@ export class AddEventDialogComponent implements OnInit {
   async addItem() {
     let url: string = await this.uploader.uploadFile(
       this.selectedFile,
-      "events/"
+      "productsImages/"
     );
     let i: number = 1;
     const id = this.afs.createId();
     const title = this.title;
     const description = this.description;
-    const address = this.address;
     const image = url;
-    const phoneNumbers = this.phoneNumbers;
-    //const time = this.time;
-    const item = { id, title, description, address, image, phoneNumbers };
-    if (this.typeError == false) {
-      this.itemsCollection.valueChanges();
-      this.itemsCollection.doc(id).set(item);
-      this.getInfo();
-      this.userSubscribtion = this.auth.user.subscribe(data => {
-        while (i == 1) {
-          data.myEvents.push(item.id);
-          this.user = data;
-          this.auth.updateDocument(this.user, this.uid);
-          i--;
-        }
-      });
-      this.onClose();
-    }
-    this.itemsCollection = this.afs.collection<Event>("events");
+    const moreInfo = this.moreInfo;
+    const price = this.price;
+    const currency = this.currency;
+    const firm = this.firm;
+    const type = this.type;
+    const item = {
+      id,
+      title,
+      description,
+      image,
+      moreInfo,
+      price,
+      currency,
+      firm,
+      type
+    };
+    this.itemsCollection.valueChanges();
+    this.itemsCollection.doc(id).set(item);
+    this.getInfo();
+    this.userSubscribtion = this.auth.user.subscribe(data => {
+      while (i == 1) {
+        data.myProducts.push(item.id);
+        this.user = data;
+        this.auth.updateDocument(this.user, this.uid);
+        i--;
+      }
+    });
+    this.onClose();
+    this.itemsCollection = this.afs.collection<Product>("products");
   }
   onClose(): void {
     this.dialogRef.close();

@@ -41,8 +41,21 @@
         >
           Перейти
         </button>
-        <button mat-icon-button *ngIf="btnLike" color="warn">
+        <button
+          mat-icon-button
+          *ngIf="btnLike && eventLike"
+          color="warn"
+          (click)="addFavEvent(item)"
+        >
           <mat-icon>favorite</mat-icon>
+        </button>
+        <button
+          mat-icon-button
+          *ngIf="btnLike && productLike"
+          color="warn"
+          (click)="addFavProduct(item)"
+        >
+          <mat-icon>favorite </mat-icon>
         </button>
       </mat-card-actions>
     </mat-card>

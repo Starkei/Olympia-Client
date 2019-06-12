@@ -1,5 +1,8 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild, OnDestroy } from "@angular/core";
 import { TrainingService } from "src/app/services/training/training.service";
+import { FilterComponent } from "../../shared/filter-component/filter/filter.component";
+import { TrainingFilter } from "src/app/classes/training-filter/training-filter";
+
 import {
   BreakpointObserver,
   Breakpoints,
@@ -11,11 +14,14 @@ import {
   styleUrls: ["./training.component.scss"]
 })
 export class TrainingComponent implements OnInit {
+  @ViewChild(FilterComponent) filterComponent: FilterComponent;
+  filter: TrainingFilter;
   fxFlex: number = 30;
   constructor(
     public trainingService: TrainingService,
     private breakpointObserver: BreakpointObserver
   ) {
+    this.filter = new TrainingFilter(this.trainingService);
     this.breakpointObserver
       .observe(["(max-width: 870px)"])
       .subscribe((result: BreakpointState) => {
@@ -30,4 +36,7 @@ export class TrainingComponent implements OnInit {
   }
 
   ngOnInit() {}
+  ngOnDestroy(): void {
+    this.trainingService.ngOnDestroy();
+  }
 }

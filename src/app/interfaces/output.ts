@@ -59,4 +59,5 @@ export interface Output {
   message?: string;
   productId?: string;
   userId?: string;
+  comment?: Array<any>;
 }

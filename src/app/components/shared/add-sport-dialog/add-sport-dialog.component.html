@@ -5,7 +5,7 @@
       fxLayoutAlign="space-around center"
       [formGroup]="myFirstReactiveForm"
     >
-      <h3>Название события</h3>
+      <h3>Название продукта</h3>
       <mat-form-field>
         <input
           matInput
@@ -17,7 +17,7 @@
           Зaполните поле
         </div>
       </mat-form-field>
-      <h3>Описание события</h3>
+      <h3>Описание продукта</h3>
       <mat-form-field>
         <textarea
           matInput
@@ -29,38 +29,44 @@
           Зaполните поле
         </div>
       </mat-form-field>
-      <h3>Адрес события</h3>
+      <h3>Больше информации о продукте</h3>
       <mat-form-field>
         <input
+          [(ngModel)]="moreInfo"
+          formControlName="moreInfo"
           matInput
-          [(ngModel)]="address"
-          formControlName="address"
-          placeholder="Введите адрес"
+          placeholder="Введите moreInfo"
         />
-        <div class="error" *ngIf="isControlInvalid('address')">
+        <div class="error" *ngIf="isControlInvalid('moreInfo')">
           Зaполните поле
         </div>
       </mat-form-field>
-      <h3>Дата события</h3>
-      <mat-form-field>
-        <input matInput [matDatepicker]="picker" placeholder="Choose a date" />
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-      </mat-form-field>
-      <h3>Время события</h3>
-      <input type="time" />
-      <h3>Контакты</h3>
+      <h3>Цена</h3>
       <mat-form-field>
         <input
-          [(ngModel)]="phoneNumbers"
-          formControlName="phoneNumbers"
+          [(ngModel)]="price"
+          formControlName="price"
           matInput
-          placeholder="Введите номер"
+          placeholder="Введите price"
         />
-        <div class="error" *ngIf="isControlInvalid('phoneNumbers')">
+        <div class="error" *ngIf="isControlInvalid('price')">
           Зaполните поле
         </div>
       </mat-form-field>
+
+      <h3>Тип товара</h3>
+      <mat-form-field>
+        <input
+          [(ngModel)]="type"
+          formControlName="type"
+          matInput
+          placeholder="Введите type"
+        />
+        <div class="error" *ngIf="isControlInvalid('type')">
+          Зaполните поле
+        </div>
+      </mat-form-field>
+
       <h3>Картинка</h3>
       <button mat-raised-button (click)="inputFile.click()">
         Выберите файл
@@ -74,7 +80,7 @@
         class="inputfile"
       />
       <button [disabled]="typeError" mat-raised-button (click)="addItem()">
-        Добавить событие
+        Добавить спорт-клуб
       </button>
       <button mat-raised-button (click)="onClose()">
         Закрыть
