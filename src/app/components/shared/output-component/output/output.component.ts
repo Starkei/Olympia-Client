@@ -37,7 +37,7 @@ export class OutputComponent implements OnInit {
   constructor(
     private breakpointObserver: BreakpointObserver,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.service.getFilteredData(this.filter).subscribe(
@@ -67,11 +67,12 @@ export class OutputComponent implements OnInit {
       });
     }
 
-    this.items = this.service.getPaginationData(
-      this.filter,
-      0,
-      this.itemsPerPage
-    );
+    if (!this.filter)
+      this.items = this.service.getPaginationData(
+        this.filter,
+        0,
+        this.itemsPerPage
+      );
   }
 
   assignItems(): void {
