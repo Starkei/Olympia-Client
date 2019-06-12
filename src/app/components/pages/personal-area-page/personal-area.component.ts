@@ -48,7 +48,7 @@ export class PersonalAreaComponent implements OnInit, OnDestroy {
     private snackBar: MatSnackBar,
     private afs: AngularFirestore,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.bp
@@ -67,8 +67,6 @@ export class PersonalAreaComponent implements OnInit, OnDestroy {
             this.fxSizeStat = 23;
             this.fxSizeUser = 58;
             this.fxSizeChat = 42;
-            console.clear();
-            console.log("Large");
           }
           if (result.breakpoints[Breakpoints.Medium]) {
             this.fxSizeEvent = 29;
@@ -77,8 +75,6 @@ export class PersonalAreaComponent implements OnInit, OnDestroy {
             this.fxSizeStat = 40;
             this.fxSizeUser = 50;
             this.fxSizeChat = 36;
-            console.clear();
-            console.log("Medium");
           }
           if (result.breakpoints[Breakpoints.Small]) {
             this.fxSizeEvent = 45;
@@ -87,8 +83,6 @@ export class PersonalAreaComponent implements OnInit, OnDestroy {
             this.fxSizeStat = 40;
             this.fxSizeUser = 45;
             this.fxSizeChat = 36;
-            console.clear();
-            console.log("Small");
           }
           if (result.breakpoints[Breakpoints.XSmall]) {
             this.fxSizeEvent = 90;
@@ -97,8 +91,6 @@ export class PersonalAreaComponent implements OnInit, OnDestroy {
             this.fxSizeStat = 90;
             this.fxSizeUser = 30;
             this.fxSizeChat = 30;
-            console.clear();
-            console.log("XSmall");
           }
         }
       );
@@ -115,7 +107,6 @@ export class PersonalAreaComponent implements OnInit, OnDestroy {
           "events"
         ).subscribe(data => {
           this.area.push(data);
-         // console.log(this.area);
         });
       }
     });
@@ -128,7 +119,6 @@ export class PersonalAreaComponent implements OnInit, OnDestroy {
           "products"
         ).subscribe(data => {
           this.prod.push(data);
-         // console.log(this.prod);
         });
       }
     });

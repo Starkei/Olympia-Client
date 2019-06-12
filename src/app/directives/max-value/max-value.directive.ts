@@ -4,7 +4,7 @@ import { MinValueDirective } from '../min-value/min-value.directive';
 
 @Directive({
   selector: '[maxValue][ngModel]',
-  providers: [{ provide: NG_VALIDATORS, useExisting: MinValueDirective, multi: true }]
+  providers: [{ provide: NG_VALIDATORS, useExisting: MaxValueDirective, multi: true }]
 })
 export class MaxValueDirective {
   @Input()

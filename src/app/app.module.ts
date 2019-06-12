@@ -59,6 +59,9 @@ import { WeatherService } from "./services/weather/weather.service";
 import { MinValueDirective } from "./directives/min-value/min-value.directive";
 import { MaxValueDirective } from "./directives/max-value/max-value.directive";
 import { EmailDirective } from "./directives/email/email.directive";
+import { PhoneDirective } from './directives/phone/phone.directive';
+import { LowerThenDirective } from './directives/lower-then/lower-then.directive';
+import { GreaterThenDirective } from './directives/greater-then/greater-then.directive';
 
 export const firebaseConfig = environment.firebaseConfig;
 
@@ -98,7 +101,10 @@ export const firebaseConfig = environment.firebaseConfig;
     WeatherComponent,
     MinValueDirective,
     MaxValueDirective,
-    EmailDirective
+    EmailDirective,
+    PhoneDirective,
+    LowerThenDirective,
+    GreaterThenDirective
   ],
   imports: [
     BrowserModule,
