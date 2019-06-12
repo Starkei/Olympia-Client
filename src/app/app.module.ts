@@ -50,15 +50,17 @@ import { AdminPanelComponent } from "./components/pages/admin-panel/admin-panel.
 import { TableComponent } from "./components/shared/admin-panel-component/table/table.component";
 import { HttpClientModule } from "@angular/common/http";
 import { PostFormComponent } from "./components/shared/admin-panel-component/post-form/post-form.component";
+import { MinValueDirective } from "./directives/min-value/min-value.directive";
+import { MaxValueDirective } from "./directives/max-value/max-value.directive";
+import { EmailDirective } from "./directives/email/email.directive";
+import { NutritionistsComponent } from "./components/shared/nutritionists/nutritionists.component";
+import { NutritionistsService } from "./services/nutritionists/nutritionists.service";
 import { AgmCoreModule } from "@agm/core";
 import { GoogleMapComponent } from "./components/shared/google-map/google-map.component";
 import { WeatherComponent } from "./components/shared/weather/weather.component";
 
 import { HttpModule } from "@angular/http";
 import { WeatherService } from "./services/weather/weather.service";
-import { MinValueDirective } from "./directives/min-value/min-value.directive";
-import { MaxValueDirective } from "./directives/max-value/max-value.directive";
-import { EmailDirective } from "./directives/email/email.directive";
 import { PhoneDirective } from './directives/phone/phone.directive';
 import { LowerThenDirective } from './directives/lower-then/lower-then.directive';
 import { GreaterThenDirective } from './directives/greater-then/greater-then.directive';
@@ -104,7 +106,8 @@ export const firebaseConfig = environment.firebaseConfig;
     EmailDirective,
     PhoneDirective,
     LowerThenDirective,
-    GreaterThenDirective
+    GreaterThenDirective,
+    NutritionistsComponent
   ],
   imports: [
     BrowserModule,
@@ -134,6 +137,7 @@ export const firebaseConfig = environment.firebaseConfig;
     EventService,
     CrowdfundingComponent,
     AuthService,
+    NutritionistsService,
     WeatherService
   ],
   entryComponents: [
@@ -143,4 +147,4 @@ export const firebaseConfig = environment.firebaseConfig;
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }
