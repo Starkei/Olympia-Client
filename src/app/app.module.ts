@@ -50,9 +50,11 @@ import { AdminPanelComponent } from "./components/pages/admin-panel/admin-panel.
 import { TableComponent } from "./components/shared/admin-panel-component/table/table.component";
 import { HttpClientModule } from "@angular/common/http";
 import { PostFormComponent } from "./components/shared/admin-panel-component/post-form/post-form.component";
-import { MinValueDirective } from './directives/min-value/min-value.directive';
-import { MaxValueDirective } from './directives/max-value/max-value.directive';
-import { EmailDirective } from './directives/email/email.directive';
+import { MinValueDirective } from "./directives/min-value/min-value.directive";
+import { MaxValueDirective } from "./directives/max-value/max-value.directive";
+import { EmailDirective } from "./directives/email/email.directive";
+import { NutritionistsComponent } from "./components/shared/nutritionists/nutritionists.component";
+import { NutritionistsService } from "./services/nutritionists/nutritionists.service";
 
 export const firebaseConfig = environment.firebaseConfig;
 
@@ -90,7 +92,8 @@ export const firebaseConfig = environment.firebaseConfig;
     PostFormComponent,
     MinValueDirective,
     MaxValueDirective,
-    EmailDirective
+    EmailDirective,
+    NutritionistsComponent
   ],
   imports: [
     BrowserModule,
@@ -113,9 +116,14 @@ export const firebaseConfig = environment.firebaseConfig;
     CrowdfundingService,
     EventService,
     CrowdfundingComponent,
-    AuthService
+    AuthService,
+    NutritionistsService
   ],
-  entryComponents: [ProductCreatorComponent, EditProfileComponent, AdwareComponent],
+  entryComponents: [
+    ProductCreatorComponent,
+    EditProfileComponent,
+    AdwareComponent
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
