@@ -248,7 +248,10 @@ export class FilterService<T> extends DataQueryService
     return this.convertData(
       this.afs
         .collection(this.collection, ref => {
-          return ref.orderBy("date", "desc");
+          if (this.collection === "news")
+            return ref.orderBy("date", "desc");
+          else
+            return ref.orderBy("title", "desc");
         })
         .snapshotChanges()
     ).pipe(
