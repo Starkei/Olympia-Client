@@ -61,6 +61,9 @@ import { WeatherComponent } from "./components/shared/weather/weather.component"
 
 import { HttpModule } from "@angular/http";
 import { WeatherService } from "./services/weather/weather.service";
+import { PhoneDirective } from './directives/phone/phone.directive';
+import { LowerThenDirective } from './directives/lower-then/lower-then.directive';
+import { GreaterThenDirective } from './directives/greater-then/greater-then.directive';
 
 export const firebaseConfig = environment.firebaseConfig;
 
@@ -101,6 +104,9 @@ export const firebaseConfig = environment.firebaseConfig;
     MinValueDirective,
     MaxValueDirective,
     EmailDirective,
+    PhoneDirective,
+    LowerThenDirective,
+    GreaterThenDirective,
     NutritionistsComponent
   ],
   imports: [
@@ -141,4 +147,4 @@ export const firebaseConfig = environment.firebaseConfig;
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

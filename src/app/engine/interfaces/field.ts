@@ -33,6 +33,9 @@ export interface Field {
   onClick?: () => void;
   required?: boolean;
   values?: Array<any>;
-  isInvalid?: Observable<boolean>;
+  isInvalid?: boolean;
   control?: FormControl;
+  connectedField?: Field;
+  lower?: boolean;
+  greater?: boolean;
 }
