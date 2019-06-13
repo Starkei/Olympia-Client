@@ -4,6 +4,7 @@ import { Output } from "src/app/interfaces/output";
 import { Field } from 'src/app/engine/interfaces/field';
 import { of, Observable } from 'rxjs';
 import { trigger } from '@angular/animations';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: "app-post-form",
@@ -16,7 +17,9 @@ export class PostFormComponent implements OnInit {
   isValid: boolean;
   fields: Map<string, boolean> = new Map();
 
-  constructor(private cd: ChangeDetectorRef) { }
+  constructor(private cd: ChangeDetectorRef,
+    private snackBar: MatSnackBar
+  ) { }
 
   ngOnInit() {
     this.isValid = false;
@@ -94,6 +97,7 @@ export class PostFormComponent implements OnInit {
     }
 
     this.config.onPost(output);
+    this.snackBar.open("Запись добавлена", "Ок", { duration: 2000 });
   }
   private assignValueToDBField(value: any, dbFieldName: Array<string>, output: Output): Output {
     if (!dbFieldName || !value)

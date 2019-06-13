@@ -73,7 +73,6 @@ export class OutputDetailsComponent implements OnInit {
   }
 
   follow(item: Output): void {
-    console.log(item);
     this.router.navigate([
       "output-details",
       { uid: item.id, collection: this.collection }

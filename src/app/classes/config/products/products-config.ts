@@ -14,7 +14,18 @@ export class ProductsConfig {
     let inputForCreateType: Field = { fieldType: FieldType.input, inputType: "text", inputPlaceHolder: "Введите наименование типа" };
     let buttonForCreateType: Field = {
       fieldType: FieldType.button, title: "add", buttonType: "icon", onClick: () => {
-        typeGroup.fields.push({ fieldType: "checkbox", title: inputForCreateType.innerText, dbFieldName: ["type"] })
+        if (!inputForCreateType.innerText) {
+          inputForCreateType.innerText = "";
+          return;
+        }
+        let value = inputForCreateType.innerText.trim().toLowerCase();
+        if (typeGroup.fields.filter((val, index) => val.title.trim().toLowerCase() === value).length > 0) {
+          inputForCreateType.innerText = "";
+          return;
+        }
+
+        value = value.charAt(0).toUpperCase() + value.slice(1);
+        typeGroup.fields.push({ fieldType: "checkbox", title: value, dbFieldName: ["type"] })
         inputForCreateType.innerText = "";
       }
     };
@@ -28,7 +39,6 @@ export class ProductsConfig {
           inputType: "text",
           dbFieldName: ["title"],
           required: true,
-          isInvalid: of(true)
         }
       ]
     };
@@ -68,7 +78,6 @@ export class ProductsConfig {
           minValue: 0,
           required: true,
           dbFieldName: ["price"],
-          isInvalid: of(true)
         },
         {
           fieldType: FieldType.select,
@@ -76,7 +85,6 @@ export class ProductsConfig {
           inputPlaceHolder: "Валюта",
           required: true,
           dbFieldName: ["currency"],
-          isInvalid: of(true)
         }
       ]
     };
@@ -94,7 +102,6 @@ export class ProductsConfig {
           buttonType: "file",
           dbFieldName: ["image"],
           pathToImages: "productsImages/",
-          isInvalid: of(true)
         },
       ]
     };
@@ -107,7 +114,6 @@ export class ProductsConfig {
           inputPlaceHolder: "Електронный адрес владельца",
           required: true,
           dbFieldName: ["owner"],
-          isInvalid: of(true)
         },
         {
           fieldType: FieldType.input,
