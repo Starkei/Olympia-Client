@@ -41,7 +41,7 @@
       <a mat-list-item routerLink="/events">Мероприятия</a>
 
       <a *ngIf="user | async" mat-list-item routerLink="/area">Личный кабинет</a>
-      <a *ngIf="user | async" mat-list-item routerLink="/registration">Регистрация</a>
+      <a *ngIf="!(user | async)" mat-list-item routerLink="/registration">Регистрация</a>
       <a *ngIf="getUserRole() === 'Admin'" mat-list-item routerLink="/admin-panel"
         >Панель администратора</a
       >
