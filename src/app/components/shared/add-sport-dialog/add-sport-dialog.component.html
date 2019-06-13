@@ -1,7 +1,11 @@
 <mat-dialog-content>
   <div class="panel" fxLayout="column" fxLayoutAlign="space-around center">
-    <form fxLayout="column" fxLayoutAlign="space-around center" [formGroup]="myFirstReactiveForm">
-      <h3>Название продукта</h3>
+    <form
+      fxLayout="column"
+      fxLayoutAlign="space-around center"
+      [formGroup]="myFirstReactiveForm"
+    >
+      <h3>Название спортклуба</h3>
       <mat-form-field>
         <input
           matInput
@@ -13,7 +17,7 @@
           Зaполните поле
         </div>
       </mat-form-field>
-      <h3>Описание продукта</h3>
+      <h3>Описание спортклуба</h3>
       <mat-form-field>
         <textarea
           matInput
@@ -25,29 +29,62 @@
           Зaполните поле
         </div>
       </mat-form-field>
-      <h3>Больше информации о продукте</h3>
+      <h3>Валюта</h3>
       <mat-form-field>
         <input
-          [(ngModel)]="moreInfo"
-          formControlName="moreInfo"
+          [(ngModel)]="currency"
+          formControlName="currency"
           matInput
-          placeholder="Введите moreInfo"
+          placeholder="Введите currency"
         />
-        <div class="error" *ngIf="isControlInvalid('moreInfo')">
+        <div class="error" *ngIf="isControlInvalid('currency')">
           Зaполните поле
         </div>
       </mat-form-field>
       <h3>Цена</h3>
       <mat-form-field>
-        <input formControlName="price" matInput placeholder="Введите price" />
+        <input
+          [(ngModel)]="price"
+          formControlName="price"
+          matInput
+          placeholder="Введите price"
+        />
         <div class="error" *ngIf="isControlInvalid('price')">
           Зaполните поле
         </div>
       </mat-form-field>
-
-      <h3>Тип товара</h3>
+      <h3>Контакты спортклуба</h3>
       <mat-form-field>
-        <input [(ngModel)]="type" formControlName="type" matInput placeholder="Введите type" />
+        <input
+          [(ngModel)]="phoneNumbers"
+          formControlName="phoneNumbers"
+          matInput
+          placeholder="Введите phoneNumbers"
+        />
+        <div class="error" *ngIf="isControlInvalid('phoneNumbers')">
+          Зaполните поле
+        </div>
+      </mat-form-field>
+      <h3>Противопоказания</h3>
+      <mat-form-field>
+        <input
+          [(ngModel)]="contraindications"
+          formControlName="contraindications"
+          matInput
+          placeholder="Введите contraindications"
+        />
+        <div class="error" *ngIf="isControlInvalid('contraindications')">
+          Зaполните поле
+        </div>
+      </mat-form-field>
+      <h3>Тип спортклуба</h3>
+      <mat-form-field>
+        <input
+          [(ngModel)]="type"
+          formControlName="type"
+          matInput
+          placeholder="Введите type"
+        />
         <div class="error" *ngIf="isControlInvalid('type')">
           Зaполните поле
         </div>

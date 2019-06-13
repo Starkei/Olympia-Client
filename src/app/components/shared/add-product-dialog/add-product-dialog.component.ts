@@ -98,6 +98,7 @@ export class AddProductDialogComponent implements OnInit {
       firm,
       type
     };
+
     this.itemsCollection.valueChanges();
     this.itemsCollection.doc(id).set(item);
     this.getInfo();
@@ -109,8 +110,9 @@ export class AddProductDialogComponent implements OnInit {
         i--;
       }
     });
-    this.onClose();
+
     this.itemsCollection = this.afs.collection<Product>("products");
+    this.onClose();
   }
   onClose(): void {
     this.dialogRef.close();

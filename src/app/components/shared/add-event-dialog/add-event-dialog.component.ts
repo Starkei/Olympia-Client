@@ -83,7 +83,7 @@ export class AddEventDialogComponent implements OnInit {
     const phoneNumbers = this.phoneNumbers;
     //const time = this.time;
     const item = { id, title, description, address, image, phoneNumbers };
-    if (this.typeError == false) {
+   
       this.itemsCollection.valueChanges();
       this.itemsCollection.doc(id).set(item);
       this.getInfo();
@@ -95,9 +95,10 @@ export class AddEventDialogComponent implements OnInit {
           i--;
         }
       });
-      this.onClose();
-    }
+      
+   
     this.itemsCollection = this.afs.collection<Event>("events");
+    this.onClose();
   }
   onClose(): void {
     this.dialogRef.close();

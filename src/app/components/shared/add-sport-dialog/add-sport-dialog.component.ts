@@ -31,7 +31,9 @@ export class AddSportDialogComponent implements OnInit {
   typeError: boolean = false;
   description: string = "";
   image: string = "";
-  moreInfo: string;
+  currency: string;
+  price: number;
+  contraindications: Array<string>;
   phoneNumbers: Array<string>;
   type: Array<string>;
   selectedFile: File = null;
@@ -58,8 +60,10 @@ export class AddSportDialogComponent implements OnInit {
     this.myFirstReactiveForm = this.fb.group({
       title: ["", [Validators.required, Validators.minLength(5)]],
       description: ["", [Validators.required, Validators.minLength(5)]],
-      moreInfo: ["", [Validators.required, Validators.minLength(5)]],
+      currency: ["", [Validators.required, Validators.minLength(5)]],
       price: ["", [Validators.required, Validators.minLength(1)]],
+      phoneNumbers: ["", [Validators.required, Validators.minLength(1)]],
+      contraindications: ["", [Validators.required, Validators.minLength(1)]],
       type: ["", [Validators.required, Validators.minLength(5)]]
     });
   }
@@ -79,15 +83,20 @@ export class AddSportDialogComponent implements OnInit {
     const title = this.title;
     const description = this.description;
     const image = url;
-    const moreInfo = this.moreInfo;
-
+    const currency = this.currency;
+    const phoneNumbers = this.phoneNumbers;
+    const contraindications = this.contraindications;
+    const price = this.price;
     const type = this.type;
     const item = {
       id,
       title,
       description,
       image,
-      moreInfo,
+      currency,
+      price,
+      phoneNumbers,
+      contraindications,
       type
     };
     this.itemsCollection.valueChanges();
@@ -95,14 +104,15 @@ export class AddSportDialogComponent implements OnInit {
     this.getInfo();
     this.userSubscribtion = this.auth.user.subscribe(data => {
       while (i == 1) {
-        data.myProducts.push(item.id);
+        data.mySports.push(item.id);
         this.user = data;
         this.auth.updateDocument(this.user, this.uid);
         i--;
       }
     });
-    this.onClose();
+   
     this.itemsCollection = this.afs.collection<Sport>("sports");
+    this.onClose();
   }
   onClose(): void {
     this.dialogRef.close();

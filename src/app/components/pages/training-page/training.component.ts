@@ -34,7 +34,6 @@ export class TrainingComponent implements OnInit {
   getFlex(): string {
     return this.fxFlex + "%";
   }
-
   ngOnInit() {}
   ngOnDestroy(): void {
     this.trainingService.ngOnDestroy();

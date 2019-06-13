@@ -6,19 +6,14 @@
     class="container"
     fxLayout="column"
     [fxFlex]="getFxSize3()"
+    fxLayout.xs="column"
     fxLayoutAlign="start stretch"
   >
     <!--Если пользователь загрузился из БД, то он отображается-->
-    <ng-container *ngIf="user; else elseTemplate">
-      <div class="user">
+    <ng-container  *ngIf="user; else elseTemplate">
+      <div class="user" >
         <mat-card class="card_user">
           <mat-card-header>
-            <!--Если у пользователя есть поле имя, то оно отображается-->
-            <!--<mat-card-title *ngIf="user.displayName"
-              ><b>{{ user.displayName }}</b></mat-card-title
-
-            >-->
-
             <ng-container *ngIf="user.displayName; else showDisplayName">
               <mat-card-title
                 ><b>{{ user.displayName }}</b></mat-card-title
@@ -95,6 +90,7 @@
           fxLayoutAlign="center stretch"
         >
           <button
+            *ngIf="userRole"
             fxFlexOffset="2%"
             mat-raised-button
             color="primary"
@@ -103,6 +99,7 @@
             Добавить товар
           </button>
           <button
+            *ngIf="userRole"
             fxFlexOffset="2%"
             mat-raised-button
             color="primary"
@@ -119,6 +116,7 @@
             Добавить событие
           </button>
           <button
+            *ngIf="userRole"
             fxFlexOffset="2%"
             mat-raised-button
             color="primary"
@@ -142,11 +140,15 @@
         {{ user.about }}
       </p>
     </div>
-    <div class="container2" fxLayout="column">
-      <p><b>favevent:</b></p>
+    <div class="container2" fxLayout="column" fxLayout.xs="column">
+      <p><b>Избранные события:</b></p>
       <div *ngIf="area.length > 0">
         <div class="stats" fxLayout="row wrap">
-          <mat-card class="card_stats" fxFlex="23%" *ngFor="let ar of area">
+          <mat-card
+            class="card_stats"
+            [fxFlex]="getFxSize()"
+            *ngFor="let ar of area"
+          >
             <mat-card-header>
               <mat-card-title
                 ><b
@@ -166,11 +168,15 @@
       </div>
     </div>
     <mat-divider></mat-divider>
-    <div class="container3" fxLayout="column">
-      <p><b>favprod:</b></p>
+    <div class="container3" fxLayout="column" fxLayout.xs="column">
+      <p><b>Избранные товары:</b></p>
       <div *ngIf="prod.length > 0">
         <div class="stats" fxLayout="row wrap">
-          <mat-card class="card_stats" fxFlex="23%" *ngFor="let ar of prod">
+          <mat-card
+            class="card_stats"
+            [fxFlex]="getFxSizefavprod()"
+            *ngFor="let ar of prod"
+          >
             <mat-card-header>
               <mat-card-title
                 ><b
@@ -189,11 +195,15 @@
         </div>
       </div>
     </div>
-    <div class="container4" fxLayout="column">
-      <p><b>Мои event:</b></p>
+    <div class="container4" fxLayout="column" fxLayout.xs="column">
+      <p><b>Мои события:</b></p>
       <div *ngIf="myevents.length > 0">
         <div class="stats" fxLayout="row wrap">
-          <mat-card class="card_stats" fxFlex="23%" *ngFor="let ar of myevents">
+          <mat-card
+            class="card_stats"
+            [fxFlex]="getFxSize33()"
+            *ngFor="let ar of myevents"
+          >
             <mat-card-header>
               <mat-card-title
                 ><b
@@ -213,11 +223,20 @@
       </div>
     </div>
 
-    <div class="container5" fxLayout="column">
-      <p><b>Мои product:</b></p>
+    <div
+      *ngIf="userRole"
+      class="container5"
+      fxLayout="column"
+      fxLayout.xs="column"
+    >
+      <p><b>Мои продукты:</b></p>
       <div *ngIf="myprod.length > 0">
         <div class="stats" fxLayout="row wrap">
-          <mat-card class="card_stats" fxFlex="23%" *ngFor="let ar of myprod">
+          <mat-card
+            class="card_stats"
+            [fxFlex]="getFxSizefavprod()"
+            *ngFor="let ar of myprod"
+          >
             <mat-card-header>
               <mat-card-title
                 ><b
@@ -237,11 +256,20 @@
       </div>
     </div>
 
-    <div class="container6" fxLayout="column">
-      <p><b>Мои training:</b></p>
+    <div
+      *ngIf="userRole"
+      class="container6"
+      fxLayout="column"
+      fxLayout.xs="column"
+    >
+      <p><b>Мои тренинги:</b></p>
       <div *ngIf="mytr.length > 0">
         <div class="stats" fxLayout="row wrap">
-          <mat-card class="card_stats" fxFlex="23%" *ngFor="let ar of mytr">
+          <mat-card
+            class="card_stats"
+            [fxFlex]="getFxSizemytrain()"
+            *ngFor="let ar of mytr"
+          >
             <mat-card-header>
               <mat-card-title
                 ><b
@@ -261,11 +289,20 @@
       </div>
     </div>
 
-    <div class="container7" fxLayout="column">
-      <p><b>Мои sprot:</b></p>
+    <div
+      *ngIf="userRole"
+      class="container7"
+      fxLayout="column"
+      fxLayout.xs="column"
+    >
+      <p><b>Мои спортклубы:</b></p>
       <div *ngIf="mysport.length > 0">
         <div class="stats" fxLayout="row wrap">
-          <mat-card class="card_stats" fxFlex="23%" *ngFor="let ar of mysport">
+          <mat-card
+            class="card_stats"
+            [fxFlex]="getFxSizemysport()"
+            *ngFor="let ar of mysport"
+          >
             <mat-card-header>
               <mat-card-title
                 ><b

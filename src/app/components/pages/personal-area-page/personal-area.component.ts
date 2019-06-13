@@ -39,7 +39,6 @@ export class PersonalAreaComponent implements OnInit, OnDestroy {
   myprod: Array<any> = [];
   mysport: Array<any> = [];
   mytr: Array<any> = [];
-
   private itemsCollection: AngularFirestoreCollection<Event>;
   private fxSizeEvent: number = 0;
   private fxSizeInfo: number = 0;
@@ -47,7 +46,14 @@ export class PersonalAreaComponent implements OnInit, OnDestroy {
   private fxSizeStat: number = 0;
   private fxSizeUser: number = 0;
   private fxSizeChat: number = 0;
+  private fxmyevent: number = 0;
+  private fxmfavprod: number = 0;
+  private fxmyprod: number = 0;
+  private fxmytraining: number = 0;
+  private fxmysport: number = 0;
   user: User;
+  userRole: boolean = true;
+
   userSubscribtion: Subscription;
 
   constructor(
@@ -74,32 +80,47 @@ export class PersonalAreaComponent implements OnInit, OnDestroy {
       .subscribe(
         (result: BreakpointState): void => {
           if (result.breakpoints[Breakpoints.Large]) {
-            this.fxSizeEvent = 25;
-            this.fxSizeInfo = 100;
+            this.fxSizeEvent = 20;
+            this.fxSizeInfo = 80;
             this.fxSizeCont = 30;
             this.fxSizeStat = 23;
             this.fxSizeUser = 58;
             this.fxSizeChat = 42;
+            this.fxmyevent = 20;
+            this.fxmfavprod = 20;
+            this.fxmyprod = 20;
+            this.fxmytraining = 20;
+            this.fxmysport = 20;
             console.clear();
             console.log("Large");
           }
           if (result.breakpoints[Breakpoints.Medium]) {
-            this.fxSizeEvent = 29;
+            this.fxSizeEvent = 32;
             this.fxSizeInfo = 90;
             this.fxSizeCont = 42;
             this.fxSizeStat = 40;
             this.fxSizeUser = 50;
             this.fxSizeChat = 36;
+            this.fxmyevent = 32;
+            this.fxmfavprod = 32;
+            this.fxmyprod = 32;
+            this.fxmytraining = 32;
+            this.fxmysport = 32;
             console.clear();
             console.log("Medium");
           }
           if (result.breakpoints[Breakpoints.Small]) {
-            this.fxSizeEvent = 45;
+            this.fxSizeEvent = 35;
             this.fxSizeInfo = 85;
             this.fxSizeCont = 45;
             this.fxSizeStat = 40;
             this.fxSizeUser = 45;
             this.fxSizeChat = 36;
+            this.fxmyevent = 35;
+            this.fxmfavprod = 35;
+            this.fxmyprod = 35;
+            this.fxmytraining = 35;
+            this.fxmysport = 35;
             console.clear();
             console.log("Small");
           }
@@ -108,8 +129,13 @@ export class PersonalAreaComponent implements OnInit, OnDestroy {
             this.fxSizeInfo = 100;
             this.fxSizeCont = 100;
             this.fxSizeStat = 90;
-            this.fxSizeUser = 30;
+            this.fxSizeUser = 100;
             this.fxSizeChat = 30;
+            this.fxmyevent = 90;
+            this.fxmfavprod = 90;
+            this.fxmyprod = 90;
+            this.fxmytraining = 90;
+            this.fxmysport = 90;
             console.clear();
             console.log("XSmall");
           }
@@ -122,6 +148,49 @@ export class PersonalAreaComponent implements OnInit, OnDestroy {
     this.getMyProduct();
     this.getMySport();
     this.getMyTraining();
+    this.checkRole();
+  }
+  getFxSizemytrain(): string {
+    return this.fxmytraining + "%";
+  }
+  getFxSizemysport(): string {
+    return this.fxmysport + "%";
+  }
+  getFxSizefavprod(): string {
+    return this.fxmyprod + "%";
+  }
+  getFxSizemyprod(): string {
+    return this.fxmfavprod + "%";
+  }
+  getFxSize(): string {
+    return this.fxSizeEvent + "%";
+  }
+  getFxSize2(): string {
+    return this.fxSizeInfo + "%";
+  }
+  getFxSize3(): string {
+    return this.fxSizeCont + "%";
+  }
+  getFxSize33(): string {
+    return this.fxmyevent + "%";
+  }
+  getFxSize4(): string {
+    return this.fxSizeStat + "%";
+  }
+  getFxSize5(): string {
+    return this.fxSizeUser + "%";
+  }
+  getFxSize6(): string {
+    return this.fxSizeChat + "%";
+  }
+
+  checkRole() {
+    this.userSubscribtion = this.auth.user.subscribe(data => {
+      if (data.role == "User") {
+        this.userRole = false;
+      }
+      console.log(this.userRole);
+    });
   }
 
   public getFavoriteEvents(): void {
@@ -158,12 +227,12 @@ export class PersonalAreaComponent implements OnInit, OnDestroy {
       this.area = [];
       this.myprod = [];
       this.prod = [];
+      this.mysport = [];
+      this.mytr = [];
       this.getFavoriteEvents();
       this.getFavoriteProduct();
       this.getMyProduct();
       this.getMyEvents();
-      this.mysport = [];
-      this.mytr = [];
       this.getMySport();
       this.getMyTraining();
     });
@@ -187,14 +256,14 @@ export class PersonalAreaComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().subscribe(result => {
       this.myevents = [];
       this.area = [];
-      this.prod = [];
-      this.getFavoriteEvents();
-      this.getFavoriteProduct();
-      this.getMyEvents();
       this.myprod = [];
-      this.getMyProduct();
+      this.prod = [];
       this.mysport = [];
       this.mytr = [];
+      this.getFavoriteEvents();
+      this.getFavoriteProduct();
+      this.getMyProduct();
+      this.getMyEvents();
       this.getMySport();
       this.getMyTraining();
     });
@@ -215,14 +284,14 @@ export class PersonalAreaComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().subscribe(result => {
       this.myevents = [];
       this.area = [];
-      this.prod = [];
-      this.getFavoriteEvents();
-      this.getFavoriteProduct();
-      this.getMyEvents();
       this.myprod = [];
-      this.getMyProduct();
+      this.prod = [];
       this.mysport = [];
       this.mytr = [];
+      this.getFavoriteEvents();
+      this.getFavoriteProduct();
+      this.getMyProduct();
+      this.getMyEvents();
       this.getMySport();
       this.getMyTraining();
     });
@@ -243,14 +312,14 @@ export class PersonalAreaComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().subscribe(result => {
       this.myevents = [];
       this.area = [];
-      this.prod = [];
-      this.getFavoriteEvents();
-      this.getFavoriteProduct();
-      this.getMyEvents();
       this.myprod = [];
-      this.getMyProduct();
+      this.prod = [];
       this.mysport = [];
       this.mytr = [];
+      this.getFavoriteEvents();
+      this.getFavoriteProduct();
+      this.getMyProduct();
+      this.getMyEvents();
       this.getMySport();
       this.getMyTraining();
     });
@@ -326,25 +395,6 @@ export class PersonalAreaComponent implements OnInit, OnDestroy {
         this.user = userInfo;
       }
     );
-  }
-
-  getFxSize(): string {
-    return this.fxSizeEvent + "%";
-  }
-  getFxSize2(): string {
-    return this.fxSizeInfo + "%";
-  }
-  getFxSize3(): string {
-    return this.fxSizeCont + "%";
-  }
-  getFxSize4(): string {
-    return this.fxSizeStat + "%";
-  }
-  getFxSize5(): string {
-    return this.fxSizeUser + "%";
-  }
-  getFxSize6(): string {
-    return this.fxSizeChat + "%";
   }
 
   /**
