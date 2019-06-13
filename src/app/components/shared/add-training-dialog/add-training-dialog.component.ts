@@ -91,18 +91,19 @@ export class AddTrainingDialogComponent implements OnInit {
       leader,
       image
     };
-    this.itemsCollection.valueChanges();
-    this.itemsCollection.doc(id).set(item);
+
     this.getInfo();
     this.userSubscribtion = this.auth.user.subscribe(data => {
       while (i == 1) {
+        if (!data["myTrainings"]) data["myTrainings"] = [];
         data.myTrainings.push(item.id);
         this.user = data;
         this.auth.updateDocument(this.user, this.uid);
         i--;
       }
     });
-
+    this.itemsCollection.valueChanges();
+    this.itemsCollection.doc(id).set(item);
     this.itemsCollection = this.afs.collection<Training>("trainings");
     this.onClose();
   }

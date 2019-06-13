@@ -99,18 +99,18 @@ export class AddProductDialogComponent implements OnInit {
       type
     };
 
-    this.itemsCollection.valueChanges();
-    this.itemsCollection.doc(id).set(item);
     this.getInfo();
     this.userSubscribtion = this.auth.user.subscribe(data => {
       while (i == 1) {
+        if (!data["myProducts"]) data["myProducts"] = [];
         data.myProducts.push(item.id);
         this.user = data;
         this.auth.updateDocument(this.user, this.uid);
         i--;
       }
     });
-
+    this.itemsCollection.valueChanges();
+    this.itemsCollection.doc(id).set(item);
     this.itemsCollection = this.afs.collection<Product>("products");
     this.onClose();
   }

@@ -57,10 +57,10 @@ export class AddEventDialogComponent implements OnInit {
   }
   initForm() {
     this.myFirstReactiveForm = this.fb.group({
-      title: ["", [Validators.required, Validators.minLength(5)]],
-      description: ["", [Validators.required, Validators.minLength(5)]],
-      phoneNumbers: ["", [Validators.required, Validators.minLength(13)]],
-      address: ["", [Validators.required, Validators.minLength(5)]]
+      title: ["", [Validators.required, Validators.minLength(1)]],
+      description: ["", [Validators.required, Validators.minLength(1)]],
+      phoneNumbers: ["", [Validators.required, Validators.minLength(1)]],
+      address: ["", [Validators.required, Validators.minLength(1)]]
     });
   }
   isControlInvalid(controlName: string): boolean {
@@ -83,20 +83,18 @@ export class AddEventDialogComponent implements OnInit {
     const phoneNumbers = this.phoneNumbers;
     //const time = this.time;
     const item = { id, title, description, address, image, phoneNumbers };
-   
-      this.itemsCollection.valueChanges();
-      this.itemsCollection.doc(id).set(item);
-      this.getInfo();
-      this.userSubscribtion = this.auth.user.subscribe(data => {
-        while (i == 1) {
-          data.myEvents.push(item.id);
-          this.user = data;
-          this.auth.updateDocument(this.user, this.uid);
-          i--;
-        }
-      });
-      
-   
+    this.getInfo();
+    this.userSubscribtion = this.auth.user.subscribe(data => {
+      while (i == 1) {
+        if (!data["myEvents"]) data["myEvents"] = [];
+        data.myEvents.push(item.id);
+        this.user = data;
+        this.auth.updateDocument(this.user, this.uid);
+        i--;
+      }
+    });
+    this.itemsCollection.valueChanges();
+    this.itemsCollection.doc(id).set(item);
     this.itemsCollection = this.afs.collection<Event>("events");
     this.onClose();
   }
