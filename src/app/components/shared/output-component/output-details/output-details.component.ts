@@ -28,6 +28,7 @@ export class OutputDetailsComponent implements OnInit {
   username: string;
   comment: string;
   uid: string;
+  messages: any[] = [];
   userSubscribtion: Subscription;
   constructor(
     private route: ActivatedRoute,
@@ -35,6 +36,7 @@ export class OutputDetailsComponent implements OnInit {
     private afs: AngularFirestore,
     public auth: AuthService
   ) {
+    this.getInfoAboutUser();
     this.route.paramMap.subscribe(
       (data: ParamMap): void => {
         this.collection = data.get("collection");
@@ -46,27 +48,38 @@ export class OutputDetailsComponent implements OnInit {
             (d: Output): void => {
               this.output = d;
               this.uid = data.get("uid");
-              //console.log(data.get("uid"));
-              this.getFirstFive(data.get("collection"));
+              this.collection = data.get("collection");
+              this.afs
+                .collection(this.collection)
+                .doc(this.uid)
+                .valueChanges()
+                .subscribe(doc => {
+                  if (doc["comments"]) this.messages = doc["comments"];
+                });
+              this.getFirstFive(this.collection);
             }
           );
       }
     );
   }
-
   addComment() {
-    let username = this.username;
-    let comment = this.comment;
-    let item = { username, comment };
-    console.log(item);
-    console.log("username from add = " + this.username);
-    let a = this.output.time;
-
-    this.updateDocumentForCollection(item, this.uid, this.collection);
-    console.log("adware = " + this.adware);
-    console.log("output = " + this.output);
-    console.log("collection =  " + this.collection);
-    console.log("uid = " + this.uid);
+    let sub = this.afs
+      .collection<Output>(this.collection)
+      .doc(this.uid)
+      .valueChanges()
+      .subscribe(data => {
+        if (!data["comments"]) data["comments"] = [];
+        data["comments"].push({
+          auth: this.username,
+          content: this.comment,
+          date: new Date()
+        });
+        this.afs
+          .collection<Output>(this.collection)
+          .doc(this.uid)
+          .set(data);
+        sub.unsubscribe();
+      });
   }
 
   public updateDocumentForCollection<T>(
@@ -82,13 +95,7 @@ export class OutputDetailsComponent implements OnInit {
   getInfoAboutUser() {
     this.userSubscribtion = this.auth.user.subscribe(data => {
       this.user = data;
-      this.username = data.userName;
-      // console.log("displayName = " + data.displayName);
-      // console.log("userName = " + data.userName);
-      // console.log("data = " + data);
-      // console.log("user = " + this.user);
-      // console.log("username = " + this.username);
-      // console.log("sub = " + this.userSubscribtion);
+      this.username = data.userName || data.displayName;
     });
   }
 
@@ -127,7 +134,6 @@ export class OutputDetailsComponent implements OnInit {
   }
 
   follow(item: Output): void {
-    console.log(item);
     this.router.navigate([
       "output-details",
       { uid: item.id, collection: this.collection }

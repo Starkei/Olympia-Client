@@ -1,10 +1,6 @@
 <mat-dialog-content>
   <div class="panel" fxLayout="column" fxLayoutAlign="space-around center">
-    <form
-      fxLayout="column"
-      fxLayoutAlign="space-around center"
-      [formGroup]="myFirstReactiveForm"
-    >
+    <form fxLayout="column" fxLayoutAlign="space-around center" [formGroup]="myFirstReactiveForm">
       <h3>Название продукта</h3>
       <mat-form-field>
         <input
@@ -43,12 +39,7 @@
       </mat-form-field>
       <h3>Цена</h3>
       <mat-form-field>
-        <input
-          [(ngModel)]="price"
-          formControlName="price"
-          matInput
-          placeholder="Введите price"
-        />
+        <input formControlName="price" matInput placeholder="Введите price" />
         <div class="error" *ngIf="isControlInvalid('price')">
           Зaполните поле
         </div>
@@ -56,12 +47,7 @@
 
       <h3>Тип товара</h3>
       <mat-form-field>
-        <input
-          [(ngModel)]="type"
-          formControlName="type"
-          matInput
-          placeholder="Введите type"
-        />
+        <input [(ngModel)]="type" formControlName="type" matInput placeholder="Введите type" />
         <div class="error" *ngIf="isControlInvalid('type')">
           Зaполните поле
         </div>
