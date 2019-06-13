@@ -53,7 +53,7 @@ export class OutputDetailsComponent implements OnInit {
       }
     );
   }
-  // zachem nam obrabotka, kogda ono eshe ne rabotaet
+
   addComment() {
     let username = this.username;
     let comment = this.comment;

@@ -132,7 +132,7 @@ export class OutputComponent implements OnInit {
     });
     this.userSubscribtion = this.auth.user.subscribe(data => {
       while (i == 1) {
-        data.favoritesEvents.push(output.id);
+        data.favoriteProduct.push(output.id);
         this.user = data;
         this.auth.updateDocument(this.user, uid);
         i--;

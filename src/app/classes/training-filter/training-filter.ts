@@ -19,6 +19,14 @@ export class TrainingFilter extends FilterGenerator<Training> {
           title: "Поиск",
           dataFieldName: "title"
         });
+        categories.push({
+          fields: [
+            { fieldType: "input", inputPlaceHolder: "от", inputType: "number" },
+            { fieldType: "input", inputPlaceHolder: "до", inputType: "number" }
+          ],
+          title: "Цена",
+          dataFieldName: "price"
+        });
         this.categories = of(categories);
       }
     );
