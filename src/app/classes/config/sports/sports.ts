@@ -23,11 +23,16 @@ export class Sports {
 
     getPostFormConfig(): PostFormConfig {
 
-        let sportTypes: Array<Field> = [];
-        let undergrounds: Array<Field> = [];
+        let undergrounds: Field = {
+            fieldType: "radio",
+            selectItems: [],
+            dbFieldName: ["underground"],
+        };
         let phoneNumbers: Field = {
             fieldType: "list",
-            selectItems: []
+            selectItems: [],
+            values: [],
+            dbFieldName: ["phoneNumbers"]
         };
 
         let inputForCreateType: Field = {
@@ -40,10 +45,20 @@ export class Sports {
             title: "add",
             buttonType: "icon",
             onClick: () => {
-                sportTypes.push(
+                if (!inputForCreateType.innerText) {
+                    inputForCreateType.innerText = "";
+                    return;
+                }
+                let value = inputForCreateType.innerText.trim().toLowerCase();
+                if (typeGroup.fields.filter((val, index) => val.title.trim().toLowerCase() === value).length > 0) {
+                    inputForCreateType.innerText = "";
+                    return;
+                }
+                value = value.charAt(0).toUpperCase() + value.slice(1);
+                typeGroup.fields.push(
                     {
                         fieldType: "checkbox",
-                        title: inputForCreateType.innerText,
+                        title: value,
                         dbFieldName: ["type"]
                     }
                 )
@@ -62,13 +77,19 @@ export class Sports {
             title: "add",
             buttonType: "icon",
             onClick: () => {
-                undergrounds.push(
-                    {
-                        fieldType: "checkbox",
-                        title: inputForCreateUnderground.innerText,
-                        dbFieldName: ["underground"]
-                    }
-                )
+
+                if (!inputForCreateUnderground.innerText) {
+                    inputForCreateUnderground.innerText = "";
+                    return;
+                }
+                let value = inputForCreateUnderground.innerText.trim().toLowerCase();
+                if (undergrounds.selectItems.filter((val, index) => val.trim().toLowerCase() === value).length > 0) {
+                    inputForCreateUnderground.innerText = "";
+                    return;
+                }
+                value = value.charAt(0).toUpperCase() + value.slice(1);
+
+                undergrounds.selectItems.push(value);
                 inputForCreateUnderground.innerText = "";
             }
         };
@@ -84,13 +105,21 @@ export class Sports {
             title: "add",
             buttonType: "icon",
             onClick: () => {
-                for (const phone of phoneNumbers.selectItems) {
-                    if (phone === inputForCreatePhoneNumber.innerText)
-                        return inputForCreatePhoneNumber.control.setValue("");
+
+                if (!inputForCreatePhoneNumber.innerText || inputForCreatePhoneNumber.isInvalid) {
+                    inputForCreatePhoneNumber.innerText = "";
+                    return;
                 }
+                let value = inputForCreatePhoneNumber.innerText;
+                if (phoneNumbers.selectItems.filter((val, index) => val === value).length > 0) {
+                    inputForCreatePhoneNumber.innerText = "";
+                    return;
+                }
+
                 phoneNumbers.selectItems.push(
                     inputForCreatePhoneNumber.innerText,
                 );
+                phoneNumbers.values.push(inputForCreatePhoneNumber.innerText);
                 inputForCreatePhoneNumber.innerText = "";
             }
         };
@@ -99,18 +128,16 @@ export class Sports {
             let types: Array<string> = this.getAllSportTypes(data);
             let tempUndergrounds: Array<string> = this.getAllUndergrounds(data);
             for (const element of types) {
-                sportTypes.push({
+                typeGroup.fields = typeGroup.fields.filter((field, index) => field.title !== element);
+                typeGroup.fields.push({
                     fieldType: "checkbox",
                     title: element,
                     dbFieldName: ["type"]
                 });
             }
             for (const element of tempUndergrounds) {
-                undergrounds.push({
-                    fieldType: "checkbox",
-                    title: element,
-                    dbFieldName: ["undergrounds"]
-                });
+                undergrounds.selectItems = undergrounds.selectItems.filter((el, index) => el !== element);
+                undergrounds.selectItems.push(element);
             }
         });
 
@@ -201,65 +228,87 @@ export class Sports {
             ]
         };
 
-
+        let gage: Field = {
+            fieldType: FieldType.input
+        };
+        let lage: Field = {
+            fieldType: FieldType.input,
+            inputType: "number",
+            inputPlaceHolder: "Возраст с",
+            dbFieldName: ["age", "from"],
+            minValue: 0,
+            maxValue: 100,
+            connectedField: gage,
+            greater: true
+        };
+        gage.inputType = "number";
+        gage.inputPlaceHolder = "Возраст до";
+        gage.dbFieldName = ["age", "to"];
+        gage.minValue = 0;
+        gage.maxValue = 100;
+        gage.connectedField = lage;
+        gage.lower = true;
 
         let ageGroup: Group = {
             title: "Возрастная группа",
             fields: [
-                {
-                    fieldType: FieldType.input,
-                    inputType: "number",
-                    inputPlaceHolder: "Возраст с",
-                    dbFieldName: ["age", "from"],
-                    minValue: 0,
-                    maxValue: 100
-                },
-                {
-                    fieldType: FieldType.input,
-                    inputType: "number",
-                    inputPlaceHolder: "Возраст до",
-                    dbFieldName: ["age", "to"],
-                    minValue: 0,
-                    maxValue: 100
-                },
+                lage, gage
             ]
         };
+
+        let gGroup: Field = {
+            fieldType: FieldType.input
+        };
+        let lGroup: Field = {
+            ...{
+                fieldType: FieldType.input,
+                inputType: "number",
+                inputPlaceHolder: "Количество с",
+                dbFieldName: ["group", "from"],
+                minValue: 1,
+                connectedField: gGroup,
+                greater: true
+            }
+        }
+
+        gGroup.inputType = "number";
+        gGroup.inputPlaceHolder = "Количество до";
+        gGroup.dbFieldName = ["group", "to"];
+        gGroup.minValue = 1;
+        gGroup.connectedField = lGroup;
+        gGroup.lower = true;
 
         let groupGroup: Group = {
             title: "Размер группы",
             fields: [
-                {
-                    fieldType: FieldType.input,
-                    inputType: "number",
-                    inputPlaceHolder: "Количество с",
-                    dbFieldName: ["group", "from"],
-                    minValue: 1,
-                },
-                {
-                    fieldType: FieldType.input,
-                    inputType: "number",
-                    inputPlaceHolder: "Количество до",
-                    dbFieldName: ["group", "to"],
-                    minValue: 1,
-                },
+                lGroup, gGroup
             ]
         };
+
+        let gTime: Field = {
+            fieldType: FieldType.input
+        };
+
+        let lTime: Field = {
+            ...{
+                fieldType: FieldType.input,
+                inputType: "time",
+                inputPlaceHolder: "Начиная с",
+                dbFieldName: ["timeWork", "from"],
+                connectedField: gTime,
+                greater: true
+            }
+        };
+        gTime.inputType = "time";
+        gTime.inputPlaceHolder = "Заканчивая до";
+        gTime.dbFieldName = ["timeWork", "to"];
+        gTime.connectedField = lTime;
+        gTime.lower = true;
 
         let timeWorkGroup: Group = {
             title: "Время проведения",
             fields: [
-                {
-                    fieldType: FieldType.input,
-                    inputType: "time",
-                    inputPlaceHolder: "Начиная с",
-                    dbFieldName: ["timeWork", "from"],
-                },
-                {
-                    fieldType: FieldType.input,
-                    inputType: "time",
-                    inputPlaceHolder: "Заканчивая до",
-                    dbFieldName: ["timeWork", "to"],
-                },
+                lTime, gTime
             ]
         };
 
@@ -272,7 +321,7 @@ export class Sports {
 
         let typeGroup: Group = {
             title: "Виды спорта",
-            fields: sportTypes
+            fields: []
         }
 
         let createUndergroundGroup: Group = {
@@ -285,7 +334,7 @@ export class Sports {
 
         let undergroundGroup: Group = {
             title: "Станции метро",
-            fields: undergrounds
+            fields: [undergrounds]
         }
 
         let createPhoneNumberGroup: Group = {
@@ -332,10 +381,28 @@ export class Sports {
                 phoneNumberGroup,
                 descriptionGroup
             ],
-            onPost: this.service.addDocument.bind(this.service)
+            onPost: this.addSport.bind(this)
         };
         return config;
     }
+
+    addSport(data: Output): void {
+        if (data.timeWork) {
+            let time: any;
+
+            if (data.timeWork.from) {
+                time = data.timeWork.from;
+                data.timeWork.from = time.split(":").reduce((h, m) => h * 60 * 60 + m * 60);
+            }
+            if (data.timeWork.to) {
+                time = data.timeWork.to;
+                data.timeWork.to = time.split(":").reduce((h, m) => h * 60 * 60 + m * 60);
+            }
+
+        }
+        this.service.addDocument(data);
+    }
+
 
     private getAllSportTypes(collection: Array<Output>): Array<string> {
         let values: Set<string> = new Set();

@@ -77,6 +77,13 @@ export class OutputComponent implements OnInit {
         this.assignItems();
       });
     }
+
+    if (!this.filter)
+      this.items = this.service.getPaginationData(
+        this.filter,
+        0,
+        this.itemsPerPage
+      );
   }
 
   assignItems(): void {
@@ -143,10 +150,18 @@ export class OutputComponent implements OnInit {
     let startAt: number = event.pageIndex * event.pageSize;
     this.currentPageIndex = event.pageIndex;
     this.itemsPerPage = event.pageSize;
-    this.items = this.service.getFilteredData(
-      this.filter,
-      startAt,
-      this.itemsPerPage
-    );
+    if (!this.filter) {
+      this.items = this.service.getPaginationData(
+        this.filter,
+        startAt,
+        this.itemsPerPage
+      );
+    } else {
+      this.items = this.service.getFilteredData(
+        this.filter,
+        startAt,
+        this.itemsPerPage
+      );
+    }
   }
 }

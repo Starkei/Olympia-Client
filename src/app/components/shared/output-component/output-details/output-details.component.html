@@ -25,6 +25,13 @@
               <p *ngIf="output.moreInfo">
                 <b>Больше информации</b>: {{ output.moreInfo }}
               </p>
+              <p *ngIf="output.details">
+                <b>Детали</b>: {{ output.details | arrayFormatter }}
+              </p>
+              <p *ngIf="output.time">
+                <b>Время проведения</b>:
+                {{ toLocalDate(output.time) | arrayFormatter }}
+              </p>
               <p *ngIf="output.leader"><b>Лидер</b>: {{ output.leader }}</p>
               <p *ngIf="output.address"><b>Адрес</b>: {{ output.address }}</p>
               <p *ngIf="output.phoneNumbers">
@@ -74,14 +81,13 @@
               </mat-card-subtitle>
             </mat-card-header>
             <mat-card-actions align="start">
-              <a
-                target="_blank"
+              <button
                 mat-raised-button
                 color="primary"
-                [href]="getLink(output.reference)"
+                (click)="redirect(output.reference)"
               >
                 Перейти
-              </a>
+              </button>
             </mat-card-actions>
           </mat-card>
         </div>

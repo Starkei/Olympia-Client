@@ -21,7 +21,7 @@ export interface Field {
   inputPlaceHolder?: string;
   title?: string;
   checked?: boolean;
-  innerText?: string;
+  innerText?: any;
   selectItems?: Array<string>;
 
   //TODO: Document this
@@ -32,6 +32,10 @@ export interface Field {
   pathToImages?: string;
   onClick?: () => void;
   required?: boolean;
-  isInvalid?: Observable<boolean>;
+  values?: Array<any>;
+  isInvalid?: boolean;
   control?: FormControl;
+  connectedField?: Field;
+  lower?: boolean;
+  greater?: boolean;
 }

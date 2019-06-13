@@ -17,11 +17,14 @@
     <button *ngIf="user | async" mat-button routerLink="/area">
       Личный кабинет
     </button>
-    <!-- <button *ngIf="user | async" mat-button routerLink="/chats">Чаты</button> -->
     <button *ngIf="!(user | async)" mat-button routerLink="/registration">
       Авторизация/Регистрация
     </button>
-    <button *ngIf="user | async" mat-button routerLink="/admin-panel">
+    <button
+      *ngIf="getUserRole() === 'Admin'"
+      mat-button
+      routerLink="/admin-panel"
+    >
       Панель администратора
     </button>
   </span>
@@ -44,11 +47,13 @@
       <a *ngIf="user | async" mat-list-item routerLink="/area"
         >Личный кабинет</a
       >
-      <!-- <a *ngIf="(user | async)" mat-list-item routerLink="/chats">Чаты</a> -->
-      <a *ngIf="user | async" mat-list-item routerLink="/registration"
+      <a *ngIf="!(user | async)" mat-list-item routerLink="/registration"
         >Регистрация</a
       >
-      <a *ngIf="user | async" mat-list-item routerLink="/admin-panel"
+      <a
+        *ngIf="getUserRole() === 'Admin'"
+        mat-list-item
+        routerLink="/admin-panel"
         >Панель администратора</a
       >
     </mat-nav-list>

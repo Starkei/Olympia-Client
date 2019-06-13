@@ -1,0 +1,20 @@
+<mat-card fxFlex="100%">
+  <div class="wrapper" fxLayout="row wrap" fxLayoutAlign="space-around center">
+    <div class="main">
+      <h1>Минск</h1>
+      <div class="img">
+        <img src="http://openweathermap.org/img/w/{{ weather?.icon }}.png" />
+      </div>
+      <h3>Погода: {{ weather?.weatherKind }}</h3>
+      <h3>Температура: {{ weather?.temp }}&deg;С</h3>
+    </div>
+    <div class="secondary">
+      <h3>Максимальная температура: {{ weather?.tempMax }}&deg;С</h3>
+      <h3>Минимальная температура: {{ weather?.tempMin }}&deg;С</h3>
+      <h3>Влажность: {{ weather?.humidity }} %</h3>
+      <h3>Давление: {{ weather?.pressure }} гПа</h3>
+      <h3>Скорость ветра: {{ weather?.speed }} метр/час</h3>
+      <h3>Облачность: {{ weather?.all }} %</h3>
+    </div>
+  </div>
+</mat-card>

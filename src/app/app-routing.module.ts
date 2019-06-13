@@ -40,7 +40,7 @@ const routes: Routes = [
   },
   {
     path: "admin-panel",
-    component: AdminPanelComponent
+    component: AdminPanelComponent,
   }
 ];
 
@@ -48,4 +48,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

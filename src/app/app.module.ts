@@ -51,6 +51,21 @@ import { AddEventDialogComponent } from "./components/shared/add-event-dialog/ad
 import { AddProductDialogComponent } from "./components/shared/add-product-dialog/add-product-dialog.component";
 import { AddTrainingDialogComponent } from "./components/shared/add-training-dialog/add-training-dialog.component";
 import { AddSportDialogComponent } from "./components/shared/add-sport-dialog/add-sport-dialog.component";
+import { MinValueDirective } from "./directives/min-value/min-value.directive";
+import { MaxValueDirective } from "./directives/max-value/max-value.directive";
+import { EmailDirective } from "./directives/email/email.directive";
+import { NutritionistsComponent } from "./components/shared/nutritionists/nutritionists.component";
+import { NutritionistsService } from "./services/nutritionists/nutritionists.service";
+import { AgmCoreModule } from "@agm/core";
+import { GoogleMapComponent } from "./components/shared/google-map/google-map.component";
+import { WeatherComponent } from "./components/shared/weather/weather.component";
+
+import { HttpModule } from "@angular/http";
+import { WeatherService } from "./services/weather/weather.service";
+import { PhoneDirective } from "./directives/phone/phone.directive";
+import { LowerThenDirective } from "./directives/lower-then/lower-then.directive";
+import { GreaterThenDirective } from "./directives/greater-then/greater-then.directive";
+
 export const firebaseConfig = environment.firebaseConfig;
 
 @NgModule({
@@ -88,7 +103,16 @@ export const firebaseConfig = environment.firebaseConfig;
     AddEventDialogComponent,
     AddProductDialogComponent,
     AddTrainingDialogComponent,
-    AddSportDialogComponent
+    AddSportDialogComponent,
+    GoogleMapComponent,
+    WeatherComponent,
+    MinValueDirective,
+    MaxValueDirective,
+    EmailDirective,
+    PhoneDirective,
+    LowerThenDirective,
+    GreaterThenDirective,
+    NutritionistsComponent
   ],
   imports: [
     BrowserModule,
@@ -102,7 +126,13 @@ export const firebaseConfig = environment.firebaseConfig;
     AngularFirestoreModule,
     ReactiveFormsModule,
     AngularFireStorageModule,
-    HttpClientModule
+    HttpClientModule,
+    AgmCoreModule.forRoot({
+      apiKey: "AIzaSyANwlhlYARVvcdu7Fr8-CoZnL7Y4kD-FKs"
+    }),
+    FormsModule,
+    ReactiveFormsModule,
+    HttpModule
   ],
   providers: [
     NewsService,
@@ -111,8 +141,11 @@ export const firebaseConfig = environment.firebaseConfig;
     CrowdfundingService,
     EventService,
     CrowdfundingComponent,
-    AuthService
+    AuthService,
+    NutritionistsService,
+    WeatherService
   ],
+
   entryComponents: [
     ProductCreatorComponent,
     EditProfileComponent,
