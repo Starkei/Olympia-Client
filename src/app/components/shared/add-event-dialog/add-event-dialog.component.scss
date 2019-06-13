@@ -1,0 +1,30 @@
+.inputfile {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+h3.mat-dialog-title {
+  display: flex;
+  justify-content: center;
+}
+div.mat-dialog-actions {
+  display: flex;
+  justify-content: center;
+}
+p {
+  margin-bottom: 4%;
+}
+input {
+  margin-bottom: 4%;
+}
+button {
+  margin-bottom: 8%;
+}
+
+textarea {
+  max-height: 150px;
+}
