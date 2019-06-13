@@ -14,21 +14,35 @@
               <mat-card-title>
                 {{ output.title }}
               </mat-card-title>
-              <mat-card-subtitle> {{ output.price }} {{ output.currency }} </mat-card-subtitle>
+              <mat-card-subtitle>
+                {{ output.price }} {{ output.currency }}
+              </mat-card-subtitle>
             </mat-card-header>
             <mat-card-content>
-              <p *ngIf="output.description"><b>Описание</b>: {{ output.description }}</p>
-              <p *ngIf="output.moreInfo"><b>Больше информации</b>: {{ output.moreInfo }}</p>
-              <p *ngIf="output.details"><b>Детали</b>: {{ output.details | arrayFormatter }}</p>
-              <p *ngIf="output.time">
-                <b>Время проведения</b>: {{ toLocalDate(output.time) | arrayFormatter }}
+              <p *ngIf="output.description">
+                <b>Описание</b>: {{ output.description }}
               </p>
+              <p *ngIf="output.moreInfo">
+                <b>Больше информации</b>: {{ output.moreInfo }}
+              </p>
+              <p *ngIf="output.details">
+                <b>Детали</b>: {{ output.details | arrayFormatter }}
+              </p>
+              <p *ngIf="output.time">
+                <b>Время проведения</b>:
+                {{ toLocalDate(output.time) | arrayFormatter }}
+              </p>
+              <p *ngIf="output.leader"><b>Лидер</b>: {{ output.leader }}</p>
               <p *ngIf="output.address"><b>Адрес</b>: {{ output.address }}</p>
               <p *ngIf="output.phoneNumbers">
                 <b>Телефон</b>: {{ output.phoneNumbers | arrayFormatter }}
               </p>
-              <p *ngIf="output.underground"><b>Метро</b>: {{ output.underground }}</p>
-              <p *ngIf="output.usage"><b>Применение</b>: {{ output.usage | arrayFormatter }}</p>
+              <p *ngIf="output.underground">
+                <b>Метро</b>: {{ output.underground }}
+              </p>
+              <p *ngIf="output.usage">
+                <b>Применение</b>: {{ output.usage | arrayFormatter }}
+              </p>
               <p *ngIf="output.contraindications">
                 <b>Противопоказания</b>:
                 {{ output.contraindications | arrayFormatter }}
@@ -45,11 +59,13 @@
                 <b>Возраст</b>: от {{ output.age.from }} до {{ output.age.to }}
               </p>
               <p *ngIf="output.group">
-                <b>Количество участников в группе</b>: от {{ output.group.from }} до
+                <b>Количество участников в группе</b>: от
+                {{ output.group.from }} до
                 {{ output.age.to }}
               </p>
               <p *ngIf="output.timeWork">
-                <b>Время работы</b>: от {{ convertSecondsToHours(output.timeWork.from) }} до
+                <b>Время работы</b>: от
+                {{ convertSecondsToHours(output.timeWork.from) }} до
                 {{ convertSecondsToHours(output.timeWork.to) }}
               </p>
             </mat-card-content>
@@ -59,20 +75,34 @@
               <img mat-card-avatar [src]="output.image" />
               <mat-card-subtitle>
                 <p>
-                  При нажатии на кнопку "перейти" вы перейдете на страницу организации
+                  При нажатии на кнопку "перейти" вы перейдете на страницу
+                  организации
                 </p>
               </mat-card-subtitle>
             </mat-card-header>
             <mat-card-actions align="start">
-              <button mat-raised-button color="primary" (click)="redirect(output.reference)">
+              <button
+                mat-raised-button
+                color="primary"
+                (click)="redirect(output.reference)"
+              >
                 Перейти
               </button>
             </mat-card-actions>
           </mat-card>
         </div>
       </div>
-      <div class="adware" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start stretch">
-        <mat-card fxFlex="23%" *ngFor="let item of adware | async" fxFlexOffset="3%">
+      <div
+        class="adware"
+        fxLayout="row"
+        fxLayout.xs="column"
+        fxLayoutAlign="start stretch"
+      >
+        <mat-card
+          fxFlex="23%"
+          *ngFor="let item of adware | async"
+          fxFlexOffset="3%"
+        >
           <mat-card-header>
             <img mat-card-avatar src="assets/images/adware.png" />
 
@@ -86,6 +116,33 @@
               Перейти
             </button>
           </mat-card-actions>
+        </mat-card>
+      </div>
+      <mat-divider></mat-divider>
+      <div class="add-comment" *ngIf="user && user.phone">
+        <mat-form-field>
+          <textarea
+            matInput
+            [(ngModel)]="comment"
+            cols="30"
+            rows="10"
+            placeholder="Введите сообщение"
+          ></textarea>
+        </mat-form-field>
+        <button mat-fab (click)="addComment()">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+      <mat-divider></mat-divider>
+      <div class="view-comments">
+        <mat-card *ngFor="let message of messages">
+          <mat-card-header>
+            <mat-card-title>{{ message.auth }}</mat-card-title>
+            <mat-card-subtitle>{{ message.date.toDate() }}</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            {{ message.content }}
+          </mat-card-content>
         </mat-card>
       </div>
     </ng-container>

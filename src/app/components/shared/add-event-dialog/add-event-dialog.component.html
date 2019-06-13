@@ -1,0 +1,84 @@
+<mat-dialog-content>
+  <div class="panel" fxLayout="column" fxLayoutAlign="space-around center">
+    <form
+      fxLayout="column"
+      fxLayoutAlign="space-around center"
+      [formGroup]="myFirstReactiveForm"
+    >
+      <h3>Название события</h3>
+      <mat-form-field>
+        <input
+          matInput
+          [(ngModel)]="title"
+          formControlName="title"
+          placeholder="Введите название"
+        />
+        <div class="error" *ngIf="isControlInvalid('title')">
+          Зaполните поле
+        </div>
+      </mat-form-field>
+      <h3>Описание события</h3>
+      <mat-form-field>
+        <textarea
+          matInput
+          [(ngModel)]="description"
+          formControlName="description"
+          placeholder="Введите описание"
+        ></textarea>
+        <div class="error" *ngIf="isControlInvalid('description')">
+          Зaполните поле
+        </div>
+      </mat-form-field>
+      <h3>Адрес события</h3>
+      <mat-form-field>
+        <input
+          matInput
+          [(ngModel)]="address"
+          formControlName="address"
+          placeholder="Введите адрес"
+        />
+        <div class="error" *ngIf="isControlInvalid('address')">
+          Зaполните поле
+        </div>
+      </mat-form-field>
+      <h3>Дата события</h3>
+      <mat-form-field>
+        <input matInput [matDatepicker]="picker" placeholder="Choose a date" />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <h3>Время события</h3>
+      <input type="time" />
+      <h3>Контакты</h3>
+      <mat-form-field>
+        <input
+          [(ngModel)]="phoneNumbers"
+          formControlName="phoneNumbers"
+          matInput
+          placeholder="Введите номер"
+        />
+        <div class="error" *ngIf="isControlInvalid('phoneNumbers')">
+          Зaполните поле
+        </div>
+      </mat-form-field>
+      <h3>Картинка</h3>
+      <button mat-raised-button (click)="inputFile.click()">
+        Выберите файл
+      </button>
+      <input
+        #inputFile
+        type="file"
+        (change)="onFileSelected($event)"
+        name="file"
+        id="file"
+        class="inputfile"
+      />
+      <button [disabled]="typeError" mat-raised-button (click)="addItem()">
+        Добавить событие
+      </button>
+      <button mat-raised-button (click)="onClose()">
+        Закрыть
+      </button>
+    </form>
+  </div>
+</mat-dialog-content>

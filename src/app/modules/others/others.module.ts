@@ -4,10 +4,11 @@ import { FlexLayoutModule } from "@angular/flex-layout";
 import { AuthService } from "src/app/services/auth/Auth.service";
 import { AngularFireAuthModule } from "@angular/fire/auth";
 import { AngularFirestoreModule } from "@angular/fire/firestore";
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [],
-  imports: [CommonModule, AngularFireAuthModule, AngularFirestoreModule],
+  imports: [CommonModule, AngularFireAuthModule, AngularFirestoreModule,NgbModule],
   exports: [FlexLayoutModule],
   providers: [AuthService]
 })

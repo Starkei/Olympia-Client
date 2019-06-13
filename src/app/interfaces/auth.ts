@@ -18,4 +18,8 @@ export interface User {
   userName?: string;
   favoritesEvents?: Array<string>;
   favoriteProduct?: Array<string>;
+  myEvents?: Array<string>;
+  myTrainings?: Array<string>;
+  mySports?: Array<string>;
+  myProducts?: Array<string>;
 }
