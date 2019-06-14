@@ -1,4 +1,12 @@
-<mat-form-field *ngIf="field.fieldType === 'input' && field.inputType !== 'mobile'">
+<mat-form-field
+  *ngIf="
+    field.fieldType === 'input' &&
+    field.inputType !== 'mobile' &&
+    field.inputType !== 'email' &&
+    !field.greater &&
+    !field.lower
+  "
+>
   <input
     matInput
     [type]="field.inputType"
@@ -13,6 +21,41 @@
   <div *ngIf="control && !control.invalid">{{ setValid() }}</div>
   <mat-error *ngIf="control && control.invalid">{{ getErrorMessage(control.control) }}</mat-error>
 </mat-form-field>
+
+<mat-form-field *ngIf="field.fieldType === 'input' && field.lower">
+  <input
+    matInput
+    [type]="field.inputType"
+    [placeholder]="field.inputPlaceHolder"
+    (keyup)="press()"
+    [(ngModel)]="field.innerText"
+    [required]="field.required"
+    [minValue]="field.minValue"
+    [maxValue]="field.maxValue"
+    [lower]="field.connectedField"
+    #control="ngModel"
+  />
+  <div *ngIf="control && !control.invalid">{{ setValid() }}</div>
+  <mat-error *ngIf="control && control.invalid">{{ getErrorMessage(control.control) }}</mat-error>
+</mat-form-field>
+<mat-form-field *ngIf="field.fieldType === 'input' && field.greater">
+  <input
+    matInput
+    [type]="field.inputType"
+    [placeholder]="field.inputPlaceHolder"
+    (keyup)="press()"
+    [(ngModel)]="field.innerText"
+    [required]="field.required"
+    [minValue]="field.minValue"
+    [maxValue]="field.maxValue"
+    [greater]="field.connectedField"
+    #control="ngModel"
+  />
+
+  <div *ngIf="control && !control.invalid">{{ setValid() }}</div>
+  <mat-error *ngIf="control && control.invalid">{{ getErrorMessage(control.control) }}</mat-error>
+</mat-form-field>
+
 <mat-form-field *ngIf="field.fieldType === 'input' && field.inputType === 'mobile'">
   <input
     matInput
@@ -20,15 +63,25 @@
     [placeholder]="field.inputPlaceHolder"
     [(ngModel)]="field.innerText"
     [required]="field.required"
-    pattern="^[+]?[(]{0,1}[0-9]{1,3}[)]{0,1}[-\s\.0-9]*$"
-    [minLength]="10"
-    [maxLength]="15"
+    phone
     #control="ngModel"
   />
   <div *ngIf="control && !control.invalid">{{ setValid() }}</div>
   <mat-error *ngIf="control && control.invalid">{{ getErrorMessage(control.control) }}</mat-error>
 </mat-form-field>
-
+<mat-form-field *ngIf="field.fieldType === 'input' && field.inputType === 'email'">
+  <input
+    matInput
+    [type]="field.inputType"
+    [placeholder]="field.inputPlaceHolder"
+    [(ngModel)]="field.innerText"
+    [required]="field.required"
+    email
+    #control="ngModel"
+  />
+  <div *ngIf="control && !control.invalid">{{ setValid() }}</div>
+  <mat-error *ngIf="control && control.invalid">{{ getErrorMessage(control.control) }}</mat-error>
+</mat-form-field>
 <div class="left">
   <mat-checkbox *ngIf="field.fieldType === 'checkbox'" (click)="press()">{{
     field.title

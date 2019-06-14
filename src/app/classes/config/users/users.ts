@@ -57,7 +57,6 @@ export class Users {
                     inputType: "mobile",
                     inputPlaceHolder: "Введите мобильный номер",
                     dbFieldName: ["phone"],
-                    required: true
                 }
             ]
         };

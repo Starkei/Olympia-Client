@@ -31,7 +31,7 @@ export class UploadTaskComponent implements OnInit {
     private storage: AngularFireStorage,
     private db: AngularFirestore,
     public auth: AuthService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.startUpload();
@@ -63,7 +63,6 @@ export class UploadTaskComponent implements OnInit {
       displayName,
       role
     };
-    console.log(user.uid);
     this.itemsCollection.doc<User>(user.uid).set(users);
   }
 }

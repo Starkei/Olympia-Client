@@ -1,10 +1,17 @@
 import { Component, OnInit } from "@angular/core";
 import { Output } from "src/app/interfaces/output";
 import { ActivatedRoute, Router, ParamMap } from "@angular/router";
-import { AngularFirestore } from "@angular/fire/firestore";
+import {
+  AngularFirestore,
+  AngularFirestoreDocument,
+  AngularFirestoreCollection
+} from "@angular/fire/firestore";
 import * as _ from "lodash";
 import { map } from "rxjs/operators";
 import { Observable } from "rxjs";
+import { User } from "src/app/interfaces/auth";
+import { AuthService } from "src/app/services/auth/Auth.service";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: "app-output-details",
@@ -12,15 +19,24 @@ import { Observable } from "rxjs";
   styleUrls: ["./output-details.component.scss"]
 })
 export class OutputDetailsComponent implements OnInit {
+  private outputCollection: AngularFirestoreCollection<Output>;
   output: Output;
   adware: Observable<Array<Output>>;
-  collection: string;
 
+  collection: string;
+  user: User;
+  username: string;
+  comment: string;
+  uid: string;
+  messages: any[] = [];
+  userSubscribtion: Subscription;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private afs: AngularFirestore
+    private afs: AngularFirestore,
+    public auth: AuthService
   ) {
+    this.getInfoAboutUser();
     this.route.paramMap.subscribe(
       (data: ParamMap): void => {
         this.collection = data.get("collection");
@@ -31,11 +47,56 @@ export class OutputDetailsComponent implements OnInit {
           .subscribe(
             (d: Output): void => {
               this.output = d;
-              this.getFirstFive(data.get("collection"));
+              this.uid = data.get("uid");
+              this.collection = data.get("collection");
+              this.afs
+                .collection(this.collection)
+                .doc(this.uid)
+                .valueChanges()
+                .subscribe(doc => {
+                  if (doc["comments"]) this.messages = doc["comments"];
+                });
+              this.getFirstFive(this.collection);
             }
           );
       }
     );
+  }
+  addComment() {
+    let sub = this.afs
+      .collection<Output>(this.collection)
+      .doc(this.uid)
+      .valueChanges()
+      .subscribe(data => {
+        if (!data["comments"]) data["comments"] = [];
+        data["comments"].push({
+          auth: this.username,
+          content: this.comment,
+          date: new Date()
+        });
+        this.afs
+          .collection<Output>(this.collection)
+          .doc(this.uid)
+          .set(data);
+        sub.unsubscribe();
+      });
+  }
+
+  public updateDocumentForCollection<T>(
+    data: T,
+    documentId: string,
+    collection: string
+  ): void {
+    this.afs
+      .collection(collection)
+      .doc(documentId)
+      .update(data);
+  }
+  getInfoAboutUser() {
+    this.userSubscribtion = this.auth.user.subscribe(data => {
+      this.user = data;
+      this.username = data.userName || data.displayName;
+    });
   }
 
   getFirstFive(collection: string): void {
@@ -73,7 +134,6 @@ export class OutputDetailsComponent implements OnInit {
   }
 
   follow(item: Output): void {
-    console.log(item);
     this.router.navigate([
       "output-details",
       { uid: item.id, collection: this.collection }
@@ -81,16 +141,20 @@ export class OutputDetailsComponent implements OnInit {
   }
 
   redirect(url: string): void {
-    window.open(
-      url,
-      '_blank'
-    );
+    window.open(url, "_blank");
   }
 
   toLocalDate(date: Array<any>): Array<any> {
-    let options = { weekday: "long", year: "numeric", month: "long", day: "numeric", hour: "2-digit", minute: "2-digit" };
+    let options = {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit"
+    };
     return date.map(d => d.toDate().toLocaleString(options));
   }
 
-  ngOnInit() { }
+  ngOnInit() {}
 }

@@ -6,17 +6,19 @@
     class="container"
     fxLayout="column"
     [fxFlex]="getFxSize3()"
+    fxLayout.xs="column"
     fxLayoutAlign="start stretch"
   >
     <!--Если пользователь загрузился из БД, то он отображается-->
-    <ng-container *ngIf="user; else elseTemplate">
-      <div class="user">
+    <ng-container  *ngIf="user; else elseTemplate">
+      <div class="user" >
         <mat-card class="card_user">
           <mat-card-header>
-            <!--Если у пользователя есть поле имя, то оно отображается-->
-            <mat-card-title *ngIf="user.displayName"
-              ><b>{{ user.displayName }}</b></mat-card-title
-            >
+            <ng-container *ngIf="user.displayName; else showDisplayName">
+              <mat-card-title
+                ><b>{{ user.displayName }}</b></mat-card-title
+              >
+            </ng-container>
 
             <ng-template #showDisplayName>
               <ng-container *ngIf="user.userName; else showImage">
@@ -88,18 +90,39 @@
           fxLayoutAlign="center stretch"
         >
           <button
+            *ngIf="userRole"
             fxFlexOffset="2%"
             mat-raised-button
             color="primary"
-            (click)="openProductCreator()"
+            (click)="openAddProduct()"
           >
             Добавить товар
           </button>
-          <button fxFlexOffset="2%" mat-raised-button color="primary">
+          <button
+            *ngIf="userRole"
+            fxFlexOffset="2%"
+            mat-raised-button
+            color="primary"
+            (click)="openAddSport()"
+          >
             Добавить секцию
           </button>
-          <button fxFlexOffset="2%" mat-raised-button color="primary">
+          <button
+            fxFlexOffset="2%"
+            mat-raised-button
+            color="primary"
+            (click)="openAddEvent()"
+          >
             Добавить событие
+          </button>
+          <button
+            *ngIf="userRole"
+            fxFlexOffset="2%"
+            mat-raised-button
+            color="primary"
+            (click)="openAddTraining()"
+          >
+            Добавить тренинг
           </button>
         </div>
       </div>
@@ -117,47 +140,15 @@
         {{ user.about }}
       </p>
     </div>
-    <div class="container2" fxLayout="column">
-      <br />
-      <p><b>Ваши события:</b></p>
-      <div
-        fxLayout="row wrap"
-        fxLayout.xs="column"
-        fxLayoutAlign="start center"
-      >
-        <div *ngIf="area.length > 0">
-          <div class="event" [fxFlex]="getFxSize()" *ngFor="let ar of area">
-            <mat-card class="card_event">
-              <mat-card-header>
-                <mat-card-title
-                  ><b
-                    ><p>
-                      {{ ar.title }}
-                    </p></b
-                  ></mat-card-title
-                >
-              </mat-card-header>
-              <mat-card-actions>
-                <button mat-raised-button (click)="follow(ar)">
-                  Перейти
-                </button>
-              </mat-card-actions>
-            </mat-card>
-          </div>
-        </div>
-      </div>
-    </div>
-    <mat-divider></mat-divider>
-    <div class="container3" fxLayout="column">
-      <p><b>Избранные товары:</b></p>
-      <div *ngIf="prod.length > 0">
-        <div
-          class="stats"
-          fxLayout="row wrap"
-          fxLayout.xs="column"
-          *ngFor="let ar of prod"
-        >
-          <mat-card class="card_stats" [fxFlex]="getFxSize4()">
+    <div class="container2" fxLayout="column" fxLayout.xs="column">
+      <p><b>Избранные события:</b></p>
+      <div *ngIf="area.length > 0">
+        <div class="stats" fxLayout="row wrap">
+          <mat-card
+            class="card_stats"
+            [fxFlex]="getFxSize()"
+            *ngFor="let ar of area"
+          >
             <mat-card-header>
               <mat-card-title
                 ><b
@@ -168,7 +159,161 @@
               >
             </mat-card-header>
             <mat-card-actions>
-              <button mat-raised-button (click)="follow(ar)">
+              <button mat-raised-button (click)="followEvents(ar)">
+                Перейти
+              </button>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="container3" fxLayout="column" fxLayout.xs="column">
+      <p><b>Избранные товары:</b></p>
+      <div *ngIf="prod.length > 0">
+        <div class="stats" fxLayout="row wrap">
+          <mat-card
+            class="card_stats"
+            [fxFlex]="getFxSizefavprod()"
+            *ngFor="let ar of prod"
+          >
+            <mat-card-header>
+              <mat-card-title
+                ><b
+                  ><p>
+                    {{ ar.title }}
+                  </p></b
+                ></mat-card-title
+              >
+            </mat-card-header>
+            <mat-card-actions>
+              <button mat-raised-button (click)="followProducts(ar)">
+                Перейти
+              </button>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+    <div class="container4" fxLayout="column" fxLayout.xs="column">
+      <p><b>Мои события:</b></p>
+      <div *ngIf="myevents.length > 0">
+        <div class="stats" fxLayout="row wrap">
+          <mat-card
+            class="card_stats"
+            [fxFlex]="getFxSize33()"
+            *ngFor="let ar of myevents"
+          >
+            <mat-card-header>
+              <mat-card-title
+                ><b
+                  ><p>
+                    {{ ar.title }}
+                  </p></b
+                ></mat-card-title
+              >
+            </mat-card-header>
+            <mat-card-actions>
+              <button mat-raised-button (click)="followMyEvent(ar)">
+                Перейти
+              </button>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+
+    <div
+      *ngIf="userRole"
+      class="container5"
+      fxLayout="column"
+      fxLayout.xs="column"
+    >
+      <p><b>Мои продукты:</b></p>
+      <div *ngIf="myprod.length > 0">
+        <div class="stats" fxLayout="row wrap">
+          <mat-card
+            class="card_stats"
+            [fxFlex]="getFxSizefavprod()"
+            *ngFor="let ar of myprod"
+          >
+            <mat-card-header>
+              <mat-card-title
+                ><b
+                  ><p>
+                    {{ ar.title }}
+                  </p></b
+                ></mat-card-title
+              >
+            </mat-card-header>
+            <mat-card-actions>
+              <button mat-raised-button (click)="followMyProducts(ar)">
+                Перейти
+              </button>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+
+    <div
+      *ngIf="userRole"
+      class="container6"
+      fxLayout="column"
+      fxLayout.xs="column"
+    >
+      <p><b>Мои тренинги:</b></p>
+      <div *ngIf="mytr.length > 0">
+        <div class="stats" fxLayout="row wrap">
+          <mat-card
+            class="card_stats"
+            [fxFlex]="getFxSizemytrain()"
+            *ngFor="let ar of mytr"
+          >
+            <mat-card-header>
+              <mat-card-title
+                ><b
+                  ><p>
+                    {{ ar.title }}
+                  </p></b
+                ></mat-card-title
+              >
+            </mat-card-header>
+            <mat-card-actions>
+              <button mat-raised-button (click)="followMyTraining(ar)">
+                Перейти
+              </button>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+
+    <div
+      *ngIf="userRole"
+      class="container7"
+      fxLayout="column"
+      fxLayout.xs="column"
+    >
+      <p><b>Мои спортклубы:</b></p>
+      <div *ngIf="mysport.length > 0">
+        <div class="stats" fxLayout="row wrap">
+          <mat-card
+            class="card_stats"
+            [fxFlex]="getFxSizemysport()"
+            *ngFor="let ar of mysport"
+          >
+            <mat-card-header>
+              <mat-card-title
+                ><b
+                  ><p>
+                    {{ ar.title }}
+                  </p></b
+                ></mat-card-title
+              >
+            </mat-card-header>
+            <mat-card-actions>
+              <button mat-raised-button (click)="followMySport(ar)">
                 Перейти
               </button>
             </mat-card-actions>
@@ -181,11 +326,4 @@
     <ng-template #elseBlock> false {{ user.role }}</ng-template>
   </div> -->
   </div>
-</div>
-<div class="panel" fxLayout="row wrap" fxLayout.xs="column">
-    <mat-tab-group>
-        <mat-tab label="First"> </mat-tab>
-        <mat-tab label="Second"> Content 2 </mat-tab>
-        <mat-tab label="Third"> Content 3 </mat-tab>
-      </mat-tab-group>
 </div>

@@ -155,13 +155,10 @@ export class DataQueryService {
         this.afs.collection(collection).doc(iterator["id"]).delete();
       else if (iterator["uid"])
         this.afs.collection(collection).doc(iterator["uid"]).delete();
-      else
-        console.log("Document has now id or uid");
     }
   }
 
   public deleteDocuments<T>(dataForDelete: Array<T>): void {
-    console.log(dataForDelete);
 
     this.deleteDocumentsFromCollection(dataForDelete, this.collection);
   }

@@ -1,22 +1,9 @@
-div {
+div.container {
   min-height: 100%;
-  div.container {
-    width: 95%;
-    margin: auto;
+  width: 90%;
+  margin: auto;
+  div {
+    width: 100%;
     margin-top: 3%;
-    mat-card {
-      margin-bottom: 3%;
-      mat-card-header {
-        height: 15%;
-      }
-      img {
-        object-fit: cover;
-        height: 50%;
-      }
-      mat-card-content {
-        height: 20%;
-        overflow-y: auto;
-      }
-    }
   }
 }

@@ -24,6 +24,12 @@ export class FieldComponent implements OnInit {
   ngOnInit() {
 
     if (this.field.fieldType === "input") {
+      if (this.field.lower) {
+        this.errors.push({ message: `Увеличьте значение`, errorType: "lowerT" });
+      }
+      if (this.field.greater) {
+        this.errors.push({ message: `Уменьшите значение`, errorType: "greaterTrue" });
+      }
       if (this.field.inputType === "email") {
         this.errors.push({ message: "Неправильный эелетронный адрес", errorType: "email" });
       }
@@ -35,6 +41,9 @@ export class FieldComponent implements OnInit {
           this.errors.push({ message: `Меньше чем ${this.field.minValue}`, errorType: "minValue" });
         }
 
+      }
+      if (this.field.inputType === "mobile") {
+        this.errors.push({ message: `Неверный формат номера`, errorType: "phone" });
       }
     }
     if (this.field.required) {
@@ -49,16 +58,21 @@ export class FieldComponent implements OnInit {
   }
 
   getErrorMessage(control: FormControl) {
-    if (this.field.inputType === "number")
-      for (const err of this.errors) {
-        if (control.hasError(err.errorType)) {
-          this.valid.emit({ title: this.field.inputPlaceHolder, valid: false });
-          return err.message;
+    for (const err of this.errors) {
+      if (control.hasError(err.errorType)) {
+        if (this.field.inputType === "mobile") {
+          this.field.isInvalid = true;
         }
+        this.valid.emit({ title: this.field.inputPlaceHolder, valid: false });
+        return err.message;
       }
+    }
   }
 
   setValid(): void {
+    if (this.field.inputType === "mobile") {
+      this.field.isInvalid = false;
+    }
     this.valid.emit({ title: this.field.inputPlaceHolder, valid: true });
   }
 

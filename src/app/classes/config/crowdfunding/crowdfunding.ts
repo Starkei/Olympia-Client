@@ -26,11 +26,19 @@ export class Crowdfunding {
         let inputForCreateType: Field = { fieldType: FieldType.input, inputType: "text", inputPlaceHolder: "Введите наименование типа" };
         let buttonForCreateType: Field = {
             fieldType: FieldType.button, title: "add", buttonType: "icon", onClick: () => {
-                for (let index = 0; index < typeGroup.fields.length; index++) {
-                    if (inputForCreateType.innerText.trim().toLowerCase() === typeGroup.fields[index].title.trim().toLowerCase())
-                        return;
+
+                if (!inputForCreateType.innerText) {
+                    inputForCreateType.innerText = "";
+                    return;
                 }
-                typeGroup.fields.push({ fieldType: "checkbox", title: inputForCreateType.innerText, dbFieldName: ["type"] })
+                let value = inputForCreateType.innerText.trim().toLowerCase();
+                if (typeGroup.fields.filter((val, index) => val.title.trim().toLowerCase() === value).length > 0) {
+                    inputForCreateType.innerText = "";
+                    return;
+                }
+
+                value = value.charAt(0).toUpperCase() + value.slice(1);
+                typeGroup.fields.push({ fieldType: "checkbox", title: value, dbFieldName: ["type"] })
                 inputForCreateType.innerText = "";
             }
         };
@@ -38,11 +46,19 @@ export class Crowdfunding {
         let inputForCreateUsage: Field = { fieldType: FieldType.input, inputType: "text", inputPlaceHolder: "Введите тип использования" };
         let buttonForCreateUsage: Field = {
             fieldType: FieldType.button, title: "add", buttonType: "icon", onClick: () => {
-                for (let index = 0; index < usageGroup.fields.length; index++) {
-                    if (inputForCreateUsage.innerText.trim().toLowerCase() === usageGroup.fields[index].title.trim().toLowerCase())
-                        return;
+
+                if (!inputForCreateUsage.innerText) {
+                    inputForCreateUsage.innerText = "";
+                    return;
                 }
-                usageGroup.fields.push({ fieldType: "checkbox", title: inputForCreateUsage.innerText, dbFieldName: ["usage"] })
+                let value = inputForCreateUsage.innerText.trim().toLowerCase();
+                if (usageGroup.fields.filter((val, index) => val.title.trim().toLowerCase() === value).length > 0) {
+                    inputForCreateUsage.innerText = "";
+                    return;
+                }
+
+                value = value.charAt(0).toUpperCase() + value.slice(1);
+                usageGroup.fields.push({ fieldType: "checkbox", title: value, dbFieldName: ["usage"] })
                 inputForCreateUsage.innerText = "";
             }
         };

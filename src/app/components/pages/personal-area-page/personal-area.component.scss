@@ -5,8 +5,15 @@
 }
 .container {
   margin-top: 3%;
+  width: 50%;
 }
 .container2 {
+  background-color: #f0f0f0;
+}
+.container4 {
+  background-color: #f0f0f0;
+}
+.container6 {
   background-color: #f0f0f0;
 }
 .panel {
@@ -69,6 +76,9 @@ textarea {
 
 .event {
   margin: 2%;
+}
+.event mat-card {
+  min-height: 203px;
 }
 
 button {

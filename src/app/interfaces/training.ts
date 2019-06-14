@@ -7,4 +7,5 @@ export interface Training extends Output {
   address: string;
   leader: string;
   image: string;
+  currency: string;
 }

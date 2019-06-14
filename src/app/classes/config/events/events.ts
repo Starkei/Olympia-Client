@@ -32,9 +32,14 @@ export class Events {
             title: "add",
             buttonType: "icon",
             onClick: () => {
-                for (const phone of phoneNumbers.selectItems) {
-                    if (phone === inputForCreatePhoneNumber.innerText)
-                        return inputForCreatePhoneNumber.innerText = "";
+                if (!inputForCreatePhoneNumber.innerText || inputForCreatePhoneNumber.isInvalid) {
+                    inputForCreatePhoneNumber.innerText = "";
+                    return;
+                }
+                let value = inputForCreatePhoneNumber.innerText;
+                if (phoneNumbers.selectItems.filter((val, index) => val === value).length > 0) {
+                    inputForCreatePhoneNumber.innerText = "";
+                    return;
                 }
                 phoneNumbers.selectItems.push(
                     inputForCreatePhoneNumber.innerText,
@@ -55,10 +60,17 @@ export class Events {
             title: "add",
             buttonType: "icon",
             onClick: () => {
-                for (const detail of details.selectItems) {
-                    if (detail === inputForCreateDetails.innerText)
-                        return inputForCreateDetails.innerText = "";
+                if (!inputForCreateDetails.innerText) {
+                    inputForCreateDetails.innerText = "";
+                    return;
                 }
+                let value = inputForCreateDetails.innerText.trim().toLowerCase();
+                if (details.selectItems.filter((val, index) => val.trim().toLowerCase() === value).length > 0) {
+                    inputForCreateDetails.innerText = "";
+                    return;
+                }
+                value = value.charAt(0).toUpperCase() + value.slice(1);
+
                 details.selectItems.push(
                     inputForCreateDetails.innerText,
                 );
@@ -80,13 +92,14 @@ export class Events {
             title: "add",
             buttonType: "icon",
             onClick: () => {
-                if (!inputForCreateDate.innerText)
+                if (!inputForCreateDate.innerText) {
+                    inputForCreateDate.innerText = "";
                     return;
-                for (const t of time.selectItems) {
-                    if (t === inputForCreateDate.innerText) {
-                        inputForCreateDate.innerText = "";
-                        return;
-                    }
+                }
+                let value = inputForCreateDate.innerText.trim().toLowerCase();
+                if (time.selectItems.filter((val, index) => val.trim().toLowerCase() === value).length > 0) {
+                    inputForCreateDate.innerText = "";
+                    return;
                 }
                 time.selectItems.push(
                     inputForCreateDate.innerText

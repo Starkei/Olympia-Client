@@ -1,6 +1,13 @@
-<app-banner image="assets/images/news.png"></app-banner>
-<div>
-  <div class="container" fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="start stretch">
-    <app-output [service]="trainingService" collection="trainings"></app-output>
+<app-banner image="assets/images/nature.jpg"></app-banner>
+<div class="container">
+  <div fxLayout="row" fxLayout.xs="column">
+    <app-filter fxFlexOffset="3%" fxFlex="23%" [filter]="filter"></app-filter>
+    <app-output
+      [service]="trainingService"
+      [btnFollow]="true"
+      [filter]="filter"
+      [update]="this.filterComponent.shouldBeUpdate"
+      collection="trainings"
+    ></app-output>
   </div>
 </div>
