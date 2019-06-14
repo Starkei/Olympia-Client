@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
+
 import {
   BreakpointObserver,
   Breakpoints,
@@ -34,6 +35,7 @@ import { switchMap } from "rxjs/operators";
 })
 export class PersonalAreaComponent implements OnInit, OnDestroy {
   area: Array<any> = [];
+
   prod: Array<any> = [];
   myevents: Array<any> = [];
   myprod: Array<any> = [];
@@ -54,7 +56,7 @@ export class PersonalAreaComponent implements OnInit, OnDestroy {
   user: User;
   userRole: boolean = true;
 
-  userSubscribtion: Subscription;
+  
 
   constructor(
     private router: Router,
@@ -149,6 +151,7 @@ export class PersonalAreaComponent implements OnInit, OnDestroy {
     this.getMySport();
     this.getMyTraining();
     this.checkRole();
+    //this.checkupdate();
   }
   getFxSizemytrain(): string {
     return this.fxmytraining + "%";
@@ -185,16 +188,49 @@ export class PersonalAreaComponent implements OnInit, OnDestroy {
   }
 
   checkRole() {
-    this.userSubscribtion = this.auth.user.subscribe(data => {
+    let userSubscribtion = this.auth.user.subscribe(data => {
       if (data.role == "User") {
         this.userRole = false;
       }
-      console.log(this.userRole);
+      //console.log(this.userRole);
     });
   }
 
+  checkupdate() {
+    setInterval(() => {
+      this.myevents = [];
+      this.area = [];
+      this.myprod = [];
+      this.prod = [];
+      this.mysport = [];
+      this.mytr = [];
+      this.getFavoriteEvents();
+      this.getFavoriteProduct();
+      this.getMyProduct();
+      this.getMyEvents();
+      this.getMySport();
+      this.getMyTraining();
+    }, 500);
+  }
+  update() {
+    console.log("updata");
+    this.myevents = [];
+    this.area = [];
+    this.myprod = [];
+    this.prod = [];
+    this.mysport = [];
+    this.mytr = [];
+    this.getFavoriteEvents();
+    this.getFavoriteProduct();
+    this.getMyProduct();
+    this.getMyEvents();
+    this.getMySport();
+    this.getMyTraining();
+  
+  }
+
   public getFavoriteEvents(): void {
-    this.userSubscribtion = this.auth.user.subscribe(data => {
+    let userSubscribtion = this.auth.user.subscribe(data => {
       for (let favev of data.favoritesEvents) {
         this.eventService
           .getConvertedDocumentFromCollection(favev, "events")
@@ -202,11 +238,13 @@ export class PersonalAreaComponent implements OnInit, OnDestroy {
             this.area.push(data);
           });
       }
+       userSubscribtion.unsubscribe();
     });
   }
 
   public getMyEvents(): void {
-    this.userSubscribtion = this.auth.user.subscribe(data => {
+    //this.myevents = [];
+    let userSubscribtion = this.auth.user.subscribe(data => {
       for (let myev of data.myEvents) {
         this.eventService
           .getConvertedDocumentFromCollection(myev, "events")
@@ -214,8 +252,8 @@ export class PersonalAreaComponent implements OnInit, OnDestroy {
             this.myevents.push(data);
           });
       }
+      userSubscribtion.unsubscribe();
     });
-    console.log(this.myevents);
   }
 
   openAddEvent(): void {
@@ -223,23 +261,13 @@ export class PersonalAreaComponent implements OnInit, OnDestroy {
       data: { myevent: this.myevents }
     });
     dialogRef.afterClosed().subscribe(result => {
-      this.myevents = [];
-      this.area = [];
-      this.myprod = [];
-      this.prod = [];
-      this.mysport = [];
-      this.mytr = [];
-      this.getFavoriteEvents();
-      this.getFavoriteProduct();
-      this.getMyProduct();
-      this.getMyEvents();
-      this.getMySport();
-      this.getMyTraining();
+      //console.log("hello");
+      this.update();
     });
   }
 
   public getMyProduct(): void {
-    this.userSubscribtion = this.auth.user.subscribe(data => {
+    let userSubscribtion = this.auth.user.subscribe(data => {
       for (let mypr of data.myProducts) {
         this.eventService
           .getConvertedDocumentFromCollection(mypr, "products")
@@ -247,29 +275,18 @@ export class PersonalAreaComponent implements OnInit, OnDestroy {
             this.myprod.push(data);
           });
       }
+      userSubscribtion.unsubscribe();
     });
-    console.log(this.myprod);
   }
 
   openAddProduct(): void {
     let dialogRef = this.dialog.open(AddProductDialogComponent);
     dialogRef.afterClosed().subscribe(result => {
-      this.myevents = [];
-      this.area = [];
-      this.myprod = [];
-      this.prod = [];
-      this.mysport = [];
-      this.mytr = [];
-      this.getFavoriteEvents();
-      this.getFavoriteProduct();
-      this.getMyProduct();
-      this.getMyEvents();
-      this.getMySport();
-      this.getMyTraining();
+      this.update();
     });
   }
   public getMySport(): void {
-    this.userSubscribtion = this.auth.user.subscribe(data => {
+    let userSubscribtion = this.auth.user.subscribe(data => {
       for (let mypr of data.mySports) {
         this.eventService
           .getConvertedDocumentFromCollection(mypr, "sports")
@@ -277,27 +294,17 @@ export class PersonalAreaComponent implements OnInit, OnDestroy {
             this.mysport.push(data);
           });
       }
+      userSubscribtion.unsubscribe();
     });
   }
   openAddSport(): void {
     let dialogRef = this.dialog.open(AddSportDialogComponent);
     dialogRef.afterClosed().subscribe(result => {
-      this.myevents = [];
-      this.area = [];
-      this.myprod = [];
-      this.prod = [];
-      this.mysport = [];
-      this.mytr = [];
-      this.getFavoriteEvents();
-      this.getFavoriteProduct();
-      this.getMyProduct();
-      this.getMyEvents();
-      this.getMySport();
-      this.getMyTraining();
+      this.update();
     });
   }
   public getMyTraining(): void {
-    this.userSubscribtion = this.auth.user.subscribe(data => {
+    let userSubscribtion = this.auth.user.subscribe(data => {
       for (let mypr of data.myTrainings) {
         this.eventService
           .getConvertedDocumentFromCollection(mypr, "trainings")
@@ -305,27 +312,17 @@ export class PersonalAreaComponent implements OnInit, OnDestroy {
             this.mytr.push(data);
           });
       }
+      userSubscribtion.unsubscribe();
     });
   }
   openAddTraining(): void {
     let dialogRef = this.dialog.open(AddTrainingDialogComponent);
     dialogRef.afterClosed().subscribe(result => {
-      this.myevents = [];
-      this.area = [];
-      this.myprod = [];
-      this.prod = [];
-      this.mysport = [];
-      this.mytr = [];
-      this.getFavoriteEvents();
-      this.getFavoriteProduct();
-      this.getMyProduct();
-      this.getMyEvents();
-      this.getMySport();
-      this.getMyTraining();
+      this.update();
     });
   }
   public getFavoriteProduct(): void {
-    this.userSubscribtion = this.auth.user.subscribe(data => {
+    let userSubscribtion = this.auth.user.subscribe(data => {
       for (let favprod of data.favoriteProduct) {
         this.eventService
           .getConvertedDocumentFromCollection(favprod, "products")
@@ -333,6 +330,7 @@ export class PersonalAreaComponent implements OnInit, OnDestroy {
             this.prod.push(data);
           });
       }
+      userSubscribtion.unsubscribe();
     });
   }
   followEvents(item: any): void {
@@ -379,11 +377,11 @@ export class PersonalAreaComponent implements OnInit, OnDestroy {
     ]);
   }
   ngOnDestroy() {
-    this.userSubscribtion.unsubscribe();
+    
   }
 
   public getInfo(): void {
-    this.userSubscribtion = this.auth.user.subscribe(
+    let userSubscribtion = this.auth.user.subscribe(
       (userInfo: User): void => {
         if (!userInfo.photoURL && !userInfo.image)
           if ((userInfo.sex = "Мужской"))
@@ -430,6 +428,9 @@ export class PersonalAreaComponent implements OnInit, OnDestroy {
     let ref: MatDialogRef<EditProfileComponent> = this.dialog.open(
       EditProfileComponent
     );
+    ref.afterClosed().subscribe(result => {
+      this.update();
+    });
     this.showSnackBar<EditProfileComponent>(ref);
   }
 }
