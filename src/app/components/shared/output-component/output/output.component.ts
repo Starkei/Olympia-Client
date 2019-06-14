@@ -40,6 +40,7 @@ export class OutputComponent implements OnInit {
   items: Observable<Array<Output>>;
   itemsCount: number = 0;
   itemsPerPage: number = 9;
+
   currentPageIndex: number = 0;
   private flexSize: number = 30;
   user: User;
@@ -124,6 +125,7 @@ export class OutputComponent implements OnInit {
     });
     this.userSubscribtion = this.auth.user.subscribe(data => {
       while (i == 1) {
+        if (!data["favoritesEvents"]) data["favoritesEvents"] = [];
         data.favoritesEvents.push(output.id);
         this.user = data;
         this.auth.updateDocument(this.user, uid);
@@ -139,6 +141,7 @@ export class OutputComponent implements OnInit {
     });
     this.userSubscribtion = this.auth.user.subscribe(data => {
       while (i == 1) {
+        if (!data["favoriteProduct"]) data["favoriteProduct"] = [];
         data.favoriteProduct.push(output.id);
         this.user = data;
         this.auth.updateDocument(this.user, uid);
