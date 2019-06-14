@@ -57,10 +57,10 @@ export class AddEventDialogComponent implements OnInit {
   }
   initForm() {
     this.myFirstReactiveForm = this.fb.group({
-      title: ["", [Validators.required, Validators.minLength(1)]],
-      description: ["", [Validators.required, Validators.minLength(1)]],
-      phoneNumbers: ["", [Validators.required, Validators.minLength(1)]],
-      address: ["", [Validators.required, Validators.minLength(1)]]
+      title: ["", [Validators.required, Validators.minLength(5)]],
+      description: ["", [Validators.required, Validators.minLength(10)]],
+      phoneNumbers: ["", [Validators.required, Validators.minLength(5)]],
+      address: ["", [Validators.required, Validators.minLength(5)]]
     });
   }
   isControlInvalid(controlName: string): boolean {

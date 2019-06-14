@@ -41,7 +41,7 @@ export class PersonalAreaComponent implements OnInit, OnDestroy {
   myprod: Array<any> = [];
   mysport: Array<any> = [];
   mytr: Array<any> = [];
-  private itemsCollection: AngularFirestoreCollection<Event>;
+
   private fxSizeEvent: number = 0;
   private fxSizeInfo: number = 0;
   private fxSizeCont: number = 0;
@@ -56,8 +56,6 @@ export class PersonalAreaComponent implements OnInit, OnDestroy {
   user: User;
   userRole: boolean = true;
 
-  
-
   constructor(
     private router: Router,
     public dialog: MatDialog,
@@ -67,9 +65,7 @@ export class PersonalAreaComponent implements OnInit, OnDestroy {
     private snackBar: MatSnackBar,
     private afs: AngularFirestore,
     public uploader: UploaderService
-  ) {
-    // this.itemsCollection = afs.collection<Event>("events");
-  }
+  ) {}
 
   ngOnInit() {
     this.bp
@@ -151,7 +147,6 @@ export class PersonalAreaComponent implements OnInit, OnDestroy {
     this.getMySport();
     this.getMyTraining();
     this.checkRole();
-    //this.checkupdate();
   }
   getFxSizemytrain(): string {
     return this.fxmytraining + "%";
@@ -192,26 +187,11 @@ export class PersonalAreaComponent implements OnInit, OnDestroy {
       if (data.role == "User") {
         this.userRole = false;
       }
+
       //console.log(this.userRole);
     });
   }
 
-  checkupdate() {
-    setInterval(() => {
-      this.myevents = [];
-      this.area = [];
-      this.myprod = [];
-      this.prod = [];
-      this.mysport = [];
-      this.mytr = [];
-      this.getFavoriteEvents();
-      this.getFavoriteProduct();
-      this.getMyProduct();
-      this.getMyEvents();
-      this.getMySport();
-      this.getMyTraining();
-    }, 500);
-  }
   update() {
     console.log("updata");
     this.myevents = [];
@@ -226,7 +206,6 @@ export class PersonalAreaComponent implements OnInit, OnDestroy {
     this.getMyEvents();
     this.getMySport();
     this.getMyTraining();
-  
   }
 
   public getFavoriteEvents(): void {
@@ -238,12 +217,11 @@ export class PersonalAreaComponent implements OnInit, OnDestroy {
             this.area.push(data);
           });
       }
-       userSubscribtion.unsubscribe();
+      userSubscribtion.unsubscribe();
     });
   }
 
   public getMyEvents(): void {
-    //this.myevents = [];
     let userSubscribtion = this.auth.user.subscribe(data => {
       for (let myev of data.myEvents) {
         this.eventService
@@ -261,7 +239,6 @@ export class PersonalAreaComponent implements OnInit, OnDestroy {
       data: { myevent: this.myevents }
     });
     dialogRef.afterClosed().subscribe(result => {
-      //console.log("hello");
       this.update();
     });
   }
@@ -334,7 +311,6 @@ export class PersonalAreaComponent implements OnInit, OnDestroy {
     });
   }
   followEvents(item: any): void {
-    //console.log(item);
     this.router.navigate([
       "output-details",
       { uid: item.id, collection: "events" }
@@ -342,43 +318,36 @@ export class PersonalAreaComponent implements OnInit, OnDestroy {
   }
 
   followProducts(item: any): void {
-    //console.log(item);
     this.router.navigate([
       "output-details",
       { uid: item.id, collection: "products" }
     ]);
   }
   followMyProducts(item: any): void {
-    //console.log(item);
     this.router.navigate([
       "output-details",
       { uid: item.id, collection: "shop" }
     ]);
   }
   followMyEvent(item: any): void {
-    //console.log(item);
     this.router.navigate([
       "output-details",
       { uid: item.id, collection: "events" }
     ]);
   }
   followMyTraining(item: any): void {
-    //console.log(item);
     this.router.navigate([
       "output-details",
       { uid: item.id, collection: "training" }
     ]);
   }
   followMySport(item: any): void {
-    //console.log(item);
     this.router.navigate([
       "output-details",
       { uid: item.id, collection: "sport" }
     ]);
   }
-  ngOnDestroy() {
-    
-  }
+  ngOnDestroy() {}
 
   public getInfo(): void {
     let userSubscribtion = this.auth.user.subscribe(
