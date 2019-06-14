@@ -62,8 +62,8 @@ export class AddSportDialogComponent implements OnInit {
       description: ["", [Validators.required, Validators.minLength(5)]],
       currency: ["", [Validators.required, Validators.minLength(5)]],
       price: ["", [Validators.required, Validators.minLength(1)]],
-      phoneNumbers: ["", [Validators.required, Validators.minLength(1)]],
-      contraindications: ["", [Validators.required, Validators.minLength(1)]],
+      phoneNumbers: ["", [Validators.required, Validators.minLength(6)]],
+      contraindications: ["", [Validators.required, Validators.minLength(5)]],
       type: ["", [Validators.required, Validators.minLength(5)]]
     });
   }
