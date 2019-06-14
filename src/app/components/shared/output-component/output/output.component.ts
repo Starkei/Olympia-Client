@@ -141,7 +141,7 @@ export class OutputComponent implements OnInit {
     });
     this.userSubscribtion = this.auth.user.subscribe(data => {
       while (i == 1) {
-        if (!data["favoritesEvents"]) data["favoritesEvents"] = [];
+        if (!data["favoriteProduct"]) data["favoriteProduct"] = [];
         data.favoriteProduct.push(output.id);
         this.user = data;
         this.auth.updateDocument(this.user, uid);
