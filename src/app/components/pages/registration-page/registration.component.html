@@ -117,13 +117,11 @@
                 <label class="success">{{ successMessage }}</label>
 
                 <button
+                  mat-button
+                  matStepperNext
                   type="submit"
                   (click)="tryRegister(formGroup.value)"
-                  mat-button
                 >
-                  Регистрация
-                </button>
-                <button mat-button matStepperNext>
                   Вперёд
                 </button>
               </form>
@@ -248,13 +246,11 @@
                 <label class="success">{{ successMessageLegal }}</label>
 
                 <button
+                  mat-button
+                  matStepperNext
                   type="submit"
                   (click)="tryRegister(formGroup.value)"
-                  mat-button
                 >
-                  Регистрация
-                </button>
-                <button mat-button matStepperNext>
                   Вперёд
                 </button>
               </form>
