@@ -148,6 +148,7 @@ export class PersonalAreaComponent implements OnInit, OnDestroy {
     this.getMyTraining();
     this.checkRole();
   }
+
   getFxSizemytrain(): string {
     return this.fxmytraining + "%";
   }

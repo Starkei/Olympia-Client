@@ -10,7 +10,7 @@ import { Filter } from "src/app/engine/interfaces/filter";
 import { Filterable } from "src/app/engine/interfaces/filterable";
 import { Router } from "@angular/router";
 import { AuthService } from "src/app/services/auth/Auth.service";
-import { PageEvent } from "@angular/material";
+import { PageEvent, MatSnackBar } from "@angular/material";
 import {
   AngularFirestore,
   AngularFirestoreDocument,
@@ -48,7 +48,8 @@ export class OutputComponent implements OnInit {
     private breakpointObserver: BreakpointObserver,
     private router: Router,
     private afs: AngularFirestore,
-    public auth: AuthService
+    public auth: AuthService,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit() {
@@ -125,10 +126,21 @@ export class OutputComponent implements OnInit {
     });
     this.userSubscribtion = this.auth.user.subscribe(data => {
       while (i == 1) {
+        let add = false;
         if (!data["favoritesEvents"]) data["favoritesEvents"] = [];
-        data.favoritesEvents.push(output.id);
-        this.user = data;
-        this.auth.updateDocument(this.user, uid);
+        for (let item of data.favoritesEvents) {
+          if (output.id == item) {
+            add = true;
+            this.snackBar.open("У вас уже есть такое событие ", "Ок", {
+              duration: 2000
+            });
+          }
+        }
+        if (add == false) {
+          data.favoritesEvents.push(output.id);
+          this.user = data;
+          this.auth.updateDocument(this.user, uid);
+        }
         i--;
       }
     });
@@ -141,10 +153,21 @@ export class OutputComponent implements OnInit {
     });
     this.userSubscribtion = this.auth.user.subscribe(data => {
       while (i == 1) {
+        let add = false;
         if (!data["favoriteProduct"]) data["favoriteProduct"] = [];
-        data.favoriteProduct.push(output.id);
-        this.user = data;
-        this.auth.updateDocument(this.user, uid);
+        for (let item of data.favoriteProduct) {
+          if (output.id == item) {
+            add = true;
+            this.snackBar.open("У вас уже есть такой товар ", "Ок", {
+              duration: 2000
+            });
+          }
+        }
+        if (add == false) {
+          data.favoriteProduct.push(output.id);
+          this.user = data;
+          this.auth.updateDocument(this.user, uid);
+        }
         i--;
       }
     });

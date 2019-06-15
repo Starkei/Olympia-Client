@@ -10,8 +10,8 @@
     fxLayoutAlign="start stretch"
   >
     <!--Если пользователь загрузился из БД, то он отображается-->
-    <ng-container  *ngIf="user; else elseTemplate">
-      <div class="user" >
+    <ng-container *ngIf="user; else elseTemplate">
+      <div class="user">
         <mat-card class="card_user">
           <mat-card-header>
             <ng-container *ngIf="user.displayName; else showDisplayName">
@@ -153,7 +153,7 @@
               <mat-card-title
                 ><b
                   ><p>
-                    {{ ar.title }}
+                    {{ ar.title | textLength: 50 }}
                   </p></b
                 ></mat-card-title
               >
@@ -181,7 +181,7 @@
               <mat-card-title
                 ><b
                   ><p>
-                    {{ ar.title }}
+                    {{ ar.title | textLength: 50 }}
                   </p></b
                 ></mat-card-title
               >
@@ -208,7 +208,7 @@
               <mat-card-title
                 ><b
                   ><p>
-                    {{ ar.title }}
+                    {{ ar.title | textLength: 50 }}
                   </p></b
                 ></mat-card-title
               >
@@ -241,7 +241,7 @@
               <mat-card-title
                 ><b
                   ><p>
-                    {{ ar.title }}
+                    {{ ar.title | textLength: 50 }}
                   </p></b
                 ></mat-card-title
               >
@@ -274,7 +274,7 @@
               <mat-card-title
                 ><b
                   ><p>
-                    {{ ar.title }}
+                    {{ ar.title | textLength: 50 }}
                   </p></b
                 ></mat-card-title
               >
@@ -307,7 +307,7 @@
               <mat-card-title
                 ><b
                   ><p>
-                    {{ ar.title }}
+                    {{ ar.title | textLength: 50 }}
                   </p></b
                 ></mat-card-title
               >
