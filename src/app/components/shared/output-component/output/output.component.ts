@@ -122,26 +122,32 @@ export class OutputComponent implements OnInit {
     let i = 1;
     let uid: string;
     let info = this.auth.infoAboutCurrentUser().subscribe(data => {
-      uid = data.uid;
-    });
-    this.userSubscribtion = this.auth.user.subscribe(data => {
-      while (i == 1) {
-        let add = false;
-        if (!data["favoritesEvents"]) data["favoritesEvents"] = [];
-        for (let item of data.favoritesEvents) {
-          if (output.id == item) {
-            add = true;
-            this.snackBar.open("У вас уже есть такое событие ", "Ок", {
-              duration: 2000
-            });
+      if (data) {
+        uid = data.uid;
+        this.userSubscribtion = this.auth.user.subscribe(data => {
+          while (i == 1) {
+            let add = false;
+            if (!data["favoritesEvents"]) data["favoritesEvents"] = [];
+            for (let item of data.favoritesEvents) {
+              if (output.id == item) {
+                add = true;
+                this.snackBar.open("У вас уже есть такое событие ", "Ок", {
+                  duration: 2000
+                });
+              }
+            }
+            if (add == false) {
+              data.favoritesEvents.push(output.id);
+              this.user = data;
+              this.auth.updateDocument(this.user, uid);
+            }
+            i--;
           }
-        }
-        if (add == false) {
-          data.favoritesEvents.push(output.id);
-          this.user = data;
-          this.auth.updateDocument(this.user, uid);
-        }
-        i--;
+        });
+      } else {
+        this.snackBar.open("Вы не авторизованны ", "Ок", {
+          duration: 2000
+        });
       }
     });
   }
@@ -149,26 +155,32 @@ export class OutputComponent implements OnInit {
     let i = 1;
     let uid: string;
     let info = this.auth.infoAboutCurrentUser().subscribe(data => {
-      uid = data.uid;
-    });
-    this.userSubscribtion = this.auth.user.subscribe(data => {
-      while (i == 1) {
-        let add = false;
-        if (!data["favoriteProduct"]) data["favoriteProduct"] = [];
-        for (let item of data.favoriteProduct) {
-          if (output.id == item) {
-            add = true;
-            this.snackBar.open("У вас уже есть такой товар ", "Ок", {
-              duration: 2000
-            });
+      if (data) {
+        uid = data.uid;
+        this.userSubscribtion = this.auth.user.subscribe(data => {
+          while (i == 1) {
+            let add = false;
+            if (!data["favoriteProduct"]) data["favoriteProduct"] = [];
+            for (let item of data.favoriteProduct) {
+              if (output.id == item) {
+                add = true;
+                this.snackBar.open("У вас уже есть такой продукт ", "Ок", {
+                  duration: 2000
+                });
+              }
+            }
+            if (add == false) {
+              data.favoriteProduct.push(output.id);
+              this.user = data;
+              this.auth.updateDocument(this.user, uid);
+            }
+            i--;
           }
-        }
-        if (add == false) {
-          data.favoriteProduct.push(output.id);
-          this.user = data;
-          this.auth.updateDocument(this.user, uid);
-        }
-        i--;
+        });
+      } else {
+        this.snackBar.open("Вы не авторизованны ", "Ок", {
+          duration: 2000
+        });
       }
     });
   }
