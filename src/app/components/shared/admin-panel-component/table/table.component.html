@@ -84,6 +84,7 @@
       <tr
         mat-row
         *matRowDef="let row; columns: displayColumns"
+        [ngClass]="{ 'delete-row': row['response'] && row['response'] !== 200 }"
         (click)="selection.toggle(row)"
       ></tr>
     </table>

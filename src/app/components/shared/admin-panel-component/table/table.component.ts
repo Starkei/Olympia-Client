@@ -3,6 +3,8 @@ import { MatTableDataSource, MatSort, MatPaginator } from "@angular/material";
 import { Output } from "src/app/interfaces/output";
 import { SelectionModel } from "@angular/cdk/collections";
 import { TableConfig } from "src/app/interfaces/configs/table-config";
+import { CheckerService } from 'src/app/services/checker/checker.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: "app-table",
@@ -19,11 +21,22 @@ export class TableComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private changeDetector: ChangeDetectorRef) { }
+  constructor(private changeDetector: ChangeDetectorRef, private checker: CheckerService) { }
 
   ngOnInit() {
     if (this.config) {
-      this.config.showAll().subscribe(data => {
+      this.config.showAll().pipe(map(d => d.map(element => {
+        if (element.reference)
+          this.checker.isReference(element.reference).subscribe(response => {
+            element["response"] = response.status;
+          });
+        if (element.image)
+          this.checker.isReference(element.image).subscribe(response => {
+            element["response"] = response.status;
+          });
+        return element;
+      }
+      ))).subscribe(data => {
         this.dataSource = new MatTableDataSource(data);
         setTimeout(() => {
           this.dataSource.sort = this.sort;
