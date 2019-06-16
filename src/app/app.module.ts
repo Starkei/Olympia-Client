@@ -5,16 +5,13 @@ import { AppComponent } from "./app.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MaterialModule } from "./modules/material/material.module";
 import { NewsService } from "./services/news/news.service";
-
 import { ProductService } from "./services/product/product.service";
 import { OthersModule } from "./modules/others/others.module";
 import { ScrollingDirective } from "./directives/scrolling/scrolling.directive";
 import { AuthService } from "./services/auth/Auth.service";
-
 import { AngularFireAuthModule } from "@angular/fire/auth";
 import { AngularFireModule } from "@angular/fire";
 import { AngularFirestoreModule } from "@angular/fire/firestore";
-
 import { environment } from "../environments/environment";
 import { TextLengthPipe } from "./pipes/text-length/text-length.pipe";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
@@ -50,6 +47,10 @@ import { AdminPanelComponent } from "./components/pages/admin-panel/admin-panel.
 import { TableComponent } from "./components/shared/admin-panel-component/table/table.component";
 import { HttpClientModule } from "@angular/common/http";
 import { PostFormComponent } from "./components/shared/admin-panel-component/post-form/post-form.component";
+import { AddEventDialogComponent } from "./components/shared/add-event-dialog/add-event-dialog.component";
+import { AddProductDialogComponent } from "./components/shared/add-product-dialog/add-product-dialog.component";
+import { AddTrainingDialogComponent } from "./components/shared/add-training-dialog/add-training-dialog.component";
+import { AddSportDialogComponent } from "./components/shared/add-sport-dialog/add-sport-dialog.component";
 import { MinValueDirective } from "./directives/min-value/min-value.directive";
 import { MaxValueDirective } from "./directives/max-value/max-value.directive";
 import { EmailDirective } from "./directives/email/email.directive";
@@ -61,9 +62,9 @@ import { WeatherComponent } from "./components/shared/weather/weather.component"
 
 import { HttpModule } from "@angular/http";
 import { WeatherService } from "./services/weather/weather.service";
-import { PhoneDirective } from './directives/phone/phone.directive';
-import { LowerThenDirective } from './directives/lower-then/lower-then.directive';
-import { GreaterThenDirective } from './directives/greater-then/greater-then.directive';
+import { PhoneDirective } from "./directives/phone/phone.directive";
+import { LowerThenDirective } from "./directives/lower-then/lower-then.directive";
+import { GreaterThenDirective } from "./directives/greater-then/greater-then.directive";
 
 export const firebaseConfig = environment.firebaseConfig;
 
@@ -99,6 +100,10 @@ export const firebaseConfig = environment.firebaseConfig;
     AdminPanelComponent,
     TableComponent,
     PostFormComponent,
+    AddEventDialogComponent,
+    AddProductDialogComponent,
+    AddTrainingDialogComponent,
+    AddSportDialogComponent,
     GoogleMapComponent,
     WeatherComponent,
     MinValueDirective,
@@ -140,11 +145,16 @@ export const firebaseConfig = environment.firebaseConfig;
     NutritionistsService,
     WeatherService
   ],
+
   entryComponents: [
     ProductCreatorComponent,
     EditProfileComponent,
-    AdwareComponent
+    AdwareComponent,
+    AddEventDialogComponent,
+    AddProductDialogComponent,
+    AddSportDialogComponent,
+    AddTrainingDialogComponent
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

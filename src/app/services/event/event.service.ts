@@ -16,22 +16,6 @@ export class EventService extends FilterService<Event> {
     super(afs, "events");
   }
 
-  getFilteredData(filter: Filter): Observable<Array<Event>> {
-    return this.afs
-      .collection<Event>("events")
-      .snapshotChanges()
-      .pipe(
-        map(actions => {
-          return actions.map(action => {
-            let data = action.payload.doc.data();
-            let id = action.payload.doc.id;
-            data.id = id;
-            return data as Event;
-          });
-        })
-      );
-  }
-
   getAllData(): Observable<Array<Event>> {
     return this.afs
       .collection("events")

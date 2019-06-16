@@ -20,6 +20,20 @@ div.main {
   }
 }
 
+div.add-comment {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  mat-form-field {
+    width: 60%;
+  }
+}
+
+div.view-comments {
+  margin-top: 3%;
+}
+
 div.adware {
   margin-top: 5%;
   mat-card {

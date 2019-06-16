@@ -44,8 +44,21 @@
         >
           Перейти
         </button>
-        <button mat-raised-button *ngIf="btnLike" color="primary">
-          <mat-icon>favorite</mat-icon> Понравилось!
+        <button
+          mat-icon-button
+          *ngIf="btnLike && eventLike"
+          (click)="addFavEvent(item)"
+          color="warn"
+        >
+          <mat-icon>favorite</mat-icon>
+        </button>
+        <button
+          mat-icon-button
+          *ngIf="btnLike && productLike"
+          color="warn"
+          (click)="addFavProduct(item)"
+        >
+          <mat-icon>favorite </mat-icon>
         </button>
       </mat-card-actions>
     </mat-card>

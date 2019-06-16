@@ -15,20 +15,4 @@ export class TrainingService extends FilterService<Training> {
   constructor(afs: AngularFirestore) {
     super(afs, "trainings");
   }
-
-  getFilteredData(filter: Filter): Observable<Array<Training>> {
-    return this.afs
-      .collection<Training>("trainings")
-      .snapshotChanges()
-      .pipe(
-        map(actions => {
-          return actions.map(action => {
-            let data = action.payload.doc.data();
-            let id = action.payload.doc.id;
-            data.id = id;
-            return data as Training;
-          });
-        })
-      );
-  }
 }
