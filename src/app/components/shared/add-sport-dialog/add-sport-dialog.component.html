@@ -31,12 +31,14 @@
       </mat-form-field>
       <h3>Валюта</h3>
       <mat-form-field>
-        <input
-          [(ngModel)]="currency"
-          formControlName="currency"
-          matInput
-          placeholder="Введите currency"
-        />
+        <mat-label>Выберите валюту</mat-label>
+        <mat-select [(ngModel)]="currency" formControlName="currency">
+          <mat-option value="EUR">EUR</mat-option>
+          <mat-option value="USD">USD</mat-option>
+          <mat-option value="RUB">RUB</mat-option>
+          <mat-option value="BYN">BYN</mat-option>
+        </mat-select>
+
         <div class="error" *ngIf="isControlInvalid('currency')">
           Зaполните поле
         </div>
@@ -47,7 +49,7 @@
           [(ngModel)]="price"
           formControlName="price"
           matInput
-          placeholder="Введите price"
+          placeholder="Введите цену"
         />
         <div class="error" *ngIf="isControlInvalid('price')">
           Зaполните поле
@@ -59,7 +61,7 @@
           [(ngModel)]="phoneNumbers"
           formControlName="phoneNumbers"
           matInput
-          placeholder="Введите phoneNumbers"
+          placeholder="Введите номер"
         />
         <div class="error" *ngIf="isControlInvalid('phoneNumbers')">
           Зaполните поле
@@ -71,7 +73,7 @@
           [(ngModel)]="contraindications"
           formControlName="contraindications"
           matInput
-          placeholder="Введите contraindications"
+          placeholder="Введите противопоказания"
         />
         <div class="error" *ngIf="isControlInvalid('contraindications')">
           Зaполните поле
@@ -79,12 +81,33 @@
       </mat-form-field>
       <h3>Тип спортклуба</h3>
       <mat-form-field>
-        <input
-          [(ngModel)]="type"
-          formControlName="type"
-          matInput
-          placeholder="Введите type"
-        />
+        <mat-label>Выберите тип спортклуба</mat-label>
+        <mat-select [(ngModel)]="type" formControlName="type">
+          <mat-option value="Волейбол">Волейбол</mat-option>
+          <mat-option value="Баскетбол">Баскетбол</mat-option>
+          <mat-option value="Футбол">Футбол</mat-option>
+          <mat-option value="Бассейн">Бассейн</mat-option>
+          <mat-option value="Хоккей">Хоккей</mat-option>
+          <mat-option value="Айкидо">Айкидо</mat-option>
+          <mat-option value="Самооборона">Самооборона</mat-option>
+          <mat-option value="У-шу">У-шу</mat-option>
+          <mat-option value="Бокс">Бокс</mat-option>
+          <mat-option value="Плавание">Плавание</mat-option>
+          <mat-option value="Дзюдо">Дзюдо</mat-option>
+          <mat-option value="Борьба">Борьба</mat-option>
+          <mat-option value="Самбо">Самбо</mat-option>
+          <mat-option value="Велоспорт">Велоспорт</mat-option>
+          <mat-option value="Гандбол">Гандбол</mat-option>
+          <mat-option value="Лёгкая атлетика">Лёгкая атлетика</mat-option>
+          <mat-option value="Тяжелая атлетика">Тяжелая атлетика</mat-option>
+          <mat-option value="Гимнастика">Гимнастика</mat-option>
+          <mat-option value="Акробатика">Акробатика</mat-option>
+          <mat-option value="Фитнес">Фитнес</mat-option>
+          <mat-option value="Каратэ">Каратэ</mat-option>
+          <mat-option value="Танцы">Танцы</mat-option>
+          <mat-option value="Хип-хоп">Хип-хоп</mat-option>
+          <mat-option value="Единоборства">Единоборства</mat-option>
+        </mat-select>
         <div class="error" *ngIf="isControlInvalid('type')">
           Зaполните поле
         </div>

@@ -29,25 +29,13 @@
           Зaполните поле
         </div>
       </mat-form-field>
-      <h3>Больше информации о продукте</h3>
-      <mat-form-field>
-        <input
-          [(ngModel)]="moreInfo"
-          formControlName="moreInfo"
-          matInput
-          placeholder="Введите moreInfo"
-        />
-        <div class="error" *ngIf="isControlInvalid('moreInfo')">
-          Зaполните поле
-        </div>
-      </mat-form-field>
       <h3>Цена</h3>
       <mat-form-field>
         <input
           [(ngModel)]="price"
           formControlName="price"
           matInput
-          placeholder="Введите price"
+          placeholder="Введите цену"
         />
         <div class="error" *ngIf="isControlInvalid('price')">
           Зaполните поле
@@ -55,12 +43,14 @@
       </mat-form-field>
       <h3>Валюта</h3>
       <mat-form-field>
-        <input
-          [(ngModel)]="currency"
-          formControlName="currency"
-          matInput
-          placeholder="Введите currency"
-        />
+        <mat-label>Выберите валюту</mat-label>
+        <mat-select [(ngModel)]="currency" formControlName="currency">
+          <mat-option value="EUR">EUR</mat-option>
+          <mat-option value="USD">USD</mat-option>
+          <mat-option value="RUB">RUB</mat-option>
+          <mat-option value="BYN">BYN</mat-option>
+        </mat-select>
+
         <div class="error" *ngIf="isControlInvalid('currency')">
           Зaполните поле
         </div>
@@ -71,7 +61,7 @@
           [(ngModel)]="firm"
           formControlName="firm"
           matInput
-          placeholder="Введите firm"
+          placeholder="Введите фирму"
         />
         <div class="error" *ngIf="isControlInvalid('firm')">
           Зaполните поле
@@ -79,12 +69,13 @@
       </mat-form-field>
       <h3>Тип товара</h3>
       <mat-form-field>
-        <input
-          [(ngModel)]="type"
-          formControlName="type"
-          matInput
-          placeholder="Введите type"
-        />
+        <mat-label>Выберите тип товара</mat-label>
+        <mat-select [(ngModel)]="type" formControlName="type">
+          <mat-option value="Одежда">Одежда</mat-option>
+          <mat-option value="Обувь">Обувь</mat-option>
+          <mat-option value="Питание">Питание</mat-option>
+          <mat-option value="Инвентарь">Инвентарь</mat-option>
+        </mat-select>
         <div class="error" *ngIf="isControlInvalid('type')">
           Зaполните поле
         </div>

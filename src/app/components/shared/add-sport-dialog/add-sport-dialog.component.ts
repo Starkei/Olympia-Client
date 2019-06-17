@@ -78,7 +78,6 @@ export class AddSportDialogComponent implements OnInit {
       this.selectedFile,
       "sport/"
     );
-    let i: number = 1;
     const id = this.afs.createId();
     const title = this.title;
     const description = this.description;
@@ -99,16 +98,13 @@ export class AddSportDialogComponent implements OnInit {
       contraindications,
       type
     };
-
     this.getInfo();
     this.userSubscribtion = this.auth.user.subscribe(data => {
-      while (i == 1) {
-        if (!data["mySports"]) data["mySports"] = [];
-        data.mySports.push(item.id);
-        this.user = data;
-        this.auth.updateDocument(this.user, this.uid);
-        i--;
-      }
+      if (!data["mySports"]) data["mySports"] = [];
+      data.mySports.push(item.id);
+      this.user = data;
+      this.auth.updateDocument(this.user, this.uid);
+      this.userSubscribtion.unsubscribe();
     });
     this.itemsCollection.valueChanges();
     this.itemsCollection.doc(id).set(item);

@@ -5,7 +5,7 @@
       <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start stretch">
         <div fxFlexOffset="3%" fxFlex="60%">
           <mat-card class="main-image">
-            <img [src]="output.image" alt="" mat-card-image />
+            <img [src]="output.image" alt="Фото отсутствует" mat-card-image />
           </mat-card>
         </div>
         <div fxLayout="column" fxFlexOffset="3%" fxFlex="33%">
@@ -72,7 +72,11 @@
           </mat-card>
           <mat-card *ngIf="output.reference">
             <mat-card-header>
-              <img mat-card-avatar [src]="output.image" />
+              <img
+                mat-card-avatar
+                [src]="output.image"
+                alt="Фото отсутствует"
+              />
               <mat-card-subtitle>
                 <p>
                   При нажатии на кнопку "перейти" вы перейдете на страницу
@@ -110,7 +114,7 @@
               {{ item.title | textLength: 30 }}
             </mat-card-title>
           </mat-card-header>
-          <img [src]="item.image" alt="" mat-card-image />
+          <img [src]="item.image" alt="Фото отсутствует" mat-card-image />
           <mat-card-actions>
             <button mat-raised-button color="primary" (click)="follow(item)">
               Перейти
