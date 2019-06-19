@@ -12,6 +12,7 @@
           [(ngModel)]="title"
           formControlName="title"
           placeholder="Введите название"
+          pattern="^(?:[а-яА-Я ()\s]+)$"
         />
         <div class="error" *ngIf="isControlInvalid('title')">
           Зaполните поле
@@ -36,6 +37,7 @@
           formControlName="price"
           matInput
           placeholder="Введите цену"
+          pattern="^[0-9]+$"
         />
         <div class="error" *ngIf="isControlInvalid('price')">
           Зaполните поле
@@ -62,6 +64,7 @@
           formControlName="firm"
           matInput
           placeholder="Введите фирму"
+          pattern="^(?:[a-zA-Z ()\s]+)|(?:[а-яА-Я ()\s]+)$"
         />
         <div class="error" *ngIf="isControlInvalid('firm')">
           Зaполните поле

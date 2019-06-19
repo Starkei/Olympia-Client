@@ -12,6 +12,7 @@
           [(ngModel)]="title"
           formControlName="title"
           placeholder="Введите название"
+          pattern="^(?:[а-яА-Я ()\s]+)$"
         />
         <div class="error" *ngIf="isControlInvalid('title')">
           Зaполните поле
