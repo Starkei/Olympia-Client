@@ -12,25 +12,17 @@ import { FilterService } from "src/app/engine/classes/filter-service/filter.serv
 @Injectable({
   providedIn: "root"
 })
-export class AdwareService extends FilterService<Adware> {
+export class AdwareService extends FilterService<Product> {
   constructor(afs: AngularFirestore) {
-    super(afs, "adware");
+    super(afs, "products");
   }
 
-  public getProductAdware(): Observable<Array<Adware>> {
-    let condition: any = {
-      type: "product"
-    };
-    return this.getAllConvertedDataWithConditionFromCollection(this.collection, condition);
-  }
-
-  public getRandomProductAware(): Observable<Adware> {
-    //TODO: Create random
-
+  public getRandomProductAware(): Observable<Product> {
     return this.getAllConvertedData().pipe(
       map(
         (products: Array<Product>): Product => {
-          return products[0];
+          let index = Math.floor(Math.random() * products.length);
+          return products[index];
         }
       )
     );
