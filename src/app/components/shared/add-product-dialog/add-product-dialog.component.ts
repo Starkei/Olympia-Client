@@ -31,7 +31,6 @@ export class AddProductDialogComponent implements OnInit {
   typeError: boolean = false;
   description: string = "";
   image: string = "";
-  moreInfo: string;
   price: number;
   currency: string;
   firm: string;
@@ -39,6 +38,7 @@ export class AddProductDialogComponent implements OnInit {
   selectedFile: File = null;
   user: User;
   userSubscribtion: Subscription;
+
   onFileSelected(event) {
     this.selectedFile = event.target.files[0];
   }
@@ -59,7 +59,6 @@ export class AddProductDialogComponent implements OnInit {
     this.myFirstReactiveForm = this.fb.group({
       title: ["", [Validators.required, Validators.minLength(5)]],
       description: ["", [Validators.required, Validators.minLength(5)]],
-      moreInfo: ["", [Validators.required, Validators.minLength(5)]],
       price: ["", [Validators.required, Validators.minLength(1)]],
       currency: ["", [Validators.required, Validators.minLength(3)]],
       firm: ["", [Validators.required, Validators.minLength(5)]],
@@ -82,7 +81,6 @@ export class AddProductDialogComponent implements OnInit {
     const title = this.title;
     const description = this.description;
     const image = url;
-    const moreInfo = this.moreInfo;
     const price = this.price;
     const currency = this.currency;
     const firm = this.firm;
@@ -92,22 +90,18 @@ export class AddProductDialogComponent implements OnInit {
       title,
       description,
       image,
-      moreInfo,
       price,
       currency,
       firm,
       type
     };
-
     this.getInfo();
     this.userSubscribtion = this.auth.user.subscribe(data => {
-      while (i == 1) {
-        if (!data["myProducts"]) data["myProducts"] = [];
-        data.myProducts.push(item.id);
-        this.user = data;
-        this.auth.updateDocument(this.user, this.uid);
-        i--;
-      }
+      if (!data["myProducts"]) data["myProducts"] = [];
+      data.myProducts.push(item.id);
+      this.user = data;
+      this.auth.updateDocument(this.user, this.uid);
+      this.userSubscribtion.unsubscribe();
     });
     this.itemsCollection.valueChanges();
     this.itemsCollection.doc(id).set(item);

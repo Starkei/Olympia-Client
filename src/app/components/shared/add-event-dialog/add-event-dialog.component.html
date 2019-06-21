@@ -12,6 +12,8 @@
           [(ngModel)]="title"
           formControlName="title"
           placeholder="Введите название"
+          required
+          pattern="^(?:[а-яА-Я ()\s]+)$"
         />
         <div class="error" *ngIf="isControlInvalid('title')">
           Зaполните поле
@@ -56,6 +58,8 @@
           formControlName="phoneNumbers"
           matInput
           placeholder="Введите номер"
+          required
+          pattern="^(\+375|80)(29|25|44|33)(\d{3})(\d{2})(\d{2})$"
         />
         <div class="error" *ngIf="isControlInvalid('phoneNumbers')">
           Зaполните поле
@@ -76,6 +80,7 @@
       <button [disabled]="typeError" mat-raised-button (click)="addItem()">
         Добавить событие
       </button>
+
       <button mat-raised-button (click)="onClose()">
         Закрыть
       </button>
