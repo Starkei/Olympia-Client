@@ -74,7 +74,6 @@ export class AddEventDialogComponent implements OnInit {
       this.selectedFile,
       "events/"
     );
-    let i: number = 1;
     const id = this.afs.createId();
     const title = this.title;
     const description = this.description;
@@ -85,13 +84,11 @@ export class AddEventDialogComponent implements OnInit {
     const item = { id, title, description, address, image, phoneNumbers };
     this.getInfo();
     this.userSubscribtion = this.auth.user.subscribe(data => {
-      while (i == 1) {
-        if (!data["myEvents"]) data["myEvents"] = [];
-        data.myEvents.push(item.id);
-        this.user = data;
-        this.auth.updateDocument(this.user, this.uid);
-        i--;
-      }
+      if (!data["myEvents"]) data["myEvents"] = [];
+      data.myEvents.push(item.id);
+      this.user = data;
+      this.auth.updateDocument(this.user, this.uid);
+      this.userSubscribtion.unsubscribe();
     });
     this.itemsCollection.valueChanges();
     this.itemsCollection.doc(id).set(item);

@@ -53,6 +53,8 @@ export class PersonalAreaComponent implements OnInit, OnDestroy {
   private fxmyprod: number = 0;
   private fxmytraining: number = 0;
   private fxmysport: number = 0;
+  private fxmyuser: number = 0;
+  private fxmyinstr: number = 0;
   user: User;
   userRole: boolean = true;
 
@@ -80,7 +82,7 @@ export class PersonalAreaComponent implements OnInit, OnDestroy {
           if (result.breakpoints[Breakpoints.Large]) {
             this.fxSizeEvent = 20;
             this.fxSizeInfo = 80;
-            this.fxSizeCont = 30;
+            this.fxSizeCont = 32;
             this.fxSizeStat = 23;
             this.fxSizeUser = 58;
             this.fxSizeChat = 42;
@@ -89,6 +91,8 @@ export class PersonalAreaComponent implements OnInit, OnDestroy {
             this.fxmyprod = 20;
             this.fxmytraining = 20;
             this.fxmysport = 20;
+            this.fxmyuser = 20;
+            this.fxmyinstr = 55;
             console.clear();
             console.log("Large");
           }
@@ -104,6 +108,8 @@ export class PersonalAreaComponent implements OnInit, OnDestroy {
             this.fxmyprod = 32;
             this.fxmytraining = 32;
             this.fxmysport = 32;
+            this.fxmyuser = 40;
+            this.fxmyinstr = 15;
             console.clear();
             console.log("Medium");
           }
@@ -119,6 +125,8 @@ export class PersonalAreaComponent implements OnInit, OnDestroy {
             this.fxmyprod = 35;
             this.fxmytraining = 35;
             this.fxmysport = 35;
+            this.fxmyuser = 35;
+            this.fxmyinstr = 13;
             console.clear();
             console.log("Small");
           }
@@ -134,6 +142,8 @@ export class PersonalAreaComponent implements OnInit, OnDestroy {
             this.fxmyprod = 90;
             this.fxmytraining = 90;
             this.fxmysport = 90;
+            this.fxmyuser = 20;
+            this.fxmyinstr = 20;
             console.clear();
             console.log("XSmall");
           }
@@ -149,6 +159,12 @@ export class PersonalAreaComponent implements OnInit, OnDestroy {
     this.checkRole();
   }
 
+  getFxSizemyUser(): string {
+    return this.fxmyuser + "%";
+  }
+  getFxSizemyInstr(): string {
+    return this.fxmyinstr + "%";
+  }
   getFxSizemytrain(): string {
     return this.fxmytraining + "%";
   }
@@ -188,13 +204,10 @@ export class PersonalAreaComponent implements OnInit, OnDestroy {
       if (data.role == "User") {
         this.userRole = false;
       }
-
-      //console.log(this.userRole);
     });
   }
 
   update() {
-    console.log("updata");
     this.myevents = [];
     this.area = [];
     this.myprod = [];

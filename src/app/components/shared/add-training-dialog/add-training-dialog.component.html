@@ -12,6 +12,7 @@
           [(ngModel)]="title"
           formControlName="title"
           placeholder="Введите название"
+          pattern="^(?:[а-яА-Я ()\s]+)$"
         />
         <div class="error" *ngIf="isControlInvalid('title')">
           Зaполните поле
@@ -31,12 +32,14 @@
       </mat-form-field>
       <h3>Валюта</h3>
       <mat-form-field>
-        <input
-          [(ngModel)]="currency"
-          formControlName="currency"
-          matInput
-          placeholder="Введите currency"
-        />
+        <mat-label>Выберите валюту</mat-label>
+        <mat-select [(ngModel)]="currency" formControlName="currency">
+          <mat-option value="EUR">EUR</mat-option>
+          <mat-option value="USD">USD</mat-option>
+          <mat-option value="RUB">RUB</mat-option>
+          <mat-option value="BYN">BYN</mat-option>
+        </mat-select>
+
         <div class="error" *ngIf="isControlInvalid('currency')">
           Зaполните поле
         </div>
@@ -47,7 +50,8 @@
           [(ngModel)]="price"
           formControlName="price"
           matInput
-          placeholder="Введите price"
+          placeholder="Введите цену"
+          pattern="^[0-9]+$"
         />
         <div class="error" *ngIf="isControlInvalid('price')">
           Зaполните поле
@@ -60,6 +64,7 @@
           formControlName="leader"
           matInput
           placeholder="Введите руководителя"
+          pattern="^(?:[а-яА-Я ()\s]+)$"
         />
         <div class="error" *ngIf="isControlInvalid('leader')">
           Зaполните поле
