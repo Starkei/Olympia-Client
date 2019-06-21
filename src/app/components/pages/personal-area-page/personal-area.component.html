@@ -5,13 +5,12 @@
   <div
     class="container"
     fxLayout="column"
-    [fxFlex]="getFxSize3()"
     fxLayout.xs="column"
     fxLayoutAlign="start stretch"
+    [fxFlex]="getFxSize3()"
   >
-    <!--Если пользователь загрузился из БД, то он отображается-->
     <ng-container *ngIf="user; else elseTemplate">
-      <div class="user">
+      <div class="user" [fxFlex]="getFxSizemyUser()">
         <mat-card class="card_user">
           <mat-card-header>
             <ng-container *ngIf="user.displayName; else showDisplayName">
@@ -39,24 +38,13 @@
           </ng-template>
 
           <mat-card-content>
-            <!--Если у пользователя есть поле день рождение, то оно отображается-->
             <p *ngIf="user.dateBirth">
               <b>Дата рождения:</b> {{ getFormattedDateString(user.dateBirth) }}
             </p>
-
-            <!--Если у пользователя есть поле пол, то оно отображается-->
             <p *ngIf="user.sex"><b>Пол:</b> {{ user.sex }}</p>
-
-            <!--Если у пользователя есть поле деньги, то оно отображается-->
             <p *ngIf="user.money"><b>Деньги:</b> {{ user.money }} бел.руб</p>
-
-            <!--Если у юрижического лица есть поле адрес организации, то оно отображается-->
             <p *ngIf="user.adresOrg"><b>Адрес:</b> {{ user.adresOrg }}</p>
-
-            <!--Если у пользователя есть поле телефон, то оно отображается-->
             <p *ngIf="user.phone"><b>Телефон: </b> {{ user.phone }}</p>
-
-            <!--Если у пользователя есть поле електронный адрес, то оно отображается-->
             <p *ngIf="user.email"><b>Email:</b> {{ user.email }}</p>
           </mat-card-content>
           <mat-card-actions>
@@ -81,7 +69,12 @@
     </ng-template>
 
     <ng-container *ngIf="user; else elseTemplate">
-      <div class="action" fxLayout="column" fxLayoutAlign="center center">
+      <div
+        class="action"
+        fxLayout="column"
+        fxLayoutAlign="center center"
+        [fxFlex]="getFxSizemyInstr()"
+      >
         <h3 class="actions-title">Ваши действия</h3>
         <div
           class="actions-btns"
@@ -208,7 +201,7 @@
               <mat-card-title
                 ><b
                   ><p>
-                    {{ ar.title | textLength: 50 }}
+                    {{ ar.title | textLength: 30 }}
                   </p></b
                 ></mat-card-title
               >
@@ -241,7 +234,7 @@
               <mat-card-title
                 ><b
                   ><p>
-                    {{ ar.title | textLength: 50 }}
+                    {{ ar.title | textLength: 30 }}
                   </p></b
                 ></mat-card-title
               >
@@ -274,7 +267,7 @@
               <mat-card-title
                 ><b
                   ><p>
-                    {{ ar.title | textLength: 50 }}
+                    {{ ar.title | textLength: 30 }}
                   </p></b
                 ></mat-card-title
               >
@@ -307,7 +300,7 @@
               <mat-card-title
                 ><b
                   ><p>
-                    {{ ar.title | textLength: 50 }}
+                    {{ ar.title | textLength: 30 }}
                   </p></b
                 ></mat-card-title
               >
@@ -321,9 +314,5 @@
         </div>
       </div>
     </div>
-    <!-- <div *ngIf="user.role == legalUser; then thenBlock; else elseBlock"></div>
-    <ng-template #thenBlock> true {{ user.role }}</ng-template>
-    <ng-template #elseBlock> false {{ user.role }}</ng-template>
-  </div> -->
   </div>
 </div>
