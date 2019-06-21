@@ -201,7 +201,8 @@ export class Sports {
                     fieldType: FieldType.input,
                     inputType: "text",
                     inputPlaceHolder: "Адрес сайта",
-                    dbFieldName: ["reference"]
+                    dbFieldName: ["reference"],
+                    required: true
                 },
                 {
                     fieldType: FieldType.button,

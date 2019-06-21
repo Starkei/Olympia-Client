@@ -35,7 +35,7 @@ export interface Field {
   values?: Array<any>;
   isInvalid?: boolean;
   control?: FormControl;
-  connectedField?: Field;
+  connectedField?: any;
   lower?: boolean;
   greater?: boolean;
 }
