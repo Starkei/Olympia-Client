@@ -55,7 +55,6 @@ export class RegistrationComponent implements OnInit {
   nameOrg: string;
   activityOrg: string;
   adressOrg: string;
-
   sex: string;
   isClicked: boolean = false;
   disabled = false;
@@ -114,10 +113,12 @@ export class RegistrationComponent implements OnInit {
         this.errorMessage = "";
         this.successMessage = "Ваш аккаунт успешно создан";
         this.successMessageLegal = "Ваш аккаунт успешно создан";
+        this.errorMessageLegal = "";
       },
       err => {
         this.errorMessage = "Ваш аккаунт не был создан";
         this.errorMessageLegal = "Ваш аккаунт не был создан";
+        this.successMessageLegal = "";
         this.successMessage = "";
       }
     );

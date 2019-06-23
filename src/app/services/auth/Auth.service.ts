@@ -73,6 +73,7 @@ export class AuthService extends DataQueryService {
       role
     };
     this.itemsCollection.doc<User>(user.uid).set(users);
+    this.router.navigate(["/area"]);
   }
 
   addLegalUser(
@@ -93,6 +94,7 @@ export class AuthService extends DataQueryService {
       role
     };
     this.itemsCollection.doc<User>(user.uid).set(users);
+    this.router.navigate(["/area"]);
   }
 
   googleLogin(): Promise<void> {

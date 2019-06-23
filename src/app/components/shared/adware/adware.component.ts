@@ -5,6 +5,7 @@ import { Observable } from "rxjs";
 import { Output } from "src/app/interfaces/output";
 import { ConvertedAdware } from "src/app/interfaces/converted-adware";
 import { RouterLink, Route, Router } from "@angular/router";
+import { Product } from 'src/app/interfaces/models/product';
 
 @Component({
   selector: "app-adware",
@@ -12,7 +13,7 @@ import { RouterLink, Route, Router } from "@angular/router";
   styleUrls: ["./adware.component.scss"]
 })
 export class AdwareComponent implements OnInit {
-  adware: ConvertedAdware;
+  adware: Product;
 
   /**
    * @description Creates an instance of AdwareComponent.
@@ -23,18 +24,16 @@ export class AdwareComponent implements OnInit {
     private router: Router,
     private ref: MatDialogRef<AdwareComponent>,
     private adwareService: AdwareService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.adwareService.getRandomProductAware().subscribe(
-      async (adwareData: Output): Promise<void> => {
-        this.adware = await this.adwareService.getConvertedAdware(adwareData);
-      }
+      data => this.adware = data
     );
   }
 
   public follow(): void {
-    this.router.navigate(["output-details", { uid: this.adware.product.id, collection: "products" }]);
+    this.router.navigate(["output-details", { uid: this.adware.id, collection: "products" }]);
     this.close("Перенаправление");
   }
   public close(message: string = "Закрыто"): void {
