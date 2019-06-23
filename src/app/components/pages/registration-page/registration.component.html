@@ -31,8 +31,12 @@
                 required
               />
             </mat-form-field>
-            <label class="success">{{ successMessage }}</label>
-            <label class="error">{{ errorMessageAuth }}</label>
+            <div *ngIf="successMessage">
+              <label class="success">{{ successMessage }}</label>
+            </div>
+            <div *ngIf="errorMessageAuth">
+              <label class="error">{{ errorMessageAuth }}</label>
+            </div>
             <div
               class="link"
               fxLayout="row"
