@@ -44,7 +44,6 @@
               <a (click)="legalRegistration()">
                 <strong>Регистрация <br />Юр. лиц</strong>
               </a>
-              <a> <strong>Забыли пароль?</strong></a>
             </div>
             <button
               mat-button
@@ -92,7 +91,7 @@
             <mat-step
               label="Данные"
               [stepControl]="formGroup"
-              errorMessage="Data is required."
+              errorMessage="Необходимы данные."
             >
               <form [formGroup]="formGroup">
                 <mat-form-field class="example-full-width">
@@ -113,9 +112,12 @@
                     required
                   />
                 </mat-form-field>
-                <label class="error">{{ errorMessage }}</label>
-                <label class="success">{{ successMessage }}</label>
-
+                <div *ngIf="errorMessage">
+                  <label class="error">{{ errorMessage }}</label>
+                </div>
+                <div *ngIf="successMessage">
+                  <label class="success">{{ successMessage }}</label>
+                </div>
                 <button
                   mat-button
                   matStepperNext
@@ -126,7 +128,7 @@
                 </button>
               </form>
             </mat-step>
-            <mat-step label="Персональные данные">
+            <mat-step label="Персональные данные" [stepControl]="formGroup1">
               <form [formGroup]="formGroup1">
                 <mat-form-field class="example-full-width">
                   <input
@@ -138,7 +140,6 @@
                     required
                   />
                 </mat-form-field>
-
                 <mat-form-field class="example-full-width">
                   <input
                     matInput
@@ -170,7 +171,6 @@
                     </mat-radio-button>
                   </mat-radio-group>
                 </div>
-
                 <mat-form-field class="example-full-width">
                   <span matPrefix>+375 &nbsp;</span>
                   <input
@@ -184,27 +184,18 @@
                   />
                   <mat-icon matSuffix>mode_edit</mat-icon>
                 </mat-form-field>
-                <button
-                  mat-button
-                  (click)="
-                    auth.addUserData(dateBirth, phone, sex, name, 'User', '')
-                  "
-                >
-                  Подтвердить
-                </button>
                 <div fxLayout="row" fxLayoutAlign="space-evenly center">
-                  <button mat-button matStepperNext>Вперёд</button>
-                  <button mat-button matStepperPrevious>Назад</button>
+                  <button
+                    mat-button
+                    (click)="
+                      auth.addUserData(dateBirth, phone, sex, name, 'User', '')
+                    "
+                    matStepperNext
+                  >
+                    Завершить регистрацию
+                  </button>
                 </div>
               </form>
-            </mat-step>
-
-            <mat-step label="Подтверждение">
-              На ваш почтовый ящик было отправлено сообщение с подтверждением
-              регистрации.
-              <div>
-                <button mat-button matStepperPrevious>Назад</button>
-              </div>
             </mat-step>
           </mat-vertical-stepper>
         </mat-card>
@@ -242,8 +233,12 @@
                   />
                 </mat-form-field>
 
-                <label class="error">{{ errorMessageLegal }}</label>
-                <label class="success">{{ successMessageLegal }}</label>
+                <div *ngIf="errorMessageLegal">
+                  <label class="error">{{ errorMessageLegal }}</label>
+                </div>
+                <div *ngIf="successMessageLegal">
+                  <label class="success">{{ successMessageLegal }}</label>
+                </div>
 
                 <button
                   mat-button
@@ -255,7 +250,7 @@
                 </button>
               </form>
             </mat-step>
-            <mat-step label="Юридические данные">
+            <mat-step label="Юридические данные" [stepControl]="formGroupLegal">
               <form [formGroup]="formGroupLegal">
                 <mat-form-field class="example-full-width">
                   <input
@@ -300,33 +295,24 @@
                     required
                   />
                 </mat-form-field>
-                <button
-                  mat-button
-                  (click)="
-                    auth.addLegalUser(
-                      nameOrg,
-                      phone,
-                      activityOrg,
-                      adressOrg,
-                      'legalUser'
-                    )
-                  "
-                >
-                  Подтвердить
-                </button>
                 <div fxLayout="row" fxLayoutAlign="space-evenly center">
-                  <button mat-button matStepperNext>Вперёд</button>
-                  <button mat-button matStepperPrevious>Назад</button>
+                  <button
+                    mat-button
+                    matStepperNext
+                    (click)="
+                      auth.addLegalUser(
+                        nameOrg,
+                        phone,
+                        activityOrg,
+                        adressOrg,
+                        'legalUser'
+                      )
+                    "
+                  >
+                    Завершить регистрацию
+                  </button>
                 </div>
               </form>
-            </mat-step>
-
-            <mat-step label="Подтверждение">
-              На ваш почтовый ящик было отправлено сообщение с подтверждением
-              регистрации.
-              <div>
-                <button mat-button matStepperPrevious>Назад</button>
-              </div>
             </mat-step>
           </mat-vertical-stepper>
         </mat-card>
