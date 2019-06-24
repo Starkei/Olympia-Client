@@ -60,21 +60,7 @@
             </button>
           </mat-card-actions>
         </mat-card>
-      </div>
-    </ng-container>
-    <ng-template #elseTemplate>
-      <div class="spinner">
-        <mat-spinner></mat-spinner>
-      </div>
-    </ng-template>
 
-    <ng-container *ngIf="user; else elseTemplate">
-      <div
-        class="action"
-        fxLayout="column"
-        fxLayoutAlign="center center"
-        [fxFlex]="getFxSizemyInstr()"
-      >
         <h3 class="actions-title">Ваши действия</h3>
         <div
           class="actions-btns"
@@ -120,6 +106,13 @@
         </div>
       </div>
     </ng-container>
+    <ng-template #elseTemplate>
+      <div class="spinner">
+        <mat-spinner></mat-spinner>
+      </div>
+    </ng-template>
+
+    <ng-container *ngIf="user; else elseTemplate"> </ng-container>
     <ng-template #elseTemplate>
       <div class="spinner">
         <mat-spinner></mat-spinner>

@@ -340,7 +340,7 @@ export class PersonalAreaComponent implements OnInit, OnDestroy {
   followMyProducts(item: any): void {
     this.router.navigate([
       "output-details",
-      { uid: item.id, collection: "shop" }
+      { uid: item.id, collection: "products" }
     ]);
   }
   followMyEvent(item: any): void {
@@ -352,13 +352,13 @@ export class PersonalAreaComponent implements OnInit, OnDestroy {
   followMyTraining(item: any): void {
     this.router.navigate([
       "output-details",
-      { uid: item.id, collection: "training" }
+      { uid: item.id, collection: "trainings" }
     ]);
   }
   followMySport(item: any): void {
     this.router.navigate([
       "output-details",
-      { uid: item.id, collection: "sport" }
+      { uid: item.id, collection: "sports" }
     ]);
   }
   ngOnDestroy() {}
