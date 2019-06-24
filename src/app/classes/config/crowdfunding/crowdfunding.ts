@@ -117,7 +117,8 @@ export class Crowdfunding {
                     fieldType: FieldType.input,
                     inputType: "url",
                     inputPlaceHolder: "Адрес сайта",
-                    dbFieldName: ["address"],
+                    dbFieldName: ["reference"],
+                    required: true
                 },
                 {
                     fieldType: FieldType.button,

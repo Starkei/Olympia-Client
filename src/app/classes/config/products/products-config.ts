@@ -96,6 +96,7 @@ export class ProductsConfig {
           inputType: "text",
           inputPlaceHolder: "Адрес сайта",
           dbFieldName: ["reference"],
+          required: true
         },
         {
           fieldType: FieldType.button,
