@@ -100,7 +100,7 @@ export class AuthService extends DataQueryService {
     return new Promise<any>((resolve, reject) => {
       this.oAuthLogin(provider).then(
         credential => {
-          resolve(this.router.navigate(["/area"]));
+          resolve(this.router.navigate(["/main"]));
         },
         err => reject(err)
       );
@@ -111,7 +111,7 @@ export class AuthService extends DataQueryService {
     return new Promise<any>((resolve, reject) => {
       this.oAuthLogin(provider).then(
         credential => {
-          resolve(this.router.navigate(["/area"]));
+          resolve(this.router.navigate(["/main"]));
         },
         err => reject(err)
       );
@@ -160,7 +160,7 @@ export class AuthService extends DataQueryService {
         .signInWithEmailAndPassword(value.email, value.password)
         .then(
           res => {
-            resolve(this.router.navigate(["/area"]));
+            resolve(this.router.navigate(["/main"]));
             resolve(res);
             this.updateUserData(res.user);
           },
