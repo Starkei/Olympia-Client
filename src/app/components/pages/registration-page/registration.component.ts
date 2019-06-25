@@ -53,7 +53,7 @@ export class RegistrationComponent implements OnInit {
   formGroup: FormGroup;
   formGroup1: FormGroup;
   formGroupLegal: FormGroup;
-  nameOrg: string;
+  displayName: string;
   activityOrg: string;
   adressOrg: string;
   sex: string;
@@ -88,7 +88,7 @@ export class RegistrationComponent implements OnInit {
       phone: ["", Validators.required]
     });
     this.formGroupLegal = this._formBuilder.group({
-      nameOrg: ["", Validators.required],
+      displayName: ["", Validators.required],
       activityOrg: ["", Validators.required],
       adressOrg: ["", Validators.required],
       phone: ["", Validators.required]

@@ -77,7 +77,7 @@ export class AuthService extends DataQueryService {
   }
 
   addLegalUser(
-    nameOrg: string,
+    displayName: string,
     phone: number,
     activityOrg: string,
     adresOrg: string,
@@ -85,7 +85,7 @@ export class AuthService extends DataQueryService {
   ) {
     let user = firebase.auth().currentUser;
     const users: User = {
-      nameOrg,
+      displayName,
       phone,
       activityOrg,
       email: user.email,
