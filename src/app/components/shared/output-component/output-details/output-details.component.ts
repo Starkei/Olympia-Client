@@ -82,6 +82,8 @@ export class OutputDetailsComponent implements OnInit {
       });
   }
 
+  
+
   public updateDocumentForCollection<T>(
     data: T,
     documentId: string,

@@ -60,9 +60,9 @@ export class AddProductDialogComponent implements OnInit {
       title: ["", [Validators.required, Validators.minLength(5)]],
       description: ["", [Validators.required, Validators.minLength(5)]],
       price: ["", [Validators.required, Validators.minLength(1)]],
-      currency: ["", [Validators.required, Validators.minLength(3)]],
+      currency: ["", [Validators.required, Validators.minLength(1)]],
       firm: ["", [Validators.required, Validators.minLength(5)]],
-      type: ["", [Validators.required, Validators.minLength(5)]]
+      type: ["", [Validators.required, Validators.minLength(1)]]
     });
   }
   isControlInvalid(controlName: string): boolean {

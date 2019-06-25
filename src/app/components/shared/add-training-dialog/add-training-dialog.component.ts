@@ -60,7 +60,7 @@ export class AddTrainingDialogComponent implements OnInit {
       description: ["", [Validators.required, Validators.minLength(5)]],
       leader: ["", [Validators.required, Validators.minLength(5)]],
       price: ["", [Validators.required, Validators.minLength(1)]],
-      currency: ["", [Validators.required, Validators.minLength(5)]]
+      currency: ["", [Validators.required, Validators.minLength(1)]]
     });
   }
   isControlInvalid(controlName: string): boolean {
