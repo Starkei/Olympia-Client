@@ -31,8 +31,8 @@
                 required
               />
             </mat-form-field>
-            <div *ngIf="successMessage">
-              <label class="success">{{ successMessage }}</label>
+            <div *ngIf="successMessageAuth">
+              <label class="success">{{ successMessageAuth }}</label>
             </div>
             <div *ngIf="errorMessageAuth">
               <label class="error">{{ errorMessageAuth }}</label>
@@ -248,7 +248,7 @@
                   mat-button
                   matStepperNext
                   type="submit"
-                  (click)="tryRegister(formGroup.value)"
+                  (click)="tryLegalRegister(formGroup.value)"
                 >
                   Вперёд
                 </button>
