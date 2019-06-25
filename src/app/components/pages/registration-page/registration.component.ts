@@ -47,6 +47,7 @@ export class RegistrationComponent implements OnInit {
   errorMessage: string;
   errorMessageAuth: string;
   successMessage: string;
+  successMessageAuth: string;
   successMessageLegal: string;
   errorMessageLegal: string;
   formGroup: FormGroup;
@@ -112,14 +113,23 @@ export class RegistrationComponent implements OnInit {
       res => {
         this.errorMessage = "";
         this.successMessage = "Ваш аккаунт успешно создан";
+      },
+      err => {
+        this.errorMessage = "Ваш аккаунт не был создан";
+        this.successMessage = "";
+      }
+    );
+  }
+
+  tryLegalRegister(value) {
+    this.auth.doRegister(value).then(
+      res => {
         this.successMessageLegal = "Ваш аккаунт успешно создан";
         this.errorMessageLegal = "";
       },
       err => {
-        this.errorMessage = "Ваш аккаунт не был создан";
         this.errorMessageLegal = "Ваш аккаунт не был создан";
         this.successMessageLegal = "";
-        this.successMessage = "";
       }
     );
   }
@@ -128,11 +138,11 @@ export class RegistrationComponent implements OnInit {
     this.auth.login(value).then(
       res => {
         this.errorMessageAuth = "";
-        this.successMessage = "Ваш аккаунт авторизован";
+        this.successMessageAuth = "Ваш аккаунт авторизован";
       },
       err => {
         this.errorMessageAuth = "Ваш аккаунт не был авторизован";
-        this.successMessage = "";
+        this.successMessageAuth = "";
       }
     );
   }
