@@ -47,12 +47,13 @@ export class RegistrationComponent implements OnInit {
   errorMessage: string;
   errorMessageAuth: string;
   successMessage: string;
+  successMessageAuth: string;
   successMessageLegal: string;
   errorMessageLegal: string;
   formGroup: FormGroup;
   formGroup1: FormGroup;
   formGroupLegal: FormGroup;
-  nameOrg: string;
+  displayName: string;
   activityOrg: string;
   adressOrg: string;
   sex: string;
@@ -87,7 +88,7 @@ export class RegistrationComponent implements OnInit {
       phone: ["", Validators.required]
     });
     this.formGroupLegal = this._formBuilder.group({
-      nameOrg: ["", Validators.required],
+      displayName: ["", Validators.required],
       activityOrg: ["", Validators.required],
       adressOrg: ["", Validators.required],
       phone: ["", Validators.required]
@@ -112,14 +113,23 @@ export class RegistrationComponent implements OnInit {
       res => {
         this.errorMessage = "";
         this.successMessage = "Ваш аккаунт успешно создан";
+      },
+      err => {
+        this.errorMessage = "Ваш аккаунт не был создан";
+        this.successMessage = "";
+      }
+    );
+  }
+
+  tryLegalRegister(value) {
+    this.auth.doRegister(value).then(
+      res => {
         this.successMessageLegal = "Ваш аккаунт успешно создан";
         this.errorMessageLegal = "";
       },
       err => {
-        this.errorMessage = "Ваш аккаунт не был создан";
         this.errorMessageLegal = "Ваш аккаунт не был создан";
         this.successMessageLegal = "";
-        this.successMessage = "";
       }
     );
   }
@@ -128,11 +138,11 @@ export class RegistrationComponent implements OnInit {
     this.auth.login(value).then(
       res => {
         this.errorMessageAuth = "";
-        this.successMessage = "Ваш аккаунт авторизован";
+        this.successMessageAuth = "Ваш аккаунт авторизован";
       },
       err => {
         this.errorMessageAuth = "Ваш аккаунт не был авторизован";
-        this.successMessage = "";
+        this.successMessageAuth = "";
       }
     );
   }
