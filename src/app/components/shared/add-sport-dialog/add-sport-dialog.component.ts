@@ -60,11 +60,11 @@ export class AddSportDialogComponent implements OnInit {
     this.myFirstReactiveForm = this.fb.group({
       title: ["", [Validators.required, Validators.minLength(5)]],
       description: ["", [Validators.required, Validators.minLength(5)]],
-      currency: ["", [Validators.required, Validators.minLength(5)]],
+      currency: ["", [Validators.required, Validators.minLength(1)]],
       price: ["", [Validators.required, Validators.minLength(1)]],
       phoneNumbers: ["", [Validators.required, Validators.minLength(6)]],
       contraindications: ["", [Validators.required, Validators.minLength(5)]],
-      type: ["", [Validators.required, Validators.minLength(5)]]
+      type: ["", [Validators.required, Validators.minLength(1)]]
     });
   }
   isControlInvalid(controlName: string): boolean {
