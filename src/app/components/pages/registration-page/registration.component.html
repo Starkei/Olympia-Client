@@ -260,9 +260,9 @@
                   <input
                     matInput
                     placeholder="Название организации"
-                    formControlName="nameOrg"
+                    formControlName="displayName"
                     matInput
-                    [(ngModel)]="nameOrg"
+                    [(ngModel)]="displayName"
                     required
                   />
                 </mat-form-field>
@@ -305,7 +305,7 @@
                     matStepperNext
                     (click)="
                       auth.addLegalUser(
-                        nameOrg,
+                        displayName,
                         phone,
                         activityOrg,
                         adressOrg,
