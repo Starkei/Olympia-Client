@@ -142,7 +142,9 @@
         <mat-card *ngFor="let message of messages">
           <mat-card-header>
             <mat-card-title>{{ message.auth }}</mat-card-title>
-            <mat-card-subtitle>{{ message.date.toDate() }}</mat-card-subtitle>
+            <mat-card-subtitle>{{
+              message.date.toDate().toLocaleString()
+            }}</mat-card-subtitle>
           </mat-card-header>
           <mat-card-content>
             {{ message.content }}
