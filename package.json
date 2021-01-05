@@ -31,7 +31,7 @@
     "@angular/router": "~7.2.0",
     "@ng-bootstrap/ng-bootstrap": "^4.2.1",
     "angularfire2": "^5.1.2",
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "core-js": "^2.5.4",
     "express": "^4.16.4",
     "file-drop-element": "^0.2.0",
